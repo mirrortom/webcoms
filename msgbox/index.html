@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>msgbox</title>
+    <link rel="stylesheet" href="msgbox.css">
+    <script src="msgbox.js?313>"></script>
+    <style>
+        .testbtn {
+            border: 1px solid #999999;
+            border-radius: 4px;
+            color: 333333;
+            background-color: #eeeeee;
+            font-size: 14px;
+            box-sizing: border-box;
+            padding: 20px;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>alert</h1>
+    <button class="testbtn" onclick="msgbox.alert('msgbox.alert,默认正中')">msgbox.alert('msgbox.alert,默认正中')</button>
+    <button class="testbtn" onclick="msgbox.alert('msgbox.alert,上','','top')">msgbox.alert('msgbox.alert,上')</button>
+    <button class="testbtn" onclick="msgbox.alert('msgbox.alert,下','','bottom')">msgbox.alert('msgbox.alert,下')</button>
+
+    <h1>confirm</h1>
+    <button class="testbtn"
+        onclick="msgbox.confirm('msgbox.confirm,默认正中',confirmCall)">msgbox.confirm('msgbox.confirm,默认正中')</button>
+    <button class="testbtn"
+        onclick="msgbox.confirm('msgbox.confirm,上',confirmCall,'top')">msgbox.confirm('msgbox.confirm,上')</button>
+    <button class="testbtn"
+        onclick="msgbox.confirm('msgbox.confirm,下',confirmCall,'bottom')">msgbox.confirm('msgbox.confirm,下')</button>
+    <p><label>confirm结果</label>&nbsp;<span id="confirmRes"></span></p>
+    <h1>prompt</h1>
+    <button class="testbtn"
+        onclick="msgbox.prompt('msgbox.prompt,默认正中',promptCall)">msgbox.prompt('msgbox.prompt,默认正中')</button>
+    <button class="testbtn"
+        onclick="msgbox.prompt('msgbox.prompt,上',promptCall,'top')">msgbox.prompt('msgbox.prompt,上')</button>
+    <button class="testbtn"
+        onclick="msgbox.prompt('msgbox.prompt,下',promptCall,'bottom')">msgbox.prompt('msgbox.prompt,下')</button>
+    <p><label>prompt结果</label>&nbsp;<span id="promptRes"></span></p>
+    <h1>自定义弹出层</h1>
+    <p>自定义框是一个HTML片段,弹出的本质是在将它显示在弹出层父级上</p>
+    <img src="msgboxlayer.png" alt="" />
+    <h1>
+        <button onclick="showcustom()">弹出下面的HTML片段</button>
+    </h1>
+    <pre>
+    &lt;div style="background-color:#eee;width:400px;height:140px;border:1px solid #666;align-self:center;padding:15px"&gt;
+        &lt;h3&gt;自定义弹出层标题&lt;/h3&gt;
+        &lt;p&gt;弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段&lt;/p&gt;
+        &lt;div style="text-align:center"&gt;&lt;button onclick="msgbox.close()"&gt;取消&lt;/button&gt;&lt;button onclick="msgbox.close()"&gt;确定&lt;/button&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    </pre>
+    <div style="height:120vh"></div>
+    <script>
+        function confirmCall(res) {
+            let resdom = document.querySelector('#confirmRes');
+            resdom.textContent = res == 1 ? "OK" : "Cancel";
+        }
+        function promptCall(res) {
+            let resdom = document.querySelector('#promptRes');
+            resdom.textContent = res;
+        }
+        function showcustom() {
+            let innerhtml = `<div style="background-color:#eee;width:400px;height:140px;border:1px solid #666;align-self:center;padding:15px">
+            <h3>自定义弹出层标题</h3>
+            <p>弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段</p>
+            <div style="text-align:center"><button onclick="msgbox.close()">取消</button><button onclick="msgbox.close()">确定</button></div>
+        </div>`;
+            msgbox.show(innerhtml);
+        }
+    </script>
+
+</body>
+
+</html>

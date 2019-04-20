@@ -1,0 +1,90 @@
+/*用于去掉BODY滚动条*/
+.overflowhide{
+    overflow: hidden;
+}
+/*遮罩*/
+.msgbox-shadow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .4;
+  background-color: #000;
+  z-index: 10000; }
+/*父层*/
+.msgbox-modal {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 10001; 
+}
+
+/*弹出框*/
+.msgbox {
+    position: relative;
+    width: 75vw;
+    height:120px;
+    padding: 20px;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 16px #000; 
+}
+.msgbox-center{
+    align-self: center;
+}
+.msgbox-top{
+    align-self: flex-start;
+}
+.msgbox-bottom{
+    align-self: flex-end;
+}
+/*弹出框按钮*/
+.msgbox-btn{
+    position: absolute;
+    bottom:10px;
+    box-sizing: border-box;
+    border:1px solid #999;
+    border-radius: 5px;
+    padding:5px 10px;
+    background-color: #eee;
+    user-select: none;
+    font-size: 14px;
+    color:#333;
+    outline: 0;
+    cursor: pointer;
+}
+.msgbox-ok{
+    right:10px;
+}
+.msgbox-cancel{
+    right:60px;
+}
+.msgbox-btn:hover{
+    background-color: #6600FF;
+    color:#ffffff;
+}
+/*prompt框的input*/
+.msgbox-input{
+    display: block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding:4px 8px;
+    margin:5px auto;
+    width:100%;
+    border:1px solid #999999;
+    color:#333333;
+    background-color: #ffffff;
+    outline:0;
+}
+/*PC屏*/
+@media only screen and (min-width: 768px) {
+  .msgbox {
+    width: 360px; } 
+}
