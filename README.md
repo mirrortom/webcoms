@@ -19,3 +19,15 @@ msgbox.prompt('输入信息',callback);
 // 弹出自定义框
 msgbox.show(innerhtml)
 ```
+
+## MyDatePick
+日期选框,参考自火狐浏览器自带的日期框  
+支持年月日,可选时分秒,选择方便  
+示例:mydatepick/index.html
+```
+// 在input上调用MyDatePick方法
+<input onclick="MyDatePick()" type="text" />
+
+// 需要时分秒
+<input onclick="MyDatePick({fmt:'datetime'})" type="text">
+```

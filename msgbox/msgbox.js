@@ -3,7 +3,7 @@
  * 显示在上中下三个位置
  * 用于理解弹出框原理
  */
-; ((win) => {
+!((win) => {
     // 弹出框类
     let msgBox = {};
     // 删除遮罩和弹出层
@@ -137,72 +137,3 @@
     win.msgbox = msgBox;
 })(window);
 // 弹出信息提示框
-
-$.fn.extend({
-    // 模态框 {beforeShow:fun,afterShow:fun,afterClose:fun,escClose:false,backClose:false,location:''}
-    modal: function (config) {
-        //=== 弹出层父级类名:为方便引用()
-        let modalClsName = 'msgbox-modal';
-        //=== init config
-        let cfg = {};
-        if (config) {
-            // 显示之前执行
-            cfg.BeforeShow = config.beforeShow || null;
-            // 显示后执行
-            cfg.AfterShow = config.afterShow || null;
-            // 关闭后执行
-            cfg.AfterClose = config.afterClose || null;
-            // 按esc关闭
-            cfg.EscClose = config.escClose || false;
-            // 点击背景(弹出层父级)关闭
-            cfg.BackClose = config.backClose || false;
-            // 位置
-            cfg.Location = config.location || '';
-        }
-
-        //===
-        // body禁用滚动条
-        // 删除旧的遮罩层
-        $('body').addClass('overflowhide').find('.msgbox-shadow,.msgbox-modal').remove();
-
-        //=== 弹出层准备: dom生成,相关事件执行
-        // 将弹出层包含在弹出层父级DOM中
-        let modal = $('<div class="' + modalClsName + ' ' + cfg.Location + '" tabindex="-1"></div>');
-        modal.append($(this));
-        // x按钮事件:点击关闭弹出框
-        modal.find('.msgbox-close').on('click', function () {
-            $.msgboxClear(cfg.AfterClose);
-        })
-        // 按ESC关闭
-        if (cfg.EscClose == true) {
-            modal.on("keyup", function (event) {
-                //alert(event.target.className + event.which );
-                if (event.which != 27 || event.target.className.indexOf(modalClsName) == -1)
-                    return;
-                $.msgboxClear(cfg.AfterClose);
-            });
-        }
-        // 点击背景关闭
-        if (cfg.BackClose == true) {
-            modal.on('click', function (event) {
-                if (event.target.className.indexOf(modalClsName) == -1)
-                    return;
-                $.msgboxClear(cfg.AfterClose);
-            });
-        }
-        // 显示之前执行
-        if (typeof cfg.BeforeShow == 'function') {
-            cfg.BeforeShow($(this));
-        }
-        // 显示遮罩
-        $('body').append('<div class="msgbox-shadow"></div>');
-        // 显示弹出框
-        $('body').append(modal);
-        // 让弹出层父级获得焦点
-        modal.focus();
-        // 显示之后执行
-        if (typeof cfg.AfterShow == 'function') {
-            cfg.AfterShow($(this));
-        }
-    }
-})
