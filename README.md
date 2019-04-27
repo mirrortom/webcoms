@@ -50,3 +50,29 @@ if (cacheDom) {
     contDom.append(cacheDom);
 }
 ```
+
+## pagenum 分页条
+组件按钮 上一页,1页,当前页前几页,当前页,当前页后几页,最后页,下一页,总页数,跳转页输入框,确定  
+示例:pagenum/index.html  
+```
+<nav class="pagenum" id="testpagenumbox1"></nav>
+
+function newpagenum(pnnum) {
+    let cfg = {
+        // 容器ID(必须)
+        domId: 'testpagenumbox1',
+        // 点击事件(必须)
+        pageClickE: newpagenum,
+        // 总数(必须) >0 由后端返回新的总数
+        totalData: 96,
+        // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
+        pageIndex: pnnum,
+        // 每页数量 [5-50]
+        pageSize: 10,
+        // 显示几个按钮[5-10]
+        totalBtn: 5
+    }
+    pagenum(cfg);
+}
+newpagenum(1);
+```

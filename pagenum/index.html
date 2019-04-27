@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="pagenum.css">
+    <script src="pagenum.js"></script>
+    <title>pagenum</title>
+</head>
+
+<body>
+    <h1>pagenum</h1>
+    <p>分页条</p>
+    <nav class="pagenum" id="testpagenumbox1"></nav>
+    <br>
+    <nav class="pagenum" id="testpagenumbox2"></nav>
+    <script>
+        function newpagenum(pnnum) {
+            let cfg = {
+                // 容器id(必须)
+                domId: 'testpagenumbox1',
+                // 点击事件(必须)
+                pageClickE: newpagenum,
+                // 总数(必须) >0 由后端返回新的总数
+                totalData: 96,
+                // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
+                pageIndex: pnnum,
+                // 每页数量 [5-50]
+                pageSize: 10,
+                // 显示几个按钮[5-10]
+                totalBtn: 5
+            }
+            pagenum(cfg);
+        }
+        newpagenum(1);
+
+        function newpagenum2(pnnum) {
+            let cfg = {
+                domId: 'testpagenumbox2',
+                // 这里绑定getdata方法自己
+                pageClickE: newpagenum2,
+                // 总数(必须) >0 由后端返回新的总数
+                totalData: 296,
+                // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
+                pageIndex: pnnum,
+                // 每页数量 [5-50]
+                pageSize: 20,
+                // 显示几个按钮[5-10]
+                totalBtn: 8
+            }
+            pagenum(cfg);
+        }
+        newpagenum2(3);
+    </script>
+</body>
+
+</html>

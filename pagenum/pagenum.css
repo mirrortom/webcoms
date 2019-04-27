@@ -1,0 +1,82 @@
+.pagenum {
+    height: 2.7em;
+    line-height: 2.7em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.pagenum-btns {
+    font-size: 0;
+}
+
+.pagenum-prev,
+.pagenum-num,
+.pagenum-active,
+.pagenum-next,
+.pagenum-break {
+    display: inline-block;
+    width: 2.7em;
+    text-align: center;
+    font-size: 14px;
+    color: #007bff;
+    border: 1px solid #ced4da;
+    border-left: none;
+}
+
+.pagenum-prev:hover,
+.pagenum-num:hover,
+.pagenum-active:hover,
+.pagenum-next:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #007bff;
+    background-color: #e9ecef;
+}
+
+.pagenum-prev {
+    border-left: 1px solid #ced4da;
+}
+
+.pagenum-active,
+.pagenum-active:hover {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.pagenum-break {
+    color: #ced4da;
+}
+
+.pagenum-skip {
+    margin-left: 5px;
+}
+
+.pagenum-input {
+    width: 2.7em;
+    height: 90%;
+    text-align: center;
+    border: 1px solid #ced4da;
+    padding: 0;
+    margin: 0 3px;
+}
+
+.pagenum-input:focus {
+    outline: 2px solid #007bff;
+}
+
+.pagenum-ok {
+    display: inline-block;
+    width: 3em;
+    text-align: center;
+    margin-left: 5px;
+    color: #007bff;
+    border: 1px solid #ced4da;
+}
+
+.pagenum-ok:hover {
+    text-decoration: none;
+    color: #007bff;
+    cursor: pointer;
+}
