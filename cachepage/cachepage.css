@@ -1,0 +1,165 @@
+.tabsbox {
+    display: flex;
+    position: relative;
+    height: 42px;
+    line-height: 40px;
+    border-bottom: 2px solid #000066;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.tabsbox-left,
+.tabsbox-right {
+    flex: 0 1 36px;
+    border-left: 1px solid #000066;
+    border-right: 1px solid #000066;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.tabsbox-right {
+    text-align: right;
+}
+
+.tabsbox-left:before,
+.tabsbox-right:before {
+    content: '';
+    vertical-align: middle;
+}
+
+.tabsbox-left:before {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-right-color: #6c757d;
+}
+
+.tabsbox-right:before {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-left-color: #6c757d;
+}
+
+.tabsbox-left:hover,
+.tabsbox-right:hover,
+.tabsbox-tab:hover {
+    background-color: #e9ecef;
+}
+
+.tabsbox-left:active,
+.tabsbox-right:active,
+.tabsbox-tab:active {
+    background-color: #dee2e6;
+}
+
+.tabsbox-menutitle {
+    flex-basis: 56px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.tabsbox-menutitle:after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-top-color: #6c757d;
+    margin-left: 2px;
+    vertical-align: middle;
+}
+
+.tabsbox-menutitle:hover {
+    background-color: #e9ecef;
+}
+
+.tabsbox-menutitle:hover~.tabsbox-menugroup {
+    display: block;
+}
+
+.tabsbox-menugroup {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 120px;
+    color: #adb5bd;
+    text-align: center;
+    background-color: #fff;
+    border-left: 2px solid #000066;
+    border-bottom: 2px solid #000066;
+    cursor: pointer;
+}
+
+.tabsbox-menugroup:hover {
+    display: block;
+}
+
+.tabsbox-close-all,
+.tabsbox-close-other,
+.tabsbox-goto-active {
+    display: block;
+}
+
+.tabsbox-goto-active {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.tabsbox-close-all:hover,
+.tabsbox-close-other:hover,
+.tabsbox-goto-active:hover {
+    color: #495057;
+    background-color: #e9ecef;
+}
+
+.tabsbox-navbox {
+    flex: 1 1 0;
+    width: 0;
+    height: 40px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
+
+.tabsbox-nav {
+    position: relative;
+    margin-right: 100px;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.tabsbox-tab {
+    display: inline-block;
+    padding: 0 15px;
+    height: 40px;
+    border-right: 1px solid #aaaaaa;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.tabsbox-tab.active {
+    color: #fff;
+    background-color: #000066;
+}
+
+.tabsbox-tabclose {
+    display: none;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    margin-left: 8px;
+    border-radius: 50% 50%;
+    color: #fff;
+    background-color: #CC0000;
+    text-decoration: none;
+}
+
+.tabsbox-tab:hover .tabsbox-tabclose {
+    display: inline-block;
+}
