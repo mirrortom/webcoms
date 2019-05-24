@@ -7,7 +7,7 @@ cache:缓存对象,键是每个页面对应的ID,值是DOM片段对象.对于当
 tabsDom:选项卡工具栏的DOM,包含选项卡栏和其它功能按钮.当前活动的选项卡只能有一个,以样式类active标明.
 contDom:用于显示DOM的容器
  */
-!((win) => {
+((win) => {
     //----帮助函数----帮助函数----帮助函数---帮助函数------------------------------------------------------------ //
     // 获取DOM上的自定义属性的值
     let getAttr = (dom, attrName) => {
@@ -23,16 +23,15 @@ contDom:用于显示DOM的容器
     };
     // 删除DOM
     let delDom = (doms) => {
-            if (!doms.forEach) {
-                // 这是单个DOM的情况
-                doms.parentNode.removeChild(doms);
-                return;
-            }
-            doms.forEach((dom) => {
-                dom.parentNode.removeChild(dom);
-            })
+        if (!doms.forEach) {
+            // 这是单个DOM的情况
+            doms.parentNode.removeChild(doms);
+            return;
         }
-        //--------------------------------------------------------------------------- //
+        doms.forEach((dom) => {
+            dom.parentNode.removeChild(dom);
+        })
+    };
 
     // 建立cachepage实例
     // tabsDom:选项卡DOM,contDom:显示内容的DOM
@@ -89,7 +88,7 @@ contDom:用于显示DOM的容器
             let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
             if (activeTabDom) {
                 activeTabDom.classList.remove('active');
-            };
+            }
             let tabdom = document.createElement('label');
             tabdom.classList.add('tabsbox-tab');
             tabdom.classList.add('active');
@@ -226,7 +225,7 @@ contDom:用于显示DOM的容器
                 let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
                 if (activeTabDom) {
                     activeTabDom.classList.remove('active');
-                };
+                }
                 // 激活点击的选项卡,获取其缓存页加载到显示容器
                 tabDom.classList.add('active');
                 let cacheId = getAttr(tabDom);

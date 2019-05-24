@@ -1,8 +1,8 @@
-/*
+﻿/*
 日期组件,是一个函数.
 在input上使用此方法. <input onclick="MyDatePick()" />,需要时间部分: MyDatePick({fmt:datetime})
  */
-!((win) => {
+((win) => {
     //--------------帮助函数-----------帮助函数--------------//
     // 时间格式化函数
     let datefmt = (date, fmtstr) => {
@@ -35,7 +35,7 @@
             format = format.replace(item, json[item]);
         }
         return format;
-    }
+    };
     // 删除DOM
     let delDom = (doms) => {
         if (!doms.forEach) {
@@ -46,19 +46,19 @@
         doms.forEach((dom) => {
             dom.parentNode.removeChild(dom);
         })
-    }
+    };
     // 获取DOM上的自定义属性的值
     let getAttr = (dom, attrName) => {
         if (!attrName)
             attrName = 'val';
         return dom.attributes[attrName].nodeValue;
-    }
+    };
     // 设置DOM上的自定义属性值
     let setAttr = (dom, attrVal, attrName) => {
         if (!attrName)
             attrName = 'val';
         dom.setAttribute(attrName, attrVal); // 设置 
-    }
+    };
 
     //------datebox类-----------datebox类---------//
     // datebox类名
@@ -83,7 +83,7 @@
         showDateBox(dateboxDom);
         // 绑定事件
         bindEvent_Show();
-    }
+    };
 
     // 初始化:已选年月,保存日期框的INPUT的JQ对象引用
     let initDate = (input, config) => {
@@ -96,9 +96,7 @@
             inputval = inputval + ' 00:00:00';
         } else if (/^[0-9]{4}\/[0-9]{2}\/[0-9]{2} [0-9]{2}:[0-9]{2}$/.test(inputval)) {
             inputval = inputval + ':00';
-        }
-        else if (/^[0-9]{4}\/[0-9]{2}\/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$/.test(inputval)) { }
-        else {
+        } else if (/^[0-9]{4}\/[0-9]{2}\/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$/.test(inputval)) {} else {
             inputval = null;
         }
         // console.log(inputval);
@@ -121,7 +119,7 @@
             cfg.dateFmt = 'yyyy/MM/dd HH:mm:ss';
             cfg.fmtType = 2;
         }
-    }
+    };
     // 显示日期框
     let showDateBox = (datedom) => {
         //console.log(datedom);
@@ -147,7 +145,7 @@
         if (ww < 576) {
             datedom.focus();
         }
-    }
+    };
     /*=======================================================*
      * DOM生成
      *=======================================================*/
@@ -169,7 +167,7 @@
         datedom.tabIndex = -1;
         datedom.innerHTML = `${ymtarea}${weekarea}${dayarea}${tcarea}`;
         return datedom;
-    }
+    };
 
     // 1.生成年份区内容 前进,后退,年份 按钮
     let createDom_Year = () => {
@@ -177,7 +175,7 @@
         let yearbtn = `<b class="date-btn-year" val="${cfg.year}">${cfg.year}年</b>`;
         let nextbtn = '<a class="date-btn-next">&gt;</a>';
         return `<div class="date-area-year">${prevbtn}${yearbtn}${nextbtn}</div>`;
-    }
+    };
 
     // 1.1生成年份下拉选择框. selectedYear:可指定一个年份为已选定
     let createDom_YearSelect = (selectedYear) => {
@@ -191,9 +189,9 @@
         }
         let dom = document.createElement('div');
         dom.classList.add('date-select-year');
-        dom.innerHTML = ydoms
+        dom.innerHTML = ydoms;
         return dom;
-    }
+    };
 
     // 2.生成月份区 前进,后退,月份 按钮
     let createDom_Month = () => {
@@ -201,7 +199,7 @@
         let monthbtn = `<b class="date-btn-month" val="${cfg.month}">${cfg.month + 1}月</b>`;
         let nextbtn = '<a class="date-btn-next">&gt;</a>';
         return `<div class="date-area-month">${prevbtn}${monthbtn}${nextbtn}</div>`;
-    }
+    };
 
     // 2.1生成月份下拉选择框. selectedMonth:可指定一个月份为已选定
     let createDom_MonthSelect = (selectedMonth) => {
@@ -214,7 +212,7 @@
         dom.classList.add('date-select-month');
         dom.innerHTML = mdoms;
         return dom;
-    }
+    };
 
     // 3.生成星期标题头
     let createDom_Week = () => {
@@ -225,7 +223,7 @@
             weeksdom += `<b class="date-item-week ${isweekend}">${weeks[i]}</b>`;
         }
         return weeksdom;
-    }
+    };
 
     // 4.生成天选项 daylist:日数据.不传则使用选定年月计算出日
     let createDom_Day = (daylist) => {
@@ -240,17 +238,17 @@
             json.isweekend = json.Isweekend ? ' date-item-weekend' : '';
             //json.exportName = exportName;
             //daydoms += String.DataBind(daydom, json);
-            daydoms += daydom.replace(/\${(.+?)\}/g, function (m, key) { return json.hasOwnProperty(key) ? json[key] : '' });
+            daydoms += daydom.replace(/\${(.+?)\}/g, function(m, key) { return json.hasOwnProperty(key) ? json[key] : '' });
         }
         return daydoms;
-    }
+    };
     // 5.生成时分秒区域
     let createDom_Time = () => {
         let hour = `<b class="date-btn-time date-btn-hour">${cfg.hour}</b>:`;
         let minute = `<b class="date-btn-time date-btn-minute">${cfg.minute}</b>:`;
         let second = `<b class="date-btn-time date-btn-second">${cfg.second}</b>`;
         return `<div class="date-area-time">${hour}${minute}${second}</div>`;
-    }
+    };
     // 5.1生成小时选择框
     let createDom_HourSelect = () => {
         let doms = '';
@@ -261,7 +259,7 @@
         dom.classList.add('date-select-hour');
         dom.innerHTML = doms;
         return dom;
-    }
+    };
     // 5.2生成分钟,秒钟选择框
     let createDom_MinuteSelect = () => {
         let doms = '';
@@ -272,7 +270,7 @@
         dom.classList.add('date-select-minute');
         dom.innerHTML = doms;
         return dom;
-    }
+    };
     // 5.3生成秒钟选择框
     let createDom_SecondSelect = () => {
         let doms = '';
@@ -283,19 +281,19 @@
         dom.classList.add('date-select-second');
         dom.innerHTML = doms;
         return dom;
-    }
+    };
     // 6.生成今天按钮区域
     let createDom_Today = () => {
         return '<div class="date-area-today"><a class="date-btn-today">今天</a></div>';
-    }
+    };
     // 7.生成清除按钮区域
     let createDom_Clear = () => {
         return '<div class="date-area-clear"><a class="date-btn-clear">清空</a></div>';
-    }
+    };
     // 8.生成确定按钮区域 
     let createDom_Ok = () => {
         return '<div class="date-area-ok"><a class="date-btn-ok">确定</a></div>';
-    }
+    };
 
     // 根据选定的年,月刷新日(用于当在日期框上操作年,月等会改变年月的动作时)
     // yyyy:指定年,mm:指定月 daysdom:日的父级DOM的JQ对象(.daysrows)
@@ -308,9 +306,9 @@
         dateboxDom.querySelector('.date-area-day').innerHTML = daysdom;
         // 事件绑定
         bindEvent_DaySelected();
-    }
+    };
 
-   /*----------------为DOM提供的数据,年份 日-----------为DOM提供的数据,年份 日-------- */
+    /*----------------为DOM提供的数据,年份 日-----------为DOM提供的数据,年份 日-------- */
     // 根据已选年计算年份选项
     let domYear_Data = () => {
         // 年份选择范围固定在[1900-2100]
@@ -319,7 +317,7 @@
             data.push(i);
         }
         return data;
-    }
+    };
 
     // 根据已选年月或者传入指定年月,计算日的起始和结束
     // 日(天)总共六行七列42个,含已选年月所有日, 前推至最近的周日, 后推至最近或次近的周六
@@ -350,8 +348,8 @@
             json.Istoday = datefmt(startDay, 'yyyyMMdd') == todaystr;
             // 日是否选定(等于文本框中已选日)
             json.Isselected =
-                (json.yyyy == cfg.year && json.MM == cfg.month
-                    && json.dd == cfg.day);
+                (json.yyyy == cfg.year && json.MM == cfg.month &&
+                    json.dd == cfg.day);
             // 这天是否为周六日(这里未真正判断,而是根据位置判断,每七天为一行,行首周日行尾周六)
             json.Isweekend = (i % 7 == 0 || (i + 1) % 7 == 0);
             //
@@ -360,7 +358,7 @@
         }
         //console.log(daylist);
         return daylist;
-    }
+    };
 
     /*============================================================*
      * 事件方法:年,月的前进后退按钮,年月选择按钮,今天按钮
@@ -382,7 +380,7 @@
             bindEvent_ClearBtn();
             bindEvent_OkBtn();
         }
-    }
+    };
 
     let bindEvent_DateBox = () => {
         // 点击日期控件以内区域,阻止冒泡到根
@@ -392,7 +390,7 @@
             let partSelectDom = dateboxDom.querySelectorAll('[class^=date-select]');
             delDom(partSelectDom);
         };
-    }
+    };
     let bindEvent_YearBtn = () => {
         // 点击年按钮 显示年选择框
         dateboxDom.querySelector('.date-btn-year').onclick = (event) => {
@@ -422,7 +420,7 @@
             // 绑定年份选择点击事件
             bindEvent_YearSelected();
         };
-    }
+    };
     let bindEvent_MonthBtn = () => {
         // 点击月按钮 显示月选择框
         dateboxDom.querySelector('.date-btn-month').onclick = (event) => {
@@ -444,7 +442,7 @@
             // 绑定月分选项点击事件
             bindEvent_MonthSelected();
         };
-    }
+    };
     let bindEvent_YearSelected = () => {
         // 点击年份选项 选定一个年份 
         dateboxDom.querySelectorAll('.date-option-year').forEach((item) => {
@@ -460,12 +458,12 @@
                 yearBtn.innerHTML = y + '年';
                 // 关闭年份选择框
                 delDom(thisobj.parentElement)
-                // 刷新 日
+                    // 刷新 日
                 let m = getAttr(dateboxDom.querySelector('.date-btn-month'));
                 resetDaysDom(y, m);
             };
         });
-    }
+    };
     let bindEvent_MonthSelected = () => {
         // 点击月份选项 选定一个月份
         dateboxDom.querySelectorAll('.date-option-month').forEach((item) => {
@@ -484,8 +482,8 @@
                 let y = getAttr(dateboxDom.querySelector('.date-btn-year'));
                 resetDaysDom(y, m);
             };
-        })
-    }
+        });
+    };
     let bindEvent_YearMonthPrevNext = () => {
         // 点击年份,月份的前进和后退按钮 btntype:1=年按钮,2=月按钮. dir:1=前进,2=后退
         dateboxDom.querySelectorAll('.date-btn-prev,.date-btn-next').forEach((item) => {
@@ -505,16 +503,14 @@
                     y = dir == 1 ? y + 1 : y - 1;
                     if (y < 1) y = 9999;
                     else if (y > 9999) y = 1;
-                }
-                else if (btntype == 2) {
+                } else if (btntype == 2) {
                     m = dir == 1 ? m + 1 : m - 1;
                     if (m < 0) {
                         m = 11;
                         // 年往后退一年,如果为1年,则不变
                         if (y > 1)
                             y = y - 1;
-                    }
-                    else if (m > 11) {
+                    } else if (m > 11) {
                         m = 0;
                         // 年往前进一年,如果为9999年,则不变
                         if (y < 9999)
@@ -530,8 +526,7 @@
                 resetDaysDom(y, m);
             };
         });
-
-    }
+    };
     let bindEvent_TodayBtn = () => {
         // 点击今天按钮 设置今天日期到input框
         dateboxDom.querySelector('.date-btn-today').onclick = (event) => {
@@ -543,7 +538,7 @@
             //
             mydate.close();
         };
-    }
+    };
     let bindEvent_HourBtn = () => {
         // 点击小时按钮 显示小时选择框
         dateboxDom.querySelector('.date-btn-hour').onclick = (event) => {
@@ -569,7 +564,7 @@
             // 绑定小时选项点击事件
             bindEvent_HourSelected();
         };
-    }
+    };
     let bindEvent_MinBtn = () => {
         // 点击分钟按钮 显示分钟选择框
         dateboxDom.querySelector('.date-btn-minute').onclick = (event) => {
@@ -594,7 +589,7 @@
             // 绑定分钟选项点击事件
             bindEvent_MinSelected();
         };
-    }
+    };
     let bindEvent_SecBtn = () => {
         // 点击秒钟按钮 显示秒钟选择框
         dateboxDom.querySelector('.date-btn-second').onclick = (event) => {
@@ -618,7 +613,7 @@
             // 绑定秒钟选项点击事件
             bindEvent_SecSelected();
         }
-    }
+    };
     let bindEvent_HourSelected = () => {
         // 选择小时 修改小时按钮显示值
         dateboxDom.querySelectorAll('.date-option-hour').forEach((item) => {
@@ -634,7 +629,7 @@
                 delDom(thisobj.parentElement);
             };
         });
-    }
+    };
     let bindEvent_MinSelected = () => {
         // 选择分钟 修改按钮显示值
         dateboxDom.querySelectorAll('.date-option-minute').forEach((item) => {
@@ -649,7 +644,7 @@
                 delDom(thisobj.parentElement);
             };
         })
-    }
+    };
     let bindEvent_SecSelected = () => {
         // 选择秒钟 修改按钮显示值
         dateboxDom.querySelectorAll('.date-option-second').forEach((item) => {
@@ -664,7 +659,7 @@
                 delDom(thisobj.parentElement);
             };
         })
-    }
+    };
     let bindEvent_DaySelected = () => {
         // 选择天 设置这天日期到Input框
         dateboxDom.querySelectorAll('.date-item-day').forEach((item) => {
@@ -672,14 +667,13 @@
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 //
-                let date = new Date(getAttr(thisobj, 'year'), getAttr(thisobj, 'month')
-                    , getAttr(thisobj, 'day'), cfg.hour, cfg.minute, cfg.second);
+                let date = new Date(getAttr(thisobj, 'year'), getAttr(thisobj, 'month'), getAttr(thisobj, 'day'), cfg.hour, cfg.minute, cfg.second);
                 inputDOM.value = datefmt(date, cfg.dateFmt);
                 //
                 mydate.close();
             };
         });
-    }
+    };
     let bindEvent_ClearBtn = () => {
         // 点击清空
         dateboxDom.querySelector('.date-btn-clear').onclick = (event) => {
@@ -689,7 +683,7 @@
             inputDOM.value = '';
             mydate.close();
         };
-    }
+    };
     let bindEvent_OkBtn = () => {
         // 点击确定按钮
         dateboxDom.querySelector('.date-btn-ok').onclick = (event) => {
@@ -700,8 +694,7 @@
             let seledDay = dateboxDom.querySelector('.date-item-day.selected');
             let dateStr = datefmt(new Date(cfg.year, cfg.month, cfg.day, cfg.hour, cfg.minute, cfg.second), cfg.dateFmt);
             if (seledDay) {
-                let d = new Date(getAttr(seledDay, 'year'), getAttr(seledDay, 'month'), getAttr(seledDay, 'day')
-                    , cfg.hour, cfg.minute, cfg.second);
+                let d = new Date(getAttr(seledDay, 'year'), getAttr(seledDay, 'month'), getAttr(seledDay, 'day'), cfg.hour, cfg.minute, cfg.second);
                 dateStr = datefmt(d, cfg.dateFmt);
             }
 
@@ -709,7 +702,7 @@
             //
             mydate.close();
         }
-    }
+    };
 
     // 关闭日期框
     mydate.close = () => {
@@ -718,7 +711,7 @@
         cfg = null;
         let datedoms = document.body.querySelectorAll('.' + dateboxCls);
         delDom(datedoms);
-    }
+    };
 
     // 点击日期控件以外区域,关闭控件. 
     document.onclick = () => {

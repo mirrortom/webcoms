@@ -130,7 +130,8 @@
 .date-option-year:hover,
 .date-option-month:hover,
 .date-option-hour:hover,
-.date-option-minute:hover {
+.date-option-minute:hover,
+.date-option-second:hover {
     background-color: #dee2e6;
 }
 
