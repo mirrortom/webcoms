@@ -1,0 +1,17 @@
+﻿// panel
+.panel
+    border: 1px solid var-graybackse
+    padding: 4px
+    &-head
+        background-color: var-grayback
+        overflow: hidden
+        padding: 10px
+        text-align: center
+    &-body
+        padding: 15px
+        background-color: #ffffff
+// 颜色
+panelColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in panelColors
+    .panel.{key} .panel-head
+        background-color: val

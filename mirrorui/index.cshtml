@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link href="mirrorui.css" rel="stylesheet" />
+  <script src="mirrorui.js"></script>
+  <title>mirrorui-doc</title>
+  <style>
+    .page {
+      display: grid;
+      grid-template-columns: 210px auto;
+    }
+
+    .menu-box{
+      position: sticky;
+      top: 0;
+      width: 94%;
+      max-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="menu-box">
+      <nav class="sidemenu-box" id="main_menubox">
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">零件</span><i class="sidemenu-arrdown"></i>
+          </li>
+          <li><a class="sidemenu-item" href="#grid">册格</a></li>
+          <li><a class="sidemenu-item" href="#typography">标题段落</a></li>
+          <li><a class="sidemenu-item" href="#btn">按钮</a></li>
+          <li><a class="sidemenu-item" href="#table">表格</a></li>
+          <li><a class="sidemenu-item" href="#form">表单</a></li>
+          <li><a class="sidemenu-item" href="#imagedemo">图片</a></li>
+          <li><a class="sidemenu-item" href="#toolclass">便利样式</a></li>
+        </ul>
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">组件</span><i class="sidemenu-arrdown"></i>
+          </li>
+          <li><a class="sidemenu-item" href="#btngroup">按钮组</a></li>
+          <li><a class="sidemenu-item" href="#label">标签</a></li>
+          <li><a class="sidemenu-item" href="#article">段落标题</a></li>
+          <li><a class="sidemenu-item" href="#msgpanel">信息面板</a></li>
+          <li><a class="sidemenu-item" href="#panel">面板</a></li>
+          <li><a class="sidemenu-item" href="#tabs">选项卡</a></li>
+          <li><a class="sidemenu-item" href="#msgbox">弹出框</a></li>
+          <li><a class="sidemenu-item" href="#datetime">日期时间</a></li>
+          <li><a class="sidemenu-item" href="#pagenum">分页导航</a></li>
+          <li><a class="sidemenu-item" href="#sidemenu">侧边菜单</a></li>
+          <li><a class="sidemenu-item" href="#cachepage">缓存页</a></li>
+        </ul>
+        
+        <ul class="sidemenu-group">
+          <li><i class="sidemenu-icon fa fa-bolt"></i><span class="sidemenu-label">设计</span><i class="sidemenu-arrdown"></i></li>
+          <li><a class="sidemenu-item" href="#design_form">表单设计</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="content pd-15">
+      <div>
+        <h1>关于ui</h1>
+        <p>将html,js,css做成组件,使用web开发更方便.这种思路在桌面程序中早就有了,比如winfrom.较早些时候,当前后端还没有分离,还是以服务端编程时,惯用的是JQUERY,还有各用基于JQUERY的UI.</p>
+        <p>后来,有了Bootstrap.学习它的scss后,认为这是一种先进的思想.于是模仿练习.它是OOP的,使用scss编写生成css.生成各种组件,布局,工具的css样式.</p>
+        <p>一套webui是一些组件的集合,一个组件就是html模板加css显示加js功能的组合.按bootstrap的思路,编写这种组合就得到了一套UI.</p>
+        <p>看过一些其它的ui框架,都是bootstrap的形式,或者直接基于它开发的.看起来,这更是一种web前端编程思路突破,真正的将web前端工程化了,就像服务端工程化那样.</p>
+        <p>所以,使用造组件的思路,可以造出各种各样的ui来.</p>
+      </div>
+      @*片段页路径实际上是Key,不能使用变量,否则会找不到页面*@
+      @Include("/doc/parts/h1h6p.part.cshtml")
+      <br />
+      @Include("/doc/parts/grids.part.cshtml")
+      <br />
+      @Include("/doc/parts/btn.part.cshtml")
+      <br />
+      @Include("/doc/parts/table.part.cshtml")
+      <br />
+      @Include("/doc/parts/form.part.cshtml")
+      <br />
+      @Include("/doc/parts/imagedemo.part.cshtml")
+      <br />
+      @Include("/doc/parts/toolclass.part.cshtml")
+      <br />
+      @Include("/doc/parts/btngroup.part.cshtml")
+      <br />
+      @Include("/doc/parts/label.part.cshtml")
+      <br />
+      @Include("/doc/parts/article.part.cshtml")
+      <br />
+      @Include("/doc/parts/msgpanel.part.cshtml")
+      <br />
+      @Include("/doc/parts/panel.part.cshtml")
+      <br />
+      @Include("/doc/parts/tabs.part.cshtml")
+      <br />
+      @Include("/doc/parts/msgbox.part.cshtml")
+      <br />
+      @Include("/doc/parts/datetime.part.cshtml")
+      <br />
+      @Include("/doc/parts/pagenum.part.cshtml")
+      <br />
+      @Include("/doc/parts/sidemenu.part.cshtml")
+      <br />
+      @Include("/doc/parts/cachepage.part.cshtml")
+      <br />
+      @Include("/doc/parts/design_form.part.cshtml")
+      <br />
+    </div>
+  </div>
+  <script>
+    // 为主菜单绑定点击事件 点击后加上sidemenu-active类,标识为活动菜单
+    sidemenu('main_menubox');
+  </script>
+</body>
+</html>

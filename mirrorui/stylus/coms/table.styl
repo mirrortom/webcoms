@@ -1,0 +1,28 @@
+﻿// 表格
+.table
+    border-collapse: collapse
+    border-spacing: 0
+    width: 100%
+// 带外边框的表格
+.table.border
+    border: 1px solid var-grayback
+// 带内外边框的表格
+.table.border-all, .table.border-all th, .table.border-all td
+    border: 1px solid var-graybackse
+// hover类的表格,隔行颜色变化,鼠标移入效果
+.table.hover tr:nth-child(even)
+    background-color: var-grayback
+// hover类鼠标移入效果
+.table.hover tr:hover
+    background-color: var-graybackse
+// 单元格头
+.table th
+    border-bottom: 2px solid var-graybackse
+    vertical-align: bottom
+    padding: 5px
+    text-align: left
+// 单元格
+.table td
+    border-bottom: 1px solid var-grayback
+    vertical-align: middle
+    padding: 5px

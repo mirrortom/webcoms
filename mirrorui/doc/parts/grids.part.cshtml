@@ -1,0 +1,61 @@
+﻿<div class="doc-part-box" id="grid">
+  <h2>册格系统</h2>
+  <p>册格布局是bootstrap的经典,现在css已经自带了.可以直接使用自带的.</p>
+
+  <style>
+    .demo-grids {
+      display: grid;
+      grid-template-columns: repeat(12,8.3333%);
+    }
+
+    .demo-grid {
+      background-color: var(--primary);
+      padding: 5px;
+      border: 1px solid #ffffff;
+    }
+  </style>
+  <p>对div使用display:grid ; grid-template-columns: repeat(12,8.3333%); 就实现了</p>
+  <pre>
+.demo-grids {
+  display: grid;
+  grid-template-columns: repeat(12,8.3333%);
+}
+</pre>
+  <div class="demo-grids">
+    @for (int i = 0; i < 12; i++)
+    {
+      <span class="demo-grid text-center">@(i + 1)</span>
+    }
+  </div>
+  <br />
+  <p>为了方便,制做便利类, .grids-n n=(1~12) 例如在div上加.grids-7 其下项目会自动均分1/7宽度</p>
+  <div class="grids-7">
+    @for (int i = 0; i < 7; i++)
+    {
+      <span class="demo-grid text-center">@(i + 1) / 7</span>
+    }
+  </div>
+  <br />
+  <p>.grids 则其下自动根据项目个数均分宽度</p>
+  <div class="grids">
+    @for (int i = 0; i < 9; i++)
+    {
+      <span class="grid demo-grid text-center">@(i + 1) / 9</span>
+    }
+  </div>
+  <br />
+  <p>.grid-n 由项目占比</p>
+  <div class="grids">
+    <span class="grid-3 demo-grid text-center">grid-3</span>
+    <span class="grid-4 demo-grid text-center">grid-4</span>
+    <span class="grid-5 demo-grid text-center">grid-5</span>
+  </div>
+  <br />
+  <p>混合使用grid和grid-x,其中grid-x占用指定宽度,grid则均分剩于空间</p>
+  <div class="grids">
+    <div class="grid demo-grid text-center">均分</div>
+    <div class="grid-5 demo-grid text-center">固定占grid-5</div>
+    <div class="grid demo-grid text-center">均分</div>
+    <div class="grid demo-grid text-center">均分</div>
+  </div>
+</div>

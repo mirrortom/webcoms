@@ -1,0 +1,46 @@
+﻿@{ 
+    string tabrows = @"<tr><th>#</th><th>名字</th><th>职位</th></tr>
+    <tr><td>1</td><td>关羽</td><td>前将军</td></tr>
+    <tr><td>2</td><td>张飞</td><td>右将军</td></tr>
+    <tr><td>3</td><td>马超</td><td>左将军</td></tr>
+    <tr><td>4</td><td>黄忠</td><td>后将军</td></tr>
+    <tr><td>5</td><td>赵云</td><td>翊将军</td></tr>";
+}
+<div class="doc-part-box" id="table">
+  <h2>表格</h2>
+  <p class="lead">一个简单的表格样式,有隔行颜色,鼠标hover,外边框</p>
+  <p class="article-title">简单表格</p>
+  <table class="table">
+    @Raw(tabrows)
+  </table>
+  <pre class="code">
+&lt;table class="table"&gt;
+    &lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;名字&lt;/th&gt;&lt;th&gt;职位&lt;/th&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;关羽&lt;/td&gt;&lt;td&gt;前将军&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+  <p class="article-title">hover隔行色</p>
+  <table class="table hover">
+    @Raw(tabrows)
+  </table>
+  <pre class="code">
+&lt;table class="table hover"&gt;&lt;/table&gt;
+</pre>
+
+  <p class="article-title">外边框</p>
+  <table class="table border">
+    @Raw(tabrows)
+  </table>
+  <pre class="code">
+&lt;table class="table border"&gt;&lt;/table&gt;
+</pre>
+
+  <p class="article-title">内外边框</p>
+  <table class="table border-all">
+    @Raw(tabrows)
+  </table>
+  <pre class="code">
+&lt;table class="table <b>border-all</b>"&gt;&lt;/table&gt;
+</pre>
+</div>

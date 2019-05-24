@@ -1,0 +1,122 @@
+﻿<div class="doc-part-box" id="pagenum">
+  <h2>分页导航</h2>
+  <p>参考了天猫京东的分页条,最后设计成包含如下按钮.上一页,1页,当前页前几页,当前页,当前页后几页,最后页,下一页,总页数,跳转页输入框,确定</p>
+  <nav class="pagenum" id="pagenum1">
+    <span class="pagenum-btns">
+      <a class="pagenum-prev"><</a>
+      <a class="pagenum-num">1</a>
+      <span class="pagenum-break">...</span>
+      <a class="pagenum-num">7</a>
+      <a class="pagenum-num">8</a>
+      <a class="pagenum-active">9</a>
+      <a class="pagenum-num">10</a>
+      <a class="pagenum-num">11</a>
+      <span class="pagenum-break">...</span>
+      <a class="pagenum-num">98</a>
+      <a class="pagenum-next">></a>
+    </span>
+    <span class="pagenum-skip">
+      共<b class="pagenum-total">98</b>页&nbsp;&nbsp;到第<input class="pagenum-input" value="1" type="text" />页<a class="pagenum-ok">确定</a>
+    </span>
+  </nav>
+
+  <p class="article-title">使用</p>
+  <p>pagenum(cfg);</p>
+  <pre class="code">
+&lt;nav class="pagenum" id="pagenumId"&gt;&lt;/nav&gt;
+&lt;nav class="pagenum primary" id="pagenumId2"&gt;&lt;/nav&gt;
+// 调用方法
+function newpagenum(pnnum) {
+    let cfg = {
+        // 容器id(必须)
+        domId: 'testpagenumbox1',
+        // 点击事件(必须)
+        pageClickE: newpagenum,
+        // 总数(必须) >0 由后端返回新的总数
+        totalData: 96,
+        // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
+        pageIndex: pnnum,
+        // 每页数量 [5-50]
+        pageSize: 10,
+        // 显示几个按钮[5-10]
+        totalBtn: 5
+    }
+    pagenum(cfg);
+}
+newpagenum(1);
+</pre>
+  <p class="article-title">刷新分页和无刷新分页的使用区别</p>
+  <p>pageClickE这个方法将绑定到页码按钮的点击事件上,如果是整页面刷新分页,那么该方法执行跳转到新页面,新页面再生成分页条即可.</p>
+  <p>web前端一般是无刷新分页,pageClickE方法会包含一个ajax请求,这个请求的回调方法里,再执行生成新的分页条,并且配置参数中的pageClickE,再次指向ajax方法自己</p>
+  <pre class="code">
+// ajax请求示例方法
+function getdata()
+{
+  var para = {};
+  $.post('/api/html/PageNumber', { k:v }, function (data)
+  {
+  if (data.length == 0)
+  {
+  <b>// 如果没有数据返回,可以不用生成分页条.</b>
+      return;
+  }
+  // 再生成新分页条
+  let cfg=
+  {
+     // 这里绑定getdata方法自己
+  <mark>pageClickE:function(){ getdata() },</mark>
+      // 总数(必须) >0 由后端返回新的总数
+  <mark>totalData:data.总数,</mark>
+      // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
+      pageIndex:data.当前页码,
+      // 每页数量 [5-50]
+      pageSize:10,
+      // 显示几个按钮[5-10]
+      totalBtn:5
+  }
+  pagenum(cfg);
+}
+</pre>
+
+  <nav class="pagenum danger" id="testpagenumbox1"></nav>
+  <br />
+  <nav class="pagenum primary" id="testpagenumbox2"></nav>
+  <script>
+    function newpagenum(pnnum) {
+      let cfg = {
+        // 容器id(必须)
+        domId: 'testpagenumbox1',
+        // 点击事件(必须)
+        pageClickE: newpagenum,
+        // 总数(必须) >0 由后端返回新的总数
+        totalData: 96,
+        // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
+        pageIndex: pnnum,
+        // 每页数量 [5-50]
+        pageSize: 10,
+        // 显示几个按钮[5-10]
+        totalBtn: 5
+      }
+      pagenum(cfg);
+    }
+    newpagenum(1);
+
+    function newpagenum2(pnnum) {
+      let cfg = {
+        domId: 'testpagenumbox2',
+        // 这里绑定getdata方法自己
+        pageClickE: newpagenum2,
+        // 总数(必须) >0 由后端返回新的总数
+        totalData: 296,
+        // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
+        pageIndex: pnnum,
+        // 每页数量 [5-50]
+        pageSize: 20,
+        // 显示几个按钮[5-10]
+        totalBtn: 8
+      }
+      pagenum(cfg);
+    }
+    newpagenum2(3);
+  </script>
+</div>

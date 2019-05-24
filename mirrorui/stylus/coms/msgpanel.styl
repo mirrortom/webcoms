@@ -1,0 +1,19 @@
+﻿/*
+    信息展示面板
+    标题和一段说明文字
+*/
+.msgpanel
+    border-left: 5px solid
+    padding: var-font-size
+    margin: var-font-size auto
+    color: var-font-color
+    border-bottom: 1px solid var-grayback
+    border-top: 1px solid var-grayback
+    border-right: 1px solid var-grayback
+    border-left-color: var-graybackse
+// 颜色
+msgpanelColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in msgpanelColors
+    .msgpanel.{key}
+        color: val
+        border-left-color: val

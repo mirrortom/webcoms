@@ -1,0 +1,20 @@
+[
+  {
+    "outputFileName": "mirrorui.js",
+    "inputFiles": [
+      "js/sidemenu.js",
+      "js/form.js",
+      "js/tabs.js",
+      "js/msgbox.js",
+      "js/pagenum.js",
+      "js/mydate.js",
+      "js/cachepage.js"
+    ]
+  },
+  {
+    "outputFileName": "mirrorui.min.css",
+    "inputFiles": [
+      "mirrorui.css"
+    ]
+  }
+]

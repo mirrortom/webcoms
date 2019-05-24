@@ -1,0 +1,73 @@
+// 文本超出时,显示省略号
+.text-overflow
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+// 文本对齐
+.text-left
+    text-align: left !important
+.text-right
+    text-align: right !important
+.text-center
+    text-align: center !important
+// 文本两端对齐
+.text-justify
+    text-align: justify !important
+// margin padding 固定设定便利类
+for size in range(5, 50, 5)
+    sizepx = size * 1px
+    .mg-{size}
+        margin: sizepx
+    .mg-tb-{size}
+        margin-top: sizepx
+        margin-bottom: sizepx
+    .mg-t-{size}
+        margin-top: sizepx
+    .mg-b-{size}
+        margin-bottom: sizepx
+    .mg-lr-{size}
+        margin-left: sizepx
+        margin-right: sizepx
+    .mg-l-{size}
+        margin-left: sizepx
+    .mg-r-{size}
+        margin-right: sizepx
+    .pd-{size}
+        padding: sizepx
+    .pd-tb-{size}
+        padding-top: sizepx
+        padding-bottom: sizepx
+    .pd-t-{size}
+        padding-top: sizepx
+    .pd-b-{size}
+        padding-bottom: sizepx
+    .pd-lr-{size}
+        padding-left: sizepx
+        padding-right: sizepx
+    .pd-l-{size}
+        padding-left: sizepx
+    .pd-r-{size}
+        padding-right: sizepx
+// display:none block 便利类
+.d-none
+    display: none
+.d-block
+    display: block
+// display:none block 针对不同屏幕隐藏或者显示
+mediaquerydisplay(screen-type)
+    .d-{screen-type}-none
+        display: none
+    .d-{screen-type}-block
+        display: block
+// 小屏幕 >576
+@media only screen and (min-width: $screen-phone)
+    mediaquerydisplay(sm)
+// 小平板 > 768
+@media only screen and (min-width: $screen-tablet)
+    mediaquerydisplay(md)
+// 大平板   > 992
+@media only screen and (min-width: $screen-bigtablet)
+    mediaquerydisplay(lg)
+// pc > 1200
+@media only screen and (min-width: $screen-pc)
+    mediaquerydisplay(xl)

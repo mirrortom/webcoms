@@ -1,0 +1,74 @@
+﻿<div class="doc-part-box" id="sidemenu">
+  <h2>侧边菜单</h2>
+  <p class="article-title">html结构</p>
+  <p>最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.</p>
+  <pre class="code">
+&lt;nav class="sidemenu-box" id="main_menubox"&gt;
+  &lt;ul class="sidemenu-group"&gt;
+    &lt;li&gt;
+      &lt;span class="sidemenu-label"&gt;零件&lt;/span&gt;&lt;i class="sidemenu-arrdown"&gt;&lt;/i&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a class="sidemenu-item" href="#grid"&gt;册格&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="sidemenu-item" href="#typography"&gt;标题段落&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="sidemenu-item" href="#btn"&gt;按钮&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="sidemenu-item" href="#table"&gt;表格&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="sidemenu-item" href="#form"&gt;表单&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  ...
+&lt;/nav&gt;
+</pre>
+  <div class="grids" id="sidemenutestbox">
+    <div class="grid">
+      <nav class="sidemenu-box" id="sidemenudemo1">
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">第1组</span><i class="sidemenu-arrdown"></i>
+          </li>
+          <li><a class="sidemenu-item">菜单一</a></li>
+          <li><a class="sidemenu-item">菜单二</a></li>
+          <li><a class="sidemenu-item">菜单三</a></li>
+          <li><a class="sidemenu-item">菜单四</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="grid">
+      <nav class="sidemenu-box primary" id="sidemenudemo2">
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">第1组</span><i class="sidemenu-arrdown"></i>
+          </li>
+          <li><a class="sidemenu-item">菜单一</a></li>
+          <li><a class="sidemenu-item">菜单二</a></li>
+          <li><a class="sidemenu-item">菜单三</a></li>
+          <li><a class="sidemenu-item">菜单四</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="grid">
+      <nav class="sidemenu-box danger" id="sidemenudemo3">
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">第1组</span><i class="sidemenu-arrdown"></i>
+          </li>
+          <li><a class="sidemenu-item">菜单一</a></li>
+          <li><a class="sidemenu-item">菜单二</a></li>
+          <li><a class="sidemenu-item">菜单三</a></li>
+          <li><a class="sidemenu-item">菜单四</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <script>
+    sidemenu('sidemenudemo1');
+    sidemenu('sidemenudemo2');
+    sidemenu('sidemenudemo3');
+  </script>
+  <pre class="code">
+// 实例化
+let menu=sidemenu('sidemenudemo1');
+// 点击第0个菜单
+menu.activeItem(0);
+// 点击菜单后执行一个方法
+sidemenu('sidemenudemo1','方法')
+</pre>
+</div>

@@ -1,0 +1,63 @@
+﻿.pagenum
+    // 外框
+    &
+        height: 2.7em
+        line-height: 2.7em
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+    // 按钮框
+    &-btns
+        font-size: 0
+        color: var-font-color
+        background-color: #ffffff
+    // 按钮:后退,页码,活动,前进,省略号
+    &-prev, &-num, &-active, &-next, &-break
+        display: inline-block
+        width: 2.7em
+        text-align: center
+        font-size: 14px
+        border: 1px solid var-graybackse
+        border-left: none
+    // 按钮hover:后退,页码,活动,前进,省略号
+    &-prev:hover, &-num:hover, &-active:hover, &-next:hover
+        text-decoration: none
+        cursor: pointer
+        background-color: var-grayback
+    &-prev
+        border-left: 1px solid var-graybackse
+    &-active, &-active:hover
+        color: #fff
+        background-color: var-graybackse
+    &-break
+        color: var-graybackse
+    &-skip
+        margin-left: 5px
+    &-input
+        width: 2.7em
+        height: 90%
+        text-align: center
+        border: 1px solid var-grayback
+        padding: 0
+        margin: 0 3px
+    &-input:focus
+        outline: 2px solid var-graybackse
+    &-ok
+        display: inline-block
+        width: 3em
+        text-align: center
+        margin-left: 5px
+        color: var-font-color
+        border: 1px solid var-graybackse
+    &-ok:hover
+        text-decoration: none
+        color: var-font-color
+        cursor: pointer
+// 颜色
+pagenumColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in pagenumColors
+    .pagenum
+        &.{key} &-active, &.{key} &-active:hover
+            color: #fff
+            background-color: val

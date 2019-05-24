@@ -1,0 +1,134 @@
+﻿/**
+     缓存页 选项卡标签
+*/
+.tabsbox
+    display: flex
+    position: relative
+    height: 42px
+    line-height: 40px
+    border-bottom: 2px solid var-graybackse
+    box-sizing: border-box
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+// 左右导航按钮
+.tabsbox
+    &-left, &-right
+        flex: 0 1 36px
+        border-left: 1px solid var-graybackse
+        border-right: 1px solid var-graybackse
+        cursor: pointer
+        background-color: #fff
+    &-right
+        text-align: right
+    &-left:before, &-right:before
+        content: ''
+        vertical-align: middle
+    // 按钮三角形
+    &-left:before
+        content: ''
+        triangle(12px, left, var-graybackse)
+    &-right:before
+        content: ''
+        triangle(12px, right, var-graybackse)
+    &-left:hover, &-right:hover
+        background-color: var-grayback
+    // 按钮点击时
+    &-left:active, &-right:active
+        background-color: var-graybackse
+// 右侧功能菜单按钮
+.tabsbox
+    &-menutitle
+        flex-basis: 56px
+        text-align: center
+        background-color: #fff
+    // 按钮三角形
+    &-menutitle:after
+        content: ''
+        triangle(5px, bottom, var-graybackse)
+        margin-left: 2px
+        vertical-align: middle
+    &-menutitle:hover
+        background-color: var-grayback
+    // 鼠标移入时,显示其下菜单项目
+    &-menutitle:hover ~ &-menugroup
+        display: block
+// 菜单项框
+.tabsbox
+    &-menugroup
+        display: none
+        position: absolute
+        top: 40px
+        right: 0
+        width: 120px
+        color: var-grayback
+        text-align: center
+        background-color: #fff
+        border-left: 2px solid var-graybackse
+        border-bottom: 2px solid var-graybackse
+        cursor: pointer
+    &-menugroup:hover
+        display: block
+    // 菜单项
+    &-close-all, &-close-other, &-goto-active
+        display: block
+    // 第1个菜单项加个下边
+    &-goto-active
+        border-bottom: 1px solid #e9ecef
+    // 菜单项hover
+    &-close-all:hover, &-close-other:hover, &-goto-active:hover
+        color: var-font-color
+        background-color: var-graybackse
+// tabs框
+.tabsbox
+    // 选项卡包装框
+    &-navbox
+        flex: 1 1 0
+        width: 0
+        height: 40px
+        overflow: hidden
+        background-color: var-grayback
+    // 选项卡框
+    &-nav
+        position: relative
+        margin-right: 100px
+        white-space: nowrap
+        overflow-x: auto
+    // 选项卡
+    &-tab
+        display: inline-block
+        padding: 0 15px
+        height: 40px
+        border-right: 1px solid var-graybackse
+        font-size: 14px
+        cursor: pointer
+    &-tab:hover
+        background-color: var-graybackse
+    // 活动的选项卡
+    &-tab.active
+        color: #fff
+        background-color: var-font-color
+    // 选项卡关闭按钮
+    &-tabclose
+        display: none
+        width: 16px
+        height: 16px
+        line-height: 16px
+        text-align: center
+        margin-left: 8px
+        border-radius: 50% 50%
+        color: #fff
+        background-color: #CC0000
+        text-decoration: none
+    // 鼠标移入选项卡,显示关闭按钮
+    &-tab:hover &-tabclose
+        display: inline-block
+// 颜色 导航底边,活动选项卡
+cachepageColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in cachepageColors
+    .tabsbox
+        &.{key}
+            border-bottom: 2px solid val
+        &.{key} &-tab.active
+            background-color: val

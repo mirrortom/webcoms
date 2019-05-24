@@ -1,0 +1,199 @@
+﻿// 这两个用于去掉EDGE浏览器下INPUT框输入内容后自动产生的X号和小眼晴图标
+::-ms-clear, ::-ms-reveal
+    display: none
+// 表单元素边框 用于input输入框 多行文本框 select选择框
+ctrl-border()
+    border: 1px solid var-graybackse
+// 表单元素宽度 用于input输入框 多行文本框 select选择框
+ctrl-width()
+    width: 100%
+// 表单元素标题label 垂直水平居中,块级,与input-text高度一样.有四种大小
+// 需要水平对齐方式可再添加文字对齐的类
+form-label($height)
+    display: block
+    height: $height
+    line-height: $height
+    text-align: center
+// 用于input输入框和select下拉框.其中input类型是text,password,email..除了radio check file
+// 边框灰,得到焦点时边框颜色变主色 有四种字体大小 没有设计圆角边框
+input-text()
+    ctrl-border()
+    ctrl-width()
+    height: 2.4em
+    line-height: 2.4em
+    padding: 0.25em
+// input输入框的标题
+.input-label
+    form-label(2.4em)
+// ==0==
+// input输入框
+.input-text
+    input-text()
+// ==1==
+// select选择框
+.select
+    input-text()
+// ==2==
+// 多行文本框
+.textarea
+    ctrl-border()
+    ctrl-width()
+    height: 100px
+    padding: 4px
+    resize: none
+// 多行文本框的标题
+.textarea-label
+    form-label(100px)
+// ==3==
+// 文件上传控件的做法是,将input type插件透明化,盖在标签上.点击标签时,实际点击的是Input file
+// 文件选择控件的外层包装
+.input-file
+    &-box
+        position: relative
+        height: 28px
+        line-height: 28px
+    // input file 透明的覆盖在label上
+    &
+        position: absolute
+        overflow: hidden
+        top: 0
+        left: 0
+        ctrl-width()
+        height: 100%
+        opacity: 0
+        border: none
+        cursor: pointer
+        z-index: 11
+    // 文件上传控件标签
+    &-label
+        position: absolute
+        height: 100%
+        ctrl-border()
+        ctrl-width()
+        color: #555
+        padding: 0 8px
+        z-index: 10
+        overflow: hidden /* 超出时隐藏 */
+        text-overflow: ellipsis /* 文本超出时省略号 */
+        white-space: nowrap /* 不许换行 */
+// ==4==
+// 单选与复选框,使用label的伪类模拟选框,将关联的原生组件透明
+.input-check
+    &
+        // 原生控件透明
+        position: absolute
+        opacity: 0
+    // 单选与复选框的标题
+    &-label
+        z-index: 10
+        cursor: pointer
+    // 单选框与复选框的框框 ,是label的子元素
+    &-label .check, &-label .radio
+        display: inline-block
+        position: relative
+        // 框的高与宽
+        height: 1.2em
+        width: 1.2em
+        // 离文字距离
+        margin-right: 4px
+        border: 1px solid var-graybackse
+        background-color: var-grayback
+        // 对齐与标题底
+        vertical-align: text-bottom
+    // 单选框是圆形框,
+    &-label .radio
+        border-radius: 50%
+    // 选中时,切换模拟DOM的选中状态
+    // input-check选中之后,生成复选框选中状态的勾
+    &:checked + &-label .check:after
+        // 绝对定位于框,左右对齐
+        position: absolute
+        left: 0
+        right: 0
+        margin: auto
+        // 勾是一个方形DOM的边框,去掉上边与左边,旋转45度后得到
+        content: ''
+        width: 0.7em
+        height: 1em
+        border: 3px solid var-font-color
+        border-top: none
+        border-left: none
+        background: transparent
+        -moz-transform: rotate(45deg)
+        -ms-transform: rotate(45deg)
+        -webkit-transform: rotate(45deg)
+        transform: rotate(45deg)
+    // input-radio 选中之后,生成单选框中的圆点
+    &:checked + &-label .radio:after
+        // 绝对定位于框,上下左右对齐
+        position: absolute
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+        margin: auto
+        // 圆点是圆角边框为50%的DOM
+        content: ''
+        width: 0.5em
+        height: 0.5em
+        background-color: var-font-color
+        border-radius: 50%
+// 颜色 复选框和单选框
+inputColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in inputColors
+    .input-check
+        // 复选框选中时,背景为对应色,勾为白色
+        &:checked + &-label.{key} .check
+            background-color: val
+        &:checked + &-label.{key} .check:after
+            border-color: #ffffff
+        // 单选框选中时, 边框和点为对应色
+        &:checked + &-label.{key} .radio
+            border-color: val
+        &:checked + &-label.{key} .radio:after
+            background-color: val
+// 四种大小 默认是14px  并非所有表单元素都设计有
+inputSizes = { sm: 12px, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.6) }
+for key, val in inputSizes
+    // input 文本框的标题
+    .input-label.{key}
+        font-size: val
+    // textarea 多行文本框标题
+    .textarea-label.{key}
+        font-size: val
+    // input 文本框..输入性质的框
+    .input-text.{key}
+        font-size: val
+    // 选择框
+    .select.{key}
+        font-size: val
+    // 复选框和单选框的标题
+    .input-check-label.{key}
+        font-size: val
+// 表单控件悬停时边框色:主色 (输入框,多行框,文件框,下拉框)
+.input-text:hover, .textarea:hover, .select:hover, .input-file:hover + .input-file-label
+    border-color: var-primary
+// 表单控件得焦点时: 外边框色为主色 外边框不占空间位置 (输入框,多行框,文件框,下拉框)
+.input-text:focus, .textarea:focus, .input-file:focus + .input-file-label, .select:focus
+    outline: 2px solid var-primary
+// 传统纸质表单的模仿,在此样式内的表单界面就像纸质的那种.输入框没有边框,是在一个格子中
+// 整体表单是个表格,里面合理分布表单项
+.form-table-box
+    // 外边框
+    border: 1px solid var-graybackse
+    // 内边框 各表单项边框由grids底边框和grid右边框组成.除了最后一个元素不含边框外,因为会与大边框重合
+    .grids:not(:last-child)
+        border-bottom: 1px solid var-graybackse
+    .grids [class*=grid]:not(:last-child)
+        border-right: 1px solid var-graybackse
+    // 输入框边框去掉
+    .input-text, .textarea
+        border: none
+    // 输入框焦点时,背景色变化,以示可以编辑
+    .input-text:hover, .input-text:focus, .textarea:hover, .textarea:focus
+        background-color: var-grayback
+        outline: none
+    // .textarea多行文本框高度自动适应册格高度,但最小高度为100px
+    .textarea, .input-text
+        height: 100%
+        line-height: 100%

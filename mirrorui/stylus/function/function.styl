@@ -1,0 +1,21 @@
+﻿// 利用CSS边框法画一个三角形 参数$size:大小,$dir:顶角方向(上,右,下,左),,$color:颜色
+triangle($size = 24px, $dir = left, $color = var(--primary))
+    display: inline-block
+    width: 0
+    height: 0
+    border: $size solid transparent
+    if ($dir == top)
+        border-bottom-color: $color
+    else if ($dir == right)
+        border-left-color: $color
+    else if ($dir == bottom)
+        border-top-color: $color
+    else
+        border-right-color: $color
+//    元素获得焦点时,谷歌,火狐,EDGE显示的外观不一样,
+//    谷歌有一个边框.此函数整掉这个差异
+tab-focus()
+    outline: 5px auto -webkit-focus-ring-color
+    outline-offset: -2px
+
+

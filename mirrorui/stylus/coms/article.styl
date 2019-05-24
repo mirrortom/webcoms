@@ -1,0 +1,20 @@
+﻿/*
+    文章标题
+*/
+.article-title
+    border-left: 5px solid
+    font-weight: 600
+    padding: 0.5em 0 0.5em 1em
+    margin: 0.5em auto
+    border-left-color: var-graybackse
+    font-size: var(--font-size)
+// 颜色
+articleColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in articleColors
+    .article-title.{key}
+        border-left-color: val
+// 增加两种字体大小
+articleSize = { sm: 12px, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.5) }
+for key, val in articleSize
+    .article-title.{key}
+        font-size: val

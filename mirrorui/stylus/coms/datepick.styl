@@ -1,0 +1,159 @@
+﻿// 日期时间
+// 外层容器
+.date-box
+    position: absolute
+    box-sizing: border-box
+    width: 308px
+    cursor: default
+    border: 1px solid var-graybackse
+    padding: 10px 5px
+    text-align: center
+    box-shadow: 1px 1px 10px var-graybackse
+    background-color: #fff
+    font-size: 14px
+    outline: none
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+// 年月今天(第一行)
+.date-area
+    // 年,月,今天容器
+    &-ymt
+        display: flex
+        box-sizing: border-box
+    // 年,月,今天按钮容器
+    &-year, &-month, &-today
+        position: relative
+        box-sizing: border-box
+        padding: 0 4px
+    &-year
+        flex: 0 1 44%
+    &-month
+        flex: 0 1 38%
+    &-today
+        flex: 0 1 18%
+// 星期容器(第二行)
+.date-area-week
+    display: flex
+    box-sizing: border-box
+    padding: 5px 0
+// 日容器(第三行)
+.date-area-day
+    display: flex
+    box-sizing: border-box
+    flex-wrap: wrap
+// 时,分,秒,删除,确定 容器(第四行)
+.date-area
+    // 时,分,秒,删除,确定 容器
+    &-tc
+        display: flex
+        position: relative
+    &-time, &-clear, &-ok
+        border-top: 1px solid var-graybackse
+        padding-top: 10px
+    &-time
+        flex: 0 1 64%
+    &-clear, &-ok
+        flex: 0 1 18%
+        padding-left: 4px
+        padding-right: 4px
+// 年份,月份,小时,分钟,秒 选项容器
+.date-select
+    &-year, &-month, &-hour, &-minute, &-second
+        display: flex
+        flex-wrap: wrap
+        position: absolute
+        left: 0
+        border: 1px solid var-graybackse
+        border-radius: 4px
+        border-top: none
+        background-color: var-grayback
+        z-index: 9999
+    &-month
+        width: 100%
+    &-year
+        width: 200px
+        height: 180px
+        overflow-x: hidden
+        overflow-y: scroll
+        padding: 10px 0
+    &-hour, &-minute, &-second
+        width: 100%
+        bottom: 28px
+// 年份,月份,小时,分钟,秒 选项
+.date-option
+    &-year, &-month, &-hour, &-minute, &-second
+        border-bottom: 1px solid var-graybackse
+        height: 28px
+        line-height: 28px
+        font-weight: 500
+    &-year, &-month
+        flex: 0 1 33.33333333%
+    &-year:hover, &-month:hover, &-hour:hover, &-minute:hover, &-second:hover
+        background-color: var-graybackse
+    // 当前选中的年份,月份
+    &-year.selected, &-month.selected
+        background-color: var-primary
+    &-hour
+        flex: 0 1 16.66666666%
+    &-minute, &-second
+        flex: 0 1 10%
+// 年,月,今天,前进,后退,时,分,秒,清空,确定 按钮
+.date-btn
+    &-year, &-month, &-today, &-prev, &-next, &-time, &-clear, &-ok
+        display: inline-block
+        font-weight: 600
+        border: 1px solid var-graybackse
+        border-radius: 3px
+        height: 26px
+        line-height: 26px
+        cursor: pointer
+    &-year, &-month
+        box-sizing: border-box
+        color: var-font-color
+        width: calc(100% - 52px)
+    &-today, &-prev, &-next
+        box-sizing: border-box
+        color: var-primary
+    &-today, &-clear, &-ok
+        width: 100%
+    &-clear, &-ok
+        font-weight: 500
+        color: var-font-color
+    &-prev, &-next
+        width: 26px
+    &-clear:hover, &-ok:hover, &-prev:hover, &-next:hover
+        background-color: var-grayback
+    &-time
+        font-weight: 500
+        width: 32px
+        margin: 0 5px
+    // 时,分,秒 选项框打开时
+    &-time.open
+        color: #fff
+        background-color: var-primary
+// 星期项,日项
+.date-item
+    &-week, &-day
+        flex: 0 1 14.28571428%
+        font-weight: 500
+        height: 28px
+        line-height: 28px
+        border-radius: 3px
+    &-week
+        font-weight: 600
+    // 周六和周日
+    &-weekend
+        color: #cc0000
+    &-day:hover
+        background-color: var-grayback
+    // 不属于当前月份的日项
+    &-dayoutmonth
+        opacity: 0.3
+    &-day.selected:not(&-today)
+        background-color: var-graybackse
+    // 当天
+    &-today, &-today:hover
+        color: #fff
+        background-color: var-primary

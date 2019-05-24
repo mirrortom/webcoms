@@ -1,0 +1,51 @@
+﻿// 标签页,选项卡页
+
+// <div id="mytabs1" class="tabs-box" >
+// <div class="tabs-header" >
+// <span class="tabs-label" ></span>
+// <span class="tabs-label" ></span>
+// <span class="tabs-label" ></span>
+// </div >
+// <div class="tabs-panel" ></div>
+// <div class="tabs-panel" ></div >
+// <div class="tabs-panel" ></div >
+// </div>
+.tabs
+    // 外层框
+    &-box
+        position: relative
+    // 选项卡框
+    &-header
+        display: flex
+        border-bottom: 2px solid var-graybackse
+    // 选项卡
+    &-label
+        flex: 0 1 auto
+        padding: 0 15px
+        height: 31px
+        line-height: 30px
+        background-color: var-grayback
+        color: var-font-color
+        cursor: pointer
+    // 选项卡均分整行
+    &-box.full &-label
+        flex: 1 1 0
+    // 选项卡激活时颜色
+    &-label.active
+        background-color: var-graybackse
+        color: #ffffff
+    // 其它颜色
+    tabsColors = { primary: var-primary, danger: var-danger, success: var-success }
+    for key, val in tabsColors
+        // 选项卡框底边色
+        &-box.{key} &-header
+            border-bottom-color: val
+        // 选项卡激活时色
+        &-box.{key} &-label.active
+            background-color: val
+    // 面板
+    &-panel
+        display: none
+    // 活动面板
+    &-panel.active
+        display: block

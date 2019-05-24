@@ -1,0 +1,129 @@
+﻿// 按钮
+button()
+    display: inline-block
+    padding: 0.4em 0.7em
+    font-size: var-font-size
+    font-weight: 400
+    color: var-primary
+    text-align: center
+    background-color: #ffffff
+    border: 1px solid var-grayback
+    cursor: pointer
+    outline: none
+    user-select: none
+    transition: background-color 0.6s
+// hover时
+btn-hover($font-color, $bg-color, $border-color)
+    color: $font-color
+    background-color: $bg-color
+    border: 1px solid $border-color
+    // a标记做按钮时,不要下划线
+    text-decoration: none
+// 点击时
+.btn:active
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+@css {
+    /*禁用(样式来自bt)*/
+    .btn.disabled{
+        cursor: not-allowed;
+        filter: alpha(opacity = 65);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        opacity: 0.65;
+    }
+    .btn.loading{
+        background-image: url(data:image/gif;base64,R0lGODlhEAALALMMAOXp8a2503CHtOrt9L3G2+Dl7vL0+J6sy4yew1Jvp/T2+e/y9v///wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCwAMACwAAAAAEAALAAAEK5DJSau91KxlpObepinKIi2kyaAlq7pnCq9p3NZ0aW/47H4dBjAEwhiPlAgAIfkECQsADAAsAAAAAAQACwAABA9QpCQRmhbflPnu4HdJVAQAIfkECQsADAAsAAAAABAACwAABDKQySlSEnOGc4JMCJJk0kEQxxeOpImqIsm4KQPG7VnfbEbDvcnPtpINebJNByiTVS6yCAAh+QQJCwAMACwAAAAAEAALAAAEPpDJSaVISVQWzglSgiAJUBSAdBDEEY5JMQyFyrqMSMq03b67WY2x+uVgvGERp4sJfUyYCQUFJjadj3WzuWQiACH5BAkLAAwALAAAAAAQAAsAAAQ9kMlJq73hnGDWMhJQFIB0EMSxKMoiFcNQmKjKugws0+navrEZ49S7AXfDmg+nExIPnU9oVEqmLpXMBouNAAAh+QQFCwAMACwAAAAAEAALAAAEM5DJSau91KxlpOYSUBTAoiiLZKJSMQzFmjJy+8bnXDMuvO89HIuWs8E+HQYyNAJgntBKBAAh+QQFFAAMACwMAAIABAAHAAAEDNCsJZWaFt+V+ZVUBAA7);
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        padding-right: 2.2em;
+        cursor: wait;
+    }
+}
+.btn
+    // 圆角
+    &.cir
+        border-radius: 4px
+    // 块极按钮
+    &.block
+        display: block
+// /////////////////////////////////////////////////////////////////////////////////
+// 默认按钮
+.btn
+    button()
+// 默认按钮hover
+.btn:hover
+    btn-hover(var-primaryse, var-grayback, var-graybackse)
+// 其它背景颜色 特别注意{插值}不能用于属性的值
+.btn.primary
+    color: #ffffff
+    background-color: var-primary
+    border-color: var-primaryse
+.btn.primary:hover
+    btn-hover(#ffffff, var-primaryse, var-primaryse)
+// 
+.btn.danger
+    color: #ffffff
+    background-color: var-danger
+    border-color: var-dangerse
+.btn.danger:hover
+    btn-hover(#ffffff, var-dangerse, var-dangerse)
+.btn.success
+    color: #ffffff
+    background-color: var-success
+    border-color: var-successse
+.btn.success:hover
+    btn-hover(#ffffff, var-successse, var-successse)
+// 四种大小 默认是14px
+btnSize = { sm: 12px, lg: 18px, xl: 24px }
+for key, val in btnSize
+    .btn.{key}
+        font-size: val
+// 链接式按钮
+.btn.link
+    color: var-primary
+    border-color: transparent
+    background-color: transparent
+    // 链接式按钮hover
+    &:hover
+        color: var-primary
+        text-decoration: underline
+        background-color: transparent
+    // 点击时
+    &:active
+        color: var-primaryse
+        box-shadow: none
+// /////////////////////////////////////////////////////////////////////////////////////
+// 按钮组
+.btn-group
+    display: inline-flex
+    & > .btn
+        flex: auto
+    // 按钮组首尾加圆角
+    &.cir > .btn:first-child
+        border-radius: 4px 0 0 4px
+    &.cir > .btn:last-child
+        border-radius: 0 4px 4px 0
+// 下拉式按钮组
+.btn-list
+    // 外框
+    &-group
+        position: relative
+    // 鼠标hover时,显示下拉按钮组
+    &-group:hover &-area
+        display: block
+    // 第1个按钮是标题
+    &-group > .btn:after
+        content: ''
+        triangle(0.4em, bottom, var-font-color)
+        vertical-align: middle
+        margin-left: 4px
+    // 下拉按钮组框
+    &-area
+        display: none
+        position: absolute
+        left: 0
+        right: 0
+    // 让按钮占满下拉框
+    &-area .btn
+        display: block
