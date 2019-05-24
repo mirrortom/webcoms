@@ -1,6 +1,8 @@
 # 一些webui组件
 为什么要重复造轮子呢?  
 其意义不再于造了更劣质的轮子,而是熟悉造法.
+## mirrorui 模仿bt
+学习bootstrap快速增加前端熟悉度,模仿它做一个webui  
 ## msgbox 弹出层
 弹出框,模仿了alert confirm prompt  
 弹出自定义html片段  

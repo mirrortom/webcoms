@@ -30,6 +30,8 @@
     <RootNamespace>mirrorui</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="img\msgboxlayer.png" />
+    <Content Include="img\imgdemo.gif" />
     <Content Include="js\cachepage.js" />
     <Content Include="js\form.js" />
     <Content Include="js\msgbox.js" />
@@ -45,12 +47,6 @@
     <Content Include="mirrorui.min.js">
       <DependentUpon>mirrorui.js</DependentUpon>
     </Content>
-    <Content Include="test.css">
-      <DependentUpon>test.styl</DependentUpon>
-    </Content>
-    <Content Include="test.min.css">
-      <DependentUpon>test.css</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -58,6 +54,8 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="doc\parts\toolclass.part.cshtml" />
+    <None Include="doc\parts\imagedemo.part.cshtml" />
     <None Include="index.cshtml" />
     <None Include="doc\parts\-------.part.cshtml" />
     <None Include="doc\parts\article.part.cshtml" />
@@ -77,9 +75,7 @@
     <None Include="doc\parts\table.part.cshtml" />
     <None Include="doc\parts\tabs.part.cshtml" />
     <None Include="doc\parts\h1h6p.part.cshtml" />
-    <None Include="mixins\all_mixins.scss" />
     <None Include="stylus\function\function.styl" />
-    <None Include="mixins\utilities.scss" />
     <None Include="stylus\coms\article.styl" />
     <None Include="stylus\coms\h1h6p.styl" />
     <None Include="stylus\base.styl" />
@@ -102,7 +98,6 @@
     <None Include="stylus\variables\font.styl" />
     <None Include="stylus\variables\mediaquery.styl" />
     <None Include="stylus\coms\tools.styl" />
-    <None Include="test.styl" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
