@@ -13,7 +13,7 @@
       grid-template-columns: 210px auto;
     }
 
-    .menu-box{
+    .menu-box {
       position: sticky;
       top: 0;
       width: 94%;
@@ -26,7 +26,13 @@
 <body>
   <div class="page">
     <div class="menu-box">
-      <nav class="sidemenu-box" id="main_menubox">
+      <nav class="sidemenu-box primary" id="main_menubox">
+        <div class="grids-5">
+          @foreach (var item in new string[] { "690,578200", "3366ff,0544ff", "ff6600,d95700", "ff33cc,ff05c1", "ccccff,8787ff" })
+          {
+            <span onclick="chgprimary('@item')" style="width:24px;height:24px;background-color:#@item.Split(',')[0]"></span>
+          }
+        </div>
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">零件</span><i class="sidemenu-arrdown"></i>
@@ -55,7 +61,7 @@
           <li><a class="sidemenu-item" href="#sidemenu">侧边菜单</a></li>
           <li><a class="sidemenu-item" href="#cachepage">缓存页</a></li>
         </ul>
-        
+
         <ul class="sidemenu-group">
           <li><i class="sidemenu-icon fa fa-bolt"></i><span class="sidemenu-label">设计</span><i class="sidemenu-arrdown"></i></li>
           <li><a class="sidemenu-item" href="#design_form">表单设计</a></li>
@@ -115,6 +121,11 @@
   <script>
     // 为主菜单绑定点击事件 点击后加上sidemenu-active类,标识为活动菜单
     sidemenu('main_menubox');
+    function chgprimary(color) {
+      let carr = color.split(',');
+      document.body.style.setProperty('--primary', '#' + carr[0]);
+      document.body.style.setProperty('--primaryse', '#' + carr[1]);
+    }
   </script>
 </body>
 </html>
