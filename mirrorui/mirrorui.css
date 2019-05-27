@@ -85,6 +85,24 @@ img {
 .text-justify {
   text-align: justify !important;
 }
+.text-primary {
+  color: var(--primary) !important;
+}
+.text-danger {
+  color: var(--danger) !important;
+}
+.text-success {
+  color: var(--success) !important;
+}
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+.bg-danger {
+  background-color: var(--danger) !important;
+}
+.bg-success {
+  background-color: var(--success) !important;
+}
 .mg-5 {
   margin: 5px;
 }
@@ -1241,18 +1259,18 @@ p {
 .sidemenu-item.active {
   font-weight: 600;
 }
-.sidemenu-group li:first-child {
-  position: relative;
-  cursor: pointer;
-}
 .sidemenu-label {
+  display: block;
+  position: relative;
+  width: 100%;
   padding: 5px;
   font-weight: 600;
+  cursor: pointer;
 }
 .sidemenu-arrleft,
 .sidemenu-arrdown {
   position: absolute;
-  top: 0.3em;
+  top: 10px;
   right: 0;
 }
 .sidemenu-arrleft {
@@ -1269,7 +1287,7 @@ p {
   border: 8px solid transparent;
   border-top-color: var(--font-color);
 }
-.sidemenu-group-close ~ li {
+.sidemenu-group-close .sidemenu-item {
   display: none;
 }
 .sidemenu-box.primary {

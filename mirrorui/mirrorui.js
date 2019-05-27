@@ -20,17 +20,18 @@
     let bindEvent_menuGroup = (menuDom) => {
         let showClsN = 'sidemenu-arrdown',
             hideClsN = 'sidemenu-arrleft';
-        menuDom.querySelectorAll('.sidemenu-group li:first-child').forEach((item) => {
+        menuDom.querySelectorAll('.sidemenu-label').forEach((item) => {
             item.onclick = () => {
-                let arrowDom = item.querySelector(`.${showClsN},.${hideClsN}`);
+                let arrowDom = item.parentNode.querySelector(`.${showClsN},.${hideClsN}`);
                 if (arrowDom.classList.contains(showClsN)) {
                     arrowDom.classList.remove(showClsN);
                     arrowDom.classList.add(hideClsN);
-                    item.classList.add('sidemenu-group-close');
+                    // 找到ul
+                    item.parentNode.parentNode.classList.add('sidemenu-group-close');
                 } else {
                     arrowDom.classList.add(showClsN);
                     arrowDom.classList.remove(hideClsN);
-                    item.classList.remove('sidemenu-group-close');
+                    item.parentNode.parentNode.classList.remove('sidemenu-group-close');
                 }
             }
         });

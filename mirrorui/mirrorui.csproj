@@ -47,6 +47,12 @@
     <Content Include="mirrorui.min.js">
       <DependentUpon>mirrorui.js</DependentUpon>
     </Content>
+    <Content Include="test.css">
+      <DependentUpon>test.styl</DependentUpon>
+    </Content>
+    <Content Include="test.min.css">
+      <DependentUpon>test.css</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -98,6 +104,7 @@
     <None Include="stylus\variables\font.styl" />
     <None Include="stylus\variables\mediaquery.styl" />
     <None Include="stylus\coms\tools.styl" />
+    <None Include="test.styl" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

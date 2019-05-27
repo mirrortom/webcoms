@@ -13,6 +13,16 @@
 // 文本两端对齐
 .text-justify
     text-align: justify !important
+// 文字主题色
+textColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in textColors
+    .text-{key}
+        color: val !important
+// 背景主题色
+bgColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in bgColors
+    .bg-{key}
+        background-color: val !important
 // margin padding 固定设定便利类
 for size in range(5, 50, 5)
     sizepx = size * 1px

@@ -27,25 +27,25 @@
     // 菜单项选中
     &-item.active
         font-weight: 600
-    // 菜单组li 每个菜单组的第一个li
-    &-group li:first-child
-        position: relative
-        cursor: pointer
-    // 菜单组标题 第一个li里的span
+    // 菜单组标题
     &-label
+        display: block
+        position: relative
+        width: 100%
         padding: 5px
         font-weight: 600
+        cursor: pointer
     // 菜单组标题右侧三角型 向左(收起时) 向下(展开时)
     &-arrleft, &-arrdown
         position: absolute
-        top: 0.3em
+        top: 10px
         right: 0
     &-arrleft
         triangle(8px, left, var-font-color)
     &-arrdown
         triangle(8px, bottom, var-font-color)
     // 菜单组关闭
-    &-group-close ~ li
+    &-group-close &-item
         display: none
 // 颜色
 sidemenuColors = { primary: var-primary, danger: var-danger, success: var-success }
