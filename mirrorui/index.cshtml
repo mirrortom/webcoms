@@ -21,6 +21,9 @@
       overflow-x: hidden;
       overflow-y: auto;
     }
+    .doc-part-box{
+      margin:50px auto;
+    }
   </style>
 </head>
 <body>
@@ -38,7 +41,8 @@
             <span class="sidemenu-label">零件<i class="sidemenu-arrdown"></i></span>
           </li>
           <li><a class="sidemenu-item" href="#grid">册格</a></li>
-          <li><a class="sidemenu-item" href="#typography">标题段落</a></li>
+          <li><a class="sidemenu-item" href="#typography">大标题</a></li>
+          <li><a class="sidemenu-item" href="#hrline">hr分隔线</a></li>
           <li><a class="sidemenu-item" href="#btn">按钮</a></li>
           <li><a class="sidemenu-item" href="#table">表格</a></li>
           <li><a class="sidemenu-item" href="#form">表单</a></li>
@@ -79,43 +83,45 @@
       </div>
       @*片段页路径实际上是Key,不能使用变量,否则会找不到页面*@
       @Include("/doc/parts/grids.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/h1h6p.part.cshtml")
-      <br />
+      
+      @Include("/doc/parts/hrline.part.cshtml")
+      
       @Include("/doc/parts/btn.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/table.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/form.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/imagedemo.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/toolclass.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/btngroup.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/label.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/article.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/msgpanel.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/panel.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/tabs.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/msgbox.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/datetime.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/pagenum.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/sidemenu.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/cachepage.part.cshtml")
-      <br />
+      
       @Include("/doc/parts/design_form.part.cshtml")
-      <br />
+      
     </div>
   </div>
   <script>

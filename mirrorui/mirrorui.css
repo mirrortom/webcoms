@@ -734,6 +734,23 @@ h6 {
 p {
   margin: 0 0 var(--font-size);
 }
+.line {
+  height: 1px;
+  background-color: var(--graybackse);
+  border: none;
+  outline: none;
+  margin: calc(var(--font-size) * 2) auto;
+  padding: 0;
+}
+.line.primary {
+  background-color: var(--primary);
+}
+.line.danger {
+  background-color: var(--danger);
+}
+.line.success {
+  background-color: var(--success);
+}
 .btn:active {
   -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
   box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);

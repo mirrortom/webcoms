@@ -1,0 +1,13 @@
+﻿// hr元素,偶尔用一下
+.line
+    height: 1px
+    background-color: var-graybackse
+    border: none
+    outline: none
+    margin: calc(var(--font-size) * 2) auto
+    padding: 0
+// 颜色
+lineColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in lineColors
+    .line.{key}
+        background-color: val
