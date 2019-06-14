@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style>
+        body {
+            background-color: #1c74a6;
+            color: #fff;
+        }
+        @media only screen and (min-width:200px) and (max-width:1024px) {
+            .error {
+                width: 100%;
+                text-align: center;
+                margin-top: 31%;
+            }
+
+            .title {
+                font-size: 32px;
+                font-weight: 600;
+            }
+
+            .msg {
+                font-size: 16px;
+                letter-spacing:2px;
+            }
+
+            .msge {
+                font-size: 18px;
+            }
+        }
+
+        @media only screen and (min-width:1024px) {
+            .error {
+                width: 980px;
+                text-align: center;
+                margin: 0 auto;
+                margin-top: 12%;
+            }
+
+            .title {
+                font-size: 36px;
+                font-weight:600;
+            }
+
+            .msg {
+                font-size: 18px;
+                letter-spacing: 4px;
+            }
+
+            .msge {
+                font-size: 20px;
+            }
+        }
+
+        .title, .msg, .msge {
+            margin-bottom: 20px;
+        }
+    </style>
+    <title>ERROR</title>
+</head>
+<body>
+    <div class="container error">
+        <div class="title">: (&nbsp;404!</div>
+        <div class="msg">发生了错误!服务器未能找到页面!</div>
+        <div class="msge">Server Error! No Page!</div>
+    </div>
+</body>
+</html>

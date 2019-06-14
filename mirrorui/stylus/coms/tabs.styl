@@ -31,21 +31,45 @@
     &-box.full &-label
         flex: 1 1 0
     // 选项卡激活时颜色
-    &-label.active
+    &-label.active, &-box.list &-label.active
         background-color: var-graybackse
         color: #ffffff
-    // 其它颜色
-    tabsColors = { primary: var-primary, danger: var-danger, success: var-success }
-    for key, val in tabsColors
-        // 选项卡框底边色
-        &-box.{key} &-header
-            border-bottom-color: val
-        // 选项卡激活时色
-        &-box.{key} &-label.active
-            background-color: val
     // 面板
     &-panel
         display: none
     // 活动面板
     &-panel.active
         display: block
+// 竖向的
+.tabs
+    // 外层框
+    &-box.list
+        display: grid
+        grid-template-columns: 108px auto
+    // 选项卡框
+    &-box.list &-header
+        display: block
+        border: none
+        border-right: 2px solid var-graybackse
+    // 选项卡
+    &-box.list &-label
+        height: auto
+        line-height: normal
+        display: block
+        padding: 10px
+        background-color: var-grayback
+        color: var-font-color
+        cursor: pointer
+        text-align: center
+// 颜色
+tabsColors = { primary: var-primary, danger: var-danger, success: var-success }
+.tabs
+    for key, val in tabsColors
+        // 选项卡框底边色
+        &-box.{key} &-header
+            border-bottom-color: val
+        &-box.list.{key} &-header
+            border-right-color: val
+        // 选项卡激活时色
+        &-box.{key} &-label.active, &-box.list.{key} &-label.active
+            background-color: val

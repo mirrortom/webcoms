@@ -99,13 +99,25 @@ tabs('mytabs1',1);
     </div>
     <br />
   }
-
+  <p class="article-title primary">列表形式</p>
+  <p>加上list类 class="tabs-box list"</p>
+  <div id="mytabs_list" class="tabs-box list">
+    <div class="tabs-header">
+      <span class="tabs-label">选项1</span>
+      <span class="tabs-label">选项2</span>
+      <span class="tabs-label">选项3</span>
+    </div>
+    <div class="tabs-panel">选项1-内容</div>
+    <div class="tabs-panel">选项2-内容</div>
+    <div class="tabs-panel">选项3-内容</div>
+  </div>
   <script>
     tabs('mytabs1');
-    tabs('mytabs2',1,1);
-    tabs('mytabs3',0,2);
-    tabs('mytabs_primary',0);
-    tabs('mytabs_success',1);
-    tabs('mytabs_danger',2);
+    tabs('mytabs2', 1, 1);
+    tabs('mytabs3', 0, 2);
+    tabs('mytabs_primary', 0);
+    tabs('mytabs_success', 1);
+    tabs('mytabs_danger', 2);
+    tabs('mytabs_list');
   </script>
 </div>
