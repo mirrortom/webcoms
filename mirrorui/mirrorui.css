@@ -1276,6 +1276,9 @@ p {
 .sidemenu-item.active {
   font-weight: 600;
 }
+.sidemenu-item:hover {
+  background-color: var(--graybackse);
+}
 .sidemenu-label {
   display: block;
   position: relative;
@@ -1324,6 +1327,9 @@ p {
 }
 .sidemenu-box.success .sidemenu-item.active {
   color: #fff;
+}
+-box.success -item:hover {
+  background-color: var(--grayback);
 }
 .panel {
   border: 1px solid var(--graybackse);
