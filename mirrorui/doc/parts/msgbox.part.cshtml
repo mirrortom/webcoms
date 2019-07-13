@@ -15,7 +15,7 @@
   <p>原理来自研究bootstrap的弹出层.模仿实现三种系统弹出框alert confirm prompt</p>
   <p>msgbox.alert(文本消息,[回调事件],[按钮样式:primary,danger,success],[弹出位置:center,top,bottom])</p>
   <h1>alert</h1>
-  <button class="testbtn" onclick="msgbox.alert('msgbox.alert,默认正中','','','primary')">msgbox.alert('msgbox.alert,默认正中','','primary')</button>
+  <button class="testbtn" onclick="msgbox.alert('msgbox.alert,默认正中','','primary')">msgbox.alert('msgbox.alert,默认正中','','','primary')</button>
   <button class="testbtn" onclick="msgbox.alert('msgbox.alert,上','','','top')">msgbox.alert('msgbox.alert,上')</button>
   <button class="testbtn" onclick="msgbox.alert('msgbox.alert,下','','','bottom')">msgbox.alert('msgbox.alert,下')</button>
 
@@ -23,12 +23,12 @@
   <button class="testbtn" onclick="msgbox.confirm('msgbox.confirm,默认正中',confirmCall,'danger')">msgbox.confirm('msgbox.confirm,默认正中',confirmCall,'danger')</button>
   <button class="testbtn" onclick="msgbox.confirm('msgbox.confirm,上',confirmCall,'','top')">msgbox.confirm('msgbox.confirm,上')</button>
   <button class="testbtn" onclick="msgbox.confirm('msgbox.confirm,下',confirmCall,'','bottom')">msgbox.confirm('msgbox.confirm,下')</button>
-  <p><label>confirm结果</label>&nbsp;<span id="confirmRes"></span></p>
+  <p><label>confirm结果</label>&nbsp;<span id="confirmRes" class="label primary"></span></p>
   <h1>prompt</h1>
   <button class="testbtn" onclick="msgbox.prompt('msgbox.prompt,默认正中',promptCall,'success')">msgbox.prompt('msgbox.prompt,默认正中',promptCall,'success')</button>
   <button class="testbtn" onclick="msgbox.prompt('msgbox.prompt,上',promptCall,'','top')">msgbox.prompt('msgbox.prompt,上')</button>
   <button class="testbtn" onclick="msgbox.prompt('msgbox.prompt,下',promptCall,'','bottom')">msgbox.prompt('msgbox.prompt,下')</button>
-  <p><label>prompt结果</label>&nbsp;<span id="promptRes"></span></p>
+  <p><label>prompt结果</label>&nbsp;<span id="promptRes" class="label primary"></span></p>
   <h4>自定义弹出层</h4>
   <p>自定义框是一个HTML片段,弹出的本质是在将它显示在弹出层父级上</p>
   <img src="img/msgboxlayer.png" alt="" width="600"/>

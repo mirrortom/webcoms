@@ -14,7 +14,7 @@
       border: 1px solid #ffffff;
     }
   </style>
-  <p>对div使用display:grid ; grid-template-columns: repeat(12,8.3333%); 就实现了</p>
+  <p>对div使用样式 {display:grid ; grid-template-columns: repeat(12,8.3333%);} 就实现了</p>
   <pre>
 .demo-grids {
   display: grid;
@@ -28,7 +28,9 @@
     }
   </div>
   <br />
-  <p>为了方便,制做便利类, .grids-n n=(1~12) 例如在div上加.grids-7 其下项目会自动均分1/7宽度</p>
+  <h3>册格便利类</h3>
+  <p>为了方便,制做便利类, .grids-n n=(1~12)</p>
+  <p>在div册格容器上使用样式 .grids-7 其下项目会自动均分1/7宽度</p>
   <div class="grids-7">
     @for (int i = 0; i < 7; i++)
     {
@@ -36,7 +38,7 @@
     }
   </div>
   <br />
-  <p>.grids 则其下自动根据项目个数均分宽度</p>
+  <p>在div册格容器上使用样式 .grids 则其下项目自动根据个数均分宽度</p>
   <div class="grids">
     @for (int i = 0; i < 9; i++)
     {
@@ -44,14 +46,14 @@
     }
   </div>
   <br />
-  <p>.grid-n 由项目占比</p>
+  <p>在div册格的项目元素上使用样式 .grid-n n=(1~12) 则项目占比n/12</p>
   <div class="grids">
     <span class="grid-3 demo-grid text-center">grid-3</span>
     <span class="grid-4 demo-grid text-center">grid-4</span>
     <span class="grid-5 demo-grid text-center">grid-5</span>
   </div>
   <br />
-  <p>混合使用grid和grid-x,其中grid-x占用指定宽度,grid则均分剩于空间</p>
+  <p>在div册格的项目元素上混合使用样式 .grid和.grid-n,其中grid-n占用指定宽度,grid则均分剩于空间</p>
   <div class="grids">
     <div class="grid demo-grid text-center">均分</div>
     <div class="grid-5 demo-grid text-center">固定占grid-5</div>
