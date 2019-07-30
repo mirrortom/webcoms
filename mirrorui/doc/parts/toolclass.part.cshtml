@@ -1,4 +1,7 @@
-﻿<div class="doc-part-box" id="toolclass">
+﻿@{ 
+    string[] colors = new string[] {"primary","danger","success","gray" };
+}
+<div class="doc-part-box" id="toolclass">
   <h2>便利样式</h2>
   <p class="article-title">文本超出省略</p>
   <p class="text-overflow" style="width:100px" title="text-overflow文本超出时,显示省略号">text-overflow文本超出时,显示省略号</p>
@@ -7,17 +10,29 @@
   <p>text-left text-center text-right text-justify:两端对齐</p>
 
   <p class="article-title">文本主题色</p>
-  <div class="grids-3">
-    <p class="text-primary">class="text-primary"</p>
-    <p class="text-danger">class="text-danger"</p>
-    <p class="text-success">class="text-success"</p>
+  <div class="grids-4">
+    @foreach (var item in colors)
+    {
+      <p class="text-@item">class="text-@item"</p>
+    }
+    @foreach (var item in colors)
+        {
+          string se = item + "se";
+      <p class="text-@se">class="text-@se"</p>
+    }
   </div>
 
   <p class="article-title">背景主题色</p>
-  <div class="grids-3">
-    <p class="bg-primary pd-5">class="bg-primary"</p>
-    <p class="bg-danger pd-5">class="bg-danger"</p>
-    <p class="bg-success pd-5">class="bg-success"</p>
+  <div class="grids-4">
+    @foreach (var item in colors)
+    {
+      <p class="bg-@item pd-5 text-grayse">class="bg-@item"</p>
+    }
+    @foreach (var item in colors)
+    {
+      string se = item + "se";
+      <p class="bg-@se pd-5">class="bg-@se"</p>
+    }
   </div>
 
   <p class="article-title">margin padding</p>

@@ -3,6 +3,7 @@ for i in range(1, 12)
     .grids-{i}
         display: grid
         grid-template-columns: repeat(i, percentage((1 / i)))
+        overflow: hidden
 // flex布局,册格工具样式定义,可使用其内项目定制册格占比
 .grids
     display: flex
@@ -10,7 +11,9 @@ for i in range(1, 12)
 // 均分的册格 n个册格,宽度为1/n
 .grid
     flex: 1 1 0
+    overflow: hidden
 // 12列册格(mixinx) 默认用于手机,移动优先
 for i in range(1, 12)
     .grid-{i}
         flex: 0 1 percentage((i / 12))
+        overflow: hidden

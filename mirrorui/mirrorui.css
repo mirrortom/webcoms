@@ -68,7 +68,8 @@ img {
 .img-circle {
   border-radius: 50%;
 }
-.text-overflow {
+.text-overflow,
+.sidemenu-item {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -94,6 +95,21 @@ img {
 .text-success {
   color: var(--success) !important;
 }
+.text-gray {
+  color: var(--grayback) !important;
+}
+.text-primaryse {
+  color: var(--primaryse) !important;
+}
+.text-dangerse {
+  color: var(--dangerse) !important;
+}
+.text-successse {
+  color: var(--successse) !important;
+}
+.text-grayse {
+  color: var(--graybackse) !important;
+}
 .bg-primary {
   background-color: var(--primary) !important;
 }
@@ -102,6 +118,21 @@ img {
 }
 .bg-success {
   background-color: var(--success) !important;
+}
+.bg-gray {
+  background-color: var(--grayback) !important;
+}
+.bg-primaryse {
+  background-color: var(--primaryse) !important;
+}
+.bg-dangerse {
+  background-color: var(--dangerse) !important;
+}
+.bg-successse {
+  background-color: var(--successse) !important;
+}
+.bg-grayse {
+  background-color: var(--graybackse) !important;
 }
 .mg-5 {
   margin: 5px;
@@ -604,50 +635,62 @@ img {
 .grids-1 {
   display: grid;
   grid-template-columns: repeat(1, 100%);
+  overflow: hidden;
 }
 .grids-2 {
   display: grid;
   grid-template-columns: repeat(2, 50%);
+  overflow: hidden;
 }
 .grids-3 {
   display: grid;
   grid-template-columns: repeat(3, 33.33333333333333%);
+  overflow: hidden;
 }
 .grids-4 {
   display: grid;
   grid-template-columns: repeat(4, 25%);
+  overflow: hidden;
 }
 .grids-5 {
   display: grid;
   grid-template-columns: repeat(5, 20%);
+  overflow: hidden;
 }
 .grids-6 {
   display: grid;
   grid-template-columns: repeat(6, 16.666666666666664%);
+  overflow: hidden;
 }
 .grids-7 {
   display: grid;
   grid-template-columns: repeat(7, 14.285714285714285%);
+  overflow: hidden;
 }
 .grids-8 {
   display: grid;
   grid-template-columns: repeat(8, 12.5%);
+  overflow: hidden;
 }
 .grids-9 {
   display: grid;
   grid-template-columns: repeat(9, 11.11111111111111%);
+  overflow: hidden;
 }
 .grids-10 {
   display: grid;
   grid-template-columns: repeat(10, 10%);
+  overflow: hidden;
 }
 .grids-11 {
   display: grid;
   grid-template-columns: repeat(11, 9.090909090909092%);
+  overflow: hidden;
 }
 .grids-12 {
   display: grid;
   grid-template-columns: repeat(12, 8.333333333333332%);
+  overflow: hidden;
 }
 .grids {
   display: flex;
@@ -655,42 +698,55 @@ img {
 }
 .grid {
   flex: 1 1 0;
+  overflow: hidden;
 }
 .grid-1 {
   flex: 0 1 8.333333333333332%;
+  overflow: hidden;
 }
 .grid-2 {
   flex: 0 1 16.666666666666664%;
+  overflow: hidden;
 }
 .grid-3 {
   flex: 0 1 25%;
+  overflow: hidden;
 }
 .grid-4 {
   flex: 0 1 33.33333333333333%;
+  overflow: hidden;
 }
 .grid-5 {
   flex: 0 1 41.66666666666667%;
+  overflow: hidden;
 }
 .grid-6 {
   flex: 0 1 50%;
+  overflow: hidden;
 }
 .grid-7 {
   flex: 0 1 58.333333333333336%;
+  overflow: hidden;
 }
 .grid-8 {
   flex: 0 1 66.66666666666666%;
+  overflow: hidden;
 }
 .grid-9 {
   flex: 0 1 75%;
+  overflow: hidden;
 }
 .grid-10 {
   flex: 0 1 83.33333333333334%;
+  overflow: hidden;
 }
 .grid-11 {
   flex: 0 1 91.66666666666666%;
+  overflow: hidden;
 }
 .grid-12 {
   flex: 0 1 100%;
+  overflow: hidden;
 }
 h1,
 h2,
@@ -789,7 +845,7 @@ p {
   cursor: pointer;
   outline: none;
   user-select: none;
-  transition: background-color 0.6s;
+  transition: background-color 0.3s;
 }
 .btn:hover {
   color: var(--primaryse);
@@ -932,6 +988,7 @@ p {
 }
 .input-text {
   border: 1px solid var(--graybackse);
+  transition: border-color 0.3s;
   width: 100%;
   height: 2.4em;
   line-height: 2.4em;
@@ -939,6 +996,7 @@ p {
 }
 .select {
   border: 1px solid var(--graybackse);
+  transition: border-color 0.3s;
   width: 100%;
   height: 2.4em;
   line-height: 2.4em;
@@ -946,6 +1004,7 @@ p {
 }
 .textarea {
   border: 1px solid var(--graybackse);
+  transition: border-color 0.3s;
   width: 100%;
   height: 100px;
   padding: 4px;
@@ -978,6 +1037,7 @@ p {
   position: absolute;
   height: 100%;
   border: 1px solid var(--graybackse);
+  transition: border-color 0.3s;
   width: 100%;
   color: #555;
   padding: 0 8px;
@@ -1009,6 +1069,9 @@ p {
   border-radius: 50%;
 }
 .input-check:checked + .input-check-label .check:after {
+  border-width: 3px;
+}
+.input-check-label .check:after {
   position: absolute;
   left: 0;
   right: 0;
@@ -1016,7 +1079,7 @@ p {
   content: '';
   width: 0.7em;
   height: 1em;
-  border: 3px solid var(--font-color);
+  border: 0 solid var(--font-color);
   border-top: none;
   border-left: none;
   background: transparent;
@@ -1024,8 +1087,13 @@ p {
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
+  transition: border-width 0.3s;
 }
 .input-check:checked + .input-check-label .radio:after {
+  width: 0.5em;
+  height: 0.5em;
+}
+.input-check-label .radio:after {
   position: absolute;
   left: 0;
   right: 0;
@@ -1033,10 +1101,11 @@ p {
   bottom: 0;
   margin: auto;
   content: '';
-  width: 0.5em;
-  height: 0.5em;
+  width: 0;
+  height: 0;
   background-color: var(--font-color);
   border-radius: 50%;
+  transition: width, height 0.3s;
 }
 .input-check:checked + .input-check-label.primary .check {
   background-color: var(--primary);
@@ -1207,7 +1276,7 @@ p {
   border-left: 5px solid;
   font-weight: 600;
   padding: 0.5em 0 0.5em 1em;
-  margin: 0.5em auto;
+  margin: 1em auto;
   border-left-color: var(--graybackse);
   font-size: var(--font-size);
 }

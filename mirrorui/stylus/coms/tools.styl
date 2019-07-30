@@ -14,13 +14,12 @@
 .text-justify
     text-align: justify !important
 // 文字主题色
-textColors = { primary: var-primary, danger: var-danger, success: var-success }
+textColors = { primary: var-primary, danger: var-danger, success: var-success, gray: var-grayback, primaryse: var-primaryse, dangerse: var-dangerse, successse: var-successse, grayse: var-graybackse }
 for key, val in textColors
     .text-{key}
         color: val !important
 // 背景主题色
-bgColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in bgColors
+for key, val in textColors
     .bg-{key}
         background-color: val !important
 // margin padding 固定设定便利类

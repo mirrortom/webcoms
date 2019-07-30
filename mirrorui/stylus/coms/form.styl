@@ -4,6 +4,7 @@
 // 表单元素边框 用于input输入框 多行文本框 select选择框
 ctrl-border()
     border: 1px solid var-graybackse
+    transition: border-color $duration
 // 表单元素宽度 用于input输入框 多行文本框 select选择框
 ctrl-width()
     width: 100%
@@ -104,8 +105,11 @@ input-text()
     &-label .radio
         border-radius: 50%
     // 选中时,切换模拟DOM的选中状态
-    // input-check选中之后,生成复选框选中状态的勾
+    // checkbox选中状态时,改变其内的样式为.check的元素的伪类边框大小.动画效果
     &:checked + &-label .check:after
+        border-width: 3px
+    // input-check选中之后,生成复选框选中状态的勾
+    &-label .check:after
         // 绝对定位于框,左右对齐
         position: absolute
         left: 0
@@ -115,7 +119,7 @@ input-text()
         content: ''
         width: 0.7em
         height: 1em
-        border: 3px solid var-font-color
+        border: 0 solid var-font-color
         border-top: none
         border-left: none
         background: transparent
@@ -123,8 +127,14 @@ input-text()
         -ms-transform: rotate(45deg)
         -webkit-transform: rotate(45deg)
         transform: rotate(45deg)
+        // 动画效果,在其input-checkbox元素选中时,会修改border-width值
+        transition: border-width $duration
     // input-radio 选中之后,生成单选框中的圆点
+    // 选中时,修改其内样式为.radio元素的伪类的width和height,动画效果
     &:checked + &-label .radio:after
+        width: 0.5em
+        height: 0.5em
+    &-label .radio:after
         // 绝对定位于框,上下左右对齐
         position: absolute
         left: 0
@@ -134,10 +144,12 @@ input-text()
         margin: auto
         // 圆点是圆角边框为50%的DOM
         content: ''
-        width: 0.5em
-        height: 0.5em
+        width: 0
+        height: 0
         background-color: var-font-color
         border-radius: 50%
+        // 动画效果,在其input-radio被选中时,会修改width和height
+        transition: width,height $duration
 // 颜色 复选框和单选框
 inputColors = { primary: var-primary, danger: var-danger, success: var-success }
 for key, val in inputColors

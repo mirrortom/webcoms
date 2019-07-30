@@ -15,6 +15,7 @@
     }
   </style>
   <p>对div使用样式 {display:grid ; grid-template-columns: repeat(12,8.3333%);} 就实现了</p>
+
   <pre>
 .demo-grids {
   display: grid;
@@ -30,6 +31,7 @@
   <br />
   <h3>册格便利类</h3>
   <p>为了方便,制做便利类, .grids-n n=(1~12)</p>
+  <p>为防止内容超出册格而撑坏,册格项添加了"overflow: hidden"样式</p>
   <p>在div册格容器上使用样式 .grids-7 其下项目会自动均分1/7宽度</p>
   <div class="grids-7">
     @for (int i = 0; i < 7; i++)
