@@ -104,6 +104,7 @@
     <None Include="stylus\coms\tabs.styl" />
     <None Include="publish.json" />
     <None Include="stylus\index.styl" />
+    <None Include="stylus\variables\transition.styl" />
     <None Include="stylus\variables\color.styl" />
     <None Include="stylus\variables\font.styl" />
     <None Include="stylus\variables\mediaquery.styl" />
