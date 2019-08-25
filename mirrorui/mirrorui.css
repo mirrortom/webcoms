@@ -595,10 +595,10 @@ img {
   padding-right: 50px;
 }
 .d-none {
-  display: none;
+  display: none !important;
 }
 .d-block {
-  display: block;
+  display: block !important;
 }
 @media only screen and (min-width: 576px) {
   .d-sm-none {
@@ -899,6 +899,8 @@ p {
   color: var(--primary);
   border-color: transparent;
   background-color: transparent;
+  text-decoration: none;
+  padding: 0.4em 0;
 }
 .btn.link:hover {
   color: var(--primary);
