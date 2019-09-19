@@ -896,20 +896,29 @@ p {
   font-size: 24px;
 }
 .btn.link {
-  color: var(--primary);
+  color: var(--font-color);
   border-color: transparent;
   background-color: transparent;
   text-decoration: none;
-  padding: 0.4em 0;
+  padding: 0.2em 0;
 }
 .btn.link:hover {
-  color: var(--primary);
   text-decoration: underline;
   background-color: transparent;
+  border-color: transparent;
 }
 .btn.link:active {
   color: var(--primaryse);
   box-shadow: none;
+}
+.btn.link.primary:hover {
+  color: var(--primary);
+}
+.btn.link.danger:hover {
+  color: var(--danger);
+}
+.btn.link.success:hover {
+  color: var(--success);
 }
 .btn-group {
   display: inline-flex;

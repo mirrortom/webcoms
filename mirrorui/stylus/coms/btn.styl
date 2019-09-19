@@ -81,20 +81,25 @@ for key, val in btnSize
         font-size: val
 // 链接式按钮
 .btn.link
-    color: var-primary
+    color: var-font-color
     border-color: transparent
     background-color: transparent
     text-decoration: none
-    padding: .4em 0
+    padding: .2em 0
     // 链接式按钮hover
     &:hover
-        color: var-primary
         text-decoration: underline
         background-color: transparent
+        border-color: transparent
     // 点击时
     &:active
         color: var-primaryse
         box-shadow: none
+// 链接式按钮主题色,只是在hover时变色
+btnLinkColors = { primary: var-primary,danger: var-danger, success: var-success }
+for key, val in btnLinkColors
+    .btn.link.{key}:hover
+        color: val
 // /////////////////////////////////////////////////////////////////////////////////////
 // 按钮组
 .btn-group
