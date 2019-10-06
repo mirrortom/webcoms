@@ -1011,7 +1011,7 @@
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let hourselecct = thisobj.parentElement.querySelector('.date-select-hour');
+            let hourselecct = dateboxDom.querySelector('.date-select-hour');
             // 点击小时按钮时,弹出小时选择框,同时,按钮加上打开样式,以表示当前选择的是小时
             // 添加样式时,先取消其按钮的打开样式,打开后,再给自己加上打开样式
             let otherBtns = thisobj.parentElement.querySelectorAll('.date-btn-time');
@@ -1025,7 +1025,7 @@
             let otherdoms = dateboxDom.querySelectorAll('[class^=date-select]');
             delDom(otherdoms);
             // 显示小时选择框
-            thisobj.parentElement.append(createDom_HourSelect());
+            dateboxDom.append(createDom_HourSelect());
             thisobj.classList.add('open');
             // 绑定小时选项点击事件
             bindEvent_HourSelected();
@@ -1037,7 +1037,7 @@
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let minselecct = thisobj.parentElement.querySelector('.date-select-minute');
+            let minselecct = dateboxDom.querySelector('.date-select-minute');
             // 点击时分秒下拉框按钮时,先取消其按钮的打开样式,打开后,再给自己加上打开样式
             let otherBtns = thisobj.parentElement.querySelectorAll('.date-btn-time');
             otherBtns.forEach((item) => { item.classList.remove('open') });
@@ -1050,7 +1050,7 @@
             // 先关闭其它弹出窗
             let otherdoms = dateboxDom.querySelectorAll('[class^=date-select]');
             delDom(otherdoms);
-            thisobj.parentElement.append(createDom_MinuteSelect());
+            dateboxDom.append(createDom_MinuteSelect());
             thisobj.classList.add('open');
             // 绑定分钟选项点击事件
             bindEvent_MinSelected();
@@ -1062,7 +1062,7 @@
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let secselecct = thisobj.parentElement.querySelector('.date-select-second');
+            let secselecct = dateboxDom.querySelector('.date-select-second');
             // 点击时分秒下拉框按钮时,先取消其按钮的打开样式,打开后,再给自己加上打开样式
             let otherBtns = thisobj.parentElement.querySelectorAll('.date-btn-time');
             otherBtns.forEach((item) => { item.classList.remove('open') });
@@ -1074,7 +1074,7 @@
             // 先关闭其它弹出窗
             let otherdoms = dateboxDom.querySelectorAll('[class^=date-select]');
             delDom(otherdoms);
-            thisobj.parentElement.append(createDom_SecondSelect());
+            dateboxDom.append(createDom_SecondSelect());
             thisobj.classList.add('open');
             // 绑定秒钟选项点击事件
             bindEvent_SecSelected();

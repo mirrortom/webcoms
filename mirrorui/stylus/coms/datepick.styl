@@ -74,22 +74,23 @@
         width: 100%
     &-year
         width: 200px
-        height: 180px
+        height: 200px
         overflow-x: hidden
         overflow-y: scroll
         padding: 10px 0
     &-hour, &-minute, &-second
         width: 100%
-        bottom: 28px
+        bottom: 48px
+        top: 0
 // 年份,月份,小时,分钟,秒 选项
 .date-option
     &-year, &-month, &-hour, &-minute, &-second
         border-bottom: 1px solid var-graybackse
-        height: 28px
-        line-height: 28px
         font-weight: 500
     &-year, &-month
         flex: 0 1 33.33333333%
+        height: 40px
+        line-height: 40px
     &-year:hover, &-month:hover, &-hour:hover, &-minute:hover, &-second:hover
         background-color: var-graybackse
     // 当前选中的年份,月份
@@ -97,8 +98,12 @@
         background-color: var-primary
     &-hour
         flex: 0 1 16.66666666%
+        height: 60px
+        line-height: 60px
     &-minute, &-second
         flex: 0 1 10%
+        height: 40px
+        line-height: 40px
 // 年,月,今天,前进,后退,时,分,秒,清空,确定 按钮
 .date-btn
     &-year, &-month, &-today, &-prev, &-next, &-time, &-clear, &-ok
