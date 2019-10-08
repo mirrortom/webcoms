@@ -40,4 +40,23 @@
 &lt;a class="btn <b>success</b>"&gt;绿色&lt;/a&gt;
 &lt;a class="btn <b>block</b> blue-b cir lg"&gt;块级按钮&lt;/a&gt;
 </pre>
+  <br />
+  <p>调用 "$ui.isBtnLoading(btn)" 给按钮加等待效果</p>
+  <a id="btnloadtest1" class="btn">点击等待</a>
+  <p>按钮等待时.调用 "$ui.clsBtnLoading(btn,2000)" 消除等待</p>
+  <a id="btnloadtest2" class="btn">2秒后等待消除</a>
+  <script>
+    (() => {
+      let btn1 = document.querySelector('#btnloadtest1');
+      let btn2 = document.querySelector('#btnloadtest2');
+      btn1.onclick = () => {
+        if ($ui.isBtnLoading(btn1) == true)
+          $ui.clsBtnLoading(btn1);
+      }
+      btn2.onclick = () => {
+        if ($ui.isBtnLoading(btn2) == false)
+          $ui.clsBtnLoading(btn2,2000);
+      }
+    })();
+  </script>
 </div>

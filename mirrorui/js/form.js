@@ -34,7 +34,7 @@
     // 去掉btn的loading样式.time是豪秒数,表示经过此时间后去掉loading样式
     ui.clsBtnLoading =  (btn, time)=> {
         if (time >= 0) {
-            setInterval( ()=> {
+            setTimeout( ()=> {
                 btn.classList.remove('loading');
             }, time);
         } else {
