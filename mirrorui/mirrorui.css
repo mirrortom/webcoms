@@ -602,34 +602,34 @@ img {
 }
 @media only screen and (min-width: 576px) {
   .d-sm-none {
-    display: none;
+    display: none !important;
   }
   .d-sm-block {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 768px) {
   .d-md-none {
-    display: none;
+    display: none !important;
   }
   .d-md-block {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 992px) {
   .d-lg-none {
-    display: none;
+    display: none !important;
   }
   .d-lg-block {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 1200px) {
   .d-xl-none {
-    display: none;
+    display: none !important;
   }
   .d-xl-block {
-    display: block;
+    display: block !important;
   }
 }
 .grids-1 {

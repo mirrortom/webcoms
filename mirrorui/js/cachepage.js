@@ -51,7 +51,7 @@ contDom:
         self.load = (pid, title) => {
             // (情形1) 如果载入的是当前活动的选项卡页,不动作
             if (cache[pid] === null) {
-                console.log('type1');
+                //console.log('type1');
                 return null;
             }
             // (情形2)激活选项卡.如果pid已添加过,则到缓存中取出页面,并且激活对应选项卡.
@@ -66,7 +66,7 @@ contDom:
                 let cacheDom = cache[pid];
                 // 标识为null,表示pid成为新的活动页
                 cache[pid] = null;
-                console.log('type2');
+                //console.log('type2');
                 return cacheDom;
             }
             // (情形3)新增加选项卡
@@ -80,7 +80,7 @@ contDom:
             }
             // 添加到缓存.当前活动页缓存约定为null,不缓存
             cache[pid] = null;
-            console.log('type3');
+            //console.log('type3');
             return null;
         };
 

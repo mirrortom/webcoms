@@ -1,5 +1,5 @@
-﻿@{ 
-    string[] colors = new string[] {"primary","danger","success","gray" };
+﻿@{
+  string[] colors = new string[] { "primary", "danger", "success", "gray" };
 }
 <div class="doc-part-box" id="toolclass">
   <h2>便利样式</h2>
@@ -16,8 +16,8 @@
       <p class="text-@item">class="text-@item"</p>
     }
     @foreach (var item in colors)
-        {
-          string se = item + "se";
+    {
+      string se = item + "se";
       <p class="text-@se">class="text-@se"</p>
     }
   </div>
@@ -45,7 +45,12 @@
   <br />
   <p class="article-title">隐藏与显示</p>
   <p>d-none d-block 媒体查询:针对不同大小屏幕 d-sm-none d-md-none d-lg-none d-xl-none</p>
-  <span class="d-none d-sm-block">sm 576px以上显示</span>
-  <span class="d-none d-lg-block">lg 992px以上显示</span>
-  <span class="d-none d-xl-block">lg 1200px以上显示</span>
+  <p>例1,只在sm(576px以下小屏幕)显示: class='d-block d-sm-none'</p>
+  <p>例2,只在lg(992px以上大屏幕)显示: class='d-none d-lg-block'</p>
+  <div class="grids-4">
+    <span class="d-block pd-5 d-sm-none bg-danger">sm 576px以下显示</span>
+    <span class="d-none pd-5 d-sm-block bg-gray">sm 576px以上显示</span>
+    <span class="d-none pd-5 d-lg-block bg-primary">lg 992px以上显示</span>
+    <span class="d-none pd-5 d-xl-block bg-gray">lg 1200px以上显示</span>
+  </div>
 </div>

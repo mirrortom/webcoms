@@ -65,9 +65,9 @@ for size in range(5, 50, 5)
 // display:none block 针对不同屏幕隐藏或者显示
 mediaquerydisplay(screen-type)
     .d-{screen-type}-none
-        display: none
+        display: none !important
     .d-{screen-type}-block
-        display: block
+        display: block !important
 // 小屏幕 >576
 @media only screen and (min-width: $screen-phone)
     mediaquerydisplay(sm)
