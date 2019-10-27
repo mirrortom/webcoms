@@ -1,0 +1,29 @@
+// 列表 ul ol
+.list
+    list-style-position: inside
+    list-style: none
+    padding: 10px 0
+.list li
+    padding: 0.5em 5px
+// 下划线
+.list.uline li
+    border-bottom: 1px solid var-grayback
+// 方块和圆
+.list
+    &.square li::before, &.cir li::before
+        content: ''
+        display: inline-block
+        width: 0.5em
+        height: 0.5em
+        background-color: #000
+        vertical-align: middle
+        margin-right: 0.6em
+    &.cir li::before
+        border-radius: 50%
+// 方块,圆的主题色
+listColors = { primary: var-primary, danger: var-danger, success: var-success }
+for key, val in listColors
+    .list.square.{key} li::before
+        background-color: val
+    .list.cir.{key} li::before
+        background-color: val

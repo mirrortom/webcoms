@@ -2083,3 +2083,45 @@ p {
 .tabsbox.success .tabsbox-tab.active {
   background-color: var(--success);
 }
+.list {
+  list-style-position: inside;
+  list-style: none;
+  padding: 10px 0;
+}
+.list li {
+  padding: 0.5em 5px;
+}
+.list.uline li {
+  border-bottom: 1px solid var(--grayback);
+}
+.list.square li::before,
+.list.cir li::before {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  background-color: #000;
+  vertical-align: middle;
+  margin-right: 0.6em;
+}
+.list.cir li::before {
+  border-radius: 50%;
+}
+.list.square.primary li::before {
+  background-color: var(--primary);
+}
+.list.cir.primary li::before {
+  background-color: var(--primary);
+}
+.list.square.danger li::before {
+  background-color: var(--danger);
+}
+.list.cir.danger li::before {
+  background-color: var(--danger);
+}
+.list.square.success li::before {
+  background-color: var(--success);
+}
+.list.cir.success li::before {
+  background-color: var(--success);
+}
