@@ -1416,23 +1416,14 @@ p {
   padding: 4px;
 }
 .panel-head {
-  background-color: var(--grayback);
+  background-color: inherit;
   overflow: hidden;
   padding: 10px;
   text-align: center;
 }
 .panel-body {
   padding: 15px;
-  background-color: #fff;
-}
-.panel.primary .panel-head {
-  background-color: var(--primary);
-}
-.panel.danger .panel-head {
-  background-color: var(--danger);
-}
-.panel.success .panel-head {
-  background-color: var(--success);
+  background-color: inherit;
 }
 .tabs-box {
   position: relative;
