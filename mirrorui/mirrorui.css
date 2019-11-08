@@ -1241,7 +1241,7 @@ p {
   font-size: var(--font-size);
   color: var(--font-color);
   text-align: center;
-  background-color: #fff;
+  background-color: inherit;
   padding: 0.2em 0.8em;
   border: 1px solid var(--grayback);
   border-radius: 1em;
