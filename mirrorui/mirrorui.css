@@ -68,6 +68,9 @@ img {
 .img-circle {
   border-radius: 50%;
 }
+a {
+  color: var(--font-color);
+}
 .text-overflow,
 .sidemenu-item {
   overflow: hidden;
