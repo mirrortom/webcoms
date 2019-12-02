@@ -49,12 +49,18 @@
     &lt;div class="tabs-panel"&gt;...&lt;/div &gt;
     &lt;div class="tabs-panel"&gt;...&lt;/div &gt;
 &lt;/div&gt;
-//
+// js调用,传入tabs的id.默认激活0位置面板
 tabs('mytabs1');
-// 切换方式鼠标移入时
+// 切换方式(参数3) 1=点击 2=鼠标移入
 tabs('mytabs1',0,2);
 // 指定第2个面板激活,索引从0开始
 tabs('mytabs1',1);
+// 面板激活后,执行一个方法
+let tabs1=tabs('mytabs1');
+tabs1.onTabActive=(tabindex)=>{ alert('激活面板索引:'+tabindex); }
+// 激活面板
+let tabs1=tabs('mytabs1');
+tabs1.activeTab(1);
 </pre>
   <br />
   <p class="article-title sm">选项卡均分</p>
@@ -111,6 +117,35 @@ tabs('mytabs1',1);
     <div class="tabs-panel">选项2-内容</div>
     <div class="tabs-panel">选项3-内容</div>
   </div>
+  <p class="article-title primary">事件 onTabActive</p>
+  <p>在面板激活后执行一个事件 tabs.onTabActive=(tabindex)=>{ alert('激活面板索引:'+tabindex); }</p>
+  <div id="mytabs_onevent" class="tabs-box">
+    <div class="tabs-header">
+      <span class="tabs-label">选项1</span>
+      <span class="tabs-label">选项2</span>
+      <span class="tabs-label">选项3</span>
+    </div>
+    <div class="tabs-panel">选项1-内容</div>
+    <div class="tabs-panel">选项2-内容</div>
+    <div class="tabs-panel">选项3-内容</div>
+  </div>
+  <p class="article-title primary">方法 activeTab</p>
+  <p>激活面板 tabs.activeTab(1)</p>
+  <div>
+    <span class="btn" onclick="tab2.activeTab(0)">0</span>
+    <span class="btn" onclick="tab2.activeTab(1)">1</span>
+    <span class="btn" onclick="tab2.activeTab(2)">2</span>
+  </div>
+  <div id="mytabs_method" class="tabs-box success">
+    <div class="tabs-header">
+      <span class="tabs-label">选项1</span>
+      <span class="tabs-label">选项2</span>
+      <span class="tabs-label">选项3</span>
+    </div>
+    <div class="tabs-panel">选项1-内容</div>
+    <div class="tabs-panel">选项2-内容</div>
+    <div class="tabs-panel">选项3-内容</div>
+  </div>
   <script>
     tabs('mytabs1');
     tabs('mytabs2', 1, 1);
@@ -119,5 +154,10 @@ tabs('mytabs1',1);
     tabs('mytabs_success', 1);
     tabs('mytabs_danger', 2);
     tabs('mytabs_list');
+    let tabs1 = tabs('mytabs_onevent');
+    tabs1.onTabActive = (tabindex) => {
+      msgbox.alert('激活面板索引:' + tabindex);
+    }
+    let tab2 = tabs('mytabs_method');
   </script>
 </div>

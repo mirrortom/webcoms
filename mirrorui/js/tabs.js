@@ -4,6 +4,9 @@
     let tabs = (tabsId, activeIndex, changeType) => {
         // 选项卡对象
         let self = {};
+        // 面板激活后执行一个方法
+        self.onTabActive = null;
+
         // 配置对象
         let cfg = { changeType: changeType || 1, activeIndex: activeIndex || 0 };
         // 选项卡容器DOM对象
@@ -36,7 +39,10 @@
             });
             let activeTabPanel = tabsDom.querySelectorAll('.tabs-panel')[activeTabIndex];
             activeTabPanel.classList.add('active');
-        }
+            //
+            if (typeof self.onTabActive == 'function')
+                self.onTabActive(activeTabIndex);
+        };
 
         // 绑定切换事件
         let tablabels = tabsDom.querySelectorAll('.tabs-label');
@@ -44,15 +50,17 @@
             tablabels.forEach((item, index) => {
                 item.onclick = () => {
                     changeTab(index);
-                }
+                };
             });
         } else if (cfg.changeType == 2) {
             tablabels.forEach((item, index) => {
                 item.onmouseenter = () => {
                     changeTab(index);
-                }
+                };
             });
         }
+        // method
+        self.activeTab = changeTab;
         //
         return self;
     };

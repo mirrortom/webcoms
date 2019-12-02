@@ -62,4 +62,17 @@
     <div class="grid demo-grid text-center">均分</div>
     <div class="grid demo-grid text-center">均分</div>
   </div>
+  <p class="article-title">便利grid类使用的是flex布局.需要注意一种情况,display:flex会对其子元素大小产生影响.例如:</p>
+  <pre>
+&lt;div class="grids"&gt;
+    <b>&lt;span class="grid-2"&gt;背景图片&lt;/span&gt;</b>
+    &lt;span class="grid-8"&gt;&lt;/h3&gt;
+    &lt;span class="grid-2"&gt;&lt;/span&gt;
+&lt;/div&gt;
+</pre>
+  <p>栅格的第一个span,是设置有背景图片的.display:inline-block;width:48px;height:48px;大小48X48,但是放在</p>
+  <p>grid栅格容器里,大小不是48X48了,(图片走样了),受到flex父元素影响.可以在span上设置如下css解决:</p>
+  <pre>
+    <b>background-size:contain;</b>
+</pre>
 </div>
