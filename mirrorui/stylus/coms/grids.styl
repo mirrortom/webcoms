@@ -4,7 +4,24 @@ for i in range(1, 12)
         display: grid
         grid-template-columns: repeat(i, percentage((1 / i)))
         overflow: hidden
-// flex布局,册格工具样式定义,可使用其内项目定制册格占比
+// 屏幕尺寸
+gridsn(screen-type)
+    for i in range(1, 12)
+        .grids-{screen-type}-{i}
+            grid-template-columns: repeat(i, percentage((1 / i)))
+@media only screen and (min-width: $screen-phone)
+    gridsn(sm)
+// 小平板 > 768
+@media only screen and (min-width: $screen-tablet)
+    gridsn(md)
+// 大平板   > 992
+@media only screen and (min-width: $screen-bigtablet)
+    gridsn(lg)
+// pc > 1200
+@media only screen and (min-width: $screen-pc)
+    gridsn(xl)
+
+// 二. flex布局,册格工具样式定义,可使用其内项目定制册格占比
 .grids
     display: flex
     flex-wrap: wrap // 规定项目超过一行时,可以换到下一行

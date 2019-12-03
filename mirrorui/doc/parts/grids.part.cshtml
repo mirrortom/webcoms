@@ -15,7 +15,6 @@
     }
   </style>
   <p>对div使用样式 {display:grid ; grid-template-columns: repeat(12,8.3333%);} 就实现了</p>
-
   <pre>
 .demo-grids {
   display: grid;
@@ -30,17 +29,29 @@
   </div>
   <br />
   <h3>册格便利类</h3>
-  <p>为了方便,制做便利类, .grids-n n=(1~12)</p>
-  <p>为防止内容超出册格而撑坏,册格项添加了"overflow: hidden"样式</p>
-  <p>在div册格容器上使用样式 .grids-7 其下项目会自动均分1/7宽度</p>
-  <div class="grids-7">
+  <p>为了使用方便,制做栅格便利类</p>
+  <p class="article-title">.grids-n n=(1~12) 使用 display: grid 实现</p>
+  <pre class="bg-gray">
+.grids-n {
+  <b>display: grid;</b>
+  grid-template-columns: repeat(n, 1/n*100%);
+  overflow: hidden;
+}
+</pre>
+  <p>在div册格容器上使用样式 <b>.grids-7</b> 其下项目会自动均分1/7宽度</p>
+  <div class="grids-7 mg-tb-10">
     @for (int i = 0; i < 7; i++)
     {
-      <span class="demo-grid text-center">@(i + 1) / 7</span>
+      <span class="demo-grid text-center bg-successse">@(i + 1) / 7</span>
     }
   </div>
-  <br />
-  <p>在div册格容器上使用样式 .grids 同时在其下项目上使用样式 .grid ,则项目自动根据个数均分宽度</p>
+  <p>grids支持屏幕尺寸便利类</p>
+  <p><b>grids-sm-2</b> 在屏幕宽度大于576px时,其下项目均分为2</p>
+  <p><b>grids-md-3</b> 在屏幕宽度大于768px时,其下项目均分为3</p>
+  <p><b>grids-lg-4</b> 在屏幕宽度大于992px时,其下项目均分为4</p>
+  <p><b>grids-xl-5</b> 在屏幕宽度大于1200px时,其下项目均分为5</p>
+  <p class="article-title">.grids .grid 使用 display: flex 实现</p>
+  <p>在div册格容器上使用样式 <b>.grids</b>, 同时在其下项目上使用样式 <b>.grid</b> ,则项目自动根据个数均分宽度</p>
   <div class="grids">
     @for (int i = 0; i < 9; i++)
     {
@@ -62,10 +73,10 @@
     <div class="grid demo-grid text-center">均分</div>
     <div class="grid demo-grid text-center">均分</div>
   </div>
-  <p class="article-title">便利grid类使用的是flex布局.需要注意一种情况,display:flex会对其子元素大小产生影响.例如:</p>
+  <p class="article-title">便利grids类使用的是flex布局.需要注意一种情况,display:flex会对其子元素大小产生影响.例如:</p>
   <pre>
 &lt;div class="grids"&gt;
-    <b>&lt;span class="grid-2"&gt;背景图片&lt;/span&gt;</b>
+  <b>&lt;span class="grid-2"&gt;背景图片&lt;/span&gt;</b>
     &lt;span class="grid-8"&gt;&lt;/h3&gt;
     &lt;span class="grid-2"&gt;&lt;/span&gt;
 &lt;/div&gt;
@@ -73,6 +84,6 @@
   <p>栅格的第一个span,是设置有背景图片的.display:inline-block;width:48px;height:48px;大小48X48,但是放在</p>
   <p>grid栅格容器里,大小不是48X48了,(图片走样了),受到flex父元素影响.可以在span上设置如下css解决:</p>
   <pre>
-    <b>background-size:contain;</b>
+  <b>background-size:contain;</b>
 </pre>
 </div>

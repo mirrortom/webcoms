@@ -38,20 +38,21 @@
           <li><a class="sidemenu-item" href="#about">关于</a></li>
           <li><a class="sidemenu-item" href="#theme">主题</a></li>
         </ul>
-          <ul class="sidemenu-group">
-            <li>
-              <span class="sidemenu-label">零件<i class="sidemenu-arrdown"></i></span>
-            </li>
-            <li><a class="sidemenu-item" href="#grid">册格</a></li>
-            <li><a class="sidemenu-item" href="#typography">大标题</a></li>
-            <li><a class="sidemenu-item" href="#hrline">hr分隔线</a></li>
-            <li><a class="sidemenu-item" href="#btn">按钮</a></li>
-            <li><a class="sidemenu-item" href="#table">表格</a></li>
-            <li><a class="sidemenu-item" href="#form">表单</a></li>
-            <li><a class="sidemenu-item" href="#imagedemo">图片</a></li>
-            <li><a class="sidemenu-item" href="#list">列表</a></li>
-            <li><a class="sidemenu-item" href="#toolclass">便利样式</a></li>
-          </ul>
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">零件<i class="sidemenu-arrdown"></i></span>
+          </li>
+          <li><a class="sidemenu-item" href="#grid">册格</a></li>
+          <li><a class="sidemenu-item" href="#typography">大标题</a></li>
+          <li><a class="sidemenu-item" href="#hrline">hr分隔线</a></li>
+          <li><a class="sidemenu-item" href="#btn">按钮</a></li>
+          <li><a class="sidemenu-item" href="#table">表格</a></li>
+          <li><a class="sidemenu-item" href="#form">表单</a></li>
+          <li><a class="sidemenu-item" href="#imagedemo">图片</a></li>
+          <li><a class="sidemenu-item" href="#list">列表</a></li>
+          <li><a class="sidemenu-item" href="#toolclass">便利样式</a></li>
+          <li><a class="sidemenu-item" href="#mediaquery">媒体查询</a></li>
+        </ul>
           <ul class="sidemenu-group">
             <li>
               <span class="sidemenu-label">组件<i class="sidemenu-arrdown"></i></span>
@@ -93,7 +94,7 @@
           <p class="article-title">主题色</p>
           @foreach (var item in new string[] { "690,578200", "3366ff,0544ff", "ff4500,d95700", "ff33cc,ff05c1", "ccccff,8787ff", "9932cc,9400d3" })
           {
-          <span class="btn" onclick="chgprimary('@item')" style="color:white;background-color:#@item.Split(',')[0]">#@item.Split(',')[0]</span>
+            <span class="btn" onclick="chgprimary('@item')" style="color:white;background-color:#@item.Split(',')[0]">#@item.Split(',')[0]</span>
           }
         </div>
         <div>
@@ -123,6 +124,8 @@
       @Include("/doc/parts/list.part.cshtml")
 
       @Include("/doc/parts/toolclass.part.cshtml")
+
+      @Include("/doc/parts/mediaquery.part.cshtml")
 
       @Include("/doc/parts/btngroup.part.cshtml")
 
