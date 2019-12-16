@@ -1,7 +1,10 @@
-# 一些webui组件
+﻿# 一些webui组件
 为什么要重复造轮子呢?  
 其意义不再于造了更劣质的轮子,而是熟悉造法.  
 [Document](https://mirrortom.date/mirrorui/index.html)  
+### 更新说明
+cachepage , msgbox , mydatepick , pagenum 这四个单独组件已放入mirrorui文件夹, 成为ui组件,随ui更新
+
 ## mirrorui 模仿bt
 学习bootstrap快速增加前端熟悉度,模仿它做一个webui  
 ## msgbox 弹出层

@@ -80,6 +80,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="doc\parts\mediaquery.part.cshtml" />
     <None Include="doc\parts\list.part.cshtml" />
     <None Include="doc\parts\hrline.part.cshtml" />
     <None Include="doc\parts\toolclass.part.cshtml" />
