@@ -11,7 +11,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4597f8fe-1c70-46bc-9e70-1fac3a3333e0</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>app.js</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -28,9 +29,140 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app.js" />
-    <Content Include="package.json" />
-    <Content Include="README.md" />
+    <Content Include="404.html" />
+    <Content Include="bundleconfig.json" />
+    <Content Include="compilerconfig.json.defaults">
+      <SubType>Content</SubType>
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
+    <Content Include="mirrorui.css" />
+    <Content Include="mirrorui.min.css" />
+    <Content Include="test.css">
+      <SubType>Content</SubType>
+      <DependentUpon>test.styl</DependentUpon>
+    </Content>
+    <Content Include="test.min.css">
+      <SubType>Content</SubType>
+      <DependentUpon>test.css</DependentUpon>
+    </Content>
+    <None Include="compilerconfig.json" />
+    <Content Include="doc\-------.part.cshtml" />
+    <Content Include="doc\article.part.cshtml" />
+    <Content Include="doc\btn.part.cshtml" />
+    <Content Include="doc\btngroup.part.cshtml" />
+    <Content Include="doc\cachepage.part.cshtml" />
+    <Content Include="doc\datetime.part.cshtml" />
+    <Content Include="doc\design_form.part.cshtml" />
+    <Content Include="doc\form.part.cshtml" />
+    <Content Include="doc\grids.part.cshtml" />
+    <Content Include="doc\h1h6p.part.cshtml" />
+    <Content Include="doc\hrline.part.cshtml" />
+    <Content Include="doc\imagedemo.part.cshtml" />
+    <Content Include="doc\label.part.cshtml" />
+    <Content Include="doc\list.part.cshtml" />
+    <Content Include="doc\mediaquery.part.cshtml" />
+    <Content Include="doc\msgbox.part.cshtml" />
+    <Content Include="doc\msgpanel.part.cshtml" />
+    <Content Include="doc\pagenum.part.cshtml" />
+    <Content Include="doc\panel.part.cshtml" />
+    <Content Include="doc\sidemenu.part.cshtml" />
+    <Content Include="doc\table.part.cshtml" />
+    <Content Include="doc\tabs.part.cshtml" />
+    <Content Include="doc\toolclass.part.cshtml" />
+    <Content Include="img\imgdemo.gif" />
+    <Content Include="img\msgboxlayer.png" />
+    <Content Include="index.cshtml" />
+    <Content Include="publish.json" />
+    <Content Include="stylus\base.styl" />
+    <Content Include="stylus\coms\article.styl" />
+    <Content Include="stylus\coms\btn.styl" />
+    <Content Include="stylus\coms\cachepage.styl" />
+    <Content Include="stylus\coms\datepick.styl" />
+    <Content Include="stylus\coms\form.styl" />
+    <Content Include="stylus\coms\grids.styl" />
+    <Content Include="stylus\coms\h1h6p.styl" />
+    <Content Include="stylus\coms\hr.styl" />
+    <Content Include="stylus\coms\label.styl" />
+    <Content Include="stylus\coms\list.styl" />
+    <Content Include="stylus\coms\msgbox.styl" />
+    <Content Include="stylus\coms\msgpanel.styl" />
+    <Content Include="stylus\coms\pagenum.styl" />
+    <Content Include="stylus\coms\panel.styl" />
+    <Content Include="stylus\coms\sidemenu.styl" />
+    <Content Include="stylus\coms\table.styl" />
+    <Content Include="stylus\coms\tabs.styl" />
+    <Content Include="stylus\coms\tools.styl" />
+    <Content Include="stylus\function\function.styl" />
+    <Content Include="stylus\index.styl" />
+    <Content Include="stylus\variables\color.styl" />
+    <Content Include="stylus\variables\font.styl" />
+    <Content Include="stylus\variables\mediaquery.styl" />
+    <Content Include="stylus\variables\transition.styl" />
+    <Content Include="test.html" />
+    <Content Include="test.styl" />
+    <Content Include="zcustom\napoui\bundleconfig.json" />
+    <Content Include="zcustom\napoui\compilerconfig.json" />
+    <Content Include="zcustom\napoui\compilerconfig.json.defaults" />
+    <Content Include="zcustom\napoui\napoui.css" />
+    <Content Include="zcustom\napoui\napoui.min.css" />
+    <Content Include="zcustom\napoui\stylus\base.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\article.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\btn.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\form.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\grids.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\h1h6p.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\hr.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\msgbox.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\msgpanel.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\panel.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\table.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\tabs.styl" />
+    <Content Include="zcustom\napoui\stylus\coms\tools.styl" />
+    <Content Include="zcustom\napoui\stylus\function\function.styl" />
+    <Content Include="zcustom\napoui\stylus\index.styl" />
+    <Content Include="zcustom\napoui\stylus\variables\color.styl" />
+    <Content Include="zcustom\napoui\stylus\variables\font.styl" />
+    <Content Include="zcustom\napoui\stylus\variables\mediaquery.styl" />
+    <Content Include="zcustom\napoui\stylus\variables\transition.styl" />
+    <Content Include="如何自定义ui.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="js\cachepage.js" />
+    <Compile Include="js\form.js" />
+    <Compile Include="js\help.js" />
+    <Compile Include="js\msgbox.js" />
+    <Compile Include="js\mydate.js" />
+    <Compile Include="js\pagenum.js" />
+    <Compile Include="js\sidemenu.js" />
+    <Compile Include="js\tabs.js" />
+    <Compile Include="mirrorui.js" />
+    <Compile Include="mirrorui.min.js">
+      <SubType>Code</SubType>
+      <DependentUpon>mirrorui.js</DependentUpon>
+    </Compile>
+    <Compile Include="zcustom\napoui\js\form.es5.js" />
+    <Compile Include="zcustom\napoui\js\form.es5.min.js" />
+    <Compile Include="zcustom\napoui\js\form.js" />
+    <Compile Include="zcustom\napoui\js\msgbox.js" />
+    <Compile Include="zcustom\napoui\js\tabs.js" />
+    <Compile Include="zcustom\napoui\napoui.js" />
+    <Compile Include="zcustom\napoui\napoui.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="doc\" />
+    <Folder Include="img\" />
+    <Folder Include="js\" />
+    <Folder Include="stylus\" />
+    <Folder Include="stylus\coms\" />
+    <Folder Include="stylus\function\" />
+    <Folder Include="stylus\variables\" />
+    <Folder Include="zcustom\" />
+    <Folder Include="zcustom\napoui\" />
+    <Folder Include="zcustom\napoui\js\" />
+    <Folder Include="zcustom\napoui\stylus\" />
+    <Folder Include="zcustom\napoui\stylus\coms\" />
+    <Folder Include="zcustom\napoui\stylus\function\" />
+    <Folder Include="zcustom\napoui\stylus\variables\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
