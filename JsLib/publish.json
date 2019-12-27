@@ -1,0 +1,12 @@
+﻿{
+  // 发布目录名(例如: 'dist/' 或 'd:/pubdir/' 相对路径或绝对路径,相对路径不以/或\开头,结尾有/)
+  "distDir": "D:/mirrortom.github.io/jslib/",
+  // 发布前删除发布目录所有内容(发布整个项目时)
+  "emptyPublishDir": "false",
+  // 对js,css,html压缩输出(0=不压缩,7=都压缩. 1=html,2=css,4=js)
+  "miniOutput": 3,
+  // 允许发布的文件扩展名
+  "allowExts": [ ".htm", ".html", ".cshtml", ".config", ".js", ".css", ".json", ".jpg", ".jpeg", ".gif", ".png", ".bmp", ".woff", ".woff2", ".ttf", ".svg", ".eot", ".otf" ],
+  // 不允许发布的文件后缀名
+  "denyExts": [ "layout.cshtml", "part.cshtml", "part.js", "part.css" ]
+}

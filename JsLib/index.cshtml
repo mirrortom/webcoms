@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link href="/mirrorui/mirrorui.css" rel="stylesheet" />
+  <title>jslib-doc | Mirror Space</title>
+  <style>
+    .page {
+      display: grid;
+      grid-template-columns: 210px auto;
+    }
+
+    .menu-box {
+      position: sticky;
+      top: 0;
+      width: 94%;
+      max-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .doc-part-box {
+      margin: 50px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="menu-box">
+      <nav class="sidemenu-box" id="main_menubox">
+
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">About<i class="sidemenu-arrdown"></i></span>
+          </li>
+          <li><a class="sidemenu-item" href="#about">关于</a></li>
+        </ul>
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">dom<i class="sidemenu-arrdown"></i></span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="content pd-15">
+      <div id="about">
+        <h1>关于jslib</h1>
+      </div>
+
+      @*片段页路径实际上是Key,不能使用变量,否则会找不到页面*@
+      @*Include("/doc/design_form.part.cshtml")*@
+
+    </div>
+  </div>
+  <script src="jslib.js"></script>
+  <script src="/mirrorui/mirrorui.js"></script>
+  <script>
+    // 为主菜单绑定点击事件 点击后加上sidemenu-active类,标识为活动菜单
+    sidemenu('main_menubox');
+
+    // chg font-size
+    function chgfontsize(size) {
+      document.body.style.setProperty('--font-size', size + 'px');
+    }
+  </script>
+</body>
+</html>
