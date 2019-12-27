@@ -3,11 +3,18 @@
 }
 <div class="doc-part-box" id="toolclass">
   <h2>便利样式</h2>
-  <p class="article-title">文本超出省略</p>
-  <p class="text-overflow" style="width:100px" title="text-overflow文本超出时,显示省略号">text-overflow文本超出时,显示省略号</p>
+  <p>为了方便使用,做一些单独的样式类</p>
+  <p class="article-title">文本超出时,显示省略号</p>
+  <p class="text-overflow" style="width:260px" title="text-overflow文本超出时,显示省略号">
+    class="text-overflow" 文本超出时,显示省略号
+  </p>
 
   <p class="article-title">文本对齐</p>
-  <p>text-left text-center text-right text-justify:两端对齐</p>
+  <div class="grids-3">
+    <p class="text-left bg-gray">class="text-left" 左</p>
+    <p class="text-center bg-grayse">class="text-center" 中</p>
+    <p class="text-right bg-gray">class="text-right" 右</p>
+  </div>
 
   <p class="article-title">文本主题色</p>
   <div class="grids-4">
@@ -36,11 +43,13 @@
   </div>
 
   <p class="article-title">margin padding</p>
-  <p>pd-n(n=5,10,15,..,45,50) 四个方向 pd-l-n pd-r-n pd-t-n pd-b-n 组合上下与左右 pd-lr-n pd-tb-n</p>
+  <p>pd-n(n=5,10,15,..,45,50) 四个方向(l,r,t,b) pd-l-n pd-r-n pd-t-n pd-b-n, 可以组合上下与左右 pd-lr-n pd-tb-n</p>
   <div>
     <span class="pd-10 bg-primary">class="pd-10"</span>
-    <span class="pd-t-10 bg-primary">class="pd-t-10"</span>
-    <span class="mg-l-10 bg-primary">class="mg-l-20"</span>
+    <span class="pd-t-10 bg-primary">class="pd-t-10" 上</span>
+    <span class="pd-b-10 bg-primary">class="pd-b-10" 下</span>
+    <span class="pd-lr-10 bg-primary">class="mg-lr-20" 左右</span>
+    <span class="pd-tb-10 bg-primary">class="mg-tb-20" 上下</span>
   </div>
   <br />
   <p class="article-title">隐藏与显示</p>
