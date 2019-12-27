@@ -61,7 +61,7 @@
     };
 
     //------datebox类-----------datebox类---------//
-    // datebox类名
+    // datebox样式类名
     let dateboxCls = 'date-box';
     // 触发日期框的INPUT的DOM对象引用
     let inputDOM = null;
@@ -717,6 +717,6 @@
     document.onclick = () => {
         mydate.close();
     };
-    // 日期函数名,可在引修改
+    // 日期函数名
     win.MyDatePick = mydate;
 })(window);

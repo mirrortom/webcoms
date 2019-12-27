@@ -1,3 +1,307 @@
+//================================================================================//
+// 模仿jquery的封装库.由于jsAPI大多比较长,为了简洁封装一些常用的js函数.如dom操作,数组操作等等
+// 主要定义函数 "jslib" ,window上的引用名字 "$ui"
+// jslib是一个类数组对象,用function定义的,和jquery类似,方法名也大多数使用jquery的方法名.
+// 使用方法如: $ui('#id').addClass('acitve')
+//=================================================================================//
+// 
+((win) => {
+    "use strict";
+    /**
+     * js自定义封装库的定义函数.(下述都称为jslib类数组对象)
+     * @param {string|HTMLElement} selector 选择器或者dom对象或/^<[a-z]+?>$/,如'<div>'.表示新建元素.
+     * @returns {jslib} 返回this
+     */
+    function jslib(selector) {
+        // 选择器
+        if (typeof selector === 'string') {
+            if (selector.indexOf('#') === 0) {
+                // #id
+                this.push(document.getElementById(selector.substr(1)));
+            }
+            else if (selector.indexOf('.') === 0) {
+                // .class
+                let nodelist = document.getElementsByClassName(selector.substr(1));
+                nodelist.forEach((item) => {
+                    this.push(item);
+                });
+            }
+            else if (/^<[a-z]+?>$/.test(selector)) {
+                // 新建元素
+                this.push(document.createElement(selector.substring(1, selector.length - 1)));
+            }
+            else {
+                // 其它选择器
+                let nodelist = document.querySelectorAll(selector);
+                nodelist.forEach((item) => {
+                    this.push(item);
+                });
+            }
+        }
+        else if (selector.nodeType) {
+            // 是一个dom对象
+            this.push(selector);
+        }
+        else if (selector.length) {
+            // 是一个dom对象列表
+            for (var i = 0, len = selector.length; i < len; i++) {
+                if (selector[i].nodeType) {
+                    this.push(selector[i]);
+                }
+            }
+        } else {
+            throw new Error("the selector invalid");
+        }
+        return this;
+    }
+    /**
+     * 向jslib类数组添加元素
+     * @param {any} item node节点
+     * @returns {jslib} 返回this
+     */
+    jslib.prototype.push = function (item) {
+        Array.prototype.push.call(this, item);
+        return this;
+    };
+    /**
+     * 清空jslib类数组
+     * @returns {jslib} 返回this
+     */
+    jslib.prototype.empty = function () {
+        Array.prototype.splice.call(this, 0);
+        return this;
+    };
+    /**
+     * 遍历jslib类数组元素.如果dom元素无效,不会执行函数
+     * @param {Function} fn fn(item,index),fn返回false时,循环break,返回true时,循环continue
+     */
+    jslib.prototype.each = function (fn) {
+        for (let i = 0, len = this.length; i < len; i++) {
+            if (!this[i]) continue;
+            let re = fn(this[i], i);
+            if (re == true)
+                continue;
+            else if (re == false)
+                break;
+        }
+    };
+
+    ////////////////////////////////////////////////////////////////////////
+    // 工厂函数factory,返回jslib对象
+    // 其它静态方法都绑定在factory上
+    ////////////////////////////////////////////////////////////////////////
+    let factory = (selector) => {
+        return new jslib(selector);
+    };
+    /**
+     * 为jslib对象添加实例方法 prototype
+     * @param {any} json 一个方法名和函数值的json对像.方法名要用""号包起来.
+     */
+    factory.extend = (json) => {
+        for (var name in json) {
+            jslib.prototype[name] = json[name];
+        }
+    };
+    /**
+     * 建立一个DocumentFragment文档片段对象,将传入的node或DocumentFragment()对象添加到其中.
+     * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+     * @returns {DocumentFragment} 返回这个DocumentFragment对象
+     */
+    factory.fragment = (...content) => {
+        let fragm = document.createDocumentFragment();
+        for (var i = 0, len = content.length; i < len; i++) {
+            fragm.append(content[i]);
+        }
+        return fragm;
+    };
+
+    // 实例方法
+    factory.extend({
+        /**
+         * 以已经匹配的元素为根,查找子元素.(原生: dom.querySelectorAll())
+         * @param {string} selector css选择器.如果选择器错误,会报异常.
+         * @returns {jslib} 返回this
+         */
+        "find": function (selector) {
+            let tmplist = [];
+            this.each((item) => {
+                let nodelist = item.querySelectorAll(selector);
+                nodelist.forEach((finditem) => {
+                    tmplist.push(finditem);
+                });
+            });
+            // 重置已选元素
+            this.empty();
+            tmplist.forEach((item) => {
+                this.push(item);
+            });
+            return this;
+        },
+        /**
+         * 筛选取匹配元素的第n个元素(模拟jquery的eq()筛选方法)
+         * @param {number} index 下标
+         * @returns {jslib} 返回this
+         */
+        "eq": function (index) {
+            this[0] = this[index];
+            Array.prototype.splice.call(this, 1);
+            return this;
+        },
+        /**
+         * 设置每个匹配元素的属性或返回第一个元素的属性值.(原生: getAttribute(),setAttribute())
+         * @param {string|object} key 属性名或属性名~值对的json对象
+         * @param {string} val 属性值
+         * @returns {jslib} 取属性时返回属性值.否则返回this
+         */
+        "prop": function (key, val) {
+            if (typeof key === 'string') {
+                // 获取第0个
+                if (val === undefined) {
+                    if (!this[0]) return;
+                    return this[0].getAttribute(key);
+                }
+                // 设置单个
+                this.each((dom) => {
+                    if (this[0]);
+                    dom.setAttribute(key, val);
+                });
+            } else if (typeof key === 'object') {
+                // 设置多个
+                this.each((dom) => {
+                    for (var k in key) {
+                        dom.setAttribute(k, key[k]);
+                    }
+                });
+            }
+            return this;
+        },
+        /**
+         * 删除每个匹配的元素指定的属性
+         * @param {string[]} key 属性名,一个或多个
+         * @returns {jslib} return this
+         */
+        "removeProp": function (...key) {
+            this.each((dom) => {
+                for (var i = 0, len = key.length; i < len; i++) {
+                    dom.removeAttribute(key[i]);
+                }
+            });
+            return this;
+        },
+        /**
+         * 为每个匹配的元素添加指定的类名.(原生: classList.add())
+         * @param {string[]} val 样式类名字,不定个数参数
+         * @returns {jslib} return this
+         */
+        "addClass": function (...val) {
+            this.each((item) => {
+                item.classList.add(...val);
+            });
+            return this;
+        },
+        /**
+         * 从所有匹配的元素中删除全部或者指定的类.(原生: classList.remove())
+         * @param {string[]} val 样式类名字,不定个数参数.如果不传,删除所有样式
+         * @returns {jslib} 返回this
+         */
+        "removeClass": function (...val) {
+            if (val.length === 0) {
+                this.each((item) => {
+                    item.setAttribute('class', '');
+                });
+            }
+            this.each((item) => {
+                item.classList.remove(...val);
+            });
+            return this;
+        },
+        /**
+         * 设置所有匹配的元素的innerTEXT.无参数时,返回第一个元素的innerText内容(原生: innerText)
+         * @param {string} val 设置的文本
+         * @returns {jslib} 取值时返回值.否则返回this
+         */
+        "text": function (val) {
+            if (val === undefined) {
+                if (!this[0]) return;
+                return this[0].innerText;
+            }
+            this.each((dom) => {
+                dom.innerText = val;
+            });
+            return this;
+        },
+        /**
+         * 设置所有匹配的元素的innerHTML.无参数时,返回第一个元素的innerHTML内容(原生: innerHTML)
+         * @param {string} val 设置的html标记
+         * @returns {jslib} 取值时返回值.否则返回this
+         */
+        "html": function (val) {
+            if (val === undefined) {
+                if (!this[0]) return;
+                return this[0].innerHTML;
+            }
+            this.each((dom) => {
+                dom.innerHTML = val;
+            });
+            return this;
+        },
+        /**
+         * 向每个匹配元素内部追加内容(原生: append())
+         * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+         * @returns {jslib} 返回this
+         */
+        "append": function (...content) {
+            this.each((dom) => {
+                dom.append(...content);
+            });
+            return this;
+        },
+        /**
+         * 向每个匹配元素内部第一个子节点前面加入内容(原生: prepend())
+         * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+         * @returns {jslib} 返回this
+         */
+        "prepend": function (...content) {
+            this.each((dom) => {
+                dom.prepend(...content);
+            });
+            return this;
+        },
+        /**
+         * 向每个匹配元素的前面加一个元素(原生: insertBefore())
+         * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+         * @returns {jslib} 返回this
+         */
+        "before": function (...content) {
+            this.each((dom) => {
+                dom.parentNode.insertBefore(factory.fragment(...content), dom);
+            });
+            return this;
+        },
+        /**
+         * 向每个匹配元素的后面加一个元素(原生: insertBefore())
+         * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+         * @returns {jslib} 返回this
+         */
+        "after": function (...content) {
+            this.each((dom) => {
+                dom.parentNode.insertBefore(factory.fragment(...content), dom.nextSibling);
+            });
+            return this;
+        },
+        /**
+         * 删除所有匹配的元素(原生: parentNode.removeChild())
+         */
+        "remove": function () {
+            this.each((dom) => {
+                dom.parentNode.removeChild(dom);
+            });
+            this.empty();
+        }
+    });
+    // window上的引用名 "$ui",外部使用
+    win.$ui = factory;
+})(window);
 /**
  * 侧边菜单
  */
@@ -59,109 +363,246 @@
  * 所有辅助方法都绑定到$ui这个对象上,调用时 $ui.fn(参数);
  *====================================================================================*/
 ((win) => {
-    let ui = {};
     // 文件选择框选择后,将文件名显示在标签上.可绑定到input-file的onchange方法,传参this
-    ui.inputFileChange = (inputfileDom) => {
+    win.$ui.inputFileChange = (inputfileDom) => {
         let fnlist = '';
         [].forEach.call(inputfileDom.files, (item) => {
             fnlist += item.name + ',';
             //console.dir(item);
-        })
+        });
         fnlist = fnlist.substr(0, fnlist.length - 1);
         let labelDom = inputfileDom.parentNode.querySelector('.input-file-label');
         labelDom.innerHTML = fnlist;
-    }
+    };
     // 清空文件选择框
-    ui.clsInputFile = (inputfileDom) => {
+    win.$ui.clsInputFile = (inputfileDom) => {
         // 标签清空一定要先执行,然后再执行文件框清空.
         // 如果反过来执行,那么inputfileDom就会找不到对象,因为outterHTML相当于换一个input
         let labelDom = inputfileDom.parentNode.querySelector('.input-file-label');
-        labelDom.innerHTML = ''; 
+        labelDom.innerHTML = '';
         inputfileDom.outerHTML = inputfileDom.outerHTML;
-    }
+    };
     // 判断btn是否含有loading样式.如果没有会添加上等待样式
-    ui.isBtnLoading =  (btn)=> {
+    win.$ui.isBtnLoading = (btn) => {
         if (btn.classList.contains('loading'))
             return true;
         btn.classList.add('loading');
         return false;
-    }
+    };
     // 去掉btn的loading样式.time是豪秒数,表示经过此时间后去掉loading样式
-    ui.clsBtnLoading =  (btn, time)=> {
+    win.$ui.clsBtnLoading = (btn, time) => {
         if (time >= 0) {
-            setTimeout( ()=> {
+            setTimeout(() => {
                 btn.classList.remove('loading');
             }, time);
         } else {
             btn.classList.remove('loading');
         }
-    }
-    // window上的名称
-    win.$ui = ui;
+    };
 })(window);
 // 选项卡页插件
 ((win) => {
-    // tabsId:容器DomId, [activeIndex默认激活索引0], [changeType:切换方式1=点击 2=鼠标移入]
+    // 激活时样式名
+    const activeCls = 'active';
+    // 标题样式名
+    const tabLabelCls = 'tabs-label';
+    // 面板样式名
+    const tabPanelCls = 'tabs-panel';
+    // 标题与面板关联属性名
+    const relkey = 'pid';
+    // 帮助函数
+    const $ = win.$ui;
+    /**
+     * 生成一个新的pid
+     * @param {Array} pids 现有的pid数组,不能与已有的pid重复
+     * @returns {number} 返回新的pid值
+     */
+    let newPid = (pids) => {
+        let newpid = pids.length;
+        while (pids.indexOf(newpid) > 0) {
+            newpid++;
+        }
+        return newpid;
+    };
+    /**
+     * 切换激活选项卡
+     * @param {any} self tabs对象
+     * @param {number|HTMLElement} activeTab 要激活的选项卡索引或者对象.如果索引无效或者超过选项卡个数,则激活第0个.
+     */
+    let _activeTab = (self, activeTab) => {
+        // 要切换到这个选项卡
+        let labelNow = activeTab;
+        if (!activeTab)
+            labelNow = self.tabsLabels[0];
+        if (typeof activeTab === 'number') {
+            if (activeTab >= self.tabsLabels.length)
+                labelNow = self.tabsLabels[0];
+            else
+                labelNow = self.tabsLabels[activeTab];
+        }
+        // console.log(labelNow);
+        // 去掉其它选项卡激活状态,将当前选项卡置为活动
+        // 隐藏其它面板,激活对应面板.选项卡与面板由pid属性关联.选项卡标签pid值与面板pid值相等
+        let pidOld = $(self.tabsDom).find('.' + activeCls).removeClass(activeCls).prop(relkey);
+        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidOld}']`).removeClass(activeCls);
+        //
+        let pidNow = $(labelNow).addClass(activeCls).prop(relkey);
+        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidNow}']`).addClass(activeCls);
+
+        // 执行激活后方法
+        if (typeof self.onTabActive === 'function')
+            self.onTabActive(labelNow);
+    };
+    /**
+     * 绑定选项卡标签切换事件.每个选项卡标签单独绑定
+     * @param {any} self tabs对象
+     * @param {any} tabLabel tablabel对象
+     */
+    let bindEvent_onChange = (self, tabLabel) => {
+        if (self.changeType == 2) {
+            tabLabel.onmouseenter = () => {
+                _activeTab(self, tabLabel);
+            };
+        } else {
+            tabLabel.onclick = () => {
+                _activeTab(self, tabLabel);
+            };
+        }
+    };
+    /**
+     * 增加一个选项卡
+     * @param {any} self tabs对象
+     * @param {string} title 选项卡标题
+     * @param {number} index 添加到这个索引位置,原有位置的选项卡后移.如果索引无效,加到最后.
+     * @returns {number} 新面板id值
+     */
+    let _addTab = (self, title, index) => {
+        let count = self.getCount();
+        let addIndex = index;
+        if (!addIndex || addIndex < 0 || addIndex >= count)
+            addIndex = count;
+        // 生成pid
+        let pid = newPid(self.tabsLabelsPids);
+        self.tabsLabelsPids.push(pid);
+        // 生成选项卡标签和面板.
+        let label = $('<span>').addClass(tabLabelCls).text(title).prop(relkey, pid)[0];
+        //
+        let panel = $('<div>').addClass(tabPanelCls).prop(relkey, pid)[0];
+        // 绑定标签的点击事件
+        bindEvent_onChange(self, label);
+        // 标签加入
+        if (addIndex == count) {
+            $(self.tabsLabels[self.tabsLabels.length-1]).after(label);
+        } else {
+            // 如果是插入添加,原有位置的标签后移
+            $(self.tabsLabels[addIndex]).before(label);
+        }
+        // 面板加入
+        $(self.tabsDom).append(panel);
+        return pid;
+    };
+    /**
+     * 删除一个选项卡pid
+     * @param {any} self tabs对象
+     * @param {number} index 要删除的选项卡索引或者pid
+     * @param {string} tagType index=索引(默认) | pid=pid
+     */
+    let _delTab = (self, index, tagType) => {
+        if (tagType === 'pid') {
+            // pid有效时做删除
+            if (self.tabsLabelsPids.contains(index)) {
+                let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${index}']`).remove();
+                let label = $(self.tabsDom).find(`.${tabLabelCls}[${relkey}='${index}']`).remove();
+                // pids列表更新
+                let pidIndex = self.tabsLabelsPids.indexOf(index);
+                self.tabsLabelsPids.splice(pidIndex, 1);
+            }
+        } else {
+            // index有效时做删除
+            if (!index || index < 0 || index >= self.tabsLabels.length)
+                return;
+            let label = self.tabsLabels[index];
+            let pid = $(label).prop(relkey);
+            $(label).remove();
+            let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pid}']`).remove();
+            // pids列表更新
+            let pidIndex = self.tabsLabelsPids.indexOf(parseInt(pid));
+            self.tabsLabelsPids.splice(pidIndex, 1);
+        }
+    };
+    //--------------------------------------------------------------------------//
+    /**
+     * 初始化选项卡(工厂函数)
+     * @param {string|HTMLElement} tabsId 容器DomId,或者dom对象
+     * @param {number} activeIndex 默认活动页索引 0
+     * @param {number} changeType 切换方式:1=点击(默认) 2=鼠标移入
+     * @returns {any} 选项卡对象
+     */
     let tabs = (tabsId, activeIndex, changeType) => {
         // 选项卡对象
         let self = {};
-        // 面板激活后执行一个方法
+
+        /**** Prop ****/
+        // event:激活某个选项卡后执行方法 
         self.onTabActive = null;
+        // 切换方式
+        self.changeType = changeType || 1;
 
-        // 配置对象
-        let cfg = { changeType: changeType || 1, activeIndex: activeIndex || 0 };
         // 选项卡容器DOM对象
-        let tabsDom = document.getElementById(tabsId);
-        // 选项卡上指定激活项,默认第1个是激活的.
-        let selectedTab = tabsDom.querySelectorAll('.tabs-label')[cfg.activeIndex];
-        selectedTab.classList.add('active');
-        let selectedPanel = tabsDom.querySelectorAll('.tabs-panel')[cfg.activeIndex];
-        selectedPanel.classList.add('active');
+        self.tabsDom = typeof tabsId === 'string' ? document.getElementById(tabsId) : tabsId;
+        // 选项卡所有标签dom列表
+        // (*注意)这里要用getElementsByClassName(),这个方法取得的dom列表, 会随着选项卡dom的加减而自动刷新(动态的),而querySelectorAll()取得的列表不会(静态的).)
+        self.tabsLabels = self.tabsDom.getElementsByClassName(tabLabelCls);
+        // 选项卡pid数组
+        self.tabsLabelsPids = [];
 
-        // 切换选项卡方法 activeTabIndex:要激活的选项卡索引
-        let changeTab = (activeTabIndex) => {
-            // 如果已是激活的,或者无效,则不动作
-            let activeTab = tabsDom.querySelectorAll('.tabs-label')[activeTabIndex];
-            if (!activeTab || activeTab.classList.contains('active')) {
-                return;
-            }
-            // 去掉其它选项卡激活状态,将当前选项卡置为活动
-            // 隐藏其它面板,激活一个面板.选项卡与面板由索引位置相关联.
-            // 例如:激活第2个选项卡时,则激活第2个面板
-            let tablabels = tabsDom.querySelectorAll('.tabs-label.active');
-            let tabpanels = tabsDom.querySelectorAll('.tabs-panel.active');
-            tablabels.forEach((item) => {
-                item.classList.remove('active');
-            });
-            activeTab.classList.add('active');
+        /**** Init ****/
+        // 设置每个标签的pid属性
+        for (let i = 0; i < self.tabsLabels.length; i++) {
+            let pid = newPid(self.tabsLabelsPids);
+            $(self.tabsLabels[i]).prop(relkey, pid);
+            self.tabsLabelsPids.push(pid);
+        }
+        // 设置每个面板的pid属性
+        let panels = self.tabsDom.getElementsByClassName(tabPanelCls);
+        for (let i = 0; i < self.tabsLabelsPids.length; i++) {
+            let pid = self.tabsLabelsPids[i];
+            if (i >= panels.length) break;
+            $(panels[i]).prop(relkey, pid);
+        }
+        // 给默认激活的选项卡标签,设置活动样式.如果传入的索引超过选项卡个数,忽略
+        let _index = activeIndex;
+        if (!activeIndex || activeIndex < 0 || activeIndex >= self.tabsLabels.length)
+            _index = 0;
+        $(self.tabsLabels[_index]).addClass(activeCls);
+        if (_index < panels.length)
+            $(panels[_index]).addClass(activeCls);
 
-            tabpanels.forEach((item) => {
-                item.classList.remove('active');
-            });
-            let activeTabPanel = tabsDom.querySelectorAll('.tabs-panel')[activeTabIndex];
-            activeTabPanel.classList.add('active');
-            //
-            if (typeof self.onTabActive == 'function')
-                self.onTabActive(activeTabIndex);
+        /**** Method ****/
+        // 切换选项卡方法 index: 要激活的选项卡索引
+        self.activeTab = (index) => {
+            _activeTab(self, index);
+        };
+        // 删除一个选项卡. index:要删除的选项卡索引.tagType:'index'(默认) | 'pid'
+        self.delTab = (index, tagType) => {
+            _delTab(self, index, tagType);
+        };
+        // 添加一个选项卡. title:选项卡标题, index:添加到这个索引位置
+        self.addTab = (title, index) => {
+            _addTab(self, title, index);
+        };
+        // 返回选项卡个数
+        self.getCount = () => {
+            return self.tabsLabels.length;
         };
 
-        // 绑定切换事件
-        let tablabels = tabsDom.querySelectorAll('.tabs-label');
-        if (cfg.changeType == 1) {
-            tablabels.forEach((item, index) => {
-                item.onclick = () => {
-                    changeTab(index);
-                };
-            });
-        } else if (cfg.changeType == 2) {
-            tablabels.forEach((item, index) => {
-                item.onmouseenter = () => {
-                    changeTab(index);
-                };
-            });
+        /**** Event ****/
+        // 绑定选项卡标签的切换事件
+        for (var i = 0; i < self.tabsLabels.length; i++) {
+            let item = self.tabsLabels[i];
+            bindEvent_onChange(self, item);
         }
-        // method
-        self.activeTab = changeTab;
+
         //
         return self;
     };
@@ -174,25 +615,60 @@
  * 用于理解弹出框原理
  */
 ((win) => {
-    // 生成遮罩和弹出层,返回弹出层DOM对象
+    /**
+     * 生成遮罩并显示,生成并返回弹出层父级DOM对象
+     * @returns {HTMLElement} 弹出层父级DOM对象
+     */
     let createMsgBox = () => {
         // 添加遮罩层
         let shadow = document.createElement('div');
         shadow.classList.add('msgbox-shadow');
         document.body.append(shadow);
         // 生成弹出框
-        let msgDom = document.createElement('div');
-        msgDom.classList.add('msgbox-modal');
-        return msgDom;
+        let parentDiv = document.createElement('div');
+        parentDiv.classList.add('msgbox-modal');
+        return parentDiv;
     };
-    // 显示弹出层
+    /**
+     * 显示弹出层
+     * @param {string|HTMLElement} msgboxDom 弹出层html对象或者html字符串
+     */
     let showMsgBox = (msgboxDom) => {
         document.body.style.overflow = 'hidden';
         document.body.append(msgboxDom);
     };
+    /**
+     * 生成标准弹出层的外层div元素,并设置风格样式和位置样式
+     * @param {string} msg 要显示的信息
+     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} position 位置:top | bottom
+     * @returns {HTMLElement} 返回外层div元素
+     */
+    let createOuterDiv = (msg, style, position) => {
+        let outerDiv = document.createElement('div');
+        // 样式风格,位置样式
+        outerDiv.classList.add('msgbox', 'msgbox-' + (position || 'center'));
+        style && outerDiv.classList.add(style);
+        // 内容
+        outerDiv.innerText = msg || '';
+        return outerDiv;
+    };
+    /**
+     * 生成标准按钮:确定,取消
+     * @param {string} name 按钮风格 ok|cancel
+     * @returns {HTMLElement} 返回按钮dom
+     */
+    let createBtn = (name) => {
+        let btn = document.createElement('span');
+        btn.classList.add('msgbox-btn', 'msgbox-' + name);
+        btn.innerText = name === 'ok' ? '确定' : '取消';
+        return btn;
+    };
     // 弹出框类
     let msgBox = {};
-    // 删除(关闭)遮罩和弹出层
+    /**
+     * 删除(关闭)遮罩和弹出层
+     */
     msgBox.close = () => {
         let body = document.body;
         let modal = body.querySelectorAll('.msgbox-modal');
@@ -206,100 +682,149 @@
         // 去掉body滚动条样式
         document.body.style.overflow = null;
     };
-    // alert 弹出框
-    // {msg:要提示的信息,字符串,[onClosed:关闭后执行方法],[style:primary,danger,success],[position:位置(top bottom)]}
+    /**
+     * alert 弹出框
+     * @param {string} msg 要提示的信息
+     * @param {Function} onClosed 关闭后执行方法
+     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} position 位置:top | bottom
+     */
     msgBox.alert = (msg, onClosed, style, position) => {
         // 删除可能存在的弹出框
         msgBox.close();
-        // 生成新框并且加入到body直属
-        let msgDom = createMsgBox();
-        msgDom.innerHTML = `<div class="msgbox ${style || ''} msgbox-${position || 'center'}">${msg || ''}
-        <span class="msgbox-btn msgbox-ok">Ok</span></div>`;
-        // 绑定事件
-        msgDom.querySelector('.msgbox-ok').onclick = () => {
+        // 生成遮罩层和弹出层父级,并且加入到body直属
+        let parentDiv = createMsgBox();
+        // 生成alertDom: 
+        // <div class="msgbox 样式? 位置?">内容<span class="msgbox-btn msgbox-ok">OK</span></div>
+        let alertDom = createOuterDiv(msg, style, position);
+        // 按钮
+        let okBtn = createBtn('ok');
+        // 按钮事件
+        okBtn.onclick = () => {
             // 删除弹出框
             msgBox.close();
             // 执行关闭事件
-            if (typeof onClosed == 'function')
+            if (typeof onClosed === 'function')
                 onClosed();
         };
         // 显示
-        showMsgBox(msgDom);
+        alertDom.appendChild(okBtn);
+        parentDiv.appendChild(alertDom);
+        showMsgBox(parentDiv);
     };
 
-    // confirm 弹出框
-    // { msg: 要提示的信息, 字符串, [callback(res)]:回调函数], [style: primary, danger, success], [position: 位置(top bottom)] }
+    /**
+     * confirm 弹出框
+     * @param {string} msg 要提示的信息
+     * @param {Function} callback 回调函数
+     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} position 位置:top | bottom
+     */
     msgBox.confirm = (msg, callback, style, position) => {
         // 删除可能存在的弹出框
         msgBox.close();
-        // 生成新框并且加入到body直属
-        let msgDom = createMsgBox();
-        msgDom.innerHTML = `<div class="msgbox ${style || ''} msgbox-${position || 'center'}">${msg || ''}
-        <span class="msgbox-btn msgbox-ok">Ok</span><span class="msgbox-btn msgbox-cancel">Cancel</span></div>`;
+        // 生成遮罩层和弹出层父级,并且加入到body直属
+        let parentDiv = createMsgBox();
+        // 生成confirmDom:
+        // <div class="msgbox 样式? 位置?">内容<span class="msgbox-btn msgbox-ok">OK</span>
+        //                    <span class="msgbox-btn msgbox-cancel">Cancel</span></div >
+        let confirmDom = createOuterDiv(msg, style, position);
+        // 按钮
+        let okBtn = createBtn('ok');
+        let cancelBtn = createBtn('cancel');
         // 绑定事件
-        msgDom.querySelector('.msgbox-ok').onclick = () => {
+        okBtn.onclick = () => {
             // 删除弹出框
             msgBox.close();
             // 结果传回1表示点击OK
-            if (typeof callback == 'function')
+            if (typeof callback === 'function')
                 callback(1);
         };
-        msgDom.querySelector('.msgbox-cancel').onclick = () => {
+        cancelBtn.onclick = () => {
             // 删除弹出框
             msgBox.close();
             // 结果传回0表示点击取消
-            if (typeof callback == 'function')
+            if (typeof callback === 'function')
                 callback(0);
         };
         // 显示
-        showMsgBox(msgDom);
-    }
+        confirmDom.innerText = msg;
+        confirmDom.appendChild(okBtn);
+        confirmDom.appendChild(cancelBtn);
+        parentDiv.appendChild(confirmDom);
+        showMsgBox(parentDiv);
+    };
 
-    // prompt 弹出框
-    // { msg: 要提示的信息, 字符串, [callback(res)]:回调函数], [style: primary, danger, success], [position: 位置(top bottom)] }
+    /**
+     * prompt 弹出框
+     * @param {string} msg 要提示的信息
+     * @param {Function} callback 回调函数
+     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} position 位置:top | bottom
+     */
     msgBox.prompt = (msg, callback, style, position) => {
         // 删除可能存在的弹出框
         msgBox.close();
-        // 生成新框并且加入到body直属
-        let msgDom = createMsgBox();
-        msgDom.innerHTML = `<div class="msgbox ${style || ''} msgbox-${position || 'center'}">${msg || ''}<input class="msgbox-input" type="text"/>
-<span class="msgbox-btn msgbox-ok">Ok</span><span class="msgbox-btn msgbox-cancel">Cancel</span></div>`;
+        // 生成遮罩层和弹出层父级,并且加入到body直属
+        let parentDiv = createMsgBox();
+        // 生成promptDom:
+        // <div class="msgbox 样式? 位置?">内容<input class="msgbox-input" type="text"/>
+        // <span class="msgbox-btn msgbox-ok">Ok</span><span class="msgbox-btn msgbox-cancel">Cancel</span></div>
+        let promptDom = createOuterDiv(msg, style, position);
+        // input框
+        let inputE = document.createElement('input');
+        inputE.classList.add('msgbox-input');
+        inputE.type = 'text';
+        // 按钮
+        let okBtn = createBtn('ok');
+        let cancelBtn = createBtn('cancel');
         // 绑定事件
-        msgDom.querySelector('.msgbox-ok').onclick = () => {
+        okBtn.onclick = () => {
             // 删除弹出框
             msgBox.close();
             // 输入传回
-            if (typeof callback == 'function') {
-                let msg = msgDom.querySelector('.msgbox-input').value;
-                callback(msg);
+            if (typeof callback === 'function') {
+                callback(inputE.value);
             }
         };
-        msgDom.querySelector('.msgbox-cancel').onclick = () => {
+        cancelBtn.onclick = () => {
             // 删除弹出框
             msgBox.close();
             // 输入传回空字符串
-            if (typeof callback == 'function')
+            if (typeof callback === 'function')
                 callback('');
         };
         // 显示
-        showMsgBox(msgDom);
+        promptDom.innerText = msg;
+        promptDom.appendChild(inputE);
+        promptDom.appendChild(okBtn);
+        promptDom.appendChild(cancelBtn);
+        parentDiv.appendChild(promptDom);
+        showMsgBox(parentDiv);
     };
 
-    // 弹出自定义HTML片段
-    // {msgboxhtml:自定义弹出层html片段,[onBefore:显示前执行],[onshow:显示后执行]}
-    msgBox.show = (msgboxhtml, onBefore, onShow) => {
+    /**
+     * 弹出自定义HTML片段
+     * @param {string|HTMLElement} customBox 自定义弹出层html片段
+     * @param {Function} onBefore 显示前执行
+     * @param {Function} onShow 显示后执行
+     */
+    msgBox.show = (customBox, onBefore, onShow) => {
         // 删除可能存在的弹出框
         msgBox.close();
-        // 生成新框并且加入到body直属
-        let msgDom = createMsgBox();
-        msgDom.innerHTML = msgboxhtml;
+        // 生成遮罩层和弹出层父级,并且加入到body直属
+        let parentDiv = createMsgBox();
+        if (typeof customBox === 'string')
+            parentDiv.innerHTML = customBox;
+        else
+            parentDiv.appendChild(msgboxhtml);
         //
-        if (typeof onBefore == 'function')
+        if (typeof onBefore === 'function')
             onBefore();
         // 显示
-        showMsgBox(msgDom);
+        showMsgBox(parentDiv);
         //
-        if (typeof onShow == 'function')
+        if (typeof onShow === 'function')
             onBefore();
     };
 
@@ -535,7 +1060,7 @@
     };
 
     //------datebox类-----------datebox类---------//
-    // datebox类名
+    // datebox样式类名
     let dateboxCls = 'date-box';
     // 触发日期框的INPUT的DOM对象引用
     let inputDOM = null;
@@ -1191,7 +1716,7 @@
     document.onclick = () => {
         mydate.close();
     };
-    // 日期函数名,可在引修改
+    // 日期函数名
     win.MyDatePick = mydate;
 })(window);
 /*
