@@ -2229,44 +2229,57 @@ p {
   background-color: var(--success);
 }
 .list {
-  list-style-position: inside;
+  padding-left: 0;
   list-style: none;
-  padding: 10px 0;
 }
-.list li {
-  padding: 0.5em 5px;
+.list > li {
+  padding: 0.1em 0;
 }
-.list.uline li {
-  border-bottom: 1px solid var(--grayback);
+.list .list {
+  padding-left: 2em;
 }
-.list.square li::before,
-.list.cir li::before {
+.list.square > li::before,
+.list.cir > li::before {
   content: '';
   display: inline-block;
   width: 0.5em;
   height: 0.5em;
+  vertical-align: 0.12em;
   background-color: #000;
-  vertical-align: middle;
-  margin-right: 0.6em;
+  margin-right: 0.5em;
 }
-.list.cir li::before {
+.list.cir > li::before {
   border-radius: 50%;
 }
-.list.square.primary li::before {
+.list.square.primary > li::before {
   background-color: var(--primary);
 }
-.list.cir.primary li::before {
+.list.cir.primary > li::before {
   background-color: var(--primary);
 }
-.list.square.danger li::before {
+.list.square.danger > li::before {
   background-color: var(--danger);
 }
-.list.cir.danger li::before {
+.list.cir.danger > li::before {
   background-color: var(--danger);
 }
-.list.square.success li::before {
+.list.square.success > li::before {
   background-color: var(--success);
 }
-.list.cir.success li::before {
+.list.cir.success > li::before {
   background-color: var(--success);
+}
+.list.num,
+.list.abc {
+  counter-reset: li-item;
+}
+.list.num > li::before,
+.list.abc > li::before {
+  counter-increment: li-item;
+}
+.list.num > li::before {
+  content: counters(li-item, '.') '. ';
+}
+.list.abc > li::before {
+  content: '(' counters(li-item, '.', lower-latin) ') ';
 }

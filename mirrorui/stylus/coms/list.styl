@@ -1,29 +1,38 @@
 // 列表 ul ol
 .list
-    list-style-position: inside
+    padding-left: 0
     list-style: none
-    padding: 10px 0
-.list li
-    padding: 0.5em 5px
-// 下划线
-.list.uline li
-    border-bottom: 1px solid var-grayback
-// 方块和圆
+.list > li
+    padding: .1em 0
+// 嵌套时加padding-left
+.list .list
+    padding-left: 2em
+// 方块~圆 样式
 .list
-    &.square li::before, &.cir li::before
+    &.square > li::before, &.cir > li::before
         content: ''
         display: inline-block
-        width: 0.5em
-        height: 0.5em
+        width: .5em
+        height: .5em
+        vertical-align: .12em
         background-color: #000
-        vertical-align: middle
-        margin-right: 0.6em
-    &.cir li::before
+        margin-right: .5em
+    &.cir > li::before
         border-radius: 50%
 // 方块,圆的主题色
 listColors = { primary: var-primary, danger: var-danger, success: var-success }
 for key, val in listColors
-    .list.square.{key} li::before
+    .list.square.{key} > li::before
         background-color: val
-    .list.cir.{key} li::before
+    .list.cir.{key} > li::before
         background-color: val
+// 数值列样式,abc列样式
+.list
+    &.num,&.abc
+        counter-reset: li-item
+    &.num > li::before,&.abc > li::before
+        counter-increment: li-item;
+    &.num > li::before
+        content: counters(li-item,'.') '. ';
+    &.abc > li::before
+        content: '(' counters(li-item,'.',lower-latin) ') '

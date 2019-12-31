@@ -35,8 +35,10 @@
       <SubType>Content</SubType>
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
+    <Content Include="如何自定义ui.md">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="mirrorui.css" />
-    <Content Include="mirrorui.min.css" />
     <Content Include="test.css">
       <SubType>Content</SubType>
       <DependentUpon>test.styl</DependentUpon>
@@ -124,7 +126,6 @@
     <Content Include="zcustom\napoui\stylus\variables\font.styl" />
     <Content Include="zcustom\napoui\stylus\variables\mediaquery.styl" />
     <Content Include="zcustom\napoui\stylus\variables\transition.styl" />
-    <Content Include="如何自定义ui.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="js\cachepage.js" />

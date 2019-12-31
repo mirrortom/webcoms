@@ -1,38 +1,35 @@
 ﻿<div class="doc-part-box" id="list">
   <h2>列表</h2>
-  <p class="article-title">使用ul ol li</p>
-  <p>去掉了ul,ol默认的list-style,自定义了条目li的padding,底边框.</p>
-  <pre>
-&lt;ul class="list"&gt;
-&lt;ol class="list"&gt;
-</pre>
-  <ul class="list">
-    <li>1.政在正身,在爱人,去残贼,择良吏,正决狱,平舶赋</li>
-    <li>2.人生在勤,勤则不匮,其劝率田桑,无或烦扰</li>
-    <li>3.六极之人,务加宽养,必使生有以自救,没有以自给</li>
-    <li>4.长吏华浮,奉客以求小誉,逐末舍本,政之所话,宜谨察之</li>
-    <li>5.人事意气,干乱奉公,外内溷淆,纲纪不设,所宜纠劾</li>
+  <h4>&lt;ul class="list"&gt;</h4>
+  <p>使用ul,ol标记,加list类. &lt;ul class="list"&gt; &lt;ol class="list"&gt;</p>
+  <p>根据原有的ul,ol的样式,稍微调整了li的padding上下.在嵌套时的padding左.另外,加了数值和字母序列</p>
+  <ul class="list mg-b-20">
+    <li>主食</li>
+    <li>
+      <ul class="list">
+        <li>面包</li>
+        <li>米饭</li>
+        <li>馒头</li>
+      </ul>
+    </li>
+    <li>饮料</li>
+    <li>
+      <ul class="list">
+        <li>咖啡</li>
+        <li>白酒</li>
+        <li>绿茶</li>
+      </ul>
+    </li>
   </ul>
-  <p class="article-title">条目下划线</p>
-  <pre>
-&lt;ul class="list uline"&gt;
-</pre>
-  <ol class="list uline">
-    <li>白日依山尽, // 夕阳依傍着西山慢慢地沉没</li>
-    <li>黄河入海流. // 滔滔黄河朝着东海汹涌奔流</li>
-    <li>欲穷千里目, // 若想把千里的风光景物看够</li>
-    <li>更上一层楼. // 那就要登上更高的一层城楼</li>
-  </ol>
-
-  <p class="article-title">方块,圆,主题色</p>
-  <div class="grids">
-    <ol class="list square grid">
+  <h4>方块,圆,主题色</h4>
+  <div class="grids-2">
+    <ol class="list square danger">
       <li>尊前拟把归期说,欲语春容先惨咽</li>
       <li>人生自是有情痴,此恨不关风与月</li>
       <li>离歌且莫翻新阕,一曲能教肠寸结</li>
       <li>直须看尽洛城花,始共春风容易别</li>
     </ol>
-    <ol class="list cir primary grid">
+    <ol class="list cir primary">
       <li>两个黄鹂鸣翠柳, // 两只黄鹂在翠绿的柳树间婉转地歌唱</li>
       <li>一行白鹭上青天. // 一队整齐的白鹭直冲向蔚蓝的天空</li>
       <li>窗含西岭千秋雪, // 窗前可以望见西岭上堆积着终年不化的积雪</li>
@@ -46,5 +43,64 @@
 &lt;ul class="list cir"&gt;
 // 主题色
 &lt;ul class="list square primary"&gt;
+</pre>
+  <h4>数值,字母样式</h4>
+  <p>嵌套的序列使用了css的 "counter-reset" "counter-increment" "counters()" 这三个属性和方法</p>
+  <div class="grids-2">
+    <ul class="list num">
+      <li>
+        主食
+        <ul class="list num">
+          <li>面包</li>
+          <li>米饭</li>
+          <li>馒头</li>
+        </ul>
+      </li>
+      <li>
+        饮料
+        <ul class="list num">
+          <li>咖啡</li>
+          <li>白酒</li>
+          <li>
+            茶
+            <ul class="list num">
+              <li>绿茶</li>
+              <li>红茶</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="list abc">
+      <li>
+        餐具
+        <ul class="list num">
+          <li>大碗</li>
+          <li>竹筷</li>
+          <li>汤勺</li>
+        </ul>
+      </li>
+      <li>
+        优惠
+        <ul class="list abc">
+          <li>会员9折</li>
+          <li>会员100减5</li>
+          <li>
+            优惠劵
+            <ul class="list abc">
+              <li>200酒</li>
+              <li>100饮料(除酒)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <pre>
+// 数值
+&lt;ul class="list num"&gt;
+// 字母
+&lt;ul class="list abc"&gt;
+<b>注意:</b>嵌套的ul,ol,也要加上 class="list num|abc" 样式
 </pre>
 </div>
