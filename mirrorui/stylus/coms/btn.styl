@@ -19,41 +19,46 @@ btn-hover($font-color, $bg-color, $border-color)
     border: 1px solid $border-color
     // a标记做按钮时,不要下划线
     text-decoration: none
-// 点击时
-.btn:active
-    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
-@css {
-    /*禁用(样式来自bt)*/
-    .btn.disabled{
-        cursor: not-allowed;
-        filter: alpha(opacity = 65);
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        opacity: 0.65;
-    }
-    .btn.loading{
-        background-image: url(data:image/gif;base64,R0lGODlhEAALALMMAOXp8a2503CHtOrt9L3G2+Dl7vL0+J6sy4yew1Jvp/T2+e/y9v///wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCwAMACwAAAAAEAALAAAEK5DJSau91KxlpObepinKIi2kyaAlq7pnCq9p3NZ0aW/47H4dBjAEwhiPlAgAIfkECQsADAAsAAAAAAQACwAABA9QpCQRmhbflPnu4HdJVAQAIfkECQsADAAsAAAAABAACwAABDKQySlSEnOGc4JMCJJk0kEQxxeOpImqIsm4KQPG7VnfbEbDvcnPtpINebJNByiTVS6yCAAh+QQJCwAMACwAAAAAEAALAAAEPpDJSaVISVQWzglSgiAJUBSAdBDEEY5JMQyFyrqMSMq03b67WY2x+uVgvGERp4sJfUyYCQUFJjadj3WzuWQiACH5BAkLAAwALAAAAAAQAAsAAAQ9kMlJq73hnGDWMhJQFIB0EMSxKMoiFcNQmKjKugws0+navrEZ49S7AXfDmg+nExIPnU9oVEqmLpXMBouNAAAh+QQFCwAMACwAAAAAEAALAAAEM5DJSau91KxlpOYSUBTAoiiLZKJSMQzFmjJy+8bnXDMuvO89HIuWs8E+HQYyNAJgntBKBAAh+QQFFAAMACwMAAIABAAHAAAEDNCsJZWaFt+V+ZVUBAA7);
-        background-repeat: no-repeat;
-        background-position: right 8px center;
-        padding-right: 2.2em;
-        cursor: wait;
-    }
-}
-.btn
-    // 圆角
-    &.cir
-        border-radius: 4px
-    // 块极按钮
-    &.block
-        display: block
 // /////////////////////////////////////////////////////////////////////////////////
 // 默认按钮
 .btn
     button()
-// 默认按钮hover
+.btn
+    // 点击时阴影
+    &:active
+        -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
 .btn:hover
     btn-hover(var-primaryse, var-grayback, var-graybackse)
+// 禁用(样式来自bt)
+.btn.disabled
+    cursor: not-allowed
+    -webkit-box-shadow: none
+    box-shadow: none
+    opacity: 0.65
+// 圆角
+.btn.cir
+    border-radius: 4px
+// 块极按钮
+.btn.block
+    display: block
+// 按钮等待动画
+.btn.loading::after
+    content: ''
+    display: inline-block
+    width: 1em
+    height: 1em
+    border: 4px dotted
+    border-radius: 50%
+    border-top: none
+    border-bottom: none
+    margin-left: 0.5em
+    vertical-align: middle
+    animation: btnloading 1.5s linear infinite
+    cursor: wait
+@keyframes btnloading
+    100%
+        transform: rotate(360deg)
 // 其它背景颜色 特别注意{插值}不能用于属性的值
 .btn.primary
     color: #ffffff
@@ -85,7 +90,7 @@ for key, val in btnSize
     border-color: transparent
     background-color: transparent
     text-decoration: none
-    padding: .2em 0
+    padding: 0.2em 0
     // 链接式按钮hover
     &:hover
         text-decoration: underline
@@ -96,7 +101,7 @@ for key, val in btnSize
         color: var-primaryse
         box-shadow: none
 // 链接式按钮主题色,只是在hover时变色
-btnLinkColors = { primary: var-primary,danger: var-danger, success: var-success }
+btnLinkColors = { primary: var-primary, danger: var-danger, success: var-success }
 for key, val in btnLinkColors
     .btn.link.{key}:hover
         color: val

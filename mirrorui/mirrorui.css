@@ -959,32 +959,6 @@ p {
 .line.success {
   background-color: var(--success);
 }
-.btn:active {
-  -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
-  box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
-}
-
-  /*禁用(样式来自bt)*/
-  .btn.disabled{
-      cursor: not-allowed;
-      filter: alpha(opacity = 65);
-      -webkit-box-shadow: none;
-      box-shadow: none;
-      opacity: 0.65;
-  }
-  .btn.loading{
-      background-image: url(data:image/gif;base64,R0lGODlhEAALALMMAOXp8a2503CHtOrt9L3G2+Dl7vL0+J6sy4yew1Jvp/T2+e/y9v///wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCwAMACwAAAAAEAALAAAEK5DJSau91KxlpObepinKIi2kyaAlq7pnCq9p3NZ0aW/47H4dBjAEwhiPlAgAIfkECQsADAAsAAAAAAQACwAABA9QpCQRmhbflPnu4HdJVAQAIfkECQsADAAsAAAAABAACwAABDKQySlSEnOGc4JMCJJk0kEQxxeOpImqIsm4KQPG7VnfbEbDvcnPtpINebJNByiTVS6yCAAh+QQJCwAMACwAAAAAEAALAAAEPpDJSaVISVQWzglSgiAJUBSAdBDEEY5JMQyFyrqMSMq03b67WY2x+uVgvGERp4sJfUyYCQUFJjadj3WzuWQiACH5BAkLAAwALAAAAAAQAAsAAAQ9kMlJq73hnGDWMhJQFIB0EMSxKMoiFcNQmKjKugws0+navrEZ49S7AXfDmg+nExIPnU9oVEqmLpXMBouNAAAh+QQFCwAMACwAAAAAEAALAAAEM5DJSau91KxlpOYSUBTAoiiLZKJSMQzFmjJy+8bnXDMuvO89HIuWs8E+HQYyNAJgntBKBAAh+QQFFAAMACwMAAIABAAHAAAEDNCsJZWaFt+V+ZVUBAA7);
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      padding-right: 2.2em;
-      cursor: wait;
-  }
-.btn.cir {
-  border-radius: 4px;
-}
-.btn.block {
-  display: block;
-}
 .btn {
   display: inline-block;
   padding: 0.4em 0.7em;
@@ -999,11 +973,41 @@ p {
   user-select: none;
   transition: background-color 0.3s;
 }
+.btn:active {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+  box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+}
 .btn:hover {
   color: var(--primaryse);
   background-color: var(--grayback);
   border: 1px solid var(--graybackse);
   text-decoration: none;
+}
+.btn.disabled {
+  cursor: not-allowed;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: 0.65;
+}
+.btn.cir {
+  border-radius: 4px;
+}
+.btn.block {
+  display: block;
+}
+.btn.loading::after {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 4px dotted;
+  border-radius: 50%;
+  border-top: none;
+  border-bottom: none;
+  margin-left: 0.5em;
+  vertical-align: middle;
+  animation: btnloading 1.5s linear infinite;
+  cursor: wait;
 }
 .btn.primary {
   color: #fff;
@@ -1108,6 +1112,26 @@ p {
 }
 .btn-list-area .btn {
   display: block;
+}
+@-moz-keyframes btnloading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes btnloading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes btnloading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes btnloading {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .table {
   border-collapse: collapse;
