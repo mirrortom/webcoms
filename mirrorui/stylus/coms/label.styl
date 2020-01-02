@@ -26,7 +26,7 @@ for key, val in labelColors
 .label.success:hover
     label-hover(var-successse, var-successse)
 // 四种大小 默认是14px
-labelSizes = { sm: 12px, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.6) }
+labelSizes = { sm: $font-size-sm, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.6) }
 for key, val in labelSizes
     .label.{key}
         font-size: val

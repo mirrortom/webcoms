@@ -80,7 +80,7 @@ btn-hover($font-color, $bg-color, $border-color)
 .btn.success:hover
     btn-hover(#ffffff, var-successse, var-successse)
 // 四种大小 默认是14px
-btnSize = { sm: 12px, lg: 18px, xl: 24px }
+btnSize = { sm: $font-size-sm, lg: calc(var(--font-size) * 1.3), xl: calc(var(--font-size) * 1.7) }
 for key, val in btnSize
     .btn.{key}
         font-size: val

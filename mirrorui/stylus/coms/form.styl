@@ -165,7 +165,7 @@ for key, val in inputColors
         &:checked + &-label.{key} .radio:after
             background-color: val
 // 四种大小 默认是14px  并非所有表单元素都设计有
-inputSizes = { sm: 12px, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.6) }
+inputSizes = { sm: $font-size-sm, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.6) }
 for key, val in inputSizes
     // input 文本框的标题
     .input-label.{key}

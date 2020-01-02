@@ -14,7 +14,7 @@ for key, val in articleColors
     .article-title.{key}
         border-left-color: val
 // 增加两种字体大小
-articleSize = { sm: 12px, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.5) }
+articleSize = { sm: $font-size-sm, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.5) }
 for key, val in articleSize
     .article-title.{key}
         font-size: val

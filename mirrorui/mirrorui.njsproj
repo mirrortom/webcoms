@@ -35,17 +35,24 @@
       <SubType>Content</SubType>
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
-    <Content Include="如何自定义ui.md">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="mirrorui.css" />
     <Content Include="test.css">
       <SubType>Content</SubType>
       <DependentUpon>test.styl</DependentUpon>
     </Content>
-    <Content Include="test.min.css">
+    <Content Include="zcustom\napoui\compilerconfig.json" />
+    <Content Include="zcustom\napoui\napoui.css" />
+    <Content Include="zcustom\napoui\napoui.min.css" />
+    <Content Include="zcustom\napoui\stylus\index.css">
       <SubType>Content</SubType>
-      <DependentUpon>test.css</DependentUpon>
+      <DependentUpon>zcustom\napoui\stylus\index.styl</DependentUpon>
+    </Content>
+    <Content Include="zcustom\napoui\stylus\index.min.css">
+      <SubType>Content</SubType>
+      <DependentUpon>zcustom\napoui\stylus\index.css</DependentUpon>
+    </Content>
+    <Content Include="如何自定义ui.md">
+      <SubType>Code</SubType>
     </Content>
     <None Include="compilerconfig.json" />
     <Content Include="doc\-------.part.cshtml" />
@@ -103,10 +110,6 @@
     <Content Include="test.html" />
     <Content Include="test.styl" />
     <Content Include="zcustom\napoui\bundleconfig.json" />
-    <Content Include="zcustom\napoui\compilerconfig.json" />
-    <Content Include="zcustom\napoui\compilerconfig.json.defaults" />
-    <Content Include="zcustom\napoui\napoui.css" />
-    <Content Include="zcustom\napoui\napoui.min.css" />
     <Content Include="zcustom\napoui\stylus\base.styl" />
     <Content Include="zcustom\napoui\stylus\coms\article.styl" />
     <Content Include="zcustom\napoui\stylus\coms\btn.styl" />
@@ -141,13 +144,9 @@
       <SubType>Code</SubType>
       <DependentUpon>mirrorui.js</DependentUpon>
     </Compile>
-    <Compile Include="zcustom\napoui\js\form.es5.js" />
-    <Compile Include="zcustom\napoui\js\form.es5.min.js" />
     <Compile Include="zcustom\napoui\js\form.js" />
     <Compile Include="zcustom\napoui\js\msgbox.js" />
     <Compile Include="zcustom\napoui\js\tabs.js" />
-    <Compile Include="zcustom\napoui\napoui.js" />
-    <Compile Include="zcustom\napoui\napoui.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="doc\" />
