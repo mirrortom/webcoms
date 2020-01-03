@@ -67,7 +67,7 @@
      * 清空jslib类数组
      * @returns {jslib} 返回this
      */
-    jslib.prototype.empty = function () {
+    jslib.prototype.reset = function () {
         Array.prototype.splice.call(this, 0);
         return this;
     };
@@ -131,7 +131,7 @@
                 });
             });
             // 重置已选元素
-            this.empty();
+            this.reset();
             tmplist.forEach((item) => {
                 this.push(item);
             });
@@ -296,7 +296,7 @@
             this.each((dom) => {
                 dom.parentNode.removeChild(dom);
             });
-            this.empty();
+            this.reset();
         }
     });
     // window上的引用名 "$ui",外部使用

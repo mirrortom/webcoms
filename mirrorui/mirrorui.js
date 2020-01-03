@@ -67,7 +67,7 @@
      * 清空jslib类数组
      * @returns {jslib} 返回this
      */
-    jslib.prototype.empty = function () {
+    jslib.prototype.reset = function () {
         Array.prototype.splice.call(this, 0);
         return this;
     };
@@ -131,7 +131,7 @@
                 });
             });
             // 重置已选元素
-            this.empty();
+            this.reset();
             tmplist.forEach((item) => {
                 this.push(item);
             });
@@ -296,66 +296,11 @@
             this.each((dom) => {
                 dom.parentNode.removeChild(dom);
             });
-            this.empty();
+            this.reset();
         }
     });
     // window上的引用名 "$ui",外部使用
     win.$ui = factory;
-})(window);
-/**
- * 侧边菜单
- */
-((win) => {
-    // 传入菜单nav标记的id,生成菜单 menuItemClickE(menuItemDom):菜单项点击事件
-    let sideMenu = (menuboxId, menuItemClickE) => {
-        // 菜单navDom
-        let self = {};
-        self.menuDom = document.getElementById(menuboxId);
-        bindEvent_menuGroup(self.menuDom);
-        bindEvent_menuItem(self.menuDom, menuItemClickE);
-        // 程序操作点击菜单
-        self.activeItem = (menuIndex) => {
-            let activeMenuItem = self.menuDom.querySelectorAll('.sidemenu-item')[menuIndex];
-            activeMenuItem.click();
-        }
-        return self;
-    };
-    // 菜单组收起和展开
-    let bindEvent_menuGroup = (menuDom) => {
-        let showClsN = 'sidemenu-arrdown',
-            hideClsN = 'sidemenu-arrleft';
-        menuDom.querySelectorAll('.sidemenu-label').forEach((item) => {
-            item.onclick = () => {
-                let arrowDom = item.parentNode.querySelector(`.${showClsN},.${hideClsN}`);
-                if (arrowDom.classList.contains(showClsN)) {
-                    arrowDom.classList.remove(showClsN);
-                    arrowDom.classList.add(hideClsN);
-                    // 找到ul
-                    item.parentNode.parentNode.classList.add('sidemenu-group-close');
-                } else {
-                    arrowDom.classList.add(showClsN);
-                    arrowDom.classList.remove(hideClsN);
-                    item.parentNode.parentNode.classList.remove('sidemenu-group-close');
-                }
-            }
-        });
-    };
-    // 菜单项点击
-    let bindEvent_menuItem = (menuDom, menuItemClickE) => {
-        let clsN = 'active';
-        menuDom.querySelectorAll('.sidemenu-item').forEach((item) => {
-            item.onclick = () => {
-                menuDom.querySelectorAll('.sidemenu-item.active').forEach((item) => {
-                    item.classList.remove(clsN);
-                });
-                item.classList.add(clsN);
-                if (typeof menuItemClickE == 'function')
-                    menuItemClickE(item);
-            }
-        });
-    };
-    // window上的引用名字
-    win.sidemenu = sideMenu;
 })(window);
 /*====================================================================================*
  * 处理表单元素的一些辅助方法.例如文件选择框选中文件时,将文件名显示在文件框标题上,
@@ -400,214 +345,293 @@
         }
     };
 })(window);
-// 选项卡页插件
+/*
+缓存页组件:
+    组件的主要能力是使用createDocumentFragment这个API将页面缓存为DOM片段.
+    由于片段不在文档流内,所以不会影响当前HTML文档.组件的点击事件状态靠几个关键属性保证.
+cache:
+    缓存对象,键是每个页面对应的ID,值是DOM片段对象.对于当前显示的DOM,其值为null.
+    在选项卡的添加减少切换时,都会将当前显示DOM的值置为null.
+tabsDom:
+    选项卡工具栏的DOM,包含选项卡栏和其它功能按钮.当前活动的选项卡只能有一个,以样式类active标明.
+contDom:
+    用于显示DOM的容器
+ */
 ((win) => {
-    // 激活时样式名
-    const activeCls = 'active';
-    // 标题样式名
-    const tabLabelCls = 'tabs-label';
-    // 面板样式名
-    const tabPanelCls = 'tabs-panel';
-    // 标题与面板关联属性名
-    const relkey = 'pid';
-    // 帮助函数
-    const $ = win.$ui;
-    /**
-     * 生成一个新的pid
-     * @param {Array} pids 现有的pid数组,不能与已有的pid重复
-     * @returns {number} 返回新的pid值
-     */
-    let newPid = (pids) => {
-        let newpid = pids.length;
-        while (pids.indexOf(newpid) > 0) {
-            newpid++;
-        }
-        return newpid;
+    //----帮助函数----帮助函数----帮助函数---帮助函数------------------------------------------------------------ //
+    // 获取DOM上的自定义属性的值
+    let getAttr = (dom, attrName) => {
+        if (!attrName)
+            attrName = 'val';
+        return dom.attributes[attrName].nodeValue;
     };
-    /**
-     * 切换激活选项卡
-     * @param {any} self tabs对象
-     * @param {number|HTMLElement} activeTab 要激活的选项卡索引或者对象.如果索引无效或者超过选项卡个数,则激活第0个.
-     */
-    let _activeTab = (self, activeTab) => {
-        // 要切换到这个选项卡
-        let labelNow = activeTab;
-        if (!activeTab)
-            labelNow = self.tabsLabels[0];
-        if (typeof activeTab === 'number') {
-            if (activeTab >= self.tabsLabels.length)
-                labelNow = self.tabsLabels[0];
-            else
-                labelNow = self.tabsLabels[activeTab];
+    // 设置DOM上的自定义属性值
+    let setAttr = (dom, attrVal, attrName) => {
+        if (!attrName)
+            attrName = 'val';
+        dom.setAttribute(attrName, attrVal); // 设置 
+    };
+    // 删除DOM
+    let delDom = (doms) => {
+        if (!doms.forEach) {
+            // 这是单个DOM的情况
+            doms.parentNode.removeChild(doms);
+            return;
         }
-        // console.log(labelNow);
-        // 去掉其它选项卡激活状态,将当前选项卡置为活动
-        // 隐藏其它面板,激活对应面板.选项卡与面板由pid属性关联.选项卡标签pid值与面板pid值相等
-        let pidOld = $(self.tabsDom).find('.' + activeCls).removeClass(activeCls).prop(relkey);
-        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidOld}']`).removeClass(activeCls);
-        //
-        let pidNow = $(labelNow).addClass(activeCls).prop(relkey);
-        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidNow}']`).addClass(activeCls);
+        doms.forEach((dom) => {
+            dom.parentNode.removeChild(dom);
+        })
+    };
 
-        // 执行激活后方法
-        if (typeof self.onTabActive === 'function')
-            self.onTabActive(labelNow);
-    };
-    /**
-     * 绑定选项卡标签切换事件.每个选项卡标签单独绑定
-     * @param {any} self tabs对象
-     * @param {any} tabLabel tablabel对象
-     */
-    let bindEvent_onChange = (self, tabLabel) => {
-        if (self.changeType == 2) {
-            tabLabel.onmouseenter = () => {
-                _activeTab(self, tabLabel);
-            };
-        } else {
-            tabLabel.onclick = () => {
-                _activeTab(self, tabLabel);
-            };
-        }
-    };
-    /**
-     * 增加一个选项卡
-     * @param {any} self tabs对象
-     * @param {string} title 选项卡标题
-     * @param {number} index 添加到这个索引位置,原有位置的选项卡后移.如果索引无效,加到最后.
-     * @returns {number} 新面板id值
-     */
-    let _addTab = (self, title, index) => {
-        let count = self.getCount();
-        let addIndex = index;
-        if (!addIndex || addIndex < 0 || addIndex >= count)
-            addIndex = count;
-        // 生成pid
-        let pid = newPid(self.tabsLabelsPids);
-        self.tabsLabelsPids.push(pid);
-        // 生成选项卡标签和面板.
-        let label = $('<span>').addClass(tabLabelCls).text(title).prop(relkey, pid)[0];
+    // 建立cachepage实例
+    // tabsDom:选项卡DOM,contDom:显示内容的DOM
+    let cachePage = (tabsDom, contDom) => {
         //
-        let panel = $('<div>').addClass(tabPanelCls).prop(relkey, pid)[0];
-        // 绑定标签的点击事件
-        bindEvent_onChange(self, label);
-        // 标签加入
-        if (addIndex == count) {
-            $(self.tabsLabels[self.tabsLabels.length-1]).after(label);
-        } else {
-            // 如果是插入添加,原有位置的标签后移
-            $(self.tabsLabels[addIndex]).before(label);
-        }
-        // 面板加入
-        $(self.tabsDom).append(panel);
-        return pid;
-    };
-    /**
-     * 删除一个选项卡pid
-     * @param {any} self tabs对象
-     * @param {number} index 要删除的选项卡索引或者pid
-     * @param {string} tagType index=索引(默认) | pid=pid
-     */
-    let _delTab = (self, index, tagType) => {
-        if (tagType === 'pid') {
-            // pid有效时做删除
-            if (self.tabsLabelsPids.contains(index)) {
-                let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${index}']`).remove();
-                let label = $(self.tabsDom).find(`.${tabLabelCls}[${relkey}='${index}']`).remove();
-                // pids列表更新
-                let pidIndex = self.tabsLabelsPids.indexOf(index);
-                self.tabsLabelsPids.splice(pidIndex, 1);
-            }
-        } else {
-            // index有效时做删除
-            if (!index || index < 0 || index >= self.tabsLabels.length)
-                return;
-            let label = self.tabsLabels[index];
-            let pid = $(label).prop(relkey);
-            $(label).remove();
-            let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pid}']`).remove();
-            // pids列表更新
-            let pidIndex = self.tabsLabelsPids.indexOf(parseInt(pid));
-            self.tabsLabelsPids.splice(pidIndex, 1);
-        }
-    };
-    //--------------------------------------------------------------------------//
-    /**
-     * 初始化选项卡(工厂函数)
-     * @param {string|HTMLElement} tabsId 容器DomId,或者dom对象
-     * @param {number} activeIndex 默认活动页索引 0
-     * @param {number} changeType 切换方式:1=点击(默认) 2=鼠标移入
-     * @returns {any} 选项卡对象
-     */
-    let tabs = (tabsId, activeIndex, changeType) => {
-        // 选项卡对象
+        if (!tabsDom || !contDom) throw '必须传入DOM对象';
+        // 缓存页对象
         let self = {};
+        // 缓存器,{c_id:createDocumentFragment片断,c_id2:null},值为null的表示当前活动页,只能有一个
+        let cache = {};
 
-        /**** Prop ****/
-        // event:激活某个选项卡后执行方法 
-        self.onTabActive = null;
-        // 切换方式
-        self.changeType = changeType || 1;
-
-        // 选项卡容器DOM对象
-        self.tabsDom = typeof tabsId === 'string' ? document.getElementById(tabsId) : tabsId;
-        // 选项卡所有标签dom列表
-        // (*注意)这里要用getElementsByClassName(),这个方法取得的dom列表, 会随着选项卡dom的加减而自动刷新(动态的),而querySelectorAll()取得的列表不会(静态的).)
-        self.tabsLabels = self.tabsDom.getElementsByClassName(tabLabelCls);
-        // 选项卡pid数组
-        self.tabsLabelsPids = [];
-
-        /**** Init ****/
-        // 设置每个标签的pid属性
-        for (let i = 0; i < self.tabsLabels.length; i++) {
-            let pid = newPid(self.tabsLabelsPids);
-            $(self.tabsLabels[i]).prop(relkey, pid);
-            self.tabsLabelsPids.push(pid);
-        }
-        // 设置每个面板的pid属性
-        let panels = self.tabsDom.getElementsByClassName(tabPanelCls);
-        for (let i = 0; i < self.tabsLabelsPids.length; i++) {
-            let pid = self.tabsLabelsPids[i];
-            if (i >= panels.length) break;
-            $(panels[i]).prop(relkey, pid);
-        }
-        // 给默认激活的选项卡标签,设置活动样式.如果传入的索引超过选项卡个数,忽略
-        let _index = activeIndex;
-        if (!activeIndex || activeIndex < 0 || activeIndex >= self.tabsLabels.length)
-            _index = 0;
-        $(self.tabsLabels[_index]).addClass(activeCls);
-        if (_index < panels.length)
-            $(panels[_index]).addClass(activeCls);
-
-        /**** Method ****/
-        // 切换选项卡方法 index: 要激活的选项卡索引
-        self.activeTab = (index) => {
-            _activeTab(self, index);
-        };
-        // 删除一个选项卡. index:要删除的选项卡索引.tagType:'index'(默认) | 'pid'
-        self.delTab = (index, tagType) => {
-            _delTab(self, index, tagType);
-        };
-        // 添加一个选项卡. title:选项卡标题, index:添加到这个索引位置
-        self.addTab = (title, index) => {
-            _addTab(self, title, index);
-        };
-        // 返回选项卡个数
-        self.getCount = () => {
-            return self.tabsLabels.length;
+        //--主要方法----主要方法----主要方法----主要方法----主要方法----主要方法--//   
+        // {id:页面标识,title:选项卡标题},点击左侧菜单时,调用此方法
+        self.load = (pid, title) => {
+            // (情形1) 如果载入的是当前活动的选项卡页,不动作
+            if (cache[pid] === null) {
+                //console.log('type1');
+                return null;
+            }
+            // (情形2)激活选项卡.如果pid已添加过,则到缓存中取出页面,并且激活对应选项卡.
+            if (cache[pid]) {
+                // 切换活动选项卡状态
+                let atabdom = activeTab(pid);
+                // 选项卡位置调整到可见区域
+                adjustPositionTab(atabdom);
+                // 添加当前DOM到缓存
+                cacheActiveTab();
+                // 取出pid对应的DOM
+                let cacheDom = cache[pid];
+                // 标识为null,表示pid成为新的活动页
+                cache[pid] = null;
+                //console.log('type2');
+                return cacheDom;
+            }
+            // (情形3)新增加选项卡
+            // 增加选项卡
+            addTab(pid, title);
+            // 选项卡框滚动条移动到最后
+            scrollerTabs(1);
+            // 当增加的是第1个选项卡时,没有活动页面,不需要缓存
+            if (Object.getOwnPropertyNames(cache).length > 0) {
+                cacheActiveTab();
+            }
+            // 添加到缓存.当前活动页缓存约定为null,不缓存
+            cache[pid] = null;
+            //console.log('type3');
+            return null;
         };
 
-        /**** Event ****/
-        // 绑定选项卡标签的切换事件
-        for (var i = 0; i < self.tabsLabels.length; i++) {
-            let item = self.tabsLabels[i];
-            bindEvent_onChange(self, item);
-        }
 
-        //
+        // 新增选项卡
+        let addTab = (pid, title) => {
+            // 去掉当前活动的选项卡
+            let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
+            if (activeTabDom) {
+                activeTabDom.classList.remove('active');
+            }
+            let tabdom = document.createElement('label');
+            tabdom.classList.add('tabsbox-tab');
+            tabdom.classList.add('active');
+            setAttr(tabdom, title, 'title');
+            setAttr(tabdom, pid);
+            tabdom.innerHTML = `${title}<a class="tabsbox-tabclose" title="关闭">×</a>`;
+            // 绑定X关闭事件
+            closeTab(tabdom);
+            // 绑定点击事件
+            selectedTab(tabdom);
+            // 添加到选项卡容器
+            let navDom = tabsDom.querySelector('.tabsbox-nav');
+            navDom.append(tabdom);
+        };
+        // 切换激活选项卡.然后返回活动tab的Dom对象
+        let activeTab = (pid) => {
+            // 去掉当前活动的选项卡
+            let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
+            if (activeTabDom) {
+                activeTabDom.classList.remove('active');
+            };
+            // 添加pid选项卡活动样式
+            let tabDom = tabsDom.querySelector(`.tabsbox-tab[val='${pid}']`);
+            tabDom.classList.add('active');
+            return tabDom;
+        };
+
+        // 将活动页内容DOM添加到缓存.(缓存当前页面)
+        let cacheActiveTab = () => {
+            // 找到cache中null值的键,将显示DIV中的所有元素添加DOM片段后,赋值
+            for (let prop in cache) {
+                if (cache.hasOwnProperty(prop)) {
+                    if (cache[prop] === null) {
+                        let docFragment = document.createDocumentFragment();
+                        contDom.childNodes.forEach((item) => {
+                            docFragment.append(item);
+                        })
+                        cache[prop] = docFragment;
+                        return;
+                    }
+                }
+            }
+        };
+        // 调整选项卡框的滚动条值,使用选项卡显示在合适的位置上
+        // len:滚动距离,>0 : 向右滚此距离, <0 : 向左滚, 0 : 滚动到最左, 1 : 到最右,
+        //              'left': 左滚固定距离, 'right': 右滚固定距离
+        let scrollerTabs = (len) => {
+            let navDom = tabsDom.querySelector('.tabsbox-nav');
+            // 滚动条位置
+            let sPosition = navDom.scrollLeft;
+            // nav宽度
+            let w = navDom.clientWidth;
+            // nav文档长度
+            let swidth = navDom.scrollWidth;
+            // 需要滚动的新位置
+            let toPosition = 0;
+            //
+            if (len == 0)
+                toPosition = 0;
+            else if (len == 1)
+                toPosition = swidth;
+            else if (len == 'left')
+                toPosition = sPosition - (w / 4);
+            else if (len == 'right')
+                toPosition = sPosition + (w / 4);
+            else
+                toPosition = sPosition + len;
+            // 移动滚动条, 此处无需判是否滚动到头或者尾.如果传入的滚动位置无效,则会自动设为0或最大
+            navDom.scrollTo(toPosition, 0);
+            // console.log('滚动位置: ' + toPosition);
+            // console.log('文档长度: ' + swidth);
+        };
+
+        // 调整选项卡框的滚动条值,使指定选项卡处于中间位置.
+        let adjustPositionTab = (tabDom) => {
+            let navDom = tabsDom.querySelector('.tabsbox-nav');
+            // 界限值89px,大致是一个按钮的宽度
+            let tabLen = 89;
+            // 滚动条位置
+            // let sPosition = navDom.scrollLeft;
+            // nav宽度
+            let w = navDom.clientWidth;
+            // nav文档长度
+            // let swidth = navDom.scrollWidth;
+            // 该选项卡离选项卡框左起位置
+            let tabLeft = tabDom.offsetLeft;
+            // 让tab位于navdom的中间位置,算法如下:定位到tab离左边距离,再减去navDom宽度的一半
+            navDom.scrollTo(tabLeft - (w / 2), 0);
+        };
+        //--选项卡事件------选项卡事件------选项卡事件------选项卡事件------选项卡事件------选项卡事件------选项卡事件----//
+        // 点击关闭选项卡
+        let closeTab = (tabDom) => {
+            tabDom.querySelector('.tabsbox-tabclose').onclick = (event) => {
+                event.stopPropagation();
+                // (情形1)关闭的是最后一个tab页,删除tab,清空缓存与
+                if (Object.getOwnPropertyNames(cache).length == 1) {
+                    // 删除选项卡,删除缓存,清空显示容器
+                    contDom.innerHTML = '';
+                    cache = {};
+                    delDom(tabDom);
+                    return;
+                }
+                // (情形2)关闭时,多于1个tab页时
+                // 清除对应缓存,
+                let cacheId = getAttr(tabDom);
+                delete cache[cacheId];
+                // 如果关闭的是活动页,将cache中最后一个id,对应的选项卡激活,对应DOM载入显示容器
+                if (tabDom.classList.contains('active')) {
+                    let cacheId = Object.getOwnPropertyNames(cache).pop();
+                    let lastTabDom = tabsDom.querySelector(`.tabsbox-tab[val='${cacheId}']`);
+                    lastTabDom.classList.add('active');
+                    contDom.innerHTML = '';
+                    contDom.append(cache[cacheId]);
+                    cache[cacheId] = null;
+                }
+                // 删除tab,
+                delDom(tabDom);
+            };
+        };
+        // 点击选项卡
+        let selectedTab = (tabDom) => {
+            tabDom.onclick = () => {
+                // 点击选项卡时,位置会相应调整,确保点击的选项卡完全显示在父级的可见区域.
+                adjustPositionTab(tabDom);
+
+                // (情形1)点击的是活动页面,退出
+                if (tabDom.classList.contains('active'))
+                    return;
+
+                // (情形2)非活动页面,即切换行为
+                // 缓存当前DOM
+                cacheActiveTab();
+                // 去掉当前活动的选项卡活动状态
+                let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
+                if (activeTabDom) {
+                    activeTabDom.classList.remove('active');
+                }
+                // 激活点击的选项卡,获取其缓存页加载到显示容器
+                tabDom.classList.add('active');
+                let cacheId = getAttr(tabDom);
+                contDom.innerHTML = '';
+                contDom.append(cache[cacheId]);
+                cache[cacheId] = null;
+                // console.log(cache);
+            };
+        };
+        //--选项卡条功能事件--绑定事件--------绑定事件--------绑定事件--------绑定事件--------绑定事件--------绑定事件----// 
+        // 向左滚动按钮
+        tabsDom.querySelector('.tabsbox-left').onclick = () => {
+            scrollerTabs('left');
+        };
+        // 向右滚动按钮
+        tabsDom.querySelector('.tabsbox-right').onclick = () => {
+            scrollerTabs('right');
+        };
+
+        // 定位当前按钮
+        tabsDom.querySelector('.tabsbox-goto-active').onclick = () => {
+            let activeTab = tabsDom.querySelector('.active');
+            if (!activeTab) return;
+            adjustPositionTab(activeTab);
+        };
+        // 关闭全部选项卡
+        tabsDom.querySelector('.tabsbox-close-all').onclick = () => {
+            // 删除选项卡,删除缓存,清空显示容器
+            let navDom = tabsDom.querySelector('.tabsbox-nav');
+            navDom.innerHTML = '';
+            contDom.innerHTML = '';
+            cache = {};
+        };
+        // 关闭除当前外所有选项卡
+        tabsDom.querySelector('.tabsbox-close-other').onclick = () => {
+            // 删除选项卡除活动的外
+            let navDom = tabsDom.querySelector('.tabsbox-nav');
+            let otherTabs = navDom.querySelectorAll('.tabsbox-tab:not(.active)');
+            if (otherTabs) {
+                otherTabs.forEach((item) => {
+                    navDom.removeChild(item);
+                });
+            }
+            // 除了为null的都删除掉,null是当前页特征
+            for (let prop in cache) {
+                if (cache.hasOwnProperty(prop)) {
+                    if (cache[prop] === null)
+                        continue;
+                    delete cache[prop];
+                }
+            }
+        };
+
         return self;
     };
-    // window引用名
-    win.tabs = tabs;
+    win.cachepage = cachePage;
 })(window);
 /**
  * 模拟系统的弹出框 alert confirm prompt
@@ -830,172 +854,6 @@
 
     // 引用名称可在此修改
     win.msgbox = msgBox;
-})(window);
-/*
-必须参数:{domId:'容器DOM的id',totalData:'总数',pageIndex:'当前页码',pageSize:'每页数量',pageClickE:'页码点击方法'}
-当总数大于0时,才需要调用分页条
-*/
-((win) => {
-    //----帮助函数----帮助函数----帮助函数---帮助函数---------------------------------------------------- //
-    // 获取DOM上的自定义属性的值
-    let getAttr = (dom, attrName) => {
-        if (!attrName)
-            attrName = 'val';
-        return dom.attributes[attrName].nodeValue;
-    };
-    // 设置DOM上的自定义属性值
-    let setAttr = (dom, attrVal, attrName) => {
-        if (!attrName)
-            attrName = 'val';
-        dom.setAttribute(attrName, attrVal); // 设置 
-    };
-    //------------------------------------------------------------------------------------------------//
-    let pageNum = (config) => {
-        // 分页条容器DOM对象
-        let pnDom = document.getElementById(config.domId);
-        // 配置对象
-        let cfg = {};
-
-        // 1配置设定
-        let initcfg = () => {
-            // 当前页码
-            cfg.PageIndex = config.pageIndex || 1;
-            // 每页数量[5-50]
-            cfg.PageSize = (config.pageSize > 4 && config.pageSize < 51) ? config.pageSize : 10;
-            // 数据总数
-            cfg.TotalData = config.totalData || 0;
-            // 总页数
-            cfg.TotalPage = getTotalPage();
-            // 分页按钮个数[5-10].
-            cfg.TotalBtn = (config.totalBtn > 4 && config.totalBtn < 11) ? config.totalBtn : 5;
-            // 页码点击事件方法
-            cfg.pageClickE = config.pageClickE;
-        };
-
-        // 2主要方法:更新分页条数据,绑定相关事件
-        let newPageNum = () => {
-            // 清空DOM,重新生成分页组件DOM,绑定事件
-            pnDom.innerHTML = '';
-            // 1.页码按钮区域
-            let btnsarea = document.createElement('span');
-            btnsarea.classList.add('pagenum-btns');
-            pnDom.append(btnsarea);
-            // 2.跳转按钮区域
-            let btnskip = document.createElement('span');
-            btnskip.classList.add('pagenum-skip');
-            btnskip.innerHTML = `共<b class="pagenum-total">${cfg.TotalPage}</b>页&nbsp;&nbsp;到第<input class="pagenum-input" />页<a class="pagenum-ok">确定</a>`;
-            pnDom.append(btnskip);
-
-            // 计算页码起止
-            pagenumRange();
-            //console.log(cfg);
-            /*-------------------------------------------------------*
-             * 添加按钮DOM
-             * 页码区固定按钮4个:前一页,第1页和第末页,后一页.
-             *-------------------------------------------------------*/
-            let btndom = '';
-
-            // 向前按钮
-            btndom += `<a class="pagenum-prev" pagenum="${cfg.PageIndex - 1}"><</a>`;
-            // 第1页按钮,当起始页码大于1时添加
-            if (cfg.StartIndex > 1) {
-                let isactiveNum = cfg.PageIndex == 1 ? 'active' : 'num';
-                btndom += `<a class="pagenum-${isactiveNum}" pagenum="1">1</a>`;
-            }
-
-            // 前省略号,当起始页码大于2时添加
-            if (cfg.StartIndex > 2) {
-                btndom += '<span class="pagenum-break">...</span>';
-            }
-            // 页码按钮
-            for (let i = cfg.StartIndex; i <= cfg.EndIndex; i++) {
-                let pagenum = i;
-                let isactiveNum = pagenum == cfg.PageIndex ? 'active' : 'num';
-                btndom += `<a class="pagenum-${isactiveNum}" pagenum="${pagenum}">${pagenum}</a>`;
-            }
-            // 后省略号,当结束页小于最大页码-1时
-            if (cfg.EndIndex < (cfg.TotalPage - 1)) {
-                btndom += '<span class="pagenum-break">...</span>';
-            }
-            // 末页按钮,当结束页小于最大页码时添加
-            if (cfg.EndIndex < cfg.TotalPage) {
-                let isactiveNum = cfg.PageIndex == cfg.TotalPage ? 'active' : 'num';
-                btndom += `<a class="pagenum-${isactiveNum}" pagenum="${cfg.TotalPage}">${cfg.TotalPage}</a>`;
-            }
-
-            // 向后按钮
-            btndom += `<a class="pagenum-next" pagenum="${cfg.PageIndex + 1}">></a>`;
-
-            // 将btndom添加到页码按钮区域容器
-            btnsarea.innerHTML = btndom;
-
-            // 绑定所有按钮事件
-            bindEventForAllBtn();
-        };
-
-        //--辅助方法---------------------------------------------------------------------------------//
-        // 计算起始页码位置:以当前页码为中间位置,根据需要显示的页码按钮个数,计算当前页码之前和之后的页码数.
-        // 当前页码在正中,如果显示按钮个数为偶数,则偏左.例如: "2 3 (4:当前页码在此) 5 6 7"
-        let pagenumRange = () => {
-            let startIndex = cfg.PageIndex - parseInt(cfg.TotalBtn / 2) +
-                (cfg.TotalBtn % 2 == 0 ? 1 : 0);
-            let endIndex = cfg.PageIndex + parseInt(cfg.TotalBtn / 2);
-
-            // 起始页小于1,说明当前页码位于正中时,前面页码数不够了.应将第1页为起始页码,而结束页码也应该重新计算
-            if (startIndex < 1) {
-                startIndex = 1;
-                // 根据要显示的页码数计算结束页码,如果算出页码数大于总页码,则以总页码数为结束页码
-                endIndex = endIndex > cfg.TotalPage ? cfg.TotalPage : cfg.TotalBtn;
-            }
-            // 结束页码大于总页码,说明当前页码位于正中时,后面的页码数不够.应将总页码数为终止页码,起始页码应重新计算
-            if (endIndex > cfg.TotalPage) {
-                endIndex = cfg.TotalPage;
-                // 根据要显示的页码数计算起始页码,如果算出小于1,则以1为起始页码
-                startIndex = endIndex - cfg.TotalBtn + 1;
-                if (startIndex < 1)
-                    startIndex = 1;
-            }
-            cfg.StartIndex = startIndex;
-            cfg.EndIndex = endIndex;
-        };
-
-        // 总页数(由数量总数和分页大小算出)
-        let getTotalPage = () => {
-            if (cfg.TotalData >= 0 && cfg.PageSize >= 5 &&
-                cfg.PageIndex >= 1) {
-                let pagecount = parseInt(cfg.TotalData / cfg.PageSize);
-                let pagecountM = cfg.TotalData % cfg.PageSize;
-                return pagecountM > 0 ? pagecount + 1 : pagecount;
-            }
-            return 0;
-        };
-        /*====================*
-         * 事件绑定 
-         *====================*/
-        let bindEventForAllBtn = () => {
-            // 页码按钮点击
-            pnDom.querySelectorAll('.pagenum-prev,.pagenum-next,.pagenum-first,.pagenum-last,.pagenum-num').forEach((item) => {
-                item.onclick = () => {
-                    // 页码参数范围[1-总页码],范围外不动作
-                    let pnnum = parseInt(getAttr(item, 'pagenum')) || 0;
-                    if (pnnum < 1 || pnnum > cfg.TotalPage) return;
-                    cfg.pageClickE(pnnum);
-                };
-            });
-
-            // 确定按钮点击
-            pnDom.querySelector('.pagenum-ok').onclick = () => {
-                let pnnum = parseInt(pnDom.querySelector('.pagenum-input').value || 0);
-                if (pnnum < 1 || pnnum > cfg.TotalPage) return;
-                cfg.pageClickE(pnnum);
-            };
-        };
-        // 调用
-        initcfg();
-        newPageNum();
-    };
-    // window对象名字
-    win.pagenum = pageNum;
 })(window);
 /*
 日期组件,是一个函数.
@@ -1720,290 +1578,423 @@
     win.MyDatePick = mydate;
 })(window);
 /*
-缓存页组件:
-    组件的主要能力是使用createDocumentFragment这个API将页面缓存为DOM片段.
-    由于片段不在文档流内,所以不会影响当前HTML文档.组件的点击事件状态靠几个关键属性保证.
-cache:
-    缓存对象,键是每个页面对应的ID,值是DOM片段对象.对于当前显示的DOM,其值为null.
-    在选项卡的添加减少切换时,都会将当前显示DOM的值置为null.
-tabsDom:
-    选项卡工具栏的DOM,包含选项卡栏和其它功能按钮.当前活动的选项卡只能有一个,以样式类active标明.
-contDom:
-    用于显示DOM的容器
+必须参数:{
+    domId:'容器DOM的id',
+    totalData:'总数',
+    pageIndex:'当前页码',
+    pageSize:'每页数量',
+    pageClickE:'页码点击方法'
+    }
+当总数大于0时,才需要调用分页条
+*/
+((win) => {
+    // 帮助函数
+    const $ = win.$ui;
+    //------------------------------------------------------------------------------------------------//
+    // 总页数(由数量总数和分页大小算出)
+    let getTotalPage = (dataCount, pageSize, pageIndex) => {
+        if (dataCount >= 0 && pageSize >= 5 &&
+            pageIndex >= 1) {
+            let pagecount = parseInt(dataCount / pageSize);
+            let pagecountMod = dataCount % pageSize;
+            return pagecountMod > 0 ? pagecount + 1 : pagecount;
+        }
+        return 0;
+    };
+    // 配置设定检查,返回配置对象
+    let initCfg = (config) => {
+        let cfg = {};
+        // 当前页码
+        cfg.PageIndex = config.pageIndex || 1;
+        // 每页数量[5-50]
+        cfg.PageSize = (config.pageSize > 4 && config.pageSize < 51) ? config.pageSize : 10;
+        // 数据总数
+        cfg.TotalData = config.totalData || 0;
+        // 总页数
+        cfg.TotalPage = getTotalPage(cfg.TotalData, cfg.PageSize, cfg.PageIndex);
+        // 分页按钮个数[5-10].
+        cfg.TotalBtn = (config.totalBtn > 4 && config.totalBtn < 11) ? config.totalBtn : 5;
+        // 页码点击事件方法
+        cfg.pageClickE = config.pageClickE;
+        return cfg;
+    };
+
+    // 计算起始页码位置:以当前页码为中间位置,根据需要显示的页码按钮个数,计算当前页码之前和之后的页码数.
+    // 当前页码在正中,如果显示按钮个数为偶数,则偏左.例如: "2 3 (4:当前页码在此) 5 6 7"
+    let pagenumRange = (cfg) => {
+        let startIndex = cfg.PageIndex - parseInt(cfg.TotalBtn / 2) +
+            (cfg.TotalBtn % 2 == 0 ? 1 : 0);
+        let endIndex = cfg.PageIndex + parseInt(cfg.TotalBtn / 2);
+
+        // 起始页小于1,说明当前页码位于正中时,前面页码数不够了.应将第1页为起始页码,而结束页码也应该重新计算
+        if (startIndex < 1) {
+            startIndex = 1;
+            // 根据要显示的页码数计算结束页码,如果算出页码数大于总页码,则以总页码数为结束页码
+            endIndex = endIndex > cfg.TotalPage ? cfg.TotalPage : cfg.TotalBtn;
+        }
+        // 结束页码大于总页码,说明当前页码位于正中时,后面的页码数不够.应将总页码数为终止页码,起始页码应重新计算
+        if (endIndex > cfg.TotalPage) {
+            endIndex = cfg.TotalPage;
+            // 根据要显示的页码数计算起始页码,如果算出小于1,则以1为起始页码
+            startIndex = endIndex - cfg.TotalBtn + 1;
+            if (startIndex < 1)
+                startIndex = 1;
+        }
+        cfg.StartIndex = startIndex;
+        cfg.EndIndex = endIndex;
+        //console.log(cfg);
+    };
+
+
+    /*====================*
+     * 事件绑定 
+     *====================*/
+    let bindEventForAllBtn = (pnDom, cfg) => {
+        // 页码按钮点击
+        $(pnDom).find('.pagenum-prev,.pagenum-next,.pagenum-first,.pagenum-last,.pagenum-num').each((item) => {
+            item.onclick = () => {
+                // 页码参数范围[1-总页码],范围外不动作
+                let pnnum = parseInt($(item).prop('pagenum')) || 0;
+                if (pnnum < 1 || pnnum > cfg.TotalPage) return;
+                cfg.pageClickE(pnnum);
+            };
+        });
+
+        // 确定按钮点击
+        $(pnDom).find('.pagenum-ok')[0].onclick = () => {
+            let pnnum = parseInt($(pnDom).find('.pagenum-input')[0].value || 0);
+            if (pnnum < 1 || pnnum > cfg.TotalPage) return;
+            cfg.pageClickE(pnnum);
+        };
+    };
+    // 生成分页条
+    let pageNum = (config) => {
+        // 分页条容器DOM对象
+        let pnDom = document.getElementById(config.domId);
+        // 1. 配置对象
+        let cfg = initCfg(config);
+
+        // 2. 更新分页条数据,绑定相关事件,生成新的分页条
+        // 清空DOM,重新生成分页组件DOM,绑定事件
+        pnDom.innerHTML = '';
+        pnDom.innerText = '';
+        // 1.页码按钮区域
+        let btnsarea = $('<span>').addClass('pagenum-btns')[0];
+        // 2.跳转按钮区域
+        let btnskip = $('<span>').addClass('pagenum-skip')[0];
+        btnskip.innerHTML = `共<b class="pagenum-total">${cfg.TotalPage}</b>页&nbsp;&nbsp;到第<input class="pagenum-input" />页<a class="pagenum-ok">确定</a>`;
+
+        // 计算页码起止
+        pagenumRange(cfg);
+        //console.log(cfg);
+        /*-------------------------------------------------------*
+         * 添加按钮DOM
+         * 页码区固定按钮4个:前一页,第1页和第末页,后一页.
+         *-------------------------------------------------------*/
+        let btndom = $.fragment();
+
+        // 向前按钮
+        btndom.append($('<a>').addClass('pagenum-prev').prop('pagenum', cfg.PageIndex - 1).text('〈')[0]);
+        // 第1页按钮,当起始页码大于1时添加
+        if (cfg.StartIndex > 1) {
+            let isactiveNum = cfg.PageIndex == 1 ? 'active' : 'num';
+            btndom.append($('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', 1).text('1')[0]);
+        }
+
+        // 前省略号,当起始页码大于2时添加
+        if (cfg.StartIndex > 2) {
+            btndom.append($('<span>').addClass('pagenum-break').text('...')[0]);
+        }
+        // 页码按钮
+        for (let i = cfg.StartIndex; i <= cfg.EndIndex; i++) {
+            let pagenum = i;
+            let isactiveNum = pagenum == cfg.PageIndex ? 'active' : 'num';
+            btndom.append($('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', pagenum).text(pagenum)[0]);
+        }
+        // 后省略号,当结束页小于最大页码-1时
+        if (cfg.EndIndex < (cfg.TotalPage - 1)) {
+            btndom.append($('<span>').addClass('pagenum-break').text('...')[0]);
+        }
+        // 最后页按钮,当结束页小于最大页码时添加
+        if (cfg.EndIndex < cfg.TotalPage) {
+            let isactiveNum = cfg.PageIndex == cfg.TotalPage ? 'active' : 'num';
+            btndom.append($('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', cfg.TotalPage).text(cfg.TotalPage)[0]);
+        }
+
+        // 向后按钮
+        btndom.append($('<a>').addClass('pagenum-next').prop('pagenum', cfg.PageIndex + 1).text('〉')[0]);
+
+        // 将btndom添加到页码按钮区域容器
+        btnsarea.appendChild(btndom);
+        pnDom.appendChild(btnsarea);
+        pnDom.appendChild(btnskip);
+        // 绑定所有按钮事件
+        bindEventForAllBtn(pnDom, cfg);
+    };
+    // window对象名字
+    win.pagenum = pageNum;
+})(window);
+/**
+ * 侧边菜单
  */
 ((win) => {
-    //----帮助函数----帮助函数----帮助函数---帮助函数------------------------------------------------------------ //
-    // 获取DOM上的自定义属性的值
-    let getAttr = (dom, attrName) => {
-        if (!attrName)
-            attrName = 'val';
-        return dom.attributes[attrName].nodeValue;
-    };
-    // 设置DOM上的自定义属性值
-    let setAttr = (dom, attrVal, attrName) => {
-        if (!attrName)
-            attrName = 'val';
-        dom.setAttribute(attrName, attrVal); // 设置 
-    };
-    // 删除DOM
-    let delDom = (doms) => {
-        if (!doms.forEach) {
-            // 这是单个DOM的情况
-            doms.parentNode.removeChild(doms);
-            return;
-        }
-        doms.forEach((dom) => {
-            dom.parentNode.removeChild(dom);
-        })
-    };
-
-    // 建立cachepage实例
-    // tabsDom:选项卡DOM,contDom:显示内容的DOM
-    let cachePage = (tabsDom, contDom) => {
-        //
-        if (!tabsDom || !contDom) throw '必须传入DOM对象';
-        // 缓存页对象
+    // 传入菜单nav标记的id,生成菜单 menuItemClickE(menuItemDom):菜单项点击事件
+    let sideMenu = (menuboxId, menuItemClickE) => {
+        // 菜单navDom
         let self = {};
-        // 缓存器,{c_id:createDocumentFragment片断,c_id2:null},值为null的表示当前活动页,只能有一个
-        let cache = {};
-
-        //--主要方法----主要方法----主要方法----主要方法----主要方法----主要方法--//   
-        // {id:页面标识,title:选项卡标题},点击左侧菜单时,调用此方法
-        self.load = (pid, title) => {
-            // (情形1) 如果载入的是当前活动的选项卡页,不动作
-            if (cache[pid] === null) {
-                //console.log('type1');
-                return null;
-            }
-            // (情形2)激活选项卡.如果pid已添加过,则到缓存中取出页面,并且激活对应选项卡.
-            if (cache[pid]) {
-                // 切换活动选项卡状态
-                let atabdom = activeTab(pid);
-                // 选项卡位置调整到可见区域
-                adjustPositionTab(atabdom);
-                // 添加当前DOM到缓存
-                cacheActiveTab();
-                // 取出pid对应的DOM
-                let cacheDom = cache[pid];
-                // 标识为null,表示pid成为新的活动页
-                cache[pid] = null;
-                //console.log('type2');
-                return cacheDom;
-            }
-            // (情形3)新增加选项卡
-            // 增加选项卡
-            addTab(pid, title);
-            // 选项卡框滚动条移动到最后
-            scrollerTabs(1);
-            // 当增加的是第1个选项卡时,没有活动页面,不需要缓存
-            if (Object.getOwnPropertyNames(cache).length > 0) {
-                cacheActiveTab();
-            }
-            // 添加到缓存.当前活动页缓存约定为null,不缓存
-            cache[pid] = null;
-            //console.log('type3');
-            return null;
-        };
-
-
-        // 新增选项卡
-        let addTab = (pid, title) => {
-            // 去掉当前活动的选项卡
-            let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
-            if (activeTabDom) {
-                activeTabDom.classList.remove('active');
-            }
-            let tabdom = document.createElement('label');
-            tabdom.classList.add('tabsbox-tab');
-            tabdom.classList.add('active');
-            setAttr(tabdom, title, 'title');
-            setAttr(tabdom, pid);
-            tabdom.innerHTML = `${title}<a class="tabsbox-tabclose" title="关闭">×</a>`;
-            // 绑定X关闭事件
-            closeTab(tabdom);
-            // 绑定点击事件
-            selectedTab(tabdom);
-            // 添加到选项卡容器
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
-            navDom.append(tabdom);
-        };
-        // 切换激活选项卡.然后返回活动tab的Dom对象
-        let activeTab = (pid) => {
-            // 去掉当前活动的选项卡
-            let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
-            if (activeTabDom) {
-                activeTabDom.classList.remove('active');
-            };
-            // 添加pid选项卡活动样式
-            let tabDom = tabsDom.querySelector(`.tabsbox-tab[val='${pid}']`);
-            tabDom.classList.add('active');
-            return tabDom;
-        };
-
-        // 将活动页内容DOM添加到缓存.(缓存当前页面)
-        let cacheActiveTab = () => {
-            // 找到cache中null值的键,将显示DIV中的所有元素添加DOM片段后,赋值
-            for (let prop in cache) {
-                if (cache.hasOwnProperty(prop)) {
-                    if (cache[prop] === null) {
-                        let docFragment = document.createDocumentFragment();
-                        contDom.childNodes.forEach((item) => {
-                            docFragment.append(item);
-                        })
-                        cache[prop] = docFragment;
-                        return;
-                    }
-                }
-            }
-        };
-        // 调整选项卡框的滚动条值,使用选项卡显示在合适的位置上
-        // len:滚动距离,>0 : 向右滚此距离, <0 : 向左滚, 0 : 滚动到最左, 1 : 到最右,
-        //              'left': 左滚固定距离, 'right': 右滚固定距离
-        let scrollerTabs = (len) => {
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
-            // 滚动条位置
-            let sPosition = navDom.scrollLeft;
-            // nav宽度
-            let w = navDom.clientWidth;
-            // nav文档长度
-            let swidth = navDom.scrollWidth;
-            // 需要滚动的新位置
-            let toPosition = 0;
-            //
-            if (len == 0)
-                toPosition = 0;
-            else if (len == 1)
-                toPosition = swidth;
-            else if (len == 'left')
-                toPosition = sPosition - (w / 4);
-            else if (len == 'right')
-                toPosition = sPosition + (w / 4);
-            else
-                toPosition = sPosition + len;
-            // 移动滚动条, 此处无需判是否滚动到头或者尾.如果传入的滚动位置无效,则会自动设为0或最大
-            navDom.scrollTo(toPosition, 0);
-            // console.log('滚动位置: ' + toPosition);
-            // console.log('文档长度: ' + swidth);
-        };
-
-        // 调整选项卡框的滚动条值,使指定选项卡处于中间位置.
-        let adjustPositionTab = (tabDom) => {
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
-            // 界限值89px,大致是一个按钮的宽度
-            let tabLen = 89;
-            // 滚动条位置
-            // let sPosition = navDom.scrollLeft;
-            // nav宽度
-            let w = navDom.clientWidth;
-            // nav文档长度
-            // let swidth = navDom.scrollWidth;
-            // 该选项卡离选项卡框左起位置
-            let tabLeft = tabDom.offsetLeft;
-            // 让tab位于navdom的中间位置,算法如下:定位到tab离左边距离,再减去navDom宽度的一半
-            navDom.scrollTo(tabLeft - (w / 2), 0);
-        };
-        //--选项卡事件------选项卡事件------选项卡事件------选项卡事件------选项卡事件------选项卡事件------选项卡事件----//
-        // 点击关闭选项卡
-        let closeTab = (tabDom) => {
-            tabDom.querySelector('.tabsbox-tabclose').onclick = (event) => {
-                event.stopPropagation();
-                // (情形1)关闭的是最后一个tab页,删除tab,清空缓存与
-                if (Object.getOwnPropertyNames(cache).length == 1) {
-                    // 删除选项卡,删除缓存,清空显示容器
-                    contDom.innerHTML = '';
-                    cache = {};
-                    delDom(tabDom);
-                    return;
-                }
-                // (情形2)关闭时,多于1个tab页时
-                // 清除对应缓存,
-                let cacheId = getAttr(tabDom);
-                delete cache[cacheId];
-                // 如果关闭的是活动页,将cache中最后一个id,对应的选项卡激活,对应DOM载入显示容器
-                if (tabDom.classList.contains('active')) {
-                    let cacheId = Object.getOwnPropertyNames(cache).pop();
-                    let lastTabDom = tabsDom.querySelector(`.tabsbox-tab[val='${cacheId}']`);
-                    lastTabDom.classList.add('active');
-                    contDom.innerHTML = '';
-                    contDom.append(cache[cacheId]);
-                    cache[cacheId] = null;
-                }
-                // 删除tab,
-                delDom(tabDom);
-            };
-        };
-        // 点击选项卡
-        let selectedTab = (tabDom) => {
-            tabDom.onclick = () => {
-                // 点击选项卡时,位置会相应调整,确保点击的选项卡完全显示在父级的可见区域.
-                adjustPositionTab(tabDom);
-
-                // (情形1)点击的是活动页面,退出
-                if (tabDom.classList.contains('active'))
-                    return;
-
-                // (情形2)非活动页面,即切换行为
-                // 缓存当前DOM
-                cacheActiveTab();
-                // 去掉当前活动的选项卡活动状态
-                let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
-                if (activeTabDom) {
-                    activeTabDom.classList.remove('active');
-                }
-                // 激活点击的选项卡,获取其缓存页加载到显示容器
-                tabDom.classList.add('active');
-                let cacheId = getAttr(tabDom);
-                contDom.innerHTML = '';
-                contDom.append(cache[cacheId]);
-                cache[cacheId] = null;
-                // console.log(cache);
-            };
-        };
-        //--选项卡条功能事件--绑定事件--------绑定事件--------绑定事件--------绑定事件--------绑定事件--------绑定事件----// 
-        // 向左滚动按钮
-        tabsDom.querySelector('.tabsbox-left').onclick = () => {
-            scrollerTabs('left');
-        };
-        // 向右滚动按钮
-        tabsDom.querySelector('.tabsbox-right').onclick = () => {
-            scrollerTabs('right');
-        };
-
-        // 定位当前按钮
-        tabsDom.querySelector('.tabsbox-goto-active').onclick = () => {
-            let activeTab = tabsDom.querySelector('.active');
-            if (!activeTab) return;
-            adjustPositionTab(activeTab);
-        };
-        // 关闭全部选项卡
-        tabsDom.querySelector('.tabsbox-close-all').onclick = () => {
-            // 删除选项卡,删除缓存,清空显示容器
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
-            navDom.innerHTML = '';
-            contDom.innerHTML = '';
-            cache = {};
-        };
-        // 关闭除当前外所有选项卡
-        tabsDom.querySelector('.tabsbox-close-other').onclick = () => {
-            // 删除选项卡除活动的外
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
-            let otherTabs = navDom.querySelectorAll('.tabsbox-tab:not(.active)');
-            if (otherTabs) {
-                otherTabs.forEach((item) => {
-                    navDom.removeChild(item);
-                });
-            }
-            // 除了为null的都删除掉,null是当前页特征
-            for (let prop in cache) {
-                if (cache.hasOwnProperty(prop)) {
-                    if (cache[prop] === null)
-                        continue;
-                    delete cache[prop];
-                }
-            }
-        };
-
+        self.menuDom = document.getElementById(menuboxId);
+        bindEvent_menuGroup(self.menuDom);
+        bindEvent_menuItem(self.menuDom, menuItemClickE);
+        // 程序操作点击菜单
+        self.activeItem = (menuIndex) => {
+            let activeMenuItem = self.menuDom.querySelectorAll('.sidemenu-item')[menuIndex];
+            activeMenuItem.click();
+        }
         return self;
     };
-    win.cachepage = cachePage;
+    // 菜单组收起和展开
+    let bindEvent_menuGroup = (menuDom) => {
+        let showClsN = 'sidemenu-arrdown',
+            hideClsN = 'sidemenu-arrleft';
+        menuDom.querySelectorAll('.sidemenu-label').forEach((item) => {
+            item.onclick = () => {
+                let arrowDom = item.parentNode.querySelector(`.${showClsN},.${hideClsN}`);
+                if (arrowDom.classList.contains(showClsN)) {
+                    arrowDom.classList.remove(showClsN);
+                    arrowDom.classList.add(hideClsN);
+                    // 找到ul
+                    item.parentNode.parentNode.classList.add('sidemenu-group-close');
+                } else {
+                    arrowDom.classList.add(showClsN);
+                    arrowDom.classList.remove(hideClsN);
+                    item.parentNode.parentNode.classList.remove('sidemenu-group-close');
+                }
+            }
+        });
+    };
+    // 菜单项点击
+    let bindEvent_menuItem = (menuDom, menuItemClickE) => {
+        let clsN = 'active';
+        menuDom.querySelectorAll('.sidemenu-item').forEach((item) => {
+            item.onclick = () => {
+                menuDom.querySelectorAll('.sidemenu-item.active').forEach((item) => {
+                    item.classList.remove(clsN);
+                });
+                item.classList.add(clsN);
+                if (typeof menuItemClickE == 'function')
+                    menuItemClickE(item);
+            }
+        });
+    };
+    // window上的引用名字
+    win.sidemenu = sideMenu;
+})(window);
+// 选项卡页插件
+((win) => {
+    // 激活时样式名
+    const activeCls = 'active';
+    // 标题样式名
+    const tabLabelCls = 'tabs-label';
+    // 面板样式名
+    const tabPanelCls = 'tabs-panel';
+    // 标题与面板关联属性名
+    const relkey = 'pid';
+    // 帮助函数
+    const $ = win.$ui;
+    /**
+     * 生成一个新的pid
+     * @param {Array} pids 现有的pid数组,不能与已有的pid重复
+     * @returns {number} 返回新的pid值
+     */
+    let newPid = (pids) => {
+        let newpid = pids.length;
+        while (pids.indexOf(newpid) > 0) {
+            newpid++;
+        }
+        return newpid;
+    };
+    /**
+     * 切换激活选项卡
+     * @param {any} self tabs对象
+     * @param {number|HTMLElement} activeTab 要激活的选项卡索引或者对象.如果索引无效或者超过选项卡个数,则激活第0个.
+     */
+    let _activeTab = (self, activeTab) => {
+        // 要切换到这个选项卡
+        let labelNow = activeTab;
+        if (!activeTab)
+            labelNow = self.tabsLabels[0];
+        if (typeof activeTab === 'number') {
+            if (activeTab >= self.tabsLabels.length)
+                labelNow = self.tabsLabels[0];
+            else
+                labelNow = self.tabsLabels[activeTab];
+        }
+        // console.log(labelNow);
+        // 去掉其它选项卡激活状态,将当前选项卡置为活动
+        // 隐藏其它面板,激活对应面板.选项卡与面板由pid属性关联.选项卡标签pid值与面板pid值相等
+        let pidOld = $(self.tabsDom).find('.' + activeCls).removeClass(activeCls).prop(relkey);
+        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidOld}']`).removeClass(activeCls);
+        //
+        let pidNow = $(labelNow).addClass(activeCls).prop(relkey);
+        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidNow}']`).addClass(activeCls);
+
+        // 执行激活后方法
+        if (typeof self.onTabActive === 'function')
+            self.onTabActive(labelNow);
+    };
+    /**
+     * 绑定选项卡标签切换事件.每个选项卡标签单独绑定
+     * @param {any} self tabs对象
+     * @param {any} tabLabel tablabel对象
+     */
+    let bindEvent_onChange = (self, tabLabel) => {
+        if (self.changeType == 2) {
+            tabLabel.onmouseenter = () => {
+                _activeTab(self, tabLabel);
+            };
+        } else {
+            tabLabel.onclick = () => {
+                _activeTab(self, tabLabel);
+            };
+        }
+    };
+    /**
+     * 增加一个选项卡
+     * @param {any} self tabs对象
+     * @param {string} title 选项卡标题
+     * @param {number} index 添加到这个索引位置,原有位置的选项卡后移.如果索引无效,加到最后.
+     * @returns {number} 新面板id值
+     */
+    let _addTab = (self, title, index) => {
+        let count = self.getCount();
+        let addIndex = index;
+        if (!addIndex || addIndex < 0 || addIndex >= count)
+            addIndex = count;
+        // 生成pid
+        let pid = newPid(self.tabsLabelsPids);
+        self.tabsLabelsPids.push(pid);
+        // 生成选项卡标签和面板.
+        let label = $('<span>').addClass(tabLabelCls).text(title).prop(relkey, pid)[0];
+        //
+        let panel = $('<div>').addClass(tabPanelCls).prop(relkey, pid)[0];
+        // 绑定标签的点击事件
+        bindEvent_onChange(self, label);
+        // 标签加入
+        if (addIndex == count) {
+            $(self.tabsLabels[self.tabsLabels.length-1]).after(label);
+        } else {
+            // 如果是插入添加,原有位置的标签后移
+            $(self.tabsLabels[addIndex]).before(label);
+        }
+        // 面板加入
+        $(self.tabsDom).append(panel);
+        return pid;
+    };
+    /**
+     * 删除一个选项卡pid
+     * @param {any} self tabs对象
+     * @param {number} index 要删除的选项卡索引或者pid
+     * @param {string} tagType index=索引(默认) | pid=pid
+     */
+    let _delTab = (self, index, tagType) => {
+        if (tagType === 'pid') {
+            // pid有效时做删除
+            if (self.tabsLabelsPids.contains(index)) {
+                let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${index}']`).remove();
+                let label = $(self.tabsDom).find(`.${tabLabelCls}[${relkey}='${index}']`).remove();
+                // pids列表更新
+                let pidIndex = self.tabsLabelsPids.indexOf(index);
+                self.tabsLabelsPids.splice(pidIndex, 1);
+            }
+        } else {
+            // index有效时做删除
+            if (!index || index < 0 || index >= self.tabsLabels.length)
+                return;
+            let label = self.tabsLabels[index];
+            let pid = $(label).prop(relkey);
+            $(label).remove();
+            let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pid}']`).remove();
+            // pids列表更新
+            let pidIndex = self.tabsLabelsPids.indexOf(parseInt(pid));
+            self.tabsLabelsPids.splice(pidIndex, 1);
+        }
+    };
+    //--------------------------------------------------------------------------//
+    /**
+     * 初始化选项卡(工厂函数)
+     * @param {string|HTMLElement} tabsId 容器DomId,或者dom对象
+     * @param {number} activeIndex 默认活动页索引 0
+     * @param {number} changeType 切换方式:1=点击(默认) 2=鼠标移入
+     * @returns {any} 选项卡对象
+     */
+    let tabs = (tabsId, activeIndex, changeType) => {
+        // 选项卡对象
+        let self = {};
+
+        /**** Prop ****/
+        // event:激活某个选项卡后执行方法 
+        self.onTabActive = null;
+        // 切换方式
+        self.changeType = changeType || 1;
+
+        // 选项卡容器DOM对象
+        self.tabsDom = typeof tabsId === 'string' ? document.getElementById(tabsId) : tabsId;
+        // 选项卡所有标签dom列表
+        // (*注意)这里要用getElementsByClassName(),这个方法取得的dom列表, 会随着选项卡dom的加减而自动刷新(动态的),而querySelectorAll()取得的列表不会(静态的).)
+        self.tabsLabels = self.tabsDom.getElementsByClassName(tabLabelCls);
+        // 选项卡pid数组
+        self.tabsLabelsPids = [];
+
+        /**** Init ****/
+        // 设置每个标签的pid属性
+        for (let i = 0; i < self.tabsLabels.length; i++) {
+            let pid = newPid(self.tabsLabelsPids);
+            $(self.tabsLabels[i]).prop(relkey, pid);
+            self.tabsLabelsPids.push(pid);
+        }
+        // 设置每个面板的pid属性
+        let panels = self.tabsDom.getElementsByClassName(tabPanelCls);
+        for (let i = 0; i < self.tabsLabelsPids.length; i++) {
+            let pid = self.tabsLabelsPids[i];
+            if (i >= panels.length) break;
+            $(panels[i]).prop(relkey, pid);
+        }
+        // 给默认激活的选项卡标签,设置活动样式.如果传入的索引超过选项卡个数,忽略
+        let _index = activeIndex;
+        if (!activeIndex || activeIndex < 0 || activeIndex >= self.tabsLabels.length)
+            _index = 0;
+        $(self.tabsLabels[_index]).addClass(activeCls);
+        if (_index < panels.length)
+            $(panels[_index]).addClass(activeCls);
+
+        /**** Method ****/
+        // 切换选项卡方法 index: 要激活的选项卡索引
+        self.activeTab = (index) => {
+            _activeTab(self, index);
+        };
+        // 删除一个选项卡. index:要删除的选项卡索引.tagType:'index'(默认) | 'pid'
+        self.delTab = (index, tagType) => {
+            _delTab(self, index, tagType);
+        };
+        // 添加一个选项卡. title:选项卡标题, index:添加到这个索引位置
+        self.addTab = (title, index) => {
+            _addTab(self, title, index);
+        };
+        // 返回选项卡个数
+        self.getCount = () => {
+            return self.tabsLabels.length;
+        };
+
+        /**** Event ****/
+        // 绑定选项卡标签的切换事件
+        for (var i = 0; i < self.tabsLabels.length; i++) {
+            let item = self.tabsLabels[i];
+            bindEvent_onChange(self, item);
+        }
+
+        //
+        return self;
+    };
+    // window引用名
+    win.tabs = tabs;
 })(window);
