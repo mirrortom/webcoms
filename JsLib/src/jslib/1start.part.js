@@ -67,7 +67,7 @@
      * 清空jslib类数组
      * @returns {jslib} 返回this
      */
-    jslib.prototype.empty = function () {
+    jslib.prototype.reset = function () {
         Array.prototype.splice.call(this, 0);
         return this;
     };

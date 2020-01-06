@@ -4,18 +4,24 @@
  * 用于理解弹出框原理
  */
 ((win) => {
+    // 遮罩样式命
+    const shadowCls = 'msgbox-shadow';
+    // 弹出层父级样式名
+    const modalCls = 'msgbox-modal';
+    // 弹出层样式名
+    const msgboxCls = 'msgbox';
+    // 帮助函数
+    const $ = win.$ui;
     /**
      * 生成遮罩并显示,生成并返回弹出层父级DOM对象
      * @returns {HTMLElement} 弹出层父级DOM对象
      */
     let createMsgBox = () => {
         // 添加遮罩层
-        let shadow = document.createElement('div');
-        shadow.classList.add('msgbox-shadow');
+        let shadow = $('<div>').addClass(shadowCls)[0];
         document.body.append(shadow);
         // 生成弹出框
-        let parentDiv = document.createElement('div');
-        parentDiv.classList.add('msgbox-modal');
+        let parentDiv = $('<div>').addClass(modalCls)[0];
         return parentDiv;
     };
     /**
@@ -34,13 +40,12 @@
      * @returns {HTMLElement} 返回外层div元素
      */
     let createOuterDiv = (msg, style, position) => {
-        let outerDiv = document.createElement('div');
         // 样式风格,位置样式
-        outerDiv.classList.add('msgbox', 'msgbox-' + (position || 'center'));
-        style && outerDiv.classList.add(style);
+        let outerDiv = $('<div>').addClass(msgboxCls, 'msgbox-' + (position || 'center'));
+        style && outerDiv.addClass(style);
         // 内容
-        outerDiv.innerText = msg || '';
-        return outerDiv;
+        outerDiv.text(msg || '');
+        return outerDiv[0];
     };
     /**
      * 生成标准按钮:确定,取消
@@ -48,10 +53,8 @@
      * @returns {HTMLElement} 返回按钮dom
      */
     let createBtn = (name) => {
-        let btn = document.createElement('span');
-        btn.classList.add('msgbox-btn', 'msgbox-' + name);
-        btn.innerText = name === 'ok' ? '确定' : '取消';
-        return btn;
+        let btn = $('<span>').addClass('msgbox-btn', 'msgbox-' + name).text(name === 'ok' ? '确定' : '取消');
+        return btn[0];
     };
     // 弹出框类
     let msgBox = {};
@@ -60,8 +63,8 @@
      */
     msgBox.close = () => {
         let body = document.body;
-        let modal = body.querySelectorAll('.msgbox-modal');
-        let shadow = body.querySelectorAll('.msgbox-shadow');
+        let modal = body.querySelectorAll('.' + modalCls);
+        let shadow = body.querySelectorAll('.' + shadowCls);
         modal.forEach((dom) => {
             dom.parentNode.removeChild(dom);
         });
@@ -161,9 +164,7 @@
         // <span class="msgbox-btn msgbox-ok">Ok</span><span class="msgbox-btn msgbox-cancel">Cancel</span></div>
         let promptDom = createOuterDiv(msg, style, position);
         // input框
-        let inputE = document.createElement('input');
-        inputE.classList.add('msgbox-input');
-        inputE.type = 'text';
+        let inputE = $('<input>').addClass('msgbox-input').prop('type', 'text')[0];
         // 按钮
         let okBtn = createBtn('ok');
         let cancelBtn = createBtn('cancel');

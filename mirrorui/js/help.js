@@ -189,18 +189,23 @@
             return this;
         },
         /**
-         * 为每个匹配的元素添加指定的类名.(原生: classList.add())
+         * 为每个匹配的元素添加指定的类名.如果类名为空字符串'',忽略.(原生: classList.add())
          * @param {string[]} val 样式类名字,不定个数参数
          * @returns {jslib} return this
          */
         "addClass": function (...val) {
+            let tmp = [];
+            val.forEach((item) => {
+                if (item)
+                    tmp.push(item);
+            });
             this.each((item) => {
-                item.classList.add(...val);
+                item.classList.add(...tmp);
             });
             return this;
         },
         /**
-         * 从所有匹配的元素中删除全部或者指定的类.(原生: classList.remove())
+         * 从所有匹配的元素中删除全部或者指定的类.如果类名为空字符串'',忽略(原生: classList.remove())
          * @param {string[]} val 样式类名字,不定个数参数.如果不传,删除所有样式
          * @returns {jslib} 返回this
          */
@@ -210,8 +215,13 @@
                     item.setAttribute('class', '');
                 });
             }
+            let tmp = [];
+            val.forEach((item) => {
+                if (item)
+                    tmp.push(item);
+            });
             this.each((item) => {
-                item.classList.remove(...val);
+                item.classList.remove(...tmp);
             });
             return this;
         },
@@ -297,6 +307,16 @@
                 dom.parentNode.removeChild(dom);
             });
             this.reset();
+        },
+        /**
+         * 删除所有匹配元素的全部子元素
+         * @returns {jslib} 返回this
+         */
+        "empty": function () {
+            this.each((dom) => {
+                dom.innerHTML = '';
+            });
+            return this;
         }
     });
     // window上的引用名 "$ui",外部使用

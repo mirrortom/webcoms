@@ -5,7 +5,7 @@ factory.extend({
      * @param {string} selector css选择器.如果选择器错误,会报异常.
      * @returns {jslib} 返回this
      */
-    "find": function (selector) {
+    'find': function (selector) {
         let tmplist = [];
         this.each((item) => {
             let nodelist = item.querySelectorAll(selector);
@@ -14,7 +14,7 @@ factory.extend({
             });
         });
         // 重置已选元素
-        this.empty();
+        this.reset();
         tmplist.forEach((item) => {
             this.push(item);
         });
@@ -25,7 +25,7 @@ factory.extend({
      * @param {number} index 下标
      * @returns {jslib} 返回this
      */
-    "eq": function (index) {
+    'eq': function (index) {
         this[0] = this[index];
         Array.prototype.splice.call(this, 1);
         return this;
@@ -36,7 +36,7 @@ factory.extend({
      * @param {string} val 属性值
      * @returns {jslib} 取属性时返回属性值.否则返回this
      */
-    "prop": function (key, val) {
+    'prop': function (key, val) {
         if (typeof key === 'string') {
             // 获取第0个
             if (val === undefined) {
@@ -63,7 +63,7 @@ factory.extend({
      * @param {string[]} key 属性名,一个或多个
      * @returns {jslib} return this
      */
-    "removeProp": function (...key) {
+    'removeProp': function (...key) {
         this.each((dom) => {
             for (var i = 0, len = key.length; i < len; i++) {
                 dom.removeAttribute(key[i]);
@@ -76,7 +76,7 @@ factory.extend({
      * @param {string[]} val 样式类名字,不定个数参数
      * @returns {jslib} return this
      */
-    "addClass": function (...val) {
+    'addClass': function (...val) {
         this.each((item) => {
             item.classList.add(...val);
         });
@@ -87,7 +87,7 @@ factory.extend({
      * @param {string[]} val 样式类名字,不定个数参数.如果不传,删除所有样式
      * @returns {jslib} 返回this
      */
-    "removeClass": function (...val) {
+    'removeClass': function (...val) {
         if (val.length === 0) {
             this.each((item) => {
                 item.setAttribute('class', '');
@@ -103,7 +103,7 @@ factory.extend({
      * @param {string} val 设置的文本
      * @returns {jslib} 取值时返回值.否则返回this
      */
-    "text": function (val) {
+    'text': function (val) {
         if (val === undefined) {
             if (!this[0]) return;
             return this[0].innerText;
@@ -118,7 +118,7 @@ factory.extend({
      * @param {string} val 设置的html标记
      * @returns {jslib} 取值时返回值.否则返回this
      */
-    "html": function (val) {
+    'html': function (val) {
         if (val === undefined) {
             if (!this[0]) return;
             return this[0].innerHTML;
@@ -133,7 +133,7 @@ factory.extend({
      * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    "append": function (...content) {
+    'append': function (...content) {
         this.each((dom) => {
             dom.append(...content);
         });
@@ -144,7 +144,7 @@ factory.extend({
      * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    "prepend": function (...content) {
+    'prepend': function (...content) {
         this.each((dom) => {
             dom.prepend(...content);
         });
@@ -155,7 +155,7 @@ factory.extend({
      * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    "before": function (...content) {
+    'before': function (...content) {
         this.each((dom) => {
             dom.parentNode.insertBefore(factory.fragment(...content), dom);
         });
@@ -166,7 +166,7 @@ factory.extend({
      * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    "after": function (...content) {
+    'after': function (...content) {
         this.each((dom) => {
             dom.parentNode.insertBefore(factory.fragment(...content), dom.nextSibling);
         });
@@ -175,10 +175,10 @@ factory.extend({
     /**
      * 删除所有匹配的元素(原生: parentNode.removeChild())
      */
-    "remove": function () {
+    'remove': function () {
         this.each((dom) => {
             dom.parentNode.removeChild(dom);
         });
-        this.empty();
+        this.reset();
     }
 });
