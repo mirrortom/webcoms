@@ -8,7 +8,7 @@
 ((win) => {
     "use strict";
     /**
-     * js自定义封装库的定义函数.(下述都称为jslib类数组对象)
+     * js自定义封装库的定义函数.(下述都称为jslib类数组对象,简称jslib)
      * @param {string|HTMLElement} selector 选择器或者dom对象或/^<[a-z]+?>$/,如'<div>'.表示新建元素.
      * @returns {jslib} 返回this
      */
@@ -194,8 +194,13 @@ factory.extend({
      * @returns {jslib} return this
      */
     'addClass': function (...val) {
+        let tmp = [];
+        val.forEach((item) => {
+            if (item)
+                tmp.push(item);
+        });
         this.each((item) => {
-            item.classList.add(...val);
+            item.classList.add(...tmp);
         });
         return this;
     },
@@ -210,10 +215,26 @@ factory.extend({
                 item.setAttribute('class', '');
             });
         }
+        let tmp = [];
+        val.forEach((item) => {
+            if (item)
+                tmp.push(item);
+        });
         this.each((item) => {
-            item.classList.remove(...val);
+            item.classList.remove(...tmp);
         });
         return this;
+    },
+    /**
+     * 检查第一个匹配的元素是否含有指定的类(原生: classList.contains)
+     * @param {string} val  样式类名字
+     * @returns {boolean} 第一个匹配含有类时返回true,其它情况返回false
+     */
+    'hasClass': function (val) {
+        if (this.length > 0) {
+            return this[0].classList.contains(val);
+        }
+        return false;
     },
     /**
      * 设置所有匹配的元素的innerTEXT.无参数时,返回第一个元素的innerText内容(原生: innerText)
@@ -297,8 +318,20 @@ factory.extend({
             dom.parentNode.removeChild(dom);
         });
         this.reset();
+    },
+    /**
+     * 清空所有匹配的元素的全部子元素(原生: innerHTML='')
+     * @returns {jslib} 返回this
+     */
+    'empty': function () {
+        this.each((dom) => {
+            dom.innerHTML = '';
+        });
+        return this;
     }
 });
+// 数组相关操作方法
+// 字符串相关方法
 // window上的引用名 "lib",外部使用
 win.lib = factory;
 }) (window);

@@ -50,6 +50,8 @@
     <Content Include="src\jslib\1start.part.js" />
     <Content Include="src\jslib\2end.part.js" />
     <Content Include="src\jslib\dom.part.js" />
+    <Content Include="src\jslib\static_string.part.js" />
+    <Content Include="src\jslib\static_array.part.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="doc\" />

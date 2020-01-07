@@ -8,7 +8,7 @@
 ((win) => {
     "use strict";
     /**
-     * js自定义封装库的定义函数.(下述都称为jslib类数组对象)
+     * js自定义封装库的定义函数.(下述都称为jslib类数组对象,简称jslib)
      * @param {string|HTMLElement} selector 选择器或者dom对象或/^<[a-z]+?>$/,如'<div>'.表示新建元素.
      * @returns {jslib} 返回this
      */
