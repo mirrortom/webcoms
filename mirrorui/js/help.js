@@ -226,6 +226,17 @@
             return this;
         },
         /**
+         * 检查第一个匹配的元素是否含有指定的类(原生: classList.contains)
+         * @param {string} val  样式类名字
+         * @returns {boolean} 第一个匹配含有类时返回true,其它情况返回false
+         */
+        'hasClass': function (val) {
+            if (this.length > 0) {
+                return this[0].classList.contains(val);
+            }
+            return false;
+        },
+        /**
          * 设置所有匹配的元素的innerTEXT.无参数时,返回第一个元素的innerText内容(原生: innerText)
          * @param {string} val 设置的文本
          * @returns {jslib} 取值时返回值.否则返回this
