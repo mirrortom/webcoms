@@ -1229,9 +1229,9 @@ p {
   color: #555;
   padding: 0 8px;
   z-index: 10;
-  overflow: hidden /* 超出时隐藏 */;
-  text-overflow: ellipsis /* 文本超出时省略号 */;
-  white-space: nowrap /* 不许换行 */;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .input-check {
   position: absolute;
@@ -2206,6 +2206,7 @@ p {
 }
 .tabsbox-tab {
   display: inline-block;
+  position: relative;
   padding: 0 15px;
   height: 40px;
   border-right: 1px solid var(--graybackse);
@@ -2214,6 +2215,8 @@ p {
 }
 .tabsbox-tab:hover {
   background-color: var(--graybackse);
+  padding-right: 24px;
+  transition: padding-right 0.3s;
 }
 .tabsbox-tab.active {
   color: #fff;
@@ -2221,13 +2224,14 @@ p {
 }
 .tabsbox-tabclose {
   display: none;
+  position: absolute;
   width: 16px;
   height: 16px;
   line-height: 16px;
   text-align: center;
-  margin-left: 8px;
-  border-radius: 50% 50%;
   color: #fff;
+  top: 0;
+  right: 0;
   background-color: #c00;
   text-decoration: none;
 }
@@ -2235,22 +2239,34 @@ p {
   display: inline-block;
 }
 .tabsbox.primary {
-  border-bottom: 2px solid var(--primary);
+  border-bottom-color: var(--primary);
 }
 .tabsbox.primary .tabsbox-tab.active {
   background-color: var(--primary);
 }
+.tabsbox.primary .tabsbox-menugroup {
+  border-left-color: var(--primary);
+  border-bottom-color: var(--primary);
+}
 .tabsbox.danger {
-  border-bottom: 2px solid var(--danger);
+  border-bottom-color: var(--danger);
 }
 .tabsbox.danger .tabsbox-tab.active {
   background-color: var(--danger);
 }
+.tabsbox.danger .tabsbox-menugroup {
+  border-left-color: var(--danger);
+  border-bottom-color: var(--danger);
+}
 .tabsbox.success {
-  border-bottom: 2px solid var(--success);
+  border-bottom-color: var(--success);
 }
 .tabsbox.success .tabsbox-tab.active {
   background-color: var(--success);
+}
+.tabsbox.success .tabsbox-menugroup {
+  border-left-color: var(--success);
+  border-bottom-color: var(--success);
 }
 .list {
   padding-left: 0;

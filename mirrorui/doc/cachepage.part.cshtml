@@ -1,24 +1,34 @@
 ﻿<div class="doc-part-box" id="cachepage">
   <style>
     .cachepagedemo {
-      display: flex;
-      justify-content: space-between;
-      border: 5px solid #eeeeee;
-      padding-bottom: 10px;
+      border: 1px solid #eee;
+      max-width: 90%
     }
 
-    #main_menu1 {
-      width: 80px;
-      margin: 0;
-      list-style: square;
+    .leftbox {
+      display: inline-block;
+      width: 100px;
+      min-width: 100px;
+      vertical-align: top;
     }
+
+    #main_menu1 a {
+      cursor: pointer;
+    }
+
+      #main_menu1 a:active {
+        color: red;
+      }
 
     .main {
-      width: 100%;
+      display: inline-block;
+      width: 80%;
+      vertical-align: top;
     }
   </style>
   <h2>CachePage</h2>
   <p>缓存页,每显示一个页面时,缓存当前的页面</p>
+  <span class="label">主题</span>
   <input class="input-check" name="radiogroup1" type="radio" id="cache_def" />
   <label onclick="changethem('cache_def')" class="input-check-label" for="cache_def"><b class="radio"></b>default</label>
   <input class="input-check" name="radiogroup1" type="radio" id="cache_primary" />
@@ -28,56 +38,14 @@
   <input class="input-check" name="radiogroup1" type="radio" id="cache_success" />
   <label onclick="changethem('cache_success','success')" class="input-check-label success" for="cache_success"><b class="radio"></b>success</label>
   <br />
+  <br />
   <div class="cachepagedemo">
-    <ul id="main_menu1">
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-    </ul>
+    <div class="leftbox">
+      <span class="label mg-5">管理系统</span>
+      <ul id="main_menu1" class="list num"></ul>
+    </div>
     <div class="main">
-      <div class="tabsbox" id="tabsbox1">
-        <a class="tabsbox-left"></a>
-        <nav class="tabsbox-navbox">
-          <div class="tabsbox-nav"></div>
-        </nav>
-        <a class="tabsbox-right"></a>
-        <span class="tabsbox-menutitle">功能</span>
-        <div class="tabsbox-menugroup">
-          <span class="tabsbox-goto-active">定位当前页</span>
-          <span class="tabsbox-close-all">关闭全部</span>
-          <span class="tabsbox-close-other">关闭其它</span>
-        </div>
-      </div>
+      <div id="tabsbox1"></div>
       <div id="mainbox"></div>
     </div>
   </div>
@@ -86,28 +54,31 @@
     使用document.createDocumentFragment这个方法,将当前页面移到 "片段"中,"片段"并不在document中,所以不会引起混乱.保持一个对它的引用,在显示曾经打开过的页面时, 再添加到document中即可.如此可实现不用iframe的方案.
   </p>
   <h4>选项卡HMTL</h4>
+  <p>组件只包含选项卡部分,菜单和内容容器部分是自由定义的</p>
+  <p>换主题色,在选项卡html容器上加primary,success,danger</p>
+  <p>选项卡html内容由js生成,但是外层容器需要写出</p>
   <pre>
-        &lt;div class="tabsbox" id="tabsbox1"&gt;
-            // 向左按钮
-            &lt;a class="tabsbox-left"&gt;&lt;/a&gt;
+    &lt;div class="tabsbox <b>primary</b>" id="tabsbox1"&gt;
+        // 向左按钮
+        &lt;a class="tabsbox-left"&gt;&lt;/a&gt;
 
-            // 导航区
-            &lt;nav class="tabsbox-navbox"&gt;&lt;div class="tabsbox-nav"&gt;&lt;/div&gt;&lt;/nav&gt; 
+        // 导航区
+        &lt;nav class="tabsbox-navbox"&gt;&lt;div class="tabsbox-nav"&gt;&lt;/div&gt;&lt;/nav&gt; 
 
-            // 向右按钮
-            &lt;a class="tabsbox-right"&gt;&lt;/a&gt;
+        // 向右按钮
+        &lt;a class="tabsbox-right"&gt;&lt;/a&gt;
 
-            // 功能按钮组
-            &lt;span class="tabsbox-menutitle"&gt;功能&lt;/span&gt;
-            &lt;div class="tabsbox-menugroup"&gt;
-                &lt;span class="tabsbox-goto-active"&gt;定位当前页&lt;/span&gt;
-                &lt;span class="tabsbox-close-all"&gt;关闭全部&lt;/span&gt;
-                &lt;span class="tabsbox-close-other"&gt;关闭其它&lt;/span&gt;
-            &lt;/div&gt;
+        // 功能按钮组
+        &lt;span class="tabsbox-menutitle"&gt;功能&lt;/span&gt;
+        &lt;div class="tabsbox-menugroup"&gt;
+            &lt;span class="tabsbox-goto-active"&gt;定位当前页&lt;/span&gt;
+            &lt;span class="tabsbox-close-all"&gt;关闭全部&lt;/span&gt;
+            &lt;span class="tabsbox-close-other"&gt;关闭其它&lt;/span&gt;
         &lt;/div&gt;
+    &lt;/div&gt;
         </pre>
   <h4>功能与特点</h4>
-  <ul>
+  <ul class="list square">
     <li>点击左侧菜单时,缓存当前页面,新增选项卡,显示新页面.如果菜单已经打开过,则显示对应选项卡.</li>
     <li>导航按钮:每个选项卡对应一个缓存页面,当选项卡超出可视范围后,使用前进后退按钮滚动选项卡框</li>
     <li>当被点击的选项卡靠近选项卡框的两端,则调整该选项卡到中间位置</li>
@@ -121,22 +92,41 @@
   <p>为了避免页面冲突,通常是使用iframe来解决的,这个方案用于替代iframe.</p>
   <h4>用法</h4>
   <p>在点击菜单时,调用cachepage.load方法,会将当前活动页面加入到缓存中,然后显示菜单对应页面到显示区</p>
-
+  <pre>
+// 新建实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
+let cpg = cachepage(tabsDom, contDom);
+// load方法,{pid:菜单唯一标识,title:选项卡标题},点击左侧菜单时,调用此方法
+cpg.load(pid, title);
+// pid不能重复,每个菜单一个pid,可以在绑定菜单点击方法时,统一分配.
+</pre>
+  <h4>经典布局结构</h4>
+  <p>左侧菜单,右侧分为2部分,上面是选项卡,下面是内容区</p>
+  <pre>
+&lt;div class="box"&gt;
+  &lt;div class="left"&gt;&lt;ul&gt;菜单区域&lt;/ul&gt;&lt;/div&gt;
+  &lt;div class="right"&gt;
+    &lt;div class="top"&gt;选项卡区域&lt;/div&gt;
+    &lt;div&gt;内容区域&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
 
   <script>
-    // 选项卡框Dom对象
+    // 选项卡框Dom容器
     let tabsDom = document.getElementById('tabsbox1');
-    // 显示内容Domc对象
+    // 显示内容Dom容器
     let contDom = document.getElementById('mainbox');
     // cachepage
     let cpg = cachepage(tabsDom, contDom);
     // 左侧菜单绑定事件
     let menus = ['MainPage', '人员管理', '部门管理', '订单管理', '资料管理', '报表管理', '信息查询', '日志查询', '财务会计', '权限设置', '系统设置'];
-    let menubox = document.getElementById('main_menu1');
-    menubox.querySelectorAll('a').forEach((item, index) => {
-      item.innerHTML = menus[index];
-      //
-      item.onclick = () => {
+    let fragment = document.createDocumentFragment();
+    for (var i = 0; i < menus.length; i++) {
+      let li = document.createElement('li');
+      let a = document.createElement('a');
+      a.innerText = menus[i];
+      let index = i;
+      a.onclick = () => {
         let cacheDom = cpg.load(index, menus[index]);
         contDom.innerHTML = '';
         if (cacheDom) {
@@ -144,8 +134,13 @@
         } else {
           contDom.innerHTML = `<h1>${menus[index]}</h1>`;
         };
-      };
-    });
+      }
+      li.append(a);
+      fragment.append(li);
+    }
+    let menubox = document.getElementById('main_menu1');
+    menubox.append(fragment);
+
     // 默认载入MainPage页
     menubox.querySelector('a').click();
 

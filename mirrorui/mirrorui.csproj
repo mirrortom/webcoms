@@ -53,7 +53,7 @@
     <Content Include="zcustom\napoui\js\msgbox.js" />
     <Content Include="zcustom\napoui\js\tabs.js" />
     <Content Include="zcustom\napoui\napoui.css" />
-    <Content Include="zcustom\napoui\napoui.min.css" />
+    <Content Include="zcustom\napoui\napoui.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -113,6 +113,9 @@
     <None Include="stylus\variables\transition.styl" />
     <None Include="test.styl" />
     <None Include="zcustom\napoui\bundleconfig.json" />
+    <None Include="zcustom\napoui\bundleconfig.json.bindings">
+      <DependentUpon>bundleconfig.json</DependentUpon>
+    </None>
     <None Include="zcustom\napoui\compilerconfig.json" />
     <None Include="zcustom\napoui\stylus\base.styl" />
     <None Include="zcustom\napoui\stylus\coms\article.styl" />
@@ -122,8 +125,6 @@
     <None Include="zcustom\napoui\stylus\coms\h1h6p.styl" />
     <None Include="zcustom\napoui\stylus\coms\hr.styl" />
     <None Include="zcustom\napoui\stylus\coms\msgbox.styl" />
-    <None Include="zcustom\napoui\stylus\coms\msgpanel.styl" />
-    <None Include="zcustom\napoui\stylus\coms\panel.styl" />
     <None Include="zcustom\napoui\stylus\coms\table.styl" />
     <None Include="zcustom\napoui\stylus\coms\tabs.styl" />
     <None Include="zcustom\napoui\stylus\coms\tools.styl" />
@@ -131,7 +132,6 @@
     <None Include="zcustom\napoui\stylus\index.styl" />
     <None Include="zcustom\napoui\stylus\variables\color.styl" />
     <None Include="zcustom\napoui\stylus\variables\font.styl" />
-    <None Include="zcustom\napoui\stylus\variables\mediaquery.styl" />
     <None Include="zcustom\napoui\stylus\variables\transition.styl" />
     <None Include="如何自定义ui.md" />
   </ItemGroup>

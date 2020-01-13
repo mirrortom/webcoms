@@ -226,6 +226,17 @@
             return this;
         },
         /**
+         * 检查第一个匹配的元素是否含有指定的类(原生: classList.contains)
+         * @param {string} val  样式类名字
+         * @returns {boolean} 第一个匹配含有类时返回true,其它情况返回false
+         */
+        'hasClass': function (val) {
+            if (this.length > 0) {
+                return this[0].classList.contains(val);
+            }
+            return false;
+        },
+        /**
          * 设置所有匹配的元素的innerTEXT.无参数时,返回第一个元素的innerText内容(原生: innerText)
          * @param {string} val 设置的文本
          * @returns {jslib} 取值时返回值.否则返回this
@@ -378,33 +389,38 @@ contDom:
     用于显示DOM的容器
  */
 ((win) => {
-    //----帮助函数----帮助函数----帮助函数---帮助函数------------------------------------------------------------ //
-    // 获取DOM上的自定义属性的值
-    let getAttr = (dom, attrName) => {
-        if (!attrName)
-            attrName = 'val';
-        return dom.attributes[attrName].nodeValue;
+    // 帮助函数
+    const $ = win.$ui;
+    // 生成选项卡和功能区DOM,添加到容器内
+    /* html内容:
+        <a class="tabsbox-left"></a>
+        <nav class="tabsbox-navbox">
+          <div class="tabsbox-nav"></div>
+        </nav>
+        <a class="tabsbox-right"></a>
+        <span class="tabsbox-menutitle">功能</span>
+        <div class="tabsbox-menugroup">
+          <span class="tabsbox-goto-active">定位当前页</span>
+          <span class="tabsbox-close-all">关闭全部</span>
+          <span class="tabsbox-close-other">关闭其它</span>
+        </div>
+     */
+    let createTabDom = (tabsDom) => {
+        let fragment = $.fragment();
+        fragment.append($('<a>').addClass('tabsbox-left')[0]);
+        fragment.append($('<nav>').addClass('tabsbox-navbox').append($('<div>').addClass('tabsbox-nav')[0])[0]);
+        fragment.append($('<a>').addClass('tabsbox-right')[0]);
+        fragment.append($('<span>').addClass('tabsbox-menutitle').text('功能')[0]);
+        let menugroup = $('<div>').addClass('tabsbox-menugroup').append(
+            $('<span>').addClass('tabsbox-goto-active').text('定位当前页')[0],
+            $('<span>').addClass('tabsbox-close-all').text('关闭全部')[0],
+            $('<span>').addClass('tabsbox-close-other').text('关闭其它')[0]
+        )[0];
+        fragment.append(menugroup);
+        $(tabsDom).append(fragment).addClass('tabsbox');
     };
-    // 设置DOM上的自定义属性值
-    let setAttr = (dom, attrVal, attrName) => {
-        if (!attrName)
-            attrName = 'val';
-        dom.setAttribute(attrName, attrVal); // 设置 
-    };
-    // 删除DOM
-    let delDom = (doms) => {
-        if (!doms.forEach) {
-            // 这是单个DOM的情况
-            doms.parentNode.removeChild(doms);
-            return;
-        }
-        doms.forEach((dom) => {
-            dom.parentNode.removeChild(dom);
-        })
-    };
-
     // 建立cachepage实例
-    // tabsDom:选项卡DOM,contDom:显示内容的DOM
+    // tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
     let cachePage = (tabsDom, contDom) => {
         //
         if (!tabsDom || !contDom) throw '必须传入DOM对象';
@@ -412,10 +428,17 @@ contDom:
         let self = {};
         // 缓存器,{c_id:createDocumentFragment片断,c_id2:null},值为null的表示当前活动页,只能有一个
         let cache = {};
+        // 生成选项卡工具dom
+        createTabDom(tabsDom);
 
-        //--主要方法----主要方法----主要方法----主要方法----主要方法----主要方法--//   
-        // {id:页面标识,title:选项卡标题},点击左侧菜单时,调用此方法
+        //-----------------------------------------------------------------
+        // 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态,还绑定了新增的选项卡事件
+        //-----------------------------------------------------------------
+        // {pid:菜单唯一标识,title:选项卡标题},点击左侧菜单时,调用此方法
         self.load = (pid, title) => {
+            if (!title) {
+                throw 'tab title is empty!';
+            }
             // (情形1) 如果载入的是当前活动的选项卡页,不动作
             if (cache[pid] === null) {
                 //console.log('type1');
@@ -451,62 +474,56 @@ contDom:
             return null;
         };
 
-
+        //-----------------------------------------------------------------
+        // Mehtod
+        //-----------------------------------------------------------------
         // 新增选项卡
         let addTab = (pid, title) => {
             // 去掉当前活动的选项卡
-            let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
-            if (activeTabDom) {
-                activeTabDom.classList.remove('active');
+            let activeTabDom = $(tabsDom).find('.tabsbox-tab.active');
+            if (activeTabDom.length > 0) {
+                activeTabDom.removeClass('active');
             }
-            let tabdom = document.createElement('label');
-            tabdom.classList.add('tabsbox-tab');
-            tabdom.classList.add('active');
-            setAttr(tabdom, title, 'title');
-            setAttr(tabdom, pid);
-            tabdom.innerHTML = `${title}<a class="tabsbox-tabclose" title="关闭">×</a>`;
+            let tabdom = $('<label>').addClass('tabsbox-tab', 'active').prop({ 'title': title, 'val': pid })
+                .html(title).append($('<a>').addClass('tabsbox-tabclose').prop('title', '关闭').text('×')[0])[0];
             // 绑定X关闭事件
             closeTab(tabdom);
             // 绑定点击事件
             selectedTab(tabdom);
             // 添加到选项卡容器
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
-            navDom.append(tabdom);
+            $(tabsDom).find('.tabsbox-nav').append(tabdom);
         };
         // 切换激活选项卡.然后返回活动tab的Dom对象
         let activeTab = (pid) => {
             // 去掉当前活动的选项卡
-            let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
-            if (activeTabDom) {
-                activeTabDom.classList.remove('active');
-            };
+            let activeTabDom = $(tabsDom).find('.tabsbox-tab.active');
+            if (activeTabDom.length > 0) {
+                activeTabDom.removeClass('active');
+            }
             // 添加pid选项卡活动样式
-            let tabDom = tabsDom.querySelector(`.tabsbox-tab[val='${pid}']`);
-            tabDom.classList.add('active');
+            let tabDom = $(tabsDom).find(".tabsbox-tab[val='" + pid + "']").addClass('active')[0];
             return tabDom;
         };
 
         // 将活动页内容DOM添加到缓存.(缓存当前页面)
         let cacheActiveTab = () => {
-            // 找到cache中null值的键,将显示DIV中的所有元素添加DOM片段后,赋值
+            // 找到cache中null值的键,将显示容器div中的所有元素添加DOM片段后,赋值
             for (let prop in cache) {
                 if (cache.hasOwnProperty(prop)) {
                     if (cache[prop] === null) {
-                        let docFragment = document.createDocumentFragment();
-                        contDom.childNodes.forEach((item) => {
-                            docFragment.append(item);
-                        })
-                        cache[prop] = docFragment;
+                        let fragment = $.fragment();
+                        fragment.append(...contDom.childNodes);
+                        cache[prop] = fragment;
                         return;
                     }
                 }
             }
         };
-        // 调整选项卡框的滚动条值,使用选项卡显示在合适的位置上
+        // 调整选项卡框的滚动条值,使选项卡显示在合适的位置上
         // len:滚动距离,>0 : 向右滚此距离, <0 : 向左滚, 0 : 滚动到最左, 1 : 到最右,
         //              'left': 左滚固定距离, 'right': 右滚固定距离
         let scrollerTabs = (len) => {
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
+            let navDom = $(tabsDom).find('.tabsbox-nav')[0];
             // 滚动条位置
             let sPosition = navDom.scrollLeft;
             // nav宽度
@@ -534,7 +551,7 @@ contDom:
 
         // 调整选项卡框的滚动条值,使指定选项卡处于中间位置.
         let adjustPositionTab = (tabDom) => {
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
+            let navDom = $(tabsDom).find('.tabsbox-nav')[0];
             // 界限值89px,大致是一个按钮的宽度
             let tabLen = 89;
             // 滚动条位置
@@ -548,34 +565,35 @@ contDom:
             // 让tab位于navdom的中间位置,算法如下:定位到tab离左边距离,再减去navDom宽度的一半
             navDom.scrollTo(tabLeft - (w / 2), 0);
         };
-        //--选项卡事件------选项卡事件------选项卡事件------选项卡事件------选项卡事件------选项卡事件------选项卡事件----//
+        //------------------------------------------------------------------
+        // Event 选项卡事件
+        //------------------------------------------------------------------
         // 点击关闭选项卡
         let closeTab = (tabDom) => {
-            tabDom.querySelector('.tabsbox-tabclose').onclick = (event) => {
+            $(tabDom).find('.tabsbox-tabclose')[0].onclick = (event) => {
                 event.stopPropagation();
-                // (情形1)关闭的是最后一个tab页,删除tab,清空缓存与
+                // (情形1)关闭的是最后一个tab页,删除tab,清空缓存
                 if (Object.getOwnPropertyNames(cache).length == 1) {
                     // 删除选项卡,删除缓存,清空显示容器
                     contDom.innerHTML = '';
                     cache = {};
-                    delDom(tabDom);
+                    $(tabDom).remove();
                     return;
                 }
                 // (情形2)关闭时,多于1个tab页时
                 // 清除对应缓存,
-                let cacheId = getAttr(tabDom);
+                let cacheId = $(tabDom).prop('val');
                 delete cache[cacheId];
                 // 如果关闭的是活动页,将cache中最后一个id,对应的选项卡激活,对应DOM载入显示容器
-                if (tabDom.classList.contains('active')) {
+                if ($(tabDom).hasClass('active')) {
                     let cacheId = Object.getOwnPropertyNames(cache).pop();
-                    let lastTabDom = tabsDom.querySelector(`.tabsbox-tab[val='${cacheId}']`);
-                    lastTabDom.classList.add('active');
+                    let lastTabDom = $(tabsDom).find(".tabsbox-tab[val='" + cacheId + "']").addClass('active');
                     contDom.innerHTML = '';
                     contDom.append(cache[cacheId]);
                     cache[cacheId] = null;
                 }
                 // 删除tab,
-                delDom(tabDom);
+                $(tabDom).remove();
             };
         };
         // 点击选项卡
@@ -592,53 +610,47 @@ contDom:
                 // 缓存当前DOM
                 cacheActiveTab();
                 // 去掉当前活动的选项卡活动状态
-                let activeTabDom = tabsDom.querySelector('.tabsbox-tab.active');
-                if (activeTabDom) {
-                    activeTabDom.classList.remove('active');
+                let activeTabDom = $(tabsDom).find('.tabsbox-tab.active');
+                if (activeTabDom.length > 0) {
+                    activeTabDom.removeClass('active');
                 }
                 // 激活点击的选项卡,获取其缓存页加载到显示容器
-                tabDom.classList.add('active');
-                let cacheId = getAttr(tabDom);
+                let cacheId = $(tabDom).addClass('active').prop('val');
                 contDom.innerHTML = '';
                 contDom.append(cache[cacheId]);
                 cache[cacheId] = null;
                 // console.log(cache);
             };
         };
-        //--选项卡条功能事件--绑定事件--------绑定事件--------绑定事件--------绑定事件--------绑定事件--------绑定事件----// 
+        //------------------------------------------------------------------
+        // Event 选项卡条功能事件
+        //------------------------------------------------------------------
         // 向左滚动按钮
-        tabsDom.querySelector('.tabsbox-left').onclick = () => {
+        $(tabsDom).find('.tabsbox-left')[0].onclick = () => {
             scrollerTabs('left');
         };
         // 向右滚动按钮
-        tabsDom.querySelector('.tabsbox-right').onclick = () => {
+        $(tabsDom).find('.tabsbox-right')[0].onclick = () => {
             scrollerTabs('right');
         };
 
         // 定位当前按钮
-        tabsDom.querySelector('.tabsbox-goto-active').onclick = () => {
-            let activeTab = tabsDom.querySelector('.active');
+        $(tabsDom).find('.tabsbox-goto-active')[0].onclick = () => {
+            let activeTab = $(tabsDom).find('.active')[0];
             if (!activeTab) return;
             adjustPositionTab(activeTab);
         };
         // 关闭全部选项卡
-        tabsDom.querySelector('.tabsbox-close-all').onclick = () => {
+        $(tabsDom).find('.tabsbox-close-all')[0].onclick = () => {
             // 删除选项卡,删除缓存,清空显示容器
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
-            navDom.innerHTML = '';
+            let navDom = $(tabsDom).find('.tabsbox-nav').empty();
             contDom.innerHTML = '';
             cache = {};
         };
         // 关闭除当前外所有选项卡
-        tabsDom.querySelector('.tabsbox-close-other').onclick = () => {
+        $(tabsDom).find('.tabsbox-close-other')[0].onclick = () => {
             // 删除选项卡除活动的外
-            let navDom = tabsDom.querySelector('.tabsbox-nav');
-            let otherTabs = navDom.querySelectorAll('.tabsbox-tab:not(.active)');
-            if (otherTabs) {
-                otherTabs.forEach((item) => {
-                    navDom.removeChild(item);
-                });
-            }
+            let navDom = $(tabsDom).find('.tabsbox-nav .tabsbox-tab:not(.active)').remove();
             // 除了为null的都删除掉,null是当前页特征
             for (let prop in cache) {
                 if (cache.hasOwnProperty(prop)) {
@@ -648,7 +660,6 @@ contDom:
                 }
             }
         };
-
         return self;
     };
     win.cachepage = cachePage;

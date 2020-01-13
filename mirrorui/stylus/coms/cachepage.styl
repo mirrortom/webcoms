@@ -98,13 +98,17 @@
     // 选项卡
     &-tab
         display: inline-block
+        position: relative
         padding: 0 15px
         height: 40px
         border-right: 1px solid var-graybackse
         font-size: 14px
         cursor: pointer
+    // hover时,增大padding-right,为右上角关闭按钮取得空间
     &-tab:hover
         background-color: var-graybackse
+        padding-right: 24px
+        transition: padding-right $duration
     // 活动的选项卡
     &-tab.active
         color: #fff
@@ -112,23 +116,27 @@
     // 选项卡关闭按钮
     &-tabclose
         display: none
+        position: absolute
         width: 16px
         height: 16px
         line-height: 16px
         text-align: center
-        margin-left: 8px
-        border-radius: 50% 50%
         color: #fff
+        top: 0
+        right: 0
         background-color: #CC0000
         text-decoration: none
     // 鼠标移入选项卡,显示关闭按钮
     &-tab:hover &-tabclose
         display: inline-block
-// 颜色 导航底边,活动选项卡
+// 颜色 导航底边,活动选项卡,右边功能菜单框左和下边框
 cachepageColors = { primary: var-primary, danger: var-danger, success: var-success }
 for key, val in cachepageColors
     .tabsbox
         &.{key}
-            border-bottom: 2px solid val
+            border-bottom-color: val
         &.{key} &-tab.active
             background-color: val
+        &.{key} &-menugroup
+            border-left-color: val
+            border-bottom-color: val
