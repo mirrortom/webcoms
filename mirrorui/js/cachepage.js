@@ -54,19 +54,25 @@ contDom:
         createTabDom(tabsDom);
 
         //-----------------------------------------------------------------
-        // 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态,还绑定了新增的选项卡事件
+        // 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态.在菜单的点击事件上执行次方法.
+        // 该方法第3个参数onload(loadType)是一个方法,可以根据loadType参数值判断是否要载入新的页面
+        // loadType=0: 菜单是当前页面
+        // loadType=1: 菜单之前载入过
+        // loadType=2: 是新载入菜单,其对应的页面没有载入过,需要做载入新页面的操作
         //-----------------------------------------------------------------
         // {pid:菜单唯一标识,title:选项卡标题},点击左侧菜单时,调用此方法
-        self.load = (pid, title) => {
+        self.load = (pid, title,onload) => {
             if (!title) {
                 throw 'tab title is empty!';
             }
             // (情形1) 如果载入的是当前活动的选项卡页,不动作
             if (cache[pid] === null) {
                 //console.log('type1');
-                return null;
+                if (typeof onload === 'function')
+                    onload(1);
+                return;
             }
-            // (情形2)激活选项卡.如果pid已添加过,则到缓存中取出页面,并且激活对应选项卡.
+            // (情形2)激活选项卡.如果pid已添加过,则到缓存中取出页面显示在contDom中,激活对应选项卡.
             if (cache[pid]) {
                 // 切换活动选项卡状态
                 let atabdom = activeTab(pid);
@@ -79,7 +85,11 @@ contDom:
                 // 标识为null,表示pid成为新的活动页
                 cache[pid] = null;
                 //console.log('type2');
-                return cacheDom;
+                contDom.innerHTML = '';
+                contDom.append(cacheDom);
+                if (typeof onload === 'function')
+                    onload(2);
+                return;
             }
             // (情形3)新增加选项卡
             // 增加选项卡
@@ -93,7 +103,9 @@ contDom:
             // 添加到缓存.当前活动页缓存约定为null,不缓存
             cache[pid] = null;
             //console.log('type3');
-            return null;
+            if (typeof onload === 'function')
+                onload(3);
+            //return;
         };
 
         //-----------------------------------------------------------------
@@ -225,7 +237,7 @@ contDom:
                 adjustPositionTab(tabDom);
 
                 // (情形1)点击的是活动页面,退出
-                if (tabDom.classList.contains('active'))
+                if ($(tabDom).hasClass('active'))
                     return;
 
                 // (情形2)非活动页面,即切换行为

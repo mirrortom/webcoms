@@ -10,22 +10,24 @@ ctrl-width()
     width: 100%
 // 表单元素标题label 垂直水平居中,块级,与input-text高度一样.有四种大小
 // 需要水平对齐方式可再添加文字对齐的类
-form-label($height)
-    display: block
-    height: $height
-    line-height: $height
-    text-align: center
+form-label()
+    display: inline-block
+    height: 2em
+    padding: .3em 0
+    margin-bottom: .3em
 // 用于input输入框和select下拉框.其中input类型是text,password,email..除了radio check file
 // 边框灰,得到焦点时边框颜色变主色 有四种字体大小 没有设计圆角边框
 input-text()
+    display: block
     ctrl-border()
     ctrl-width()
-    height: 2.4em
-    line-height: 2.4em
-    padding: 0.25em
+    font-size: var-font-size
+    height: 2em
+    padding: .3em .5em
 // input输入框的标题
 .input-label
-    form-label(2.4em)
+    form-label()
+// =================================================================================
 // ==0==
 // input输入框
 .input-text
@@ -44,7 +46,7 @@ input-text()
     resize: none
 // 多行文本框的标题
 .textarea-label
-    form-label(100px)
+    form-label()
 // ==3==
 // 文件上传控件的做法是,将input type插件透明化,盖在标签上.点击标签时,实际点击的是Input file
 // 文件选择控件的外层包装
@@ -123,9 +125,6 @@ input-text()
         border-top: none
         border-left: none
         background: transparent
-        -moz-transform: rotate(45deg)
-        -ms-transform: rotate(45deg)
-        -webkit-transform: rotate(45deg)
         transform: rotate(45deg)
         // 动画效果,在其input-checkbox元素选中时,会修改border-width值
         transition: border-width $duration
@@ -188,6 +187,15 @@ for key, val in inputSizes
 // 表单控件得焦点时: 外边框色为主色 外边框不占空间位置 (输入框,多行框,文件框,下拉框)
 .input-text:focus, .textarea:focus, .input-file:focus + .input-file-label, .select:focus
     outline: 2px solid var-primary
+// =======表单布局1==============================================================
+// 表单栅格布局 表单元素放在class="grids"里,自己加类class="grid-x"
+// 使用栅格布局时,表单元素和表单标题要设置高度,否则发生标题和元素高度不一样的问题
+.grids
+    & .input-label,& .textarea-label,& .input-check-label,& .input-text,& .textarea,& .input-file-box,& .select,& .input-check
+        align-self: center
+    & .input-label
+	    margin-bottom: 0
+// =======表单布局2==============================================================
 // 传统纸质表单的模仿,在此样式内的表单界面就像纸质的那种.输入框没有边框,是在一个格子中
 // 整体表单是个表格,里面合理分布表单项
 .form-table-box

@@ -1168,26 +1168,28 @@ p {
   display: none;
 }
 .input-label {
-  display: block;
-  height: 2.4em;
-  line-height: 2.4em;
-  text-align: center;
+  display: inline-block;
+  height: 2em;
+  padding: 0.3em 0;
+  margin-bottom: 0.3em;
 }
 .input-text {
+  display: block;
   border: 1px solid var(--graybackse);
   transition: border-color 0.3s;
   width: 100%;
-  height: 2.4em;
-  line-height: 2.4em;
-  padding: 0.25em;
+  font-size: var(--font-size);
+  height: 2em;
+  padding: 0.3em 0.5em;
 }
 .select {
+  display: block;
   border: 1px solid var(--graybackse);
   transition: border-color 0.3s;
   width: 100%;
-  height: 2.4em;
-  line-height: 2.4em;
-  padding: 0.25em;
+  font-size: var(--font-size);
+  height: 2em;
+  padding: 0.3em 0.5em;
 }
 .textarea {
   border: 1px solid var(--graybackse);
@@ -1198,10 +1200,10 @@ p {
   resize: none;
 }
 .textarea-label {
-  display: block;
-  height: 100px;
-  line-height: 100px;
-  text-align: center;
+  display: inline-block;
+  height: 2em;
+  padding: 0.3em 0;
+  margin-bottom: 0.3em;
 }
 .input-file-box {
   position: relative;
@@ -1270,9 +1272,6 @@ p {
   border-top: none;
   border-left: none;
   background: transparent;
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   transition: border-width 0.3s;
 }
@@ -1386,6 +1385,19 @@ p {
 .input-file:focus + .input-file-label,
 .select:focus {
   outline: 2px solid var(--primary);
+}
+.grids .input-label,
+.grids .textarea-label,
+.grids .input-check-label,
+.grids .input-text,
+.grids .textarea,
+.grids .input-file-box,
+.grids .select,
+.grids .input-check {
+  align-self: center;
+}
+.grids .input-label {
+  margin-bottom: 0;
 }
 .form-table-box {
   border: 1px solid var(--graybackse);
@@ -1532,7 +1544,7 @@ p {
 .sidemenu-item.active {
   font-weight: 600;
 }
-.sidemenu-item:hover {
+.sidemenu-item:not(.active):hover {
   background-color: var(--graybackse);
 }
 .sidemenu-label {

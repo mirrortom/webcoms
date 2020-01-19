@@ -2,48 +2,47 @@
   <h2>表单元素</h2>
   <p class="lead">几种表单元素的样式.另外做了两种纸质风格的样式.</p>
   <p class="article-title">input框</p>
-  <p>input文本框,除文件框单选复选框外</p>
-  <div class="grids">
-    <label class="input-label grid-1">文本框</label>
-    <input class="input-text grid-3" type="text" value="123456" />
+  <label class="input-label">文本框</label>
+  <input class="input-text" type="text" value="123456" />
+  <label class="input-label">密码框</label>
+  <input class="input-text" type="password" value="123456" />
+  <label class="input-label">Email</label>
+  <input class="input-text" type="email" value="xxx@@mirror.com" />
+  <br />
+  <pre class="bg-gray">
+&lt;label class="input-label"&gt;文本框&lt;/label&gt;
+&lt;input class="input-text" type="text" value="123456" /&gt;
 
-    <label class="input-label grid-1">密码框</label>
-    <input class="input-text grid-3" type="password" value="123456" />
+&lt;label class="input-label"&gt;密码框&lt;/label&gt;
+&lt;input class="input-text" type="password" value="123456" /&gt;
 
-    <label class="input-label grid-1">Email</label>
-    <input class="input-text grid-3" type="email" value="xxx@@mirror.com" />
-  </div>
-  <pre class="code">
-&lt;label class="input-label grid-2"&gt;文本框&lt;/label&gt;
-&lt;input class="input-text grid-3" type="text" value="123456" /&gt;
+&lt;label class="input-label"&gt;Email&lt;/label&gt;
+&lt;input class="input-text" type="email" value="xxx@@mirror.com" /&gt;
 </pre>
   <br />
   <p>四种大小,sm md(默认) lg xl</p>
   <div class="grids">
-
-    <label class="input-label sm grid-1">sm尺寸</label>
+    <label class="input-label text-center sm grid-1">sm尺寸</label>
     <input class="input-text sm grid-3" type="text" value="sm font-size=12px" />
 
-    <label class="input-label lg grid-1">lg尺寸</label>
+    <label class="input-label text-center lg grid-1">lg尺寸</label>
     <input class="input-text lg grid-3" type="text" value="lg 14px*1.25" />
 
-    <label class="input-label xl grid-1">xl尺寸</label>
+    <label class="input-label text-center xl grid-1">xl尺寸</label>
     <input class="input-text xl grid-3" type="text" value="xl 14px*1.6" />
-
   </div>
-  <pre class="code">
-&lt;label class="input-label <b>sm</b> grid-2"&gt;sm小号&lt;/label&gt;
-&lt;input class="input-text <b>sm</b>" type="text" value="sm font-size=12px" /&gt;
+  <pre class="bg-gray">
+&lt;div class="grids"&gt;
+  &lt;label class="input-label sm grid-1"&gt;sm尺寸&lt;/label&gt;
+  &lt;input class="input-text sm grid-3" type="text" value="sm font-size=12px" /&gt;
+&lt;/div&gt;
 </pre>
-
   <p class="article-title">textarea</p>
-  <div class="grids">
-    <label class="textarea-label grid-2">多行文本框</label>
-    <textarea class="textarea grid-10">多行文本框的高度为100px,且禁止手动调整大小.文本框没有分大小号</textarea>
-  </div>
-  <pre class="code">
+  <label class="textarea-label grid-2">多行文本框</label>
+  <textarea class="textarea grid-10">多行文本框的高度为100px,且禁止手动调整大小.文本框没有分大小号</textarea>
+  <pre class="bg-gray">
 &lt;label class="textarea-label grid-2"&gt;多行文本框&lt;/label&gt;
-&lt;textarea class="textarea grid-10"&gt;多行文本框的高度为100px,文本框没有分大小号&lt;/textarea&gt;
+&lt;textarea class="textarea grid-10"&gt;多行文本框的高度为100px,且禁止手动调整大小.文本框没有分大小号&lt;/textarea&gt;
 </pre>
 
   <p class="article-title">文件选择</p>
@@ -56,7 +55,7 @@
   </div>
   <br />
   <a class="btn blue-b" onclick="$ui.clsInputFile(forminputfile1)">清空文件</a>
-  <pre class="code">
+  <pre class="bg-gray">
 &lt;div class="input-file-box"&gt;
   &lt;input class="input-file" onchange="$ui.inputFileChange(this)" type="file" multiple /&gt;
   &lt;label class="input-file-label"&gt;选择文件&lt;/label&gt;
@@ -84,11 +83,11 @@
   </div>
   <br />
 
-  <pre class="code">
+  <pre class="bg-gray">
 &lt;input class="input-check" type="checkbox" id="testcheck" /&gt;
 &lt;label class="input-check-label" for="testcheck"&gt;&lt;b class="check"&gt;&lt;/b&gt;复选框&lt;/label&gt;
 </pre>
-  <pre class="code">
+  <pre class="bg-gray">
 &lt;input class="input-check" name="radiogroup1" type="radio" id="testradio" /&gt;
 &lt;label class="input-check-label" for="testradio"&gt;&lt;b class="radio"&gt;&lt;/b&gt;单选框&lt;/label&gt;
 </pre>
@@ -129,59 +128,79 @@
   </div>
   <br />
 
-  <pre class="code">
+  <pre class="bg-gray">
 &lt;input class="input-check" type="checkbox" id="colorchec" /&gt;
 &lt;label class="input-check-label <b>xl</b>" for="colorcheck"&gt;&lt;b class="check"&gt;&lt;/b&gt;大号复选框&lt;/label&gt;
 </pre>
-  <pre class="code">
+  <pre class="bg-gray">
 &lt;input class="input-check" name="colorgroup1" type="radio" id="colorradio" /&gt;
 &lt;label class="input-check-label <b>danger</b>" for="colorradio"&gt;&lt;b class="radio"&gt;&lt;/b&gt;红色单选框&lt;/label&gt;
 </pre>
   <br />
   <p class="article-title">select</p>
-  <p>也有四种大小.</p>
-  <div class="grids">
-    <div class="grid">
-      <select class="select sm">
-        <option>明月几时有</option>
-        <option>把酒问青天</option>
-        <option>不知天上宫阙</option>
-        <option>今昔是何年</option>
-      </select>
-    </div>
-    <div class="grid">
-      <select class="select">
-        <option>我欲乘风归去</option>
-        <option>又恐琼楼玉宇</option>
-        <option>高处不胜寒</option>
-        <option>起舞弄清影</option>
-        <option>何似在人间</option>
-      </select>
-    </div>
-    <div class="grid">
-      <select class="select lg">
-        <option>转朱阁，低绮户，照无眠</option>
-        <option>不应有恨</option>
-        <option>何事长向别时圆</option>
-      </select>
-    </div>
-    <div class="grid">
-      <select class="select xl">
-        <option>人有悲欢离合</option>
-        <option>月有阴晴圆缺</option>
-        <option>此事古难全</option>
-        <option>但愿人长久</option>
-        <option>千里共婵娟</option>
-      </select>
-    </div>
+  <p>下拉框.有四种大小.</p>
+  <div class="grids-4">
+    <select class="select sm">
+      <option>明月几时有</option>
+      <option>把酒问青天</option>
+      <option>不知天上宫阙</option>
+      <option>今昔是何年</option>
+    </select>
+    <select class="select">
+      <option>我欲乘风归去</option>
+      <option>又恐琼楼玉宇</option>
+      <option>高处不胜寒</option>
+      <option>起舞弄清影</option>
+      <option>何似在人间</option>
+    </select>
+    <select class="select lg">
+      <option>转朱阁,低绮户,照无眠</option>
+      <option>不应有恨</option>
+      <option>何事长向别时圆</option>
+    </select>
+    <select class="select xl">
+      <option>人有悲欢离合</option>
+      <option>月有阴晴圆缺</option>
+      <option>此事古难全</option>
+      <option>但愿人长久</option>
+      <option>千里共婵娟</option>
+    </select>
   </div>
-  <pre class="code">
+  <pre class="bg-gray">
 &lt;select class="select sm"&gt;
   &lt;option&gt;明月几时有&lt;/option&gt;
   &lt;option&gt;把酒问青天&lt;/option&gt;
   &lt;option&gt;不知天上宫阙&lt;/option&gt;
   &lt;option&gt;今昔是何年&lt;/option&gt;
 &lt;/select&gt;
+</pre>
+  <p class="article-title">表单栅格布局</p>
+  <p>可以将表单元素放到栅格里,做横向布局.可以用栅格框分组表单元素</p>
+  <div class="grids mg-b-5">
+    <label class="input-label bg-gray text-center grid-1">姓名</label>
+    <input class="input-text grid-5" type="text" name="name1" value="mirror" />
+  </div>
+  <div class="grids mg-b-5">
+    <label class="input-label bg-gray text-center grid-1">国家</label>
+    <select class="select grid-2">
+      <option>China</option>
+      <option>USA</option>
+      <option>UK</option>
+    </select>
+    <label class="input-label bg-gray text-center grid-1">WebSite</label>
+    <input class="input-text grid-2" type="text" name="name3" value="mirrortom.date" />
+  </div>
+  <pre class="bg-gray">
+&lt;div class="grids mg-b-5"&gt;
+  &lt;label class="input-label bg-gray text-center grid-1"&gt;姓名&lt;/label&gt;
+  &lt;input class="input-text grid-5" type="text" name="name1" value="mirror" /&gt;
+&lt;/div&gt;
+&lt;div class="grids mg-b-5"&gt;
+  &lt;label class="input-label bg-gray text-center grid-1"&gt;国家&lt;/label&gt;
+  &lt;input class="input-text grid-2" type="text" name="name2" value="China" /&gt;
+  &lt;label class="input-label bg-gray text-center grid-1"&gt;WebSite&lt;/label&gt;
+  &lt;input class="input-text grid-2" type="text" name="name3" value="mirrortom.date" /&gt;
+&lt;/div&gt;
 </pre>
   <p class="article-title">纸质风格表单</p>
   <p class="lead">纸质风格表单是模仿的传统表格式的风格,整个表单是一个大表格,里面按表单项合理布局.有外边框和表单项边框.</p>
@@ -226,11 +245,12 @@
         <h3>苏东坡</h3>
       </div>
       <div class="grid-10">
-        <textarea class="textarea">明月几时有？把酒问青天。不知天上宫阙、今夕是何年？我欲乘风归去，又恐琼楼玉宇，高处不胜寒．起舞弄清影，何似在人间？ 转朱阁，低绮户，照无眠。不应有恨、何事长向别时圆？人有悲欢离合，月有阴晴圆缺，此事古难全。但愿人长久，千里共婵娟。</textarea>
+        <textarea class="textarea">明月几时有？把酒问青天。不知天上宫阙、今夕是何年？我欲乘风归去,又恐琼楼玉宇,高处不胜寒．起舞弄清影,何似在人间？ 转朱阁,低绮户,照无眠。不应有恨、何事长向别时圆？人有悲欢离合,月有阴晴圆缺,此事古难全。但愿人长久,千里共婵娟。</textarea>
       </div>
     </div>
   </div>
-  <pre class="code">
+  <br />
+  <pre class="bg-gray">
 &lt;div class="<b>form-table-box</b>"&gt;
   &lt;div class="grids"&gt;
     &lt;label class="input-label grid-1"&gt;姓名&lt;/label&gt;
