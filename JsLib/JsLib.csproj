@@ -51,6 +51,9 @@
     <Content Include="src\jslib\2end.part.js" />
     <Content Include="src\jslib\dom.part.js" />
     <Content Include="src\jslib\static_ajax.part.js" />
+    <Content Include="src\jslib\static_rand.part.js" />
+    <Content Include="src\jslib\static_date.part.js" />
+    <Content Include="src\jslib\static_valid.part.js" />
     <Content Include="src\jslib\static_string.part.js" />
     <Content Include="src\jslib\static_array.part.js" />
   </ItemGroup>

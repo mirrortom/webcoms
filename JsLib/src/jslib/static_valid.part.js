@@ -1,0 +1,120 @@
+﻿// ==================================
+//           验证相关方法
+// ==================================
+/**
+ * 指示一个字符串是否为空或者null.
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isEmptyOrNull = (str) => {
+    return !val || val.length === 0;
+};
+/**
+ * 指示一个字符串是否为空或者null或者全是空白字符.
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isNullOrWhiteSpace = (str) => {
+    if (/^\s+$/.test(str)) return true; // 全部是空白字符
+    return !val || val.length === 0;
+};
+/**
+ * 指示一个字符串是否为数值
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isNumber = (str) => {
+    return /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(str);
+};
+/**
+ * 指示一个字符串是否为email地址
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isEmail = (str) => {
+    return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(str);
+};
+/**
+ * 指示一个字符串是否为国内11位手机号
+ * [可匹配"(+86)013800138000",()号可以省略，+号可以省略，(+86)可以省略,11位手机号前的0可以省略;11位手机号第二位数可以是3~9中的任意一个]
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isMobile = (str) => {
+    return /^(\((\+)?86\)|((\+)?86)?)0?1[^012]\d{9}$/.test(str);
+};
+/**
+ * 指示一个字符串是否为26个英文字母组成,大小写不限.
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isAbc = (str) => {
+    return !/[^a-zA-Z]/.test(str);
+};
+/**
+ * 指示一个字符串是否为0-9整数组成
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isDigit = (str) => {
+    return /^\d+$/.test(str);
+};
+/**
+ * 指示一个字符串是否为26个英文字母和0-9整数(可选)组成,但必须是字母开头.
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isAbcDigit = (str) => {
+    return /^[a-zA-Z][a-zA-Z\d]*$/.test(str);
+};
+/**
+ * 指示一个字符串是否为26个英文字母和0-9整数(可选)和_下划线(可选)组成,并且是字母或者下划线开头.
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isAbcDigitUline = (str) => {
+    return /^[a-zA-Z_][a-zA-Z\d_]*$/.test(str);
+};
+/**
+ * 指示一个字符串是否为url
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isUrl = (str) => {
+    return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(str);
+};
+/**
+ * 指示一个字符串长度是否超过maxlength.
+ * @param {string} str 被检查字符串
+ * @param {int} maxlen 最大长度
+ * @returns {boolean} t/f
+ */
+factory.isMaxLength = (str, maxlen) => {
+    return str.length > maxlen;
+};
+/**
+ * 指示一个字符串长度是否小于minlength
+ * @param {string} str 被检查字符串
+ * @param {int} minlen 最小长度
+ * @returns {boolean} t/f
+ */
+factory.isMinLength = (str, minlen) => {
+    return str.length < minlen;
+};
+
+/**
+ * 指示一个字符串是否为2位小数,或者正数 (d | d.dd),可用于金额
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isMoney = (str) => {
+    return /^[0-9]+([.]{1}[0-9]{1,2})?$/.test(str);
+};
+/**
+ * 指示一个字符串是否为日期格式
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isDate = (str) => {
+    return !/Invalid|NaN/.test(new Date(str).toString());
+};

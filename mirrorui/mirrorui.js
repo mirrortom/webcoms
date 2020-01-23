@@ -15,18 +15,7 @@
     function jslib(selector) {
         // 选择器
         if (typeof selector === 'string') {
-            if (selector.indexOf('#') === 0) {
-                // #id
-                this.push(document.getElementById(selector.substr(1)));
-            }
-            else if (selector.indexOf('.') === 0) {
-                // .class
-                let nodelist = document.getElementsByClassName(selector.substr(1));
-                nodelist.forEach((item) => {
-                    this.push(item);
-                });
-            }
-            else if (/^<[a-z]+?>$/.test(selector)) {
+            if (/^<[a-z]+?>$/.test(selector)) {
                 // 新建元素
                 this.push(document.createElement(selector.substring(1, selector.length - 1)));
             }
