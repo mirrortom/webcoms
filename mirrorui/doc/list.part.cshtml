@@ -36,7 +36,7 @@
       <li>门泊东吴万里船. // 门前停泊着自万里外的东吴远行而来的船只</li>
     </ol>
   </div>
-  <pre>
+  <pre class="bg-gray">
 // 方块
 &lt;ul class="list square"&gt;
 // 圆
@@ -96,11 +96,24 @@
       </li>
     </ul>
   </div>
-  <pre>
+  <pre class="bg-gray">
 // 数值
 &lt;ul class="list num"&gt;
 // 字母
 &lt;ul class="list abc"&gt;
 <b>注意:</b>嵌套的ul,ol,也要加上 class="list num|abc" 样式
 </pre>
+  <h4>垂直对齐问题</h4>
+  <p>列表前的方块,圆,数值,abc和列表的内容没有垂直对齐,仔细看是有一点差距的.这个情况发生在"li"的内容是文本节点的时候:</p>
+  <ul class="list square danger">
+    <li>没有对齐<small>(文本直接在li里)</small></li>
+    <li><span>对齐了</span><small>(文本包在span里)</small></li>
+  </ul>
+  <pre class="bg-gray">
+// li下的文本节点
+&lt;li&gt;没有对齐&lt;/li&gt;
+// 包一层span
+&lt;li&gt;&lt;span&gt;对齐了&lt;/span&gt;&lt;/li&gt;
+</pre>
+  <p>如果文本包一层元素就能对齐.li设置了子元素垂直对齐 { li > * : vertical-align: middle }</p>
 </div>

@@ -4,6 +4,8 @@
     list-style: none
 .list > li
     padding: .1em 0
+.list > li > *
+    vertical-align: middle
 // 嵌套时加padding-left
 .list .list
     padding-left: 2em
@@ -14,9 +16,9 @@
         display: inline-block
         width: .5em
         height: .5em
-        vertical-align: .12em
         background-color: #000
         margin-right: .5em
+        vertical-align: middle
     &.cir > li::before
         border-radius: 50%
 // 方块,圆的主题色
@@ -32,6 +34,7 @@ for key, val in listColors
         counter-reset: li-item
     &.num > li::before,&.abc > li::before
         counter-increment: li-item;
+        vertical-align: middle
     &.num > li::before
         content: counters(li-item,'.') '. ';
     &.abc > li::before

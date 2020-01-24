@@ -73,6 +73,7 @@ a {
 }
 .text-overflow,
 .sidemenu-item {
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2287,6 +2288,9 @@ p {
 .list > li {
   padding: 0.1em 0;
 }
+.list > li > * {
+  vertical-align: middle;
+}
 .list .list {
   padding-left: 2em;
 }
@@ -2296,9 +2300,9 @@ p {
   display: inline-block;
   width: 0.5em;
   height: 0.5em;
-  vertical-align: 0.12em;
   background-color: #000;
   margin-right: 0.5em;
+  vertical-align: middle;
 }
 .list.cir > li::before {
   border-radius: 50%;
@@ -2328,6 +2332,7 @@ p {
 .list.num > li::before,
 .list.abc > li::before {
   counter-increment: li-item;
+  vertical-align: middle;
 }
 .list.num > li::before {
   content: counters(li-item, '.') '. ';

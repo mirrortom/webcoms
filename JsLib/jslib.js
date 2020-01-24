@@ -555,7 +555,7 @@ factory.nextInt = (intMin, intMax) => {
  * 自定义格式时,年月日时分秒代号必须是: y(年)M(月)d(日)H(时)m(分)s(秒)
  * @returns {string} 返回格式化时间字符串
  */
-factory.format = (date, fmtstr) => {
+factory.datefmt = (date, fmtstr) => {
     let format = fmtstr || 'yyyy/MM/dd HH:mm:ss';
     let json = {};
     // 替换时,先替换名字较长的属性,以避免如yyyy被分成两次yy替换,造成错误.故长名字属性在前.
