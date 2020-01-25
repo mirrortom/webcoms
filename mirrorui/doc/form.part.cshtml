@@ -87,15 +87,14 @@
   <pre class="bg-gray">
 &lt;input class="input-check" type="checkbox" id="testcheck" /&gt;
 &lt;label class="input-check-label" for="testcheck"&gt;&lt;b class="check"&gt;&lt;/b&gt;复选框&lt;/label&gt;
-</pre>
-  <pre class="bg-gray">
+ 
 &lt;input class="input-check" name="radiogroup1" type="radio" id="testradio" /&gt;
 &lt;label class="input-check-label" for="testradio"&gt;&lt;b class="radio"&gt;&lt;/b&gt;单选框&lt;/label&gt;
 </pre>
   <br />
-  <p class="text-yellow">四种大小,默认14px.在label上加上样式 <b>sm lg xl</b></p>
+  <p class="text-info">四种大小,默认14px.在label上加上样式 <b>sm lg xl</b></p>
   <div class="grids">
-    @foreach (string item in new string[] { "sm", "lg", "xl" })
+    @foreach (string item in Model.fontsizes)
     {<div class="grid">
         <input class="input-check" type="checkbox" id="sizecheck_@item" checked />
         <label class="input-check-label @item" for="sizecheck_@item"><b class="check"></b>复选框(@item)</label>
@@ -106,12 +105,9 @@
     }
   </div>
   <br />
-  <p class="text-yellow">颜色.在label上加上样式 <b>primary danger success</b></p>
+  <p class="text-info">主题颜色.在label上加上主题样式 <b>primary danger success</b></p>
   <div class="grids">
-    @{
-      string[] colors = { "primary", "danger", "success" };
-    }
-    @foreach (string item in colors)
+    @foreach (string item in Model.themecolors)
     {<div class="grid">
         <input class="input-check" type="checkbox" id="colorcheck_@item" checked />
         <label class="input-check-label @item" for="colorcheck_@item"><b class="check"></b>复选框(@item)</label>
@@ -120,7 +116,7 @@
   </div>
   <br />
   <div class="grids">
-    @foreach (string item in colors)
+    @foreach (string item in Model.themecolors)
     {<div class="grid">
         <input class="input-check" name="colorgroup1" type="radio" id="colorradio_@item" />
         <label class="input-check-label @item" for="colorradio_@item"><b class="radio"></b>单选框(@item)</label>
@@ -132,8 +128,7 @@
   <pre class="bg-gray">
 &lt;input class="input-check" type="checkbox" id="colorchec" /&gt;
 &lt;label class="input-check-label <b>xl</b>" for="colorcheck"&gt;&lt;b class="check"&gt;&lt;/b&gt;大号复选框&lt;/label&gt;
-</pre>
-  <pre class="bg-gray">
+
 &lt;input class="input-check" name="colorgroup1" type="radio" id="colorradio" /&gt;
 &lt;label class="input-check-label <b>danger</b>" for="colorradio"&gt;&lt;b class="radio"&gt;&lt;/b&gt;红色单选框&lt;/label&gt;
 </pre>

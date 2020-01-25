@@ -1,7 +1,4 @@
-﻿label-hover(bg-color, border-color)
-    background-color: bg-color
-    border-color: border-color
-// 标记 记号 分四种颜色 四种大小 是否有边框 圆角或直角
+﻿// 标记 记号 颜色 四种大小 是否有边框 圆角或直角
 .label
     display: inline-block
     font-size: var-font-size
@@ -9,24 +6,18 @@
     text-align: center
     background-color: inherit
     padding: 0.2em 0.8em
-    border: 1px solid var-grayback
+    border: 1px solid var-gray
     border-radius: 1em
 .label:hover
-    label-hover(var-grayback, var-graybackse)
-// 四种(默认是灰)背景颜色 字都是白色
-labelColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in labelColors
+    background-color: var-gray
+// 主题背景颜色 字都是白色
+for key, val in $themeColorsKV
     .label.{key}
-        color: #ffffff
-        background-color: val
-.label.primary:hover
-    label-hover(var-primaryse, var-primaryse)
-.label.danger:hover
-    label-hover(var-dangerse, var-dangerse)
-.label.success:hover
-    label-hover(var-successse, var-successse)
+        color: var-white
+        background-color: val[0]
+    .label.{key}:hover
+        background-color: val[1]
 // 四种大小 默认是14px
-labelSizes = { sm: $font-size-sm, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.6) }
-for key, val in labelSizes
+for key, val in $fontSizeKV
     .label.{key}
         font-size: val

@@ -1,24 +1,45 @@
 ﻿// -- 基本颜色和字体变量 有对应的css变量定义,便于引用 --//
 // 字体黑色
-$font-color = #333333
+$font-color = #343a40
 var-font-color = var(--font-color)
+// 白色
+$white = #fff
+var-white = var(--white)
+// 灰色(默认颜色)
+$gray = #dee2e6
+$grayse = darken($gray, 20%)
+var-gray = var(--gray)
+var-grayse = var(--grayse)
 // 主题颜色 第2个se是加重色,后同
-$primary = #28a745
+$primary = #6C6
 $primaryse = darken($primary, 15%)
 var-primary = var(--primary)
 var-primaryse = var(--primaryse)
-// 灰色背景
-$grayback = #ECF0F1
-$graybackse = darken($grayback, 15%)
-var-grayback = var(--grayback)
-var-graybackse = var(--graybackse)
 // 红色警示
-$danger = #CC0000
+$danger = #dc3545
 $dangerse = darken($danger, 15%)
 var-danger = var(--danger)
 var-dangerse = var(--dangerse)
 // 绿色成功
-$success = #009900
+$success = #28a745
 $successse = darken($success, 15%)
 var-success = var(--success)
 var-successse = var(--successse)
+// 黄色警示
+$warning = #ffc107
+$warningse = darken($warning, 15%)
+var-warning = var(--warning)
+var-warningse = var(--warningse)
+// 蓝色提示
+$info = #17a2b8
+$infose = darken($info, 15%)
+var-info = var(--info)
+var-infose = var(--infose)
+// 主题颜色css变量KV对-用于for循环,key是主题class名,val值是一个数组,0位是主题色css变量,1位是颜色加深的css变量
+$themeColorsKV = {
+    primary: (var-primary var-primaryse),
+    danger: (var-danger var-dangerse),
+    success: (var-success var-successse),
+    info: (var-info var-infose),
+    warning: (var-warning var-warningse)
+}

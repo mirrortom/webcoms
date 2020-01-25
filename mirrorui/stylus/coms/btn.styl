@@ -1,35 +1,25 @@
-﻿// 按钮
-button()
+﻿// 默认按钮
+.btn
     display: inline-block
     padding: 0.4em 0.7em
     font-size: var-font-size
     font-weight: 400
-    color: var-primary
+    color: var-font-color
     text-align: center
-    background-color: #ffffff
-    border: 1px solid var-grayback
+    text-decoration: none
+    background-color: var-white
+    border: 1px solid var-gray
     cursor: pointer
     outline: none
     user-select: none
     transition: background-color $duration
-// hover时
-btn-hover($font-color, $bg-color, $border-color)
-    color: $font-color
-    background-color: $bg-color
-    border: 1px solid $border-color
-    // a标记做按钮时,不要下划线
-    text-decoration: none
-// /////////////////////////////////////////////////////////////////////////////////
-// 默认按钮
-.btn
-    button()
-.btn
-    // 点击时阴影
-    &:active
-        -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
-        box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+// 点击时阴影
+.btn:active
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+// hover时,背景色加深
 .btn:hover
-    btn-hover(var-primaryse, var-grayback, var-graybackse)
+    background-color: var-gray
 // 禁用(样式来自bt)
 .btn.disabled
     cursor: not-allowed
@@ -59,29 +49,16 @@ btn-hover($font-color, $bg-color, $border-color)
 @keyframes btnloading
     100%
         transform: rotate(360deg)
-// 其它背景颜色 特别注意{插值}不能用于属性的值
-.btn.primary
-    color: #ffffff
-    background-color: var-primary
-    border-color: var-primaryse
-.btn.primary:hover
-    btn-hover(#ffffff, var-primaryse, var-primaryse)
-// 
-.btn.danger
-    color: #ffffff
-    background-color: var-danger
-    border-color: var-dangerse
-.btn.danger:hover
-    btn-hover(#ffffff, var-dangerse, var-dangerse)
-.btn.success
-    color: #ffffff
-    background-color: var-success
-    border-color: var-successse
-.btn.success:hover
-    btn-hover(#ffffff, var-successse, var-successse)
-// 四种大小 默认是14px
-btnSize = { sm: $font-size-sm, lg: calc(var(--font-size) * 1.3), xl: calc(var(--font-size) * 1.7) }
-for key, val in btnSize
+// 主题色按钮:背景颜色为主题色,边框为主题色加深,字为白色 特别注意{插值}不能用于属性的值
+for key, val in $themeColorsKV
+    .btn.{key}
+        color: var-white
+        background-color: val[0]
+        border-color: val[1]
+    .btn.{key}:hover
+	    background-color: val[1]
+// 大小 默认是14px
+for key, val in $fontSizeKV
     .btn.{key}
         font-size: val
 // 链接式按钮
@@ -89,22 +66,19 @@ for key, val in btnSize
     color: var-font-color
     border-color: transparent
     background-color: transparent
-    text-decoration: none
-    padding: 0.2em 0
     // 链接式按钮hover
     &:hover
+        color: var-danger
         text-decoration: underline
         background-color: transparent
         border-color: transparent
     // 点击时
     &:active
-        color: var-primaryse
+        text-decoration: underline
         box-shadow: none
-// 链接式按钮主题色,只是在hover时变色
-btnLinkColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in btnLinkColors
-    .btn.link.{key}:hover
-        color: val
+for key, val in $themeColorsKV
+    .btn.link.{key}
+        color: val[0]
 // /////////////////////////////////////////////////////////////////////////////////////
 // 按钮组
 .btn-group

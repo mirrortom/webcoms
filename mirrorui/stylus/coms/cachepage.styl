@@ -6,7 +6,7 @@
     position: relative
     height: 42px
     line-height: 40px
-    border-bottom: 2px solid var-graybackse
+    border-bottom: 2px solid var-grayse
     box-sizing: border-box
     -webkit-user-select: none
     -moz-user-select: none
@@ -16,8 +16,8 @@
 .tabsbox
     &-left, &-right
         flex: 0 1 36px
-        border-left: 1px solid var-graybackse
-        border-right: 1px solid var-graybackse
+        border-left: 1px solid var-grayse
+        border-right: 1px solid var-grayse
         cursor: pointer
         background-color: #fff
     &-right
@@ -28,15 +28,15 @@
     // 按钮三角形
     &-left:before
         content: ''
-        triangle(12px, left, var-graybackse)
+        triangle(12px, left, var-grayse)
     &-right:before
         content: ''
-        triangle(12px, right, var-graybackse)
+        triangle(12px, right, var-grayse)
     &-left:hover, &-right:hover
         background-color: var-grayback
     // 按钮点击时
     &-left:active, &-right:active
-        background-color: var-graybackse
+        background-color: var-grayse
 // 右侧功能菜单按钮
 .tabsbox
     &-menutitle
@@ -46,7 +46,7 @@
     // 按钮三角形
     &-menutitle:after
         content: ''
-        triangle(5px, bottom, var-graybackse)
+        triangle(5px, bottom, var-grayse)
         margin-left: 2px
         vertical-align: middle
     &-menutitle:hover
@@ -65,8 +65,8 @@
         color: var-grayback
         text-align: center
         background-color: #fff
-        border-left: 2px solid var-graybackse
-        border-bottom: 2px solid var-graybackse
+        border-left: 2px solid var-grayse
+        border-bottom: 2px solid var-grayse
         cursor: pointer
     &-menugroup:hover
         display: block
@@ -79,7 +79,7 @@
     // 菜单项hover
     &-close-all:hover, &-close-other:hover, &-goto-active:hover
         color: var-font-color
-        background-color: var-graybackse
+        background-color: var-grayse
 // tabs框
 .tabsbox
     // 选项卡包装框
@@ -101,12 +101,12 @@
         position: relative
         padding: 0 15px
         height: 40px
-        border-right: 1px solid var-graybackse
+        border-right: 1px solid var-grayse
         font-size: 14px
         cursor: pointer
     // hover时,增大padding-right,为右上角关闭按钮取得空间
     &-tab:hover
-        background-color: var-graybackse
+        background-color: var-grayse
         padding-right: 24px
         transition: padding-right $duration
     // 活动的选项卡
@@ -130,13 +130,12 @@
     &-tab:hover &-tabclose
         display: inline-block
 // 颜色 导航底边,活动选项卡,右边功能菜单框左和下边框
-cachepageColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in cachepageColors
+for key, val in $themeColorsKV
     .tabsbox
         &.{key}
-            border-bottom-color: val
+            border-bottom-color: val[0]
         &.{key} &-tab.active
-            background-color: val
+            background-color: val[0]
         &.{key} &-menugroup
-            border-left-color: val
-            border-bottom-color: val
+            border-left-color: val[0]
+            border-bottom-color: val[0]

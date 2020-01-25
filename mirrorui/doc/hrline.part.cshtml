@@ -2,10 +2,9 @@
   <h2>hr分隔线</h2>
   <p>class="line"</p>
   <hr class="line" />
-  <p>class="line primary"</p>
-  <hr class="line primary" />
-  <p>class="line danger"</p>
-  <hr class="line danger" />
-  <p>class="line success"</p>
-  <hr class="line success" />
+  @foreach (var item in Model.themecolors)
+  {
+    <p>class="line @item"</p>
+    <hr class="line @item" />
+  }
 </div>

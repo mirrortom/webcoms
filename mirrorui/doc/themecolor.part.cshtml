@@ -1,0 +1,50 @@
+﻿@*
+  1.模板页名字规定: "页面名字.part.cshtml""
+  2.内容容器固定如下:
+    <div class="doc-part-box" id="页面名字">
+      <h2>标题</h2>
+      ......
+      ......
+    </div>
+*@
+<div class="doc-part-box" id="theme">
+  <h1>主题</h1>
+  <p>主色调和基准字体大小使用了css变量,用JS修改变量的值就能改变主题色和字体大小.css变量在":root"伪类下查找,下面是字体和主题色变量</p>
+  <p> <b>--font-size: 14px;</b></p>
+  <p> <b>--primary: #6c6;</b></p>
+  <p>js修改方法:  <b>document.body.style.setProperty('--primary', 'blue');</b></p>
+  <div>
+    <p class="article-title">修改主色primary</p>
+    @foreach (var item in new string[] { "6c6,44c144", "17a2b8,148a9c", "ffc107,dfa700" })
+    {
+      <span class="btn text-white" onclick="chgprimary('@item')" style="background-color:#@item.Split(',')[0]">#@item.Split(',')[0]</span>
+    }
+  </div>
+  <div>
+    <p class="article-title">修改字体大小</p>
+    <span class="btn" onclick="chgfontsize(12)">12px</span>
+    <span class="btn" onclick="chgfontsize(14)">14px(默认)</span>
+    <span class="btn" onclick="chgfontsize(16)">16px</span>
+    <span class="btn" onclick="chgfontsize(20)">18px</span>
+    <span class="btn" onclick="chgfontsize(24)">22px</span>
+  </div>
+  <div>
+    <p class="article-title">主题色</p>
+    <p>部分主题色值来自bootstrap4.0</p>
+    <div class="grids-7">
+      @foreach (var item in Model.themecolors)
+      {
+        <p class="bg-@item pd-5 mg-5 text-center text-white">@item</p>
+      }
+    </div>
+    <p>主题色加深,primary - paimaryse , info - infose</p>
+    <div class="grids-7">
+      @foreach (var item in Model.themecolors)
+      {
+        string se = item + "se";
+        string set = item + "-se";
+        <p class="bg-@se pd-5 mg-5 text-center text-white">@set</p>
+      }
+    </div>
+  </div>
+</div>

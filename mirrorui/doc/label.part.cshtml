@@ -1,11 +1,24 @@
 ﻿<div class="doc-part-box" id="label">
   <h2>标签</h2>
-  <span class="label">默认class="label"</span>
-  <span class="label sm">class="label sm"</span>
-  <span class="label lg">大字体lg</span>
-  <span class="label xl">最大字体xl</span>
-  <br />
-  <span class="label primary">class="label primary"</span>
-  <span class="label success">success</span>
-  <span class="label danger">danger</span>
+  <p>默认标签背景颜色继承父级,可以自定义标签背景色,文字色,也可以使用主题背景色</p>
+  <span class="label">默认标签</span>
+  <span class="label text-white bg-dark">暗色背景 class="bg-dark"</span>
+  <div class="mg-tb-10">
+
+    @foreach (var item in Model.themecolors)
+    {
+      <span class="label @item">@item</span>
+    }
+  </div>
+  <div class="mg-tb-10">
+    @foreach (var item in Model.fontsizes)
+    {
+      <span class="label @item">@item 尺寸</span>
+    }
+  </div>
+  <pre class="bg-gray">
+&lt;span class="label primary xl"&gt;默认标签&lt;/span&gt;
+
+&lt;span class="label text-white bg-dark"&gt;暗色背景 class="bg-dark"&lt;/span&gt;
+</pre>
 </div>

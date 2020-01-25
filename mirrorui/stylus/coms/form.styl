@@ -3,7 +3,7 @@
     display: none
 // 表单元素边框 用于input输入框 多行文本框 select选择框
 ctrl-border()
-    border: 1px solid var-graybackse
+    border: 1px solid var-grayse
     transition: border-color $duration
 // 表单元素宽度 用于input输入框 多行文本框 select选择框
 ctrl-width()
@@ -99,8 +99,8 @@ input-text()
         width: 1.2em
         // 离文字距离
         margin-right: 4px
-        border: 1px solid var-graybackse
-        background-color: var-grayback
+        border: 1px solid var-grayse
+        background-color: var-gray
         // 对齐与标题底
         vertical-align: text-bottom
     // 单选框是圆形框,
@@ -150,22 +150,20 @@ input-text()
         // 动画效果,在其input-radio被选中时,会修改width和height
         transition: width,height $duration
 // 颜色 复选框和单选框
-inputColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in inputColors
+for key, val in $themeColorsKV
     .input-check
-        // 复选框选中时,背景为对应色,勾为白色
+        // 复选框选中时,背景为主题色,勾为白色
         &:checked + &-label.{key} .check
-            background-color: val
+            background-color: val[0]
         &:checked + &-label.{key} .check:after
-            border-color: #ffffff
-        // 单选框选中时, 边框和点为对应色
+            border-color: var-white
+        // 单选框选中时, 边框和点为主题
         &:checked + &-label.{key} .radio
-            border-color: val
+            border-color: val[0]
         &:checked + &-label.{key} .radio:after
-            background-color: val
+            background-color: val[0]
 // 四种大小 默认是14px  并非所有表单元素都设计有
-inputSizes = { sm: $font-size-sm, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.6) }
-for key, val in inputSizes
+for key, val in $fontSizeKV
     // input 文本框的标题
     .input-label.{key}
         font-size: val
@@ -200,18 +198,18 @@ for key, val in inputSizes
 // 整体表单是个表格,里面合理分布表单项
 .form-table-box
     // 外边框
-    border: 1px solid var-graybackse
+    border: 1px solid var-grayse
     // 内边框 各表单项边框由grids底边框和grid右边框组成.除了最后一个元素不含边框外,因为会与大边框重合
     .grids:not(:last-child)
-        border-bottom: 1px solid var-graybackse
+        border-bottom: 1px solid var-grayse
     .grids [class*=grid]:not(:last-child)
-        border-right: 1px solid var-graybackse
+        border-right: 1px solid var-grayse
     // 输入框边框去掉
     .input-text, .textarea
         border: none
     // 输入框焦点时,背景色变化,以示可以编辑
     .input-text:hover, .input-text:focus, .textarea:hover, .textarea:focus
-        background-color: var-grayback
+        background-color: var-gray
         outline: none
     // .textarea多行文本框高度自动适应册格高度,但最小高度为100px
     .textarea, .input-text

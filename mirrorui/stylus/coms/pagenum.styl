@@ -18,46 +18,45 @@
         width: 2.7em
         text-align: center
         font-size: 14px
-        border: 1px solid var-graybackse
+        border: 1px solid var-grayse
         border-left: none
     // 按钮hover:后退,页码,活动,前进,省略号
     &-prev:hover, &-num:hover, &-active:hover, &-next:hover
         text-decoration: none
         cursor: pointer
-        background-color: var-grayback
+        background-color: var-gray
     &-prev
-        border-left: 1px solid var-graybackse
+        border-left: 1px solid var-grayse
     &-active, &-active:hover
         color: #fff
-        background-color: var-graybackse
+        background-color: var-grayse
     &-break
-        color: var-graybackse
+        color: var-grayse
     &-skip
         margin-left: 5px
     &-input
         width: 2.7em
         height: 90%
         text-align: center
-        border: 1px solid var-grayback
+        border: 1px solid var-gray
         padding: 0
         margin: 0 3px
     &-input:focus
-        outline: 2px solid var-graybackse
+        outline: 2px solid var-grayse
     &-ok
         display: inline-block
         width: 3em
         text-align: center
         margin-left: 5px
         color: var-font-color
-        border: 1px solid var-graybackse
+        border: 1px solid var-grayse
     &-ok:hover
         text-decoration: none
         color: var-font-color
         cursor: pointer
 // 颜色
-pagenumColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in pagenumColors
+for key, val in $themeColorsKV
     .pagenum
         &.{key} &-active, &.{key} &-active:hover
-            color: #fff
-            background-color: val
+            color: var-white
+            background-color: val[0]

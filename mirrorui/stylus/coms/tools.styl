@@ -12,14 +12,31 @@
 .text-center
     text-align: center !important
 // 文字主题色
-textColors = { primary: var-primary, danger: var-danger, success: var-success, gray: var-grayback, primaryse: var-primaryse, dangerse: var-dangerse, successse: var-successse, grayse: var-graybackse }
-for key, val in textColors
+for key, val in $themeColorsKV
     .text-{key}
-        color: val !important
+        color: val[0] !important
+    .text-{key}se
+        color: val[1] !important
+.text-white
+    color: var-white !important
+.text-gray
+    color: var-gray !important
+.text-grayse
+    color: var-grayse !important
 // 背景主题色
-for key, val in textColors
+for key, val in $themeColorsKV
     .bg-{key}
-        background-color: val !important
+        background-color: val[0] !important
+    .bg-{key}se
+        background-color: val[1] !important
+.bg-white
+    background: var-white !important
+.bg-gray
+    background: var-gray !important
+.bg-grayse
+    background: var-grayse !important
+.bg-dark
+    background: var-font-color !important
 // margin padding 固定设定便利类
 for size in range(5, 50, 5)
     sizepx = size * 1px

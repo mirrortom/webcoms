@@ -17,14 +17,14 @@
     // 选项卡框
     &-header
         display: flex
-        border-bottom: 2px solid var-graybackse
+        border-bottom: 2px solid var-grayse
     // 选项卡
     &-label
         flex: 0 1 auto
         padding: 0 15px
         height: 31px
         line-height: 30px
-        background-color: var-grayback
+        background-color: var-gray
         color: var-font-color
         cursor: pointer
     // 选项卡均分整行
@@ -32,7 +32,7 @@
         flex: 1 1 0
     // 选项卡激活时颜色
     &-label.active, &-box.list &-label.active
-        background-color: var-graybackse
+        background-color: var-grayse
         color: #ffffff
     // 面板
     &-panel
@@ -50,26 +50,25 @@
     &-box.list &-header
         display: block
         border: none
-        border-right: 2px solid var-graybackse
+        border-right: 2px solid var-grayse
     // 选项卡
     &-box.list &-label
         height: auto
         line-height: normal
         display: block
         padding: 10px
-        background-color: var-grayback
+        background-color: var-gray
         color: var-font-color
         cursor: pointer
         text-align: center
 // 颜色
-tabsColors = { primary: var-primary, danger: var-danger, success: var-success }
 .tabs
-    for key, val in tabsColors
+    for key, val in $themeColorsKV
         // 选项卡框底边色
         &-box.{key} &-header
-            border-bottom-color: val
+            border-bottom-color: val[0]
         &-box.list.{key} &-header
-            border-right-color: val
+            border-right-color: val[0]
         // 选项卡激活时色
         &-box.{key} &-label.active, &-box.list.{key} &-label.active
-            background-color: val
+            background-color: val[0]

@@ -1,7 +1,4 @@
-﻿@{
-  string[] colors = new string[] { "primary", "danger", "success", "gray" };
-}
-<div class="doc-part-box" id="toolclass">
+﻿<div class="doc-part-box" id="toolclass">
   <h2>便利样式</h2>
   <p>为了方便使用,做一些单独的样式类</p>
   <p class="article-title">文本超出时,显示省略号</p>
@@ -13,37 +10,52 @@
   <p class="article-title">文本对齐</p>
   <div class="grids-3">
     <p class="text-left bg-gray">class="text-left" 左</p>
-    <p class="text-center bg-grayse">class="text-center" 中</p>
-    <p class="text-right bg-gray">class="text-right" 右</p>
+    <p class="text-center bg-primary">class="text-center" 中</p>
+    <p class="text-right bg-info">class="text-right" 右</p>
   </div>
 
-  <p class="article-title">文本主题色</p>
-  <div class="grids-4">
-    @foreach (var item in colors)
+  <p class="article-title">文本颜色</p>
+  <p>主题文本色</p>
+  <div class="grids-5">
+    @foreach (var item in Model.themecolors)
     {
       <p class="text-@item">class="text-@item"</p>
     }
-    @foreach (var item in colors)
+  </div>
+  <p>深色</p>
+  <div class="grids-5">
+    @foreach (var item in Model.themecolors)
     {
       string se = item + "se";
       <p class="text-@se">class="text-@se"</p>
     }
   </div>
-
-  <p class="article-title">背景主题色</p>
-  <div class="grids-4">
-    @foreach (var item in colors)
+  <p>其它</p>
+  <span class="text-white bg-dark pd-5">白色文字 class="text-white"</span>
+  <span class="text-gray bg-success pd-5">灰色文字 class="text-gray"</span>
+  <span class="text-grayse bg-danger pd-5">加深灰色文字 class="text-grayse"</span>
+  <p class="article-title">背景颜色</p>
+  <p>主题背景颜色</p>
+  <div class="grids-5">
+    @foreach (var item in Model.themecolors)
     {
-      <p class="bg-@item pd-5 text-grayse">class="bg-@item"</p>
-    }
-    @foreach (var item in colors)
-    {
-      string se = item + "se";
-      <p class="bg-@se pd-5">class="bg-@se"</p>
+      <p class="bg-@item pd-5 text-white text-center">class="bg-@item"</p>
     }
   </div>
+  <p>深色</p>
+  <div class="grids-5">
+    @foreach (var item in Model.themecolors)
+    {
+      string se = item + "se";
+      <p class="bg-@se pd-5 text-white text-center">class="bg-@se"</p>
+    }
+  </div>
+  <p>其它</p>
+  <span class="bg-gray pd-5">灰色背景 class="bg-gray"</span>
+  <span class="bg-grayse pd-5">加深灰色背景 class="bg-grayse"</span>
+  <span class="text-white bg-dark pd-5">暗色背景 class="bg-dark"</span>
 
-  <p class="article-title">margin padding</p>
+  <p class="article-title">边距margin 内容距padding</p>
   <p>pd-n(n=5,10,15,..,45,50) 四个方向(l,r,t,b) pd-l-n pd-r-n pd-t-n pd-b-n, 可以组合上下与左右 pd-lr-n pd-tb-n</p>
   <div>
     <span class="pd-10 bg-primary">class="pd-10"</span>

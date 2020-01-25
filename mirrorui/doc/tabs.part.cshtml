@@ -64,15 +64,14 @@
     </div>
   </div>
   <br />
-  <p class="article-title sm">颜色</p>
-  <p>class="tabs-box [primary | danger | success]</p>
-  @foreach (var item in new string[] { "primary", "danger", "success" })
+  <p class="article-title sm">主题颜色</p>
+  @foreach (var item in Model.themecolors)
   {
     <div id="mytabs_@item" class="tabs-box @item">
       <div class="tabs-header">
         <span class="tabs-label">选项1</span>
         <span class="tabs-label">选项2</span>
-        <span class="tabs-label">选项3</span>
+        <span class="tabs-label">区别</span>
       </div>
       <div class="tabs-panel">添加样式 <b>class="tabs-box @item"</b></div>
       <div class="tabs-panel">选项2-内容</div>
@@ -94,7 +93,7 @@
   </div>
   <br />
   <p class="article-title primary">HTML结构,js调用</p>
-  <pre class="code">
+  <pre class="bg-gray">
 &lt;div id="mytabs1" class="tabs-box"&gt;
     &lt;div class="tabs-header"&gt;
         &lt;span class="tabs-label"&gt;苏轼&lt;/span&gt;
@@ -116,12 +115,13 @@ tabs('mytabs1',1);
   <p class="article-title primary">事件</p>
   <p>tab1.<b>onTabActive(tabLabel)</b></p>
   <p>选项卡激活后执行事件,tabLabel是选项卡标签的dom对象</p>
-  <pre>
+  <pre class="bg-gray">
 let tabs1 = tabs('mytabs1');
 tabs1.onTabActive = (tabLabel) => {
   msgbox.alert('激活面板标题是: ' + tabLabel.innerTEXT);
 }
 </pre>
+  <br />
   <div id="mytabs_onevent" class="tabs-box">
     <div class="tabs-header">
       <span class="tabs-label">选项1</span>
@@ -166,17 +166,21 @@ tabs1.onTabActive = (tabLabel) => {
     </tr>
   </table>
   <script>
-    tabs('mytabs1');
-    tabs('mytabs2', 1, 1);
-    tabs('mytabs3', 0, 2);
-    tabs('mytabs_primary', 0);
-    tabs('mytabs_success', 1);
-    tabs('mytabs_danger', 2);
-    tabs('mytabs_list');
-    let tabs1 = tabs('mytabs_onevent');
-    tabs1.onTabActive = (tabLabel) => {
-      msgbox.alert('激活面板标题:' + tabLabel.innerText);
-    }
+    (() => {
+      tabs('mytabs1');
+      tabs('mytabs2', 1, 1);
+      tabs('mytabs3', 0, 2);
+      let colors = ["primary", "danger", "success", "info", "warning"];
+      for (var i = 0; i < colors.length; i++) {
+        let id = 'mytabs_' + colors[i];
+        tabs(id, i);
+      }
+      tabs('mytabs_list');
+      let tabs1 = tabs('mytabs_onevent');
+      tabs1.onTabActive = (tabLabel) => {
+        msgbox.alert('激活面板标题:' + tabLabel.innerText);
+      }
+    })();
     let tab2 = tabs('mytabs_method');
   </script>
 </div>

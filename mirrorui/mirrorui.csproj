@@ -61,6 +61,7 @@
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
     <None Include="compilerconfig.json" />
+    <None Include="doc\themecolor.part.cshtml" />
     <None Include="doc\-------.part.cshtml" />
     <None Include="doc\article.part.cshtml" />
     <None Include="doc\btn.part.cshtml" />

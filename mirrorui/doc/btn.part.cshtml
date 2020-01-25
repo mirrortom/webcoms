@@ -1,46 +1,63 @@
 ﻿<div class="doc-part-box" id="btn">
   <h2>按钮</h2>
-  <p>标记使用a span button,添加.btn样式.有几种颜色.</p>
-  <div class="grids-5">
-    <div><a class="btn">class="btn"</a></div>
-    <div><a class="btn link">链接式class="btn link"</a></div>
-    <div><button class="btn disabled">禁用class="btn disabled"</button></div>
-    <div><a class="btn cir">圆角class="btn cir"</a></div>
-    <div><button class="btn loading">等待中class="btn loading"</button></div>
+  <p class="article-title">标记使用a span button,添加.btn样式.</p>
+  <div class="mg-tb-10">
+    <span class="btn">btn normal</span>
+    <a class="btn link">链接式</a>
+    <button class="btn disabled">禁用</button>
+    <a class="btn cir">圆角</a>
+    <button class="btn loading">等待中...</button>
   </div>
-  <br />
-  <p>颜色</p>
-  <div class="grids-3">
-    <div><a class="btn primary">class="btn primary"</a></div>
-    <div><a class="btn danger">class="btn danger"</a></div>
-    <div><a class="btn success">class="btn success"</a></div>
-  </div>
-  <div class="grids-3">
-    <div><a class="btn link primary">class="btn link primary"</a></div>
-    <div><a class="btn link danger">class="btn link danger"</a></div>
-    <div><a class="btn link success">class="btn link success"</a></div>
-  </div>
-  <br />
-  <div class="grids-4">
-    <div><a class="btn sm">sm尺寸</a></div>
-    <div><a class="btn lg">lg尺寸</a></div>
-    <div><a class="btn xl">xl尺寸</a></div>
-    <div><a class="btn link lg">lg尺寸 链接式</a></div>
-  </div>
-  <br />
-  <a class="btn block">块级按钮class="btn block"</a>
-  <a class="btn block primary">块级按钮class="btn block primary"</a>
-  <pre class="code">
-&lt;a class="btn"&gt;默认&lt;/a&gt;
-&lt;button class="btn <b>loading</b>"&gt;等待中&lt;/button&gt;
-&lt;button class="btn <b>disabled</b>"&gt;禁用&lt;/button&gt;
-&lt;a class="btn <b>cir</b>"&gt;圆角&lt;/a&gt;
-&lt;a class="btn <b>link</b>"&gt;链接&lt;/a&gt;
-&lt;a class="btn <b>lg</b>"&gt;lg尺寸&lt;/a&gt;
-&lt;a class="btn <b>success</b>"&gt;绿色&lt;/a&gt;
-&lt;a class="btn <b>block</b> blue-b cir lg"&gt;块级按钮&lt;/a&gt;
+  <pre class="bg-gray">
+&lt;span class="btn"&gt;btn normal&lt;/span&gt;
+
+&lt;a class="btn link"&gt;链接式&lt;/a&gt;
+
+&lt;button class="btn disabled"&gt;禁用&lt;/button&gt;
+
+&lt;a class="btn cir"&gt;圆角&lt;/a&gt;
+
+&lt;button class="btn loading"&gt;等待中&lt;/button&gt;
 </pre>
   <br />
+  <p class="article-title">颜色,尺寸,块级</p>
+  <div class="mg-tb-10">
+    @foreach (var item in Model.themecolors)
+    {
+      <a class="btn @item">@item</a>
+    }
+  </div>
+  <div class="mg-tb-10">
+    @foreach (var item in Model.themecolors)
+    {
+      <a class="btn link @item">@item link</a>
+    }
+  </div>
+  <pre class="bg-gray">
+&lt;a&gt; class="btn primary">primary&lt;/a&gt;
+
+&lt;a&gt; class="btn link primary">primary link&lt;/a&gt;
+</pre>
+  <br />
+  <div class="mg-tb-10">
+    @foreach (var item in Model.fontsizes)
+    {
+      <a class="btn @item">@item 尺寸</a>
+    }
+  </div>
+  <pre class="bg-gray">
+ &lt;a class="btn lg"&gt;lg 尺寸&lt;/a&gt;
+</pre>
+  <br />
+  <div class="mg-tb-10">
+    <a class="btn block">块级按钮</a>
+    <a class="btn block primary">块级按钮class="btn block primary"</a>
+  </div>
+  <pre class="bg-gray">
+&lt;a class="btn block"&gt;块级按钮&lt;/a&gt;
+</pre>
+  <br />
+  <p class="article-title">等待效果</p>
   <p>调用 "$ui.isBtnLoading(btn)" 给按钮加等待效果</p>
   <a id="btnloadtest1" class="btn">点击等待</a>
   <p>按钮等待时.调用 "$ui.clsBtnLoading(btn,2000)" 消除等待</p>
@@ -55,7 +72,7 @@
       }
       btn2.onclick = () => {
         if ($ui.isBtnLoading(btn2) == false)
-          $ui.clsBtnLoading(btn2,2000);
+          $ui.clsBtnLoading(btn2, 2000);
       }
     })();
   </script>

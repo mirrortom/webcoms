@@ -4,7 +4,7 @@
 .sidemenu
     // 外层框是个nav
     &-box
-        background-color: var-grayback
+        background-color: var-gray
         user-select: none
         padding: 15px
     // 每个菜单组是一个ul
@@ -30,7 +30,7 @@
         font-weight: 600
     // 菜单项hover
     &-item:not(.active):hover
-        background-color: var-graybackse
+        background-color: var-grayse
     // 菜单组标题
     &-label
         display: block
@@ -52,12 +52,11 @@
     &-group-close &-item
         display: none
 // 颜色
-sidemenuColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in sidemenuColors
+for key, val in $themeColorsKV
     .sidemenu
         &-box.{key}
-            background-color: val
+            background-color: val[0]
         &-box.{key} &-item.active
-            color: #fff
-&-box.{key} &-item:hover
-    background-color: var-grayback
+            color: var-white
+        &-box.{key} &-item:hover
+            background-color: var-gray

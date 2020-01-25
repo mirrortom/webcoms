@@ -1,20 +1,16 @@
-﻿/*
-    文章标题
-*/
+﻿// 文章标题
 .article-title
     border-left: 5px solid
     font-weight: 600
     padding: 0.5em 0 0.5em 1em
     margin: 1em auto
-    border-left-color: var-graybackse
-    font-size: var(--font-size)
+    border-left-color: var-grayse
+    font-size: var-font-size
 // 颜色
-articleColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in articleColors
+for key, val in $themeColorsKV
     .article-title.{key}
-        border-left-color: val
+        border-left-color: val[0]
 // 增加两种字体大小
-articleSize = { sm: $font-size-sm, lg: calc(var(--font-size) * 1.25), xl: calc(var(--font-size) * 1.5) }
-for key, val in articleSize
+for key, val in $fontSizeKV
     .article-title.{key}
         font-size: val

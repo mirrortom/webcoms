@@ -37,6 +37,10 @@
   <label onclick="changethem('cache_danger','danger')" class="input-check-label danger" for="cache_danger"><b class="radio"></b>danger</label>
   <input class="input-check" name="radiogroup1" type="radio" id="cache_success" />
   <label onclick="changethem('cache_success','success')" class="input-check-label success" for="cache_success"><b class="radio"></b>success</label>
+  <input class="input-check" name="radiogroup1" type="radio" id="cache_info" />
+  <label onclick="changethem('cache_info','info')" class="input-check-label info" for="cache_info"><b class="radio"></b>info</label>
+  <input class="input-check" name="radiogroup1" type="radio" id="cache_warning" />
+  <label onclick="changethem('cache_warning','warning')" class="input-check-label warning" for="cache_warning"><b class="radio"></b>warning</label>
   <br />
   <br />
   <div class="cachepagedemo">
@@ -109,7 +113,7 @@ let cacheDoms = cpg.load(pid, title, <b>onload</b>);
 </pre>
   <h4>经典布局结构</h4>
   <p>左侧菜单,右侧分为2部分,上面是选项卡,下面是内容区</p>
-  <pre>
+  <pre class="bg-gray">
 &lt;div class="box"&gt;
   &lt;div class="left"&gt;&lt;ul&gt;菜单区域&lt;/ul&gt;&lt;/div&gt;
   &lt;div class="right"&gt;
@@ -155,7 +159,7 @@ let cacheDoms = cpg.load(pid, title, <b>onload</b>);
     function changethem(btnId, classN) {
       let btn = document.getElementById(btnId);
       let cachepagebox = document.getElementById('tabsbox1');
-      cachepagebox.classList.remove('primary', 'success', 'danger');
+      cachepagebox.classList.remove('primary', 'success', 'danger','info','warning');
       if (classN)
         cachepagebox.classList.add(classN);
     }

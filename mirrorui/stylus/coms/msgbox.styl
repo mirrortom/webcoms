@@ -49,10 +49,10 @@
         width: 76px
         text-align: center
         box-sizing: border-box
-        border: 1px solid var-graybackse
+        border: 1px solid var-grayse
         border-radius: 5px
         padding: 5px 10px
-        background-color: var-grayback
+        background-color: var-gray
         user-select: none
         font-size: 14px
         color: var-font-color
@@ -63,17 +63,15 @@
     &-cancel
         right: 96px
     &-btn:hover
-        background-color: var-graybackse
+        background-color: var-grayse
 // 按钮颜色
-msgboxColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in msgboxColors
+for key, val in $themeColorsKV
     .msgbox.{key} .msgbox-btn
-        background-color: val
-        color: #ffffff
-msgboxColorsHover = { primary: var-primaryse, danger: var-dangerse, success: var-successse }
-for key, val in msgboxColorsHover
+        background-color: val[0]
+        color: var-white
+for key, val in $themeColorsKV
     .msgbox.{key} .msgbox-btn:hover
-        background-color: val
+        background-color: val[1]
 // prompt框的input
 .msgbox-input
     display: block
@@ -82,9 +80,9 @@ for key, val in msgboxColorsHover
     padding: 4px 8px
     margin: 5px auto
     width: 100%
-    border: 1px solid var-graybackse
+    border: 1px solid var-grayse
     color: var-font-color
-    background-color: #ffffff
+    background-color: var-white
     outline: 0
 // PC屏
 @media only screen and (min-width: 768px)
