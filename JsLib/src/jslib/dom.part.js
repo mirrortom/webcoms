@@ -1,4 +1,60 @@
-﻿// 实例方法
+﻿// ==============
+// 辅助方法
+// ==============
+/**
+ * 查找parent.querySelectorAll(),返回元素列表filterList.提供mixNodeList时,返回两个列表交集.(同时在两个列表中的元素)
+ * @param {HTMLElement} parent 要查找的元素
+ * @param {string} selector 选择器
+ * @param {any} mixNodeList 取交集的元素列表
+ * @returns {any} 返回元素列表
+ */
+let _filterMix = (parent, selector, mixNodeList) => {
+    // querySelectorAll()找到的元素可能包含后代元素而不仅仅是子元素
+    let filterlist = parent.querySelectorAll(selector);
+    if (!mixNodeList)
+        return filterlist;
+    // 交集
+    let matched = [];
+    filterlist.forEach((finditem) => {
+        mixNodeList.forEach((childitem) => {
+            if (childitem === finditem)
+                matched.push(childitem);
+        });
+    });
+    return matched;
+};
+/**
+ * 返回指定元素的所有同级元素.dir限定返回所有元素的一个子集
+ * @param {HTMLElement} elem 指定元素
+ * @param {string} dir 限定参数 nextAll(之后所有) | prevAll(之前所有) (默认返回所有的同级元素)
+ * @returns {any} 返回元素列表
+ */
+let _siblings = (elem, dir) => {
+    var matched = [];
+    if (dir === 'nextAll') {
+        for (let sib = elem.nextSibling; sib; sib = sib.nextSibling) {
+            if (sib.nodeType === 1)
+                matched.push(sib);
+        }
+    } else if (dir === 'prevAll') {
+        // previousSibling得到的元素顺序是倒的,加入元素时,用unshift()
+        for (let sib = elem.previousSibling; sib; sib = sib.previousSibling) {
+            if (sib.nodeType === 1)
+                matched.unshift(sib);
+        }
+    }
+    else {
+        elem.parentNode.childNodes.forEach((childitem) => {
+            if (childitem.nodeType === 1 && childitem !== elem)
+                matched.push(childitem);
+        });
+    }
+
+    return matched;
+};
+// ==============
+// jslib实例方法
+// ==============
 factory.extend({
     /**
      * 以已经匹配的元素为根,查找子元素.(原生: dom.querySelectorAll())
@@ -6,19 +62,15 @@ factory.extend({
      * @returns {jslib} 返回this
      */
     'find': function (selector) {
-        let tmplist = [];
+        let matched = [];
         this.each((item) => {
             let nodelist = item.querySelectorAll(selector);
             nodelist.forEach((finditem) => {
-                tmplist.push(finditem);
+                matched.push(finditem);
             });
         });
         // 重置已选元素
-        this.reset();
-        tmplist.forEach((item) => {
-            this.push(item);
-        });
-        return this;
+        return this.reset(matched);
     },
     /**
      * 筛选取匹配元素的第n个元素(模拟jquery的eq()筛选方法)
@@ -29,6 +81,113 @@ factory.extend({
         this[0] = this[index];
         Array.prototype.splice.call(this, 1);
         return this;
+    },
+    /**
+     * 查找所有匹配元素的同级元素,不包含匹配元素自己.(原生:)
+     * @param {string} selector css选择器.如果选择器错误,会报异常.
+     * @returns {jslib} 返回this
+     */
+    'siblings': function (selector) {
+        let matched = [];
+        this.each((item) => {
+            // 找出所有同级节点,排除自己,排除非html节点
+            let sibnodes = _siblings(item);
+            // 有筛选时
+            if (typeof selector === 'string') {
+                matched = matched.concat(_filterMix(item.parentNode, selector, sibnodes));
+            } else {
+                matched = matched.concat(sibnodes);
+            }
+        });
+        // 重置已选元素
+        return this.reset(matched);
+    },
+    /**
+     * 查找所有匹配元素的后面一个同辈元素,不指定筛选时返回紧邻的后一个元素.(原生:node.nextSibling)
+     * @param {string} selector css选择器.如果选择器错误,会报异常.
+     * @returns {jslib} 返回this
+     */
+    'next': function (selector) {
+        let matched = [];
+        this.each((item) => {
+            // 找出自己之后的所有同级节点,排除自己,排除非html节点
+            let sibnodes = _siblings(item, 'nextAll');
+            // 有筛选时
+            if (typeof selector === 'string') {
+                let mixnodes = _filterMix(item.parentNode, selector, sibnodes);
+                if (mixnodes[0])
+                    matched.push(mixnodes[0]);
+            } else {
+                if (sibnodes[0])
+                    matched.push(sibnodes[0]);
+            }
+        });
+        // 重置已选元素
+        return this.reset(matched);
+    },
+    /**
+     * 查找所有匹配元素之后所有的同辈元素.(原生:)
+     * @param {string} selector css选择器.如果选择器错误,会报异常.
+     * @returns {jslib} 返回this
+     */
+    'nextAll': function (selector) {
+        let matched = [];
+        this.each((item) => {
+            // 找出自己之后的所有同级节点,排除自己,排除非html节点
+            let sibnodes = _siblings(item, 'nextAll');
+            // 有筛选时
+            if (typeof selector === 'string') {
+                matched = matched.concat(_filterMix(item.parentNode, selector, sibnodes));
+            } else {
+                matched = matched.concat(sibnodes);
+            }
+        });
+        // 重置已选元素
+        return this.reset(matched);
+    },
+    /**
+     * 查找所有匹配元素的紧邻的前面哪一个同辈元素.(原生:node.previousSibling)
+     * @param {string} selector css选择器.如果选择器错误,会报异常.
+     * @returns {jslib} 返回this
+     */
+    'prev': function (selector) {
+        let matched = [];
+        this.each((item) => {
+            // 找出自己之后的所有同级节点,排除自己,排除非html节点
+            let sibnodes = _siblings(item, 'prevAll');
+            // 有筛选时
+            if (typeof selector === 'string') {
+                let mixnodes = _filterMix(item.parentNode, selector, sibnodes);
+                if (mixnodes[0])
+                    matched.push(mixnodes[0]);
+            } else {
+                let prevNode = sibnodes[sibnodes.length - 1];
+                if (prevNode)
+                    matched.push(prevNode);
+            }
+        });
+        // 重置已选元素
+        return this.reset(matched);
+    },
+    /**
+     * 查找所有匹配元素之后所有的同辈元素.(原生:)
+     * @param {string} selector css选择器.如果选择器错误,会报异常.
+     * @returns {jslib} 返回this
+     */
+    'prevAll': function (selector) {
+        let matched = [];
+        this.each((item) => {
+            // 找出自己之后的所有同级节点,排除自己,排除非html节点
+            let sibnodes = _siblings(item, 'prevAll');
+            // 有筛选时
+            if (typeof selector === 'string') {
+                matched = matched.concat(_filterMix(item.parentNode, selector, sibnodes));
+            } else {
+                matched = matched.concat(sibnodes);
+            }
+        });
+        // 重置已选元素
+        return this.reset(matched);
     },
     /**
      * 设置每个匹配元素的属性或返回第一个元素的属性值.(原生: getAttribute(),setAttribute())
@@ -43,13 +202,12 @@ factory.extend({
                 if (!this[0]) return;
                 return this[0].getAttribute(key);
             }
-            // 设置单个
+            // 设置单个属性
             this.each((dom) => {
-                if (this[0]);
                 dom.setAttribute(key, val);
             });
         } else if (typeof key === 'object') {
-            // 设置多个
+            // 设置多个属性
             this.each((dom) => {
                 for (var k in key) {
                     dom.setAttribute(k, key[k]);
@@ -57,6 +215,27 @@ factory.extend({
             });
         }
         return this;
+    },
+    /**
+     * 设置每个匹配元素的value属性或返回第一个元素的value属性值.主要用于input,textarea,select等表单元素(原生: ele.value)
+     * @param {string} val 属性值
+     * @returns {jslib} 取属性时返回属性值.否则返回this
+     */
+    'val': function (val) {
+        if (val === undefined) {
+            // 获取第0个
+            if (!this[0]) return;
+            return this[0].value;
+        } else {
+            // 设置所有元素value属性
+            this.each((dom) => {
+                if (dom.nodeName === 'TEXTAREA')
+                    dom.innerText = val;
+                else
+                    dom.value = val;
+            });
+            return this;
+        }
     },
     /**
      * 删除每个匹配的元素指定的属性

@@ -2,21 +2,12 @@
 //           验证相关方法
 // ==================================
 /**
- * 指示一个字符串是否为空或者null.
+ * 指示一个字符串是否含有内容,并且不能全部是空白字符
  * @param {string} str 被检查字符串
  * @returns {boolean} t/f
  */
-factory.isEmptyOrNull = (str) => {
-    return !val || val.length === 0;
-};
-/**
- * 指示一个字符串是否为空或者null或者全是空白字符.
- * @param {string} str 被检查字符串
- * @returns {boolean} t/f
- */
-factory.isNullOrWhiteSpace = (str) => {
-    if (/^\s+$/.test(str)) return true; // 全部是空白字符
-    return !val || val.length === 0;
+factory.isNotNull = (str) => {
+    return !factory.isNullOrWhiteSpace(str);
 };
 /**
  * 指示一个字符串是否为数值
@@ -117,4 +108,13 @@ factory.isMoney = (str) => {
  */
 factory.isDate = (str) => {
     return !/Invalid|NaN/.test(new Date(str).toString());
+};
+
+/**
+ * 验证表单元素的值
+ * @param {HTMLElement|any} ele input,textarea元素
+ * @returns {boolean} t/f 
+ */
+factory.formCheck = (ele) => {
+    return true;
 };

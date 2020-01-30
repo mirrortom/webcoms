@@ -49,6 +49,7 @@
     <Content Include="src\cavlib\line.part.js" />
     <Content Include="src\jslib\1start.part.js" />
     <Content Include="src\jslib\2end.part.js" />
+    <Content Include="src\jslib\commonVar.part.js" />
     <Content Include="src\jslib\dom.part.js" />
     <Content Include="src\jslib\static_ajax.part.js" />
     <Content Include="src\jslib\static_rand.part.js" />

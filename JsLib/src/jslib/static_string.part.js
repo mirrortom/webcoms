@@ -2,6 +2,23 @@
 //           字符串相关方法
 // ==================================
 /**
+ * 字符串是否为空或者null.
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isEmptyOrNull = (str) => {
+    return !val || val.length === 0;
+};
+/**
+ * 字符串是否为空或者null或者全是空白字符.
+ * @param {string} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isNullOrWhiteSpace = (str) => {
+    if (/^\s+$/.test(str)) return true; // 全部是空白字符
+    return !val || val.length === 0;
+};
+/**
  * 格式化字符串,将字符串中的占位符替换为给定字符串{d},返回替换后字符串.例:("my name is {0} from {1}",mirror,china)
  * @param {string} str 要格式化的字符串,包含占位符{d}
  * @param {...any} repstrs 替换占位符的字符串数组

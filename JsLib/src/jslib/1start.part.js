@@ -53,11 +53,30 @@
         return this;
     };
     /**
-     * 清空jslib类数组
+     * jslib类数组中是否已有指定元素
+     * @param {any} item 指定node节点
+     * @returns {boolean} 返回 t / f
+     */
+    jslib.prototype.contains = function (item) {
+        for (let i = 0, len = this.length; i < len; i++) {
+            if (this[i] === item)
+                return true;
+        }
+        return false;
+    };
+    /**
+     * 重置jslib类数组内容
+     * @param {NodeList} elemlist 用于填充的新DOM元素列表,如果其中元素已经在jslib类数组中,则不会重复添加
      * @returns {jslib} 返回this
      */
-    jslib.prototype.reset = function () {
+    jslib.prototype.reset = function (elemlist) {
         Array.prototype.splice.call(this, 0);
+        if (elemlist) {
+            elemlist.forEach((item) => {
+                if (!this.contains(item))
+                    this.push(item);
+            });
+        }
         return this;
     };
     /**
