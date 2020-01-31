@@ -7,7 +7,7 @@
  * @returns {boolean} t/f
  */
 factory.isEmptyOrNull = (str) => {
-    return !val || val.length === 0;
+    return !str || str.length === 0;
 };
 /**
  * 字符串是否为空或者null或者全是空白字符.
@@ -16,7 +16,7 @@ factory.isEmptyOrNull = (str) => {
  */
 factory.isNullOrWhiteSpace = (str) => {
     if (/^\s+$/.test(str)) return true; // 全部是空白字符
-    return !val || val.length === 0;
+    return !str || str.length === 0;
 };
 /**
  * 格式化字符串,将字符串中的占位符替换为给定字符串{d},返回替换后字符串.例:("my name is {0} from {1}",mirror,china)

@@ -109,12 +109,3 @@ factory.isMoney = (str) => {
 factory.isDate = (str) => {
     return !/Invalid|NaN/.test(new Date(str).toString());
 };
-
-/**
- * 验证表单元素的值
- * @param {HTMLElement|any} ele input,textarea元素
- * @returns {boolean} t/f 
- */
-factory.formCheck = (ele) => {
-    return true;
-};

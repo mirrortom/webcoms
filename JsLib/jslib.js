@@ -123,40 +123,6 @@
         return fragm;
     };
 
-// ===================================================
-// 常量,枚举,键值对定义 提供给所有或某些模块使用
-// ===================================================
-
-factory.enum = {};
-/**
- * 验证类型.每个类型对应一个完成验证功能的函数
- */
-factory.enum.vType = {
-    // 必要项且不能为空或空白字符
-    'notnull': 'isNotNull',
-    // 电子邮件格式
-    'email': 'isEmail',
-    // 国内手机号1[34578]\d{9}
-    'mobile': 'isMobile',
-    // 限26个英文,大小写不限.
-    'abc': 'isAbc',
-    // 限0-9数字
-    '123': 'isDigit',
-    // 限26个英文字母(开头)和0-9整数(可选)
-    'abc123': 'isAbcDigit',
-    // 限26个英文字母和0-9整数(可选)和_下划线(可选),并且是字母或者下划线开头.
-    'abc_123': 'isAbcDigitUline',
-    // 限url
-    'url': 'isUrl',
-    // 标准日期 "1999-02-28 12:08:33"
-    'date': 'isDate',
-    // 是否超长度限制
-    'maxlen': 'isMaxLength',
-    // 是否小于长度
-    'minlen': 'isMinLength',
-    // 正整数或正1-2位小数
-    'money': "isMoney"
-};
 // ==============
 // 辅助方法
 // ==============
@@ -563,7 +529,7 @@ factory.extend({
  * @returns {boolean} t/f
  */
 factory.isEmptyOrNull = (str) => {
-    return !val || val.length === 0;
+    return !str || str.length === 0;
 };
 /**
  * 字符串是否为空或者null或者全是空白字符.
@@ -572,7 +538,7 @@ factory.isEmptyOrNull = (str) => {
  */
 factory.isNullOrWhiteSpace = (str) => {
     if (/^\s+$/.test(str)) return true; // 全部是空白字符
-    return !val || val.length === 0;
+    return !str || str.length === 0;
 };
 /**
  * 格式化字符串,将字符串中的占位符替换为给定字符串{d},返回替换后字符串.例:("my name is {0} from {1}",mirror,china)
@@ -605,61 +571,59 @@ factory.dataBind = (str, json) => {
 factory.trim = (str) => {
     return str.replace(/^\s*|\s*$/g, '');
 };
-// ====================================================================
-// ajax (原生: fetch())
-// fetch方法返回Promise对象.
-// https://github.com/matthew-andrews/isomorphic-fetch
-// (详细讲解)https://www.cnblogs.com/libin-1/p/6853677.html
-// ====================================================================
+// ==================================
+//           随机数相关方法
+// ==================================
 /**
- * 简易post方式Ajax, 默认返回json对象
- * @param {string} url 请求url
- * @param {any|FormData} data json对象或者FormData对象,如果是json对象,会转化成FormData对象
- * @param {Function} callback 互调函数
- * @param {string} restype 返回值类型,默认'json',可选'html'
+ * 生成一个非负随机整数
+ * @param {number} intMin 起始值(>0整数,含)
+ * @param {number} intMax intMax:结束值(大于起始值整数,不含)
+ * @returns {number} 返回
  */
-factory.post = (url, data, callback, restype) => {
-    let formData = new FormData();
-    if (data instanceof FormData) {
-        formData = data;
-    } else {
-        Object.keys(data).forEach((key) => {
-            formData.append(key, data[key]);
-        });
-    }
-    //
-    let res = fetch(url, { method: "POST", body: formData });
-    if (restype === 'html') {
-        res.then(response => response.text())
-            .then((html) => {
-                callback(html);
-            });
-    } else {
-        res.then(response => response.json())
-            .then((json) => {
-                callback(json);
-            });
-    }
+factory.nextInt = (intMin, intMax) => {
+    let rand = Math.random() * (intMax - intMin);
+    return Math.floor(rand) + intMin;
 };
+// ==================================
+//           时间相关方法
+// ==================================
 /**
- * 简易 get方式Ajax, 默认返回html文本
- * @param {string} url 请求url
- * @param {Function} callback 互调函数
- * @param {string} restype 返回值类型,默认'html',可选'json'
+ * 格式化时间,
+ * @param {Date} date 要格式化的Date对象
+ * @param {string} fmtstr format string 格式化字符串 (默认:四位年份,24小时制: "yyyy/MM/dd HH:mm:ss").
+ * 自定义格式时,年月日时分秒代号必须是: y(年)M(月)d(日)H(时)m(分)s(秒)
+ * @returns {string} 返回格式化时间字符串
  */
-factory.get = (url, callback, restype) => {
-    let res = fetch(url);
-    if (restype === 'json') {
-        res.then(response => response.json())
-            .then((json) => {
-                callback(json);
-            });
-    } else {
-        res.then(response => response.text())
-            .then((html) => {
-                callback(html);
-            });
+factory.datefmt = (date, fmtstr) => {
+    let format = fmtstr || 'yyyy/MM/dd HH:mm:ss';
+    let json = {};
+    // 替换时,先替换名字较长的属性,以避免如yyyy被分成两次yy替换,造成错误.故长名字属性在前.
+    json.yyyy = date.getFullYear();
+    json.yy = json.yyyy.toString().substr(2);
+    //
+    let m = date.getMonth() + 1;
+    json.MM = m > 9 ? m : '0' + m;
+    json.M = m;
+    //
+    let d = date.getDate();
+    json.dd = d > 9 ? d : '0' + d;
+    json.d = d;
+    //
+    let h = date.getHours();
+    json.HH = h > 9 ? h : '0' + h;
+    json.H = h;
+    //
+    let mi = date.getMinutes();
+    json.mm = mi > 9 ? mi : '0' + mi;
+    json.m = mi;
+    //
+    let s = date.getSeconds();
+    json.ss = s > 9 ? s : '0' + s;
+    json.s = s;
+    for (let item in json) {
+        format = format.replace(item, json[item]);
     }
+    return format;
 };
 // ==================================
 //           验证相关方法
@@ -772,72 +736,201 @@ factory.isMoney = (str) => {
 factory.isDate = (str) => {
     return !/Invalid|NaN/.test(new Date(str).toString());
 };
-
-/**
- * 验证表单元素的值
- * @param {HTMLElement|any} ele input,textarea元素
- * @returns {boolean} t/f 
- */
-factory.formCheck = (ele) => {
-    return true;
-};
-// ==================================
-//           随机数相关方法
-// ==================================
-/**
- * 生成一个非负随机整数
- * @param {number} intMin 起始值(>0整数,含)
- * @param {number} intMax intMax:结束值(大于起始值整数,不含)
- * @returns {number} 返回
- */
-factory.nextInt = (intMin, intMax) => {
-    let rand = Math.random() * (intMax - intMin);
-    return Math.floor(rand) + intMin;
-};
-// ==================================
-//           时间相关方法
-// ==================================
-/**
- * 格式化时间,
- * @param {Date} date 要格式化的Date对象
- * @param {string} fmtstr format string 格式化字符串 (默认:四位年份,24小时制: "yyyy/MM/dd HH:mm:ss").
- * 自定义格式时,年月日时分秒代号必须是: y(年)M(月)d(日)H(时)m(分)s(秒)
- * @returns {string} 返回格式化时间字符串
- */
-factory.datefmt = (date, fmtstr) => {
-    let format = fmtstr || 'yyyy/MM/dd HH:mm:ss';
-    let json = {};
-    // 替换时,先替换名字较长的属性,以避免如yyyy被分成两次yy替换,造成错误.故长名字属性在前.
-    json.yyyy = date.getFullYear();
-    json.yy = json.yyyy.toString().substr(2);
-    //
-    let m = date.getMonth() + 1;
-    json.MM = m > 9 ? m : '0' + m;
-    json.M = m;
-    //
-    let d = date.getDate();
-    json.dd = d > 9 ? d : '0' + d;
-    json.d = d;
-    //
-    let h = date.getHours();
-    json.HH = h > 9 ? h : '0' + h;
-    json.H = h;
-    //
-    let mi = date.getMinutes();
-    json.mm = mi > 9 ? mi : '0' + mi;
-    json.m = mi;
-    //
-    let s = date.getSeconds();
-    json.ss = s > 9 ? s : '0' + s;
-    json.s = s;
-    for (let item in json) {
-        format = format.replace(item, json[item]);
-    }
-    return format;
-};
 // window上的引用名 "lib",.在此修改
 win.lib = factory;
 // 用$更加简洁方便
 if (!win.$)
     win.$ = win.lib;
 }) (window);
+((win) => {
+    // 验证类型.每个类型对应一个完成验证功能的函数
+    const vType = {
+        // 必要项且不能为空或空白字符
+        'notnull': 'isNotNull',
+        // 电子邮件格式
+        'email': 'isEmail',
+        // 国内手机号1[34578]\d{9}
+        'mobile': 'isMobile',
+        // 限26个英文,大小写不限.
+        'abc': 'isAbc',
+        // 限0-9数字
+        '123': 'isDigit',
+        // 限26个英文字母(开头)和0-9整数(可选)
+        'abc123': 'isAbcDigit',
+        // 限26个英文字母和0-9整数(可选)和_下划线(可选),并且是字母或者下划线开头.
+        'abc_123': 'isAbcDigitUline',
+        // 限url
+        'url': 'isUrl',
+        // 标准日期 "1999-02-28 12:08:33"
+        'date': 'isDate',
+        // 是否超长度限制
+        'maxlen': 'isMaxLength',
+        // 是否小于长度
+        'minlen': 'isMinLength',
+        // 正整数或正1-2位小数
+        'money': "isMoney"
+    };
+    let $ = win.lib;
+    /**
+     * 验证表单元素的值
+     * @param {HTMLElement|any} elem input,textarea元素
+     * @returns {boolean} t/f 
+     */
+    $.formCheck = (elem) => {
+        let inputCls = 'formcheck-err',
+            errmsgCls = 'formcheck-errmsg';
+        // ------------------------------------------------------------
+        // 辅助方法
+        // ------------------------------------------------------------
+        // input获得焦点事件,作用:获得焦点时,去掉错误样式和提示语,恢复原样
+        let inputfocus = () => {
+            if ($(elem).hasClass(inputCls)) {
+                $(elem).next('.' + errmsgCls).remove();
+                elem.style.backgroundColor = null;
+            }
+            elem.removeEventListener('focus', inputfocus);
+        };
+        // input出错时,背景变红,在其后生成span,显示提示语
+        let checkAlert = (msg) => {
+            // input加背景色
+            $(elem).addClass(inputCls);
+            elem.style.backgroundColor = '#ffebec';
+            // 删除旧的提示语span
+            $(elem).next('.' + errmsgCls).remove();
+            // 新的提示语span.其长度,背景色与input相同.
+            let errmsg = $('<span>').addClass(errmsgCls).text('× ' + msg)[0];
+            errmsg.style.cssText = 'display:block;padding:3px;background-color:#ffebec;color:#e6393d;width:'
+                + elem.offsetWidth + 'px';
+            $(elem).after(errmsg);
+            // 焦点事件
+            elem.addEventListener('focus', inputfocus);
+        };
+
+        // 1.验证准备
+        // 获取验证类型和错误提示语.元素上的vtype属性值(多个验证用|隔开).未找到或者类型错误则退出
+        let vtypeStr = elem.getAttribute('vtype');
+        // 没有在要验证的元素上设置vtype属性,忽略并通过
+        if ($.isNullOrWhiteSpace(vtypeStr))
+            return true;
+        //
+        let validtype = vtypeStr.split("|");
+        // 如果检测到一个验证类型无效,丢异常
+        for (var i = 0, len = validtype.length; i < len; i++) {
+            if (!vType.hasOwnProperty(validtype[i]))
+                throw 'vtype value wrong: ' + validtype[i];
+        }
+
+        // 自定义的错误提示信息,多个也是|号分开.与vtype索引对应
+        let validerrmsg = [],
+            verrmsgStr = elem.getAttribute('verrmsg');
+        if (!$.isNullOrWhiteSpace(verrmsgStr))
+            validerrmsg = verrmsgStr.split("|");
+
+        // 长度验证参数来自input上的maxlength,minlength属性值
+        let maxlen = elem.getAttribute('maxlength');
+        let minlen = elem.getAttribute('minlength');
+
+        // 2.开始验证
+        for (var n = 0, nlen = validtype.length; n < nlen; n++) {
+            // 执行验证的函数名字
+            let vfunname = vType[validtype[n]];
+            // 验证
+            let isValid = $[vfunname](elem.value);
+            if (validtype[n] === 'minlen')
+                isValid = !$[vfunname](elem.value, minlen);
+            else if (validtype[n] === 'maxlen')
+                isValid = !$[vfunname](elem.value, maxlen);
+            if (!isValid) {
+                checkAlert(validerrmsg[n] || 'validation failed: ' + validtype[n]);
+                return false;
+            }
+        }
+        //
+        return true;
+    };
+    /**
+     * 将一个父元素中的所有含有name属性的input,select,textarea子元素,将其name值为属性名,value值为属性值,组成一个json对象返回.
+     * @param {HTMLElement} parent 容器元素dom对象
+     * @returns {any} json对象
+     */
+    $.formJson = (parent) => {
+        let nodelist = parent.querySelectorAll("input[name],select[name],textarea[name]");
+        let json = {};
+        nodelist.forEach((item) => {
+            // 如果json中已经添加了这个属性(这里是防止相同name值,如果发现则变数组)
+            if (json.hasOwnProperty(item.name)) {
+                if (json instanceof Array)// 如果这个属性是数组
+                {
+                    json[item.name].push(item.value);// 往后加入值
+                }
+                else {
+                    json[item.name] = [json[item.name]];// 不是数组说明该元素当前有一个值,将其变数组并置此值于其中
+                    json[item.name].push(item.value);// 然后往后加入新值
+                }
+            }
+            else {
+                json[item.name] = item.value;// 加入键值对
+            }
+        });
+        return json;
+    };
+})(window);
+// ====================================================================
+// ajax (原生: fetch())
+// fetch方法返回Promise对象.
+// https://github.com/matthew-andrews/isomorphic-fetch
+// (详细讲解)https://www.cnblogs.com/libin-1/p/6853677.html
+// ====================================================================
+((win) => {
+    let $ = win.lib;
+    /**
+     * 简易post方式Ajax, 默认返回json对象
+     * @param {string} url 请求url
+     * @param {any|FormData} data json对象或者FormData对象,如果是json对象,会转化成FormData对象
+     * @param {Function} callback 互调函数
+     * @param {string} restype 返回值类型,默认'json',可选'html'
+     */
+    $.post = (url, data, callback, restype) => {
+        let formData = new FormData();
+        if (data instanceof FormData) {
+            formData = data;
+        } else {
+            Object.keys(data).forEach((key) => {
+                formData.append(key, data[key]);
+            });
+        }
+        //
+        let res = fetch(url, { method: "POST", body: formData });
+        if (restype === 'html') {
+            res.then(response => response.text())
+                .then((html) => {
+                    callback(html);
+                });
+        } else {
+            res.then(response => response.json())
+                .then((json) => {
+                    callback(json);
+                });
+        }
+    };
+    /**
+     * 简易 get方式Ajax, 默认返回html文本
+     * @param {string} url 请求url
+     * @param {Function} callback 互调函数
+     * @param {string} restype 返回值类型,默认'html',可选'json'
+     */
+    $.get = (url, callback, restype) => {
+        let res = fetch(url);
+        if (restype === 'json') {
+            res.then(response => response.json())
+                .then((json) => {
+                    callback(json);
+                });
+        } else {
+            res.then(response => response.text())
+                .then((html) => {
+                    callback(html);
+                });
+        }
+    };
+})(window);
