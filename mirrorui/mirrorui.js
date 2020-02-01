@@ -1191,9 +1191,9 @@ contDom:
     // 日(天)总共六行七列42个,含已选年月所有日, 前推至最近的周日, 后推至最近或次近的周六
     let domDay_Data = (yyyy, mm) => {
         // 指定年 超范围则设为当天年
-        let seledY = parseInt(yyyy) || cfg.year;
+        let seledY = isNaN(parseInt(yyyy)) ? cfg.year : parseInt(yyyy);
         // 指定月 超范围设为当天月
-        let seledM = parseInt(mm) || cfg.month;
+        let seledM = isNaN(parseInt(mm)) ? cfg.month : parseInt(mm);
 
         // 指定年月的起止日(1~xx号)
         let startDay = new Date(seledY, seledM, 1);
@@ -1370,7 +1370,7 @@ contDom:
                     m = dir == 1 ? m + 1 : m - 1;
                     if (m < 0) {
                         m = 11;
-                        // 年往后退一年,如果为1年,则不变
+                        // 年往后退一年,如果为1900年,则不变
                         if (y > minyear)
                             y = y - 1;
                     } else if (m > 11) {

@@ -2180,7 +2180,7 @@ p {
   border: 1px solid var(--grayse);
   border-radius: 4px;
   border-top: none;
-  background-color: var-grayback;
+  background-color: var(--gray);
   z-index: 9999;
 }
 .date-select-month {
@@ -2282,7 +2282,7 @@ p {
 .date-btn-ok:hover,
 .date-btn-prev:hover,
 .date-btn-next:hover {
-  background-color: var-grayback;
+  background-color: var(--gray);
 }
 .date-btn-time {
   font-weight: 500;
@@ -2308,7 +2308,7 @@ p {
   color: #c00;
 }
 .date-item-day:hover {
-  background-color: var-grayback;
+  background-color: var(--gray);
 }
 .date-item-dayoutmonth {
   opacity: 0.3;
@@ -2367,7 +2367,7 @@ p {
 }
 .tabsbox-left:hover,
 .tabsbox-right:hover {
-  background-color: var-grayback;
+  background-color: var(--gray);
 }
 .tabsbox-left:active,
 .tabsbox-right:active {
@@ -2389,7 +2389,7 @@ p {
   vertical-align: middle;
 }
 .tabsbox-menutitle:hover {
-  background-color: var-grayback;
+  background-color: var(--gray);
 }
 .tabsbox-menutitle:hover ~ .tabsbox-menugroup {
   display: block;
@@ -2400,7 +2400,7 @@ p {
   top: 40px;
   right: 0;
   width: 120px;
-  color: var-grayback;
+  color: var(--gray);
   text-align: center;
   background-color: #fff;
   border-left: 2px solid var(--grayse);
@@ -2429,7 +2429,7 @@ p {
   width: 0;
   height: 40px;
   overflow: hidden;
-  background-color: var-grayback;
+  background-color: var(--gray);
 }
 .tabsbox-nav {
   position: relative;
