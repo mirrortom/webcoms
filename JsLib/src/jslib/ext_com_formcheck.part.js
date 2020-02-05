@@ -43,20 +43,25 @@
             if ($(elem).hasClass(inputCls)) {
                 $(elem).next('.' + errmsgCls).remove();
                 elem.style.backgroundColor = null;
+                elem.parentNode.style.position = null;
             }
             elem.removeEventListener('focus', inputfocus);
         };
-        // input出错时,背景变红,在其后生成span,显示提示语
-        let checkAlert = (msg) => {
+        // input出错时,背景变红,在其正下方生成span,显示提示语
+        let alertShow = (msg) => {
+            let bgColor = '#ffebec', fgColor = '#e6393d';
             // input加背景色
             $(elem).addClass(inputCls);
-            elem.style.backgroundColor = '#ffebec';
-            // 删除旧的提示语span
+            elem.style.backgroundColor = bgColor;
+            // input父级相对定位
+            elem.parentNode.style.position = 'relative';
+            // 删除旧的提示语span(如果有)
             $(elem).next('.' + errmsgCls).remove();
-            // 新的提示语span.其长度,背景色与input相同.
-            let errmsg = $('<span>').addClass(errmsgCls).text('× ' + msg)[0];
-            errmsg.style.cssText = 'display:block;padding:3px;background-color:#ffebec;color:#e6393d;width:'
-                + elem.offsetWidth + 'px';
+            // 显示提示语的span.其长度,背景色与input相同.显示在input正下方,对齐input左边
+            let errmsg = $('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
+            errmsg.style.cssText = $.format(
+                'position:absolute;top:{0}px;left:{1}px;padding:3px;background-color:{2};color:{3};width:{4}px',
+                elem.offsetTop + elem.offsetHeight, elem.offsetLeft, bgColor, fgColor, elem.offsetWidth);
             $(elem).after(errmsg);
             // 焦点事件
             elem.addEventListener('focus', inputfocus);
@@ -97,7 +102,7 @@
             else if (validtype[n] === 'maxlen')
                 isValid = !$[vfunname](elem.value, maxlen);
             if (!isValid) {
-                checkAlert(validerrmsg[n] || 'validation failed: ' + validtype[n]);
+                alertShow(validerrmsg[n] || 'validation failed: ' + validtype[n]);
                 return false;
             }
         }

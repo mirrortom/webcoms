@@ -123,9 +123,9 @@
         return fragm;
     };
 
-// ==============
-// 辅助方法
-// ==============
+// ==================================================
+// 辅助方法 只在这密闭函数内能用
+// ==================================================
 /**
  * 查找parent.querySelectorAll(),返回元素列表filterList.提供mixNodeList时,返回两个列表交集.(同时在两个列表中的元素)
  * @param {HTMLElement} parent 要查找的元素
@@ -177,9 +177,58 @@ let _siblings = (elem, dir) => {
 
     return matched;
 };
-// ==============
+/**
+ * 解析html字符串,变成DOM元素后,装入fragment对象.可以再onReady方法上使用fragment对象.
+ * 由于innerhtml中包含的script不能执行,分析html字符串时,对script标签会重新生成.外联的script会发请求取js,然后变成内联的.
+ * @param {string} val html字符串
+ * @param {any} onReady 解析完成后执行
+ */
+let _parseHtml = (val, onReady) => {
+    // 先放入div
+    let divTmp = document.createElement('div');
+    divTmp.innerHTML = val;
+    // 再放入fragment
+    let fragment = document.createDocumentFragment();
+    _parseHtmlNodeLoad(fragment, divTmp.firstChild, onReady);
+};
+/**
+ * 递归将node节点加入fragment,完成后执行onReady.(这给方法用于_parseHtml()方法)
+ * @param {DocumentFragment} fragment fragment容器对象
+ * @param {Node} node 要加入的节点
+ * @param {Function} onReady 完成后执行
+ */
+let _parseHtmlNodeLoad = (fragment, node, onReady) => {
+    if (node === null) {
+        onReady(fragment);
+        return;
+    }
+    // script元素.设置到innerhtml时不会执行,要新建一个script对象,再添加
+    if (node.nodeName === 'SCRIPT') {
+        let newScript = document.createElement('script');
+        if (node.src) {
+            // 外联的script,要加载下来,否则有执行顺序问题.外联的没有加载完,内联的就执行了.如果内联js依赖外联则出错.
+            // 这个办法是获取js脚本,是设置到生成的script标签中.(变成内联的了)
+            fetch(node.src).then(res => res.text())
+                .then((js) => {
+                    newScript.innerHTML = js;
+                    fragment.appendChild(newScript);
+                    _parseHtmlNodeLoad(fragment, node.nextSibling, onReady);
+                });
+        } else {
+            // 内联的直接设置innerHtml
+            newScript.innerHTML = node.innerHTML;
+            fragment.appendChild(newScript);
+            _parseHtmlNodeLoad(fragment, node.nextSibling, onReady);
+        }
+    } else {
+        // 其它元素
+        fragment.appendChild(node.cloneNode(true));
+        _parseHtmlNodeLoad(fragment, node.nextSibling, onReady);
+    }
+};
+// ==================================================
 // jslib实例方法
-// ==============
+// ==================================================
 factory.extend({
     /**
      * 以已经匹配的元素为根,查找子元素.(原生: dom.querySelectorAll())
@@ -354,10 +403,7 @@ factory.extend({
         } else {
             // 设置所有元素value属性
             this.each((dom) => {
-                if (dom.nodeName === 'TEXTAREA')
-                    dom.innerText = val;
-                else
-                    dom.value = val;
+                dom.value = val;
             });
             return this;
         }
@@ -439,7 +485,8 @@ factory.extend({
         return this;
     },
     /**
-     * 设置所有匹配的元素的innerHTML.无参数时,返回第一个元素的innerHTML内容(原生: innerHTML)
+     * 设置所有匹配的元素的innerHTML属性.如果html中,含有script时,会重新生成script标签再加入文档中
+     * 无参数时,返回第一个元素的innerHTML内容.
      * @param {string} val 设置的html标记
      * @returns {jslib} 取值时返回值.否则返回this
      */
@@ -449,7 +496,10 @@ factory.extend({
             return this[0].innerHTML;
         }
         this.each((dom) => {
-            dom.innerHTML = val;
+            _parseHtml(val, (fragment) => {
+                dom.innerHTML = '';
+                dom.append(fragment);
+            });
         });
         return this;
     },
@@ -787,20 +837,25 @@ if (!win.$)
             if ($(elem).hasClass(inputCls)) {
                 $(elem).next('.' + errmsgCls).remove();
                 elem.style.backgroundColor = null;
+                elem.parentNode.style.position = null;
             }
             elem.removeEventListener('focus', inputfocus);
         };
-        // input出错时,背景变红,在其后生成span,显示提示语
-        let checkAlert = (msg) => {
+        // input出错时,背景变红,在其正下方生成span,显示提示语
+        let alertShow = (msg) => {
+            let bgColor = '#ffebec', fgColor = '#e6393d';
             // input加背景色
             $(elem).addClass(inputCls);
-            elem.style.backgroundColor = '#ffebec';
-            // 删除旧的提示语span
+            elem.style.backgroundColor = bgColor;
+            // input父级相对定位
+            elem.parentNode.style.position = 'relative';
+            // 删除旧的提示语span(如果有)
             $(elem).next('.' + errmsgCls).remove();
-            // 新的提示语span.其长度,背景色与input相同.
-            let errmsg = $('<span>').addClass(errmsgCls).text('× ' + msg)[0];
-            errmsg.style.cssText = 'display:block;padding:3px;background-color:#ffebec;color:#e6393d;width:'
-                + elem.offsetWidth + 'px';
+            // 显示提示语的span.其长度,背景色与input相同.显示在input正下方,对齐input左边
+            let errmsg = $('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
+            errmsg.style.cssText = $.format(
+                'position:absolute;top:{0}px;left:{1}px;padding:3px;background-color:{2};color:{3};width:{4}px',
+                elem.offsetTop + elem.offsetHeight, elem.offsetLeft, bgColor, fgColor, elem.offsetWidth);
             $(elem).after(errmsg);
             // 焦点事件
             elem.addEventListener('focus', inputfocus);
@@ -841,7 +896,7 @@ if (!win.$)
             else if (validtype[n] === 'maxlen')
                 isValid = !$[vfunname](elem.value, maxlen);
             if (!isValid) {
-                checkAlert(validerrmsg[n] || 'validation failed: ' + validtype[n]);
+                alertShow(validerrmsg[n] || 'validation failed: ' + validtype[n]);
                 return false;
             }
         }
