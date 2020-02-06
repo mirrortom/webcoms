@@ -7,13 +7,12 @@
 ((win) => {
     let $ = win.lib;
     /**
-     * 简易post方式Ajax, 默认返回json对象
+     * 简易post方式Ajax,只对参数做了包装. 调用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
      * @param {any|FormData} data json对象或者FormData对象,如果是json对象,会转化成FormData对象
-     * @param {Function} callback 互调函数
-     * @param {string} restype 返回值类型,默认'json',可选'html'
+     * @returns {Promise} fetch()方法返回的Promise对象
      */
-    $.post = (url, data, callback, restype) => {
+    $.post = (url, data) => {
         let formData = new FormData();
         if (data instanceof FormData) {
             formData = data;
@@ -23,37 +22,34 @@
             });
         }
         //
-        let res = fetch(url, { method: "POST", body: formData });
-        if (restype === 'html') {
-            res.then(response => response.text())
-                .then((html) => {
-                    callback(html);
-                });
-        } else {
-            res.then(response => response.json())
-                .then((json) => {
-                    callback(json);
-                });
-        }
+        return fetch(url, { method: "POST", body: formData });
     };
     /**
-     * 简易 get方式Ajax, 默认返回html文本
+     * 简易 get方式Ajax,只对参数做了包装.调用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
-     * @param {Function} callback 互调函数
-     * @param {string} restype 返回值类型,默认'html',可选'json'
+     * @param {Function} para data json对象或者FormData对象,转化为url参数
+     * @returns {Promise} fetch()方法返回的Promise对象
      */
-    $.get = (url, callback, restype) => {
-        let res = fetch(url);
-        if (restype === 'json') {
-            res.then(response => response.json())
-                .then((json) => {
-                    callback(json);
+    $.get = (url, para) => {
+        let urlpara = [];
+        if (para) {
+            if (para instanceof FormData) {
+                para.forEach((val, key) => {
+                    urlpara.push(`${key}=${val}`);
                 });
-        } else {
-            res.then(response => response.text())
-                .then((html) => {
-                    callback(html);
+            } else {
+                Object.keys(para).forEach((key) => {
+                    urlpara.push(`${key}=${para[key]}`);
                 });
+            }
+            if (url.indexOf('?') < 0) {
+                url += '?';
+            } else {
+                url += '&';
+            }
+            url += urlpara.join('&');
         }
+        let eurl = encodeURI(url);
+        return fetch(eurl);
     };
 })(window);

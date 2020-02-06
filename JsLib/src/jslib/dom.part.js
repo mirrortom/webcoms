@@ -67,7 +67,7 @@ let _parseHtml = (val, onReady) => {
     _parseHtmlNodeLoad(fragment, divTmp.firstChild, onReady);
 };
 /**
- * 递归将node节点加入fragment,完成后执行onReady.(这给方法用于_parseHtml()方法)
+ * 递归将node节点加入fragment,完成后执行onReady.(这个方法用于_parseHtml()方法)
  * @param {DocumentFragment} fragment fragment容器对象
  * @param {Node} node 要加入的节点
  * @param {Function} onReady 完成后执行
