@@ -4,6 +4,10 @@
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
+// 文字大小
+for key, val in $fontSizeKV
+    .text-{key}
+        font-size: val !important
 // 文本对齐
 .text-left
     text-align: left !important

@@ -83,6 +83,15 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.text-sm {
+  font-size: 12px !important;
+}
+.text-lg {
+  font-size: calc(var(--font-size) * 1.25) !important;
+}
+.text-xl {
+  font-size: calc(var(--font-size) * 1.5) !important;
+}
 .text-left {
   text-align: left !important;
 }
