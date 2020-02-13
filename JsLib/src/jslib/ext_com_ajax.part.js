@@ -7,12 +7,14 @@
 ((win) => {
     let $ = win.lib;
     /**
-     * 简易post方式Ajax,只对参数做了包装. 调用fetch()方法,外部可以继续使用then(),catch().
+     * 简易post方式Ajax,对参数做了包装,对请求结果判断成败. 使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
      * @param {any|FormData} data json对象或者FormData对象,如果是json对象,会转化成FormData对象
-     * @returns {Promise} fetch()方法返回的Promise对象
+     * @param {RequestInit} initCfg fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证
+     * @param {string} resType 返回值类型 默认"json",可选"html"
+     * @returns {Promise} fetch().then()返回的Promise对象
      */
-    $.post = (url, data) => {
+    $.post = (url, data, initCfg = null, resType = 'json') => {
         let formData = new FormData();
         if (data instanceof FormData) {
             formData = data;
@@ -21,16 +23,30 @@
                 formData.append(key, data[key]);
             });
         }
+        let init = { method: "POST", body: formData };
+        if (initCfg) {
+            Object.keys(initCfg).forEach((key) => {
+                init[key] = initCfg[key];
+            });
+        }
         //
-        return fetch(url, { method: "POST", body: formData });
+        return fetch(url, init)
+            .then(res => {
+                if (res.ok == true)
+                    return resType == 'json' ? res.json() : res.text();
+                else
+                    return res.text();
+            });
     };
     /**
-     * 简易 get方式Ajax,只对参数做了包装.调用fetch()方法,外部可以继续使用then(),catch().
+     * 简易 get方式Ajax,对para参数转换为url参数,对请求结果判断成败. 使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
      * @param {Function} para data json对象或者FormData对象,转化为url参数
+     * @param {RequestInit} initCfg fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证
+     * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {Promise} fetch()方法返回的Promise对象
      */
-    $.get = (url, para) => {
+    $.get = (url, para, initCfg = null, resType = 'html') => {
         let urlpara = [];
         if (para) {
             if (para instanceof FormData) {
@@ -50,6 +66,12 @@
             url += urlpara.join('&');
         }
         let eurl = encodeURI(url);
-        return fetch(eurl);
+        return fetch(eurl, initCfg)
+            .then(res => {
+                if (res.ok == true)
+                    return resType == 'html' ? res.text() : res.json();
+                else
+                    return res.text();
+            });
     };
 })(window);

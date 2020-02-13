@@ -752,6 +752,14 @@ factory.isUrl = (str) => {
     return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(str);
 };
 /**
+ * 指示一个字符串是否为ipv4
+ * @param {any} str 被检查字符串
+ * @returns {boolean} t/f
+ */
+factory.isIpv4 = (str) => {
+    return /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(str);
+};
+/**
  * 指示一个字符串长度是否超过maxlength.
  * @param {string} str 被检查字符串
  * @param {int} maxlen 最大长度
@@ -799,7 +807,8 @@ if (!win.$)
         'notnull': 'isNotNull',
         // 电子邮件格式
         'email': 'isEmail',
-        // 国内手机号1[34578]\d{9}
+        // 指示一个字符串是否为国内11位手机号
+        // [可匹配"(+86)013800138000",()号可以省略，+号可以省略，(+86)可以省略, 11位手机号前的0可以省略; 11位手机号第二位数可以是3~9中的任意一个]
         'mobile': 'isMobile',
         // 限26个英文,大小写不限.
         'abc': 'isAbc',
@@ -811,6 +820,8 @@ if (!win.$)
         'abc_123': 'isAbcDigitUline',
         // 限url
         'url': 'isUrl',
+        // 限ipv4
+        'ipv4':'isIpv4',
         // 标准日期 "1999-02-28 12:08:33"
         'date': 'isDate',
         // 是否超长度限制
@@ -939,12 +950,14 @@ if (!win.$)
 ((win) => {
     let $ = win.lib;
     /**
-     * 简易post方式Ajax,只对参数做了包装. 调用fetch()方法,外部可以继续使用then(),catch().
+     * 简易post方式Ajax,对参数做了包装,对请求结果判断成败. 使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
      * @param {any|FormData} data json对象或者FormData对象,如果是json对象,会转化成FormData对象
-     * @returns {Promise} fetch()方法返回的Promise对象
+     * @param {RequestInit} initCfg fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证
+     * @param {string} resType 返回值类型 默认"json",可选"html"
+     * @returns {Promise} fetch().then()返回的Promise对象
      */
-    $.post = (url, data) => {
+    $.post = (url, data, initCfg = null, resType = 'json') => {
         let formData = new FormData();
         if (data instanceof FormData) {
             formData = data;
@@ -953,16 +966,30 @@ if (!win.$)
                 formData.append(key, data[key]);
             });
         }
+        let init = { method: "POST", body: formData };
+        if (initCfg) {
+            Object.keys(initCfg).forEach((key) => {
+                init[key] = initCfg[key];
+            });
+        }
         //
-        return fetch(url, { method: "POST", body: formData });
+        return fetch(url, init)
+            .then(res => {
+                if (res.ok == true)
+                    return resType == 'json' ? res.json() : res.text();
+                else
+                    return res.text();
+            });
     };
     /**
-     * 简易 get方式Ajax,只对参数做了包装.调用fetch()方法,外部可以继续使用then(),catch().
+     * 简易 get方式Ajax,对para参数转换为url参数,对请求结果判断成败. 使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
      * @param {Function} para data json对象或者FormData对象,转化为url参数
+     * @param {RequestInit} initCfg fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证
+     * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {Promise} fetch()方法返回的Promise对象
      */
-    $.get = (url, para) => {
+    $.get = (url, para, initCfg = null, resType = 'html') => {
         let urlpara = [];
         if (para) {
             if (para instanceof FormData) {
@@ -982,6 +1009,12 @@ if (!win.$)
             url += urlpara.join('&');
         }
         let eurl = encodeURI(url);
-        return fetch(eurl);
+        return fetch(eurl, initCfg)
+            .then(res => {
+                if (res.ok == true)
+                    return resType == 'html' ? res.text() : res.json();
+                else
+                    return res.text();
+            });
     };
 })(window);
