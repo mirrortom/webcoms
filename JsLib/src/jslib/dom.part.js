@@ -55,16 +55,23 @@ let _siblings = (elem, dir) => {
 /**
  * 解析html字符串,变成DOM元素后,装入fragment对象.可以再onReady方法上使用fragment对象.
  * 由于innerhtml中包含的script不能执行,分析html字符串时,对script标签会重新生成.外联的script会发请求取js,然后变成内联的.
- * @param {string} val html字符串
+ * DocumentFragment里的script加到文档对象时,也会不执行.
+ * @param {string|DocumentFragment} val html字符串,DocumentFragment对象
  * @param {any} onReady 解析完成后执行
  */
 let _parseHtml = (val, onReady) => {
-    // 先放入div
-    let divTmp = document.createElement('div');
-    divTmp.innerHTML = val;
-    // 再放入fragment
+    // 临时容器
+    let boxTmp;
+    if (val instanceof DocumentFragment) {
+        boxTmp = val;
+    } else {
+        boxTmp = document.createElement('div');
+        boxTmp.innerHTML = val;
+    }
+    console.log(boxTmp);
+    // 放入fragment.(解析放入)
     let fragment = document.createDocumentFragment();
-    _parseHtmlNodeLoad(fragment, divTmp.firstChild, onReady);
+    _parseHtmlNodeLoad(fragment, boxTmp.firstChild, onReady);
 };
 /**
  * 递归将node节点加入fragment,完成后执行onReady.(这个方法用于_parseHtml()方法)

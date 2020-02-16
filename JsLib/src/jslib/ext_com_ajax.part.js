@@ -7,7 +7,7 @@
 ((win) => {
     let $ = win.lib;
     /**
-     * 简易post方式Ajax,对参数做了包装,对请求结果判断成败. 使用fetch()方法,外部可以继续使用then(),catch().
+     * 简易post方式Ajax,对参数做了包装,第一个then()对请求结果判断成败,丢出异常. 内部使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
      * @param {any|FormData} data json对象或者FormData对象,如果是json对象,会转化成FormData对象
      * @param {RequestInit} initCfg fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证
@@ -32,11 +32,11 @@
         //
         return fetch(url, init)
             .then(res => {
-                if (res.ok == true)
-                    return resType == 'json' ? res.json() : res.text();
+                if (res.ok)
+                    return resType != 'json' ? res.text() : res.json();
                 else
-                    return res.text();
-            });
+                    throw res;
+            })
     };
     /**
      * 简易 get方式Ajax,对para参数转换为url参数,对请求结果判断成败. 使用fetch()方法,外部可以继续使用then(),catch().
@@ -68,10 +68,10 @@
         let eurl = encodeURI(url);
         return fetch(eurl, initCfg)
             .then(res => {
-                if (res.ok == true)
-                    return resType == 'html' ? res.text() : res.json();
+                if (res.ok)
+                    return resType != 'html' ? res.json() : res.text();
                 else
-                    return res.text();
+                    throw res;
             });
     };
 })(window);
