@@ -193,7 +193,7 @@ let _parseHtml = (val, onReady) => {
         boxTmp = document.createElement('div');
         boxTmp.innerHTML = val;
     }
-    console.log(boxTmp);
+    //console.log(boxTmp);
     // 放入fragment.(解析放入)
     let fragment = document.createDocumentFragment();
     _parseHtmlNodeLoad(fragment, boxTmp.firstChild, onReady);

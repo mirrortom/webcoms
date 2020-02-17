@@ -193,7 +193,7 @@ let _parseHtml = (val, onReady) => {
         boxTmp = document.createElement('div');
         boxTmp.innerHTML = val;
     }
-    console.log(boxTmp);
+    //console.log(boxTmp);
     // 放入fragment.(解析放入)
     let fragment = document.createDocumentFragment();
     _parseHtmlNodeLoad(fragment, boxTmp.firstChild, onReady);
@@ -985,8 +985,8 @@ if (!win.$)
                 if (res.ok)
                     return resType != 'json' ? res.text() : res.json();
                 else
-                    throw res;
-            })
+                    return res.text();
+            });
     };
     /**
      * 简易 get方式Ajax,对para参数转换为url参数,对请求结果判断成败. 使用fetch()方法,外部可以继续使用then(),catch().
@@ -1021,7 +1021,7 @@ if (!win.$)
                 if (res.ok)
                     return resType != 'html' ? res.json() : res.text();
                 else
-                    throw res;
+                    return res.text();
             });
     };
 })(window);

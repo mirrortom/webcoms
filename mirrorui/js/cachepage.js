@@ -86,7 +86,7 @@ contDom:
                 cache[pid] = null;
                 //console.log('type2');
                 contDom.innerHTML = '';
-                contDom.append(cacheDom);
+                $(contDom).html(cacheDom);
                 if (typeof onload === 'function')
                     onload(2);
                 return;
@@ -223,7 +223,7 @@ contDom:
                     let cacheId = Object.getOwnPropertyNames(cache).pop();
                     let lastTabDom = $(tabsDom).find(".tabsbox-tab[val='" + cacheId + "']").addClass('active');
                     contDom.innerHTML = '';
-                    contDom.append(cache[cacheId]);
+                    $(contDom).html(cache[cacheId]);
                     cache[cacheId] = null;
                 }
                 // 删除tab,
@@ -251,7 +251,7 @@ contDom:
                 // 激活点击的选项卡,获取其缓存页加载到显示容器
                 let cacheId = $(tabDom).addClass('active').prop('val');
                 contDom.innerHTML = '';
-                contDom.append(cache[cacheId]);
+                $(contDom).html(cache[cacheId]);
                 cache[cacheId] = null;
                 // console.log(cache);
             };
