@@ -2589,3 +2589,55 @@ p {
 .list.abc > li::before {
   content: '(' counters(li-item, '.', lower-latin) ') ';
 }
+.onoff-check {
+  position: absolute;
+  opacity: 0;
+}
+.onoff-label {
+  display: inline-block;
+  width: 5em;
+  height: 2em;
+  line-height: 2em;
+  border: 1px solid grayse;
+  border-radius: 20px;
+  background-color: var(--gray);
+  user-select: none;
+  transition: background-color 1s;
+}
+.onoff-label:after {
+  content: 'OFF';
+  padding-left: 10px;
+}
+.onoff-check:checked + .onoff-label {
+  text-align: right;
+  background-color: var(--font-color);
+  color: #fff;
+}
+.onoff-check:checked + .onoff-label:after {
+  content: 'ON';
+  padding-right: 10px;
+}
+.onoff-label.sm {
+  font-size: 12px;
+}
+.onoff-label.lg {
+  font-size: calc(var(--font-size) * 1.25);
+}
+.onoff-label.xl {
+  font-size: calc(var(--font-size) * 1.5);
+}
+.onoff-check:checked + .onoff-label.primary {
+  background-color: var(--primary);
+}
+.onoff-check:checked + .onoff-label.danger {
+  background-color: var(--danger);
+}
+.onoff-check:checked + .onoff-label.success {
+  background-color: var(--success);
+}
+.onoff-check:checked + .onoff-label.info {
+  background-color: var(--info);
+}
+.onoff-check:checked + .onoff-label.warning {
+  background-color: var(--warning);
+}

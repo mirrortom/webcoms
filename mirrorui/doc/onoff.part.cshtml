@@ -1,0 +1,47 @@
+﻿@*
+  1.模板页名字规定: "页面名字.part.cshtml""
+  2.内容容器固定如下:
+    <div class="doc-part-box" id="页面名字">
+      <h2>标题</h2>
+      ......
+      ......
+    </div>
+*@
+<div class="doc-part-box" id="onoff">
+  <h2>开关</h2>
+  <p>on / off 主要用于事项的停用/启用状态.</p>
+  <p>标记使用了checkbox和label,label和checkbox通过id关联,点击时切换勾选状态,通过是否勾选,设置label的伪类显示ON或者OFF状态.</p>
+  <p>
+    <input class="onoff-check" id="onoff1" type="checkbox" />
+    <label class="onoff-label" for="onoff1"></label>
+    <input class="onoff-check" id="onoff2" type="checkbox" checked />
+    <label class="onoff-label" for="onoff2"></label>
+  </p>
+  <pre class="bg-gray">
+&lt;input class="onoff-check" id="onoff1" type="checkbox" /&gt;
+&lt;label class="onoff-label" for="onoff1"&gt;&lt;/label&gt;
+</pre>
+  <br />
+  <p>尺寸和颜色</p>
+  <p>
+    @foreach (var item in Model.fontsizes)
+    {
+      <span class="mg-l-20">@item</span>
+      <input class="onoff-check" id="onoff_@item" type="checkbox" />
+      <label class="onoff-label @item" for="onoff_@item"></label>
+    }
+  </p>
+  <p>
+    @foreach (var item in Model.themecolors)
+    {
+      <span class="mg-l-20 text-@item">@item</span>
+      <input class="onoff-check" id="onoff_@item" type="checkbox" checked/>
+      <label class="onoff-label @item" for="onoff_@item"></label>
+    }
+  </p>
+  <pre class="bg-gray">
+// 在label上加尺寸~主题色的样式
+&lt;input class="onoff-check" id="onoff2" type="checkbox" checked /&gt;
+&lt;label class="onoff-label <b>lg primary</b>" for="onoff2"&gt;&lt;/label&gt;
+</pre>
+</div>
