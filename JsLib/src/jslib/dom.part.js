@@ -109,7 +109,7 @@ let _parseHtmlNodeLoad = (fragment, node, onReady) => {
     }
 };
 // ==================================================
-// jslib实例方法
+// jslib实例方法 选择器
 // ==================================================
 factory.extend({
     /**
@@ -202,7 +202,7 @@ factory.extend({
         return this.reset(matched);
     },
     /**
-     * 查找所有匹配元素的紧邻的前面哪一个同辈元素.(原生:node.previousSibling)
+     * 查找所有匹配元素的紧邻的前面那一个同辈元素.(原生:node.previousSibling)
      * @param {string} selector css选择器.如果选择器错误,会报异常.
      * @returns {jslib} 返回this
      */

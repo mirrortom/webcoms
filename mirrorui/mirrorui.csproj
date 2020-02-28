@@ -61,6 +61,7 @@
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
     <None Include="compilerconfig.json" />
+    <None Include="doc\onoff.part.cshtml" />
     <None Include="doc\themecolor.part.cshtml" />
     <None Include="doc\-------.part.cshtml" />
     <None Include="doc\article.part.cshtml" />
@@ -95,6 +96,7 @@
     <None Include="stylus\coms\form.styl" />
     <None Include="stylus\coms\grids.styl" />
     <None Include="stylus\coms\h1h6p.styl" />
+    <None Include="stylus\coms\onoff.styl" />
     <None Include="stylus\coms\hr.styl" />
     <None Include="stylus\coms\label.styl" />
     <None Include="stylus\coms\list.styl" />

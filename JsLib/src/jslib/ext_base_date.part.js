@@ -39,3 +39,31 @@ factory.datefmt = (date, fmtstr) => {
     }
     return format;
 };
+
+/**
+ * 将时间字符串转换为Date对象.
+ * 支持格式: yyyy/mm/dd yyyy-mm-dd yyyy/mm/dd hh:mm:ss 时分秒可省略自动补0,年月日必须.年份4位月日时分秒支持1位.
+ * @param {any} fmtstr 时间格式的字符串
+ * @returns {Date|null} 成功时返回Date对象,失败返回null
+ */
+factory.dateByfmt = (fmtstr) => {
+    let dtstr = '';
+    if (/^[0-9]{4}[\/\-][0-9]{1,2}[\/\-][0-9]{1,2}$/.test(fmtstr)) {
+        // 年月日
+        dtstr = fmtstr + ' 00:00:00';
+    } else if (/^[0-9]{4}[\/\-][0-9]{1,2}[\/\-][0-9]{1,2} [0-9]{1,2}$/.test(fmtstr)) {
+        // 年月日时
+        dtstr = fmtstr + ':00:00';
+    } else if (/^[0-9]{4}[\/\-][0-9]{1,2}[\/\-][0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}$/.test(fmtstr)) {
+        // 年月日时分
+        dtstr = fmtstr + ':00';
+    } else if (/^[0-9]{4}[\/\-][0-9]{1,2}[\/\-][0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$/.test(fmtstr)) {
+        // 年月日时分秒
+        dtstr = fmtstr;
+    } else
+        throw new Error('invalid date fmt!');
+    //console.log(dtstr);
+    // 不带时间部分的日期串,用parse解后,会有时差.
+    let inputDate = Date.parse(dtstr);
+    return isNaN(inputDate) ? null : new Date(inputDate);
+};

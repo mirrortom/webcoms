@@ -10,7 +10,7 @@
     width: 5em
     height:2em
     line-height:2em
-    border: 1px solid grayse
+    border: 1px solid var-grayse
     border-radius: 20px
     background-color: var-gray
     user-select: none
@@ -38,3 +38,4 @@ for key, val in $fontSizeKV
 for key, val in $themeColorsKV
     .onoff-check:checked + .onoff-label.{key}
         background-color: val[0]
+        border-color: val[1]

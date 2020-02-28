@@ -50,6 +50,7 @@
     <Content Include="src\cavlib\line.part.js" />
     <Content Include="src\jslib\1start.part.js" />
     <Content Include="src\jslib\2end%28mirrorui%29.part.js" />
+    <Content Include="src\jslib\domEvent.part.js" />
     <Content Include="src\jslib\2end.part.js" />
     <Content Include="src\jslib\dom.part.js" />
     <Content Include="src\jslib\ext_com_ajax.part.js" />

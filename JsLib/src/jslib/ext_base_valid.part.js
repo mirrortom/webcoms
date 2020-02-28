@@ -15,6 +15,7 @@ factory.isNotNull = (str) => {
  * @returns {boolean} t/f
  */
 factory.isNumber = (str) => {
+    if (!str || str.length === 0) return true;
     return /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(str);
 };
 /**
@@ -23,6 +24,7 @@ factory.isNumber = (str) => {
  * @returns {boolean} t/f
  */
 factory.isEmail = (str) => {
+    if (!str || str.length === 0) return true;
     return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(str);
 };
 /**
@@ -32,6 +34,7 @@ factory.isEmail = (str) => {
  * @returns {boolean} t/f
  */
 factory.isMobile = (str) => {
+    if (!str || str.length === 0) return true;
     return /^(\((\+)?86\)|((\+)?86)?)0?1[^012]\d{9}$/.test(str);
 };
 /**
@@ -40,6 +43,7 @@ factory.isMobile = (str) => {
  * @returns {boolean} t/f
  */
 factory.isAbc = (str) => {
+    if (!str || str.length === 0) return true;
     return !/[^a-zA-Z]/.test(str);
 };
 /**
@@ -48,6 +52,7 @@ factory.isAbc = (str) => {
  * @returns {boolean} t/f
  */
 factory.isDigit = (str) => {
+    if (!str || str.length === 0) return true;
     return /^\d+$/.test(str);
 };
 /**
@@ -56,6 +61,7 @@ factory.isDigit = (str) => {
  * @returns {boolean} t/f
  */
 factory.isAbcDigit = (str) => {
+    if (!str || str.length === 0) return true;
     return /^[a-zA-Z][a-zA-Z\d]*$/.test(str);
 };
 /**
@@ -64,6 +70,7 @@ factory.isAbcDigit = (str) => {
  * @returns {boolean} t/f
  */
 factory.isAbcDigitUline = (str) => {
+    if (!str || str.length === 0) return true;
     return /^[a-zA-Z_][a-zA-Z\d_]*$/.test(str);
 };
 /**
@@ -72,6 +79,7 @@ factory.isAbcDigitUline = (str) => {
  * @returns {boolean} t/f
  */
 factory.isUrl = (str) => {
+    if (!str || str.length === 0) return true;
     return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(str);
 };
 /**
@@ -80,6 +88,7 @@ factory.isUrl = (str) => {
  * @returns {boolean} t/f
  */
 factory.isIpv4 = (str) => {
+    if (!str || str.length === 0) return true;
     return /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(str);
 };
 /**
@@ -89,6 +98,7 @@ factory.isIpv4 = (str) => {
  * @returns {boolean} t/f
  */
 factory.isMaxLength = (str, maxlen) => {
+    if (!str || str.length === 0) return true;
     return str.length > maxlen;
 };
 /**
@@ -98,6 +108,7 @@ factory.isMaxLength = (str, maxlen) => {
  * @returns {boolean} t/f
  */
 factory.isMinLength = (str, minlen) => {
+    if (!str || str.length === 0) return true;
     return str.length < minlen;
 };
 
@@ -107,6 +118,7 @@ factory.isMinLength = (str, minlen) => {
  * @returns {boolean} t/f
  */
 factory.isMoney = (str) => {
+    if (!str || str.length === 0) return true;
     return /^[0-9]+([.]{1}[0-9]{1,2})?$/.test(str);
 };
 /**
@@ -115,5 +127,6 @@ factory.isMoney = (str) => {
  * @returns {boolean} t/f
  */
 factory.isDate = (str) => {
+    if (!str || str.length === 0) return true;
     return !/Invalid|NaN/.test(new Date(str).toString());
 };

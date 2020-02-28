@@ -2598,7 +2598,7 @@ p {
   width: 5em;
   height: 2em;
   line-height: 2em;
-  border: 1px solid grayse;
+  border: 1px solid var(--grayse);
   border-radius: 20px;
   background-color: var(--gray);
   user-select: none;
@@ -2628,16 +2628,21 @@ p {
 }
 .onoff-check:checked + .onoff-label.primary {
   background-color: var(--primary);
+  border-color: var(--primaryse);
 }
 .onoff-check:checked + .onoff-label.danger {
   background-color: var(--danger);
+  border-color: var(--dangerse);
 }
 .onoff-check:checked + .onoff-label.success {
   background-color: var(--success);
+  border-color: var(--successse);
 }
 .onoff-check:checked + .onoff-label.info {
   background-color: var(--info);
+  border-color: var(--infose);
 }
 .onoff-check:checked + .onoff-label.warning {
   background-color: var(--warning);
+  border-color: var(--warningse);
 }

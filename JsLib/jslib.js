@@ -234,7 +234,7 @@ let _parseHtmlNodeLoad = (fragment, node, onReady) => {
     }
 };
 // ==================================================
-// jslib实例方法
+// jslib实例方法 选择器
 // ==================================================
 factory.extend({
     /**
@@ -327,7 +327,7 @@ factory.extend({
         return this.reset(matched);
     },
     /**
-     * 查找所有匹配元素的紧邻的前面哪一个同辈元素.(原生:node.previousSibling)
+     * 查找所有匹配元素的紧邻的前面那一个同辈元素.(原生:node.previousSibling)
      * @param {string} selector css选择器.如果选择器错误,会报异常.
      * @returns {jslib} 返回this
      */
@@ -574,6 +574,31 @@ factory.extend({
         return this;
     }
 });
+// ==================================================
+// jslib实例方法 事件
+// ==================================================
+factory.extend({
+    /**
+     * 匹配元素的点击事件,不传fn时执行事件
+     * @param {Function} fn 事件方法
+     * @returns {jslib} 返回this
+     */
+    'click': function (fn) {
+        if (typeof fn === "function") {
+            this.each((item) => {
+                let eventEle = item;
+                eventEle.onclick = () => {
+                    fn(eventEle);
+                };
+            });
+        } else {
+            this.each((item) => {
+                item.click();
+            });
+        }
+        return this;
+    }
+});
 // ==================================
 //           数组相关操作方法
 // ==================================
@@ -682,6 +707,34 @@ factory.datefmt = (date, fmtstr) => {
     }
     return format;
 };
+
+/**
+ * 将时间字符串转换为Date对象.
+ * 支持格式: yyyy/mm/dd yyyy-mm-dd yyyy/mm/dd hh:mm:ss 时分秒可省略自动补0,年月日必须.年份4位月日时分秒支持1位.
+ * @param {any} fmtstr 时间格式的字符串
+ * @returns {Date|null} 成功时返回Date对象,失败返回null
+ */
+factory.dateByfmt = (fmtstr) => {
+    let dtstr = '';
+    if (/^[0-9]{4}[\/\-][0-9]{1,2}[\/\-][0-9]{1,2}$/.test(fmtstr)) {
+        // 年月日
+        dtstr = fmtstr + ' 00:00:00';
+    } else if (/^[0-9]{4}[\/\-][0-9]{1,2}[\/\-][0-9]{1,2} [0-9]{1,2}$/.test(fmtstr)) {
+        // 年月日时
+        dtstr = fmtstr + ':00:00';
+    } else if (/^[0-9]{4}[\/\-][0-9]{1,2}[\/\-][0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}$/.test(fmtstr)) {
+        // 年月日时分
+        dtstr = fmtstr + ':00';
+    } else if (/^[0-9]{4}[\/\-][0-9]{1,2}[\/\-][0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$/.test(fmtstr)) {
+        // 年月日时分秒
+        dtstr = fmtstr;
+    } else
+        throw new Error('invalid date fmt!');
+    //console.log(dtstr);
+    // 不带时间部分的日期串,用parse解后,会有时差.
+    let inputDate = Date.parse(dtstr);
+    return isNaN(inputDate) ? null : new Date(inputDate);
+};
 // ==================================
 //           验证相关方法
 // ==================================
@@ -699,6 +752,7 @@ factory.isNotNull = (str) => {
  * @returns {boolean} t/f
  */
 factory.isNumber = (str) => {
+    if (!str || str.length === 0) return true;
     return /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(str);
 };
 /**
@@ -707,6 +761,7 @@ factory.isNumber = (str) => {
  * @returns {boolean} t/f
  */
 factory.isEmail = (str) => {
+    if (!str || str.length === 0) return true;
     return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(str);
 };
 /**
@@ -716,6 +771,7 @@ factory.isEmail = (str) => {
  * @returns {boolean} t/f
  */
 factory.isMobile = (str) => {
+    if (!str || str.length === 0) return true;
     return /^(\((\+)?86\)|((\+)?86)?)0?1[^012]\d{9}$/.test(str);
 };
 /**
@@ -724,6 +780,7 @@ factory.isMobile = (str) => {
  * @returns {boolean} t/f
  */
 factory.isAbc = (str) => {
+    if (!str || str.length === 0) return true;
     return !/[^a-zA-Z]/.test(str);
 };
 /**
@@ -732,6 +789,7 @@ factory.isAbc = (str) => {
  * @returns {boolean} t/f
  */
 factory.isDigit = (str) => {
+    if (!str || str.length === 0) return true;
     return /^\d+$/.test(str);
 };
 /**
@@ -740,6 +798,7 @@ factory.isDigit = (str) => {
  * @returns {boolean} t/f
  */
 factory.isAbcDigit = (str) => {
+    if (!str || str.length === 0) return true;
     return /^[a-zA-Z][a-zA-Z\d]*$/.test(str);
 };
 /**
@@ -748,6 +807,7 @@ factory.isAbcDigit = (str) => {
  * @returns {boolean} t/f
  */
 factory.isAbcDigitUline = (str) => {
+    if (!str || str.length === 0) return true;
     return /^[a-zA-Z_][a-zA-Z\d_]*$/.test(str);
 };
 /**
@@ -756,6 +816,7 @@ factory.isAbcDigitUline = (str) => {
  * @returns {boolean} t/f
  */
 factory.isUrl = (str) => {
+    if (!str || str.length === 0) return true;
     return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(str);
 };
 /**
@@ -764,6 +825,7 @@ factory.isUrl = (str) => {
  * @returns {boolean} t/f
  */
 factory.isIpv4 = (str) => {
+    if (!str || str.length === 0) return true;
     return /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(str);
 };
 /**
@@ -773,6 +835,7 @@ factory.isIpv4 = (str) => {
  * @returns {boolean} t/f
  */
 factory.isMaxLength = (str, maxlen) => {
+    if (!str || str.length === 0) return true;
     return str.length > maxlen;
 };
 /**
@@ -782,6 +845,7 @@ factory.isMaxLength = (str, maxlen) => {
  * @returns {boolean} t/f
  */
 factory.isMinLength = (str, minlen) => {
+    if (!str || str.length === 0) return true;
     return str.length < minlen;
 };
 
@@ -791,6 +855,7 @@ factory.isMinLength = (str, minlen) => {
  * @returns {boolean} t/f
  */
 factory.isMoney = (str) => {
+    if (!str || str.length === 0) return true;
     return /^[0-9]+([.]{1}[0-9]{1,2})?$/.test(str);
 };
 /**
@@ -799,6 +864,7 @@ factory.isMoney = (str) => {
  * @returns {boolean} t/f
  */
 factory.isDate = (str) => {
+    if (!str || str.length === 0) return true;
     return !/Invalid|NaN/.test(new Date(str).toString());
 };
 // window上的引用名 "lib",.在此修改
