@@ -1101,6 +1101,13 @@ p {
 .btn.warning:hover {
   background-color: var(--warningse);
 }
+.btn.gray {
+  background-color: var(--gray);
+  border-color: var(--grayse);
+}
+.btn.gray:hover {
+  background-color: var(--grayse);
+}
 .btn.sm {
   font-size: 12px;
 }

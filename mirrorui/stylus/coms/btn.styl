@@ -57,6 +57,12 @@ for key, val in $themeColorsKV
         border-color: val[1]
     .btn.{key}:hover
 	    background-color: val[1]
+// 灰色的
+.btn.gray
+    background-color: var-gray
+    border-color: var-grayse
+.btn.gray:hover
+    background-color: var-grayse
 // 大小 默认是14px
 for key, val in $fontSizeKV
     .btn.{key}
@@ -76,6 +82,7 @@ for key, val in $fontSizeKV
     &:active
         text-decoration: underline
         box-shadow: none
+// 链接式按钮颜色主题是文字颜色
 for key, val in $themeColorsKV
     .btn.link.{key}
         color: val[0]

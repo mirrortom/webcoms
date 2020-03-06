@@ -856,7 +856,7 @@ factory.isMinLength = (str, minlen) => {
  */
 factory.isMoney = (str) => {
     if (!str || str.length === 0) return true;
-    return /^[0-9]+([.]{1}[0-9]{1,2})?$/.test(str);
+    return /^-?[0-9]+([.]{1}[0-9]{1,2})?$/.test(str);
 };
 /**
  * 指示一个字符串是否为日期格式
