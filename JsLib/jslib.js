@@ -10,7 +10,7 @@
     /**
      * js自定义封装库的定义函数.(下述都称为jslib类数组对象,简称jslib)
      * @param {string|HTMLElement} selector 选择器或者dom对象或/^<[a-z]+?>$/,如'<div>'.表示新建元素.
-     * @returns {jslib} 返回this
+     * @returns {jslib} 返回this.如果选择器没有找到元素,jslib对象没有length属性(undefine)
      */
     function jslib(selector) {
         // 选择器
@@ -894,7 +894,7 @@ if (!win.$)
         // 限url
         'url': 'isUrl',
         // 限ipv4
-        'ipv4':'isIpv4',
+        'ipv4': 'isIpv4',
         // 标准日期 "1999-02-28 12:08:33"
         'date': 'isDate',
         // 是否超长度限制
@@ -904,53 +904,58 @@ if (!win.$)
         // 正整数或正1-2位小数
         'money': "isMoney"
     };
+    // 表单元素错误提示样式类,提示语样式类
+    const inputCls = 'formcheck-err',
+        errmsgCls = 'formcheck-errmsg';
+    //
     let $ = win.lib;
+    /**
+     * 清除表单元素的错误样式和提示语.
+     * @param {HTMLElement|any} elem input,textarea元素
+     */
+    $.formClear = (elem) => {
+        if ($(elem).hasClass(inputCls)) {
+            $(elem).next('.' + errmsgCls).remove();
+            elem.style.backgroundColor = null;
+            elem.parentNode.style.position = null;
+        }
+        elem.removeEventListener('focus', $.formClear);
+    };
+    // 
+    /**
+     * 生成表单元素验证出错时的错误样式和提示语: 背景变红,在其正下方生成span,显示提示语
+     * @param {HTMLElement|any} elem input,textarea元素
+     * @param {string} msg 提示语
+     */
+    $.formAlert = (elem, msg) => {
+        let bgColor = '#ffebec', fgColor = '#e6393d';
+        // input加背景色
+        $(elem).addClass(inputCls);
+        elem.style.backgroundColor = bgColor;
+        // input父级相对定位
+        elem.parentNode.style.position = 'relative';
+        // 显示提示语的span.其长度,背景色与input相同.显示在input正下方,对齐input左边
+        let errmsg = $('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
+        errmsg.style.cssText = $.format(
+            'position:absolute;top:{0}px;left:{1}px;padding:3px;background-color:{2};color:{3};width:{4}px',
+            elem.offsetTop + elem.offsetHeight, elem.offsetLeft, bgColor, fgColor, elem.offsetWidth);
+        $(elem).after(errmsg);
+        // 焦点事件
+        elem.addEventListener('focus', () => { $.formClear(elem) });
+    };
     /**
      * 验证表单元素的值
      * @param {HTMLElement|any} elem input,textarea元素
      * @returns {boolean} t/f 
      */
     $.formCheck = (elem) => {
-        let inputCls = 'formcheck-err',
-            errmsgCls = 'formcheck-errmsg';
-        // ------------------------------------------------------------
-        // 辅助方法
-        // ------------------------------------------------------------
-        // input获得焦点事件,作用:获得焦点时,去掉错误样式和提示语,恢复原样
-        let inputfocus = () => {
-            if ($(elem).hasClass(inputCls)) {
-                $(elem).next('.' + errmsgCls).remove();
-                elem.style.backgroundColor = null;
-                elem.parentNode.style.position = null;
-            }
-            elem.removeEventListener('focus', inputfocus);
-        };
-        // input出错时,背景变红,在其正下方生成span,显示提示语
-        let alertShow = (msg) => {
-            let bgColor = '#ffebec', fgColor = '#e6393d';
-            // input加背景色
-            $(elem).addClass(inputCls);
-            elem.style.backgroundColor = bgColor;
-            // input父级相对定位
-            elem.parentNode.style.position = 'relative';
-            // 删除旧的提示语span(如果有)
-            $(elem).next('.' + errmsgCls).remove();
-            // 显示提示语的span.其长度,背景色与input相同.显示在input正下方,对齐input左边
-            let errmsg = $('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
-            errmsg.style.cssText = $.format(
-                'position:absolute;top:{0}px;left:{1}px;padding:3px;background-color:{2};color:{3};width:{4}px',
-                elem.offsetTop + elem.offsetHeight, elem.offsetLeft, bgColor, fgColor, elem.offsetWidth);
-            $(elem).after(errmsg);
-            // 焦点事件
-            elem.addEventListener('focus', inputfocus);
-        };
-
         // 1.验证准备
         // 获取验证类型和错误提示语.元素上的vtype属性值(多个验证用|隔开).未找到或者类型错误则退出
         let vtypeStr = elem.getAttribute('vtype');
         // 没有在要验证的元素上设置vtype属性,忽略并通过
         if ($.isNullOrWhiteSpace(vtypeStr))
             return true;
+
         //
         let validtype = vtypeStr.split("|");
         // 如果检测到一个验证类型无效,丢异常
@@ -968,7 +973,8 @@ if (!win.$)
         // 长度验证参数来自input上的maxlength,minlength属性值
         let maxlen = elem.getAttribute('maxlength');
         let minlen = elem.getAttribute('minlength');
-
+        // 验证前清除旧的提示语span(如果有)
+        $.formClear(elem);
         // 2.开始验证
         for (var n = 0, nlen = validtype.length; n < nlen; n++) {
             // 执行验证的函数名字
@@ -980,7 +986,7 @@ if (!win.$)
             else if (validtype[n] === 'maxlen')
                 isValid = !$[vfunname](elem.value, maxlen);
             if (!isValid) {
-                alertShow(validerrmsg[n] || 'validation failed: ' + validtype[n]);
+                $.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
                 return false;
             }
         }

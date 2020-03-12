@@ -1213,7 +1213,6 @@ p {
   border: 1px solid var(--gray);
 }
 .table.border-all,
-.table.border-all th,
 .table.border-all td {
   border: 1px solid var(--grayse);
 }
@@ -1236,13 +1235,14 @@ p {
   background-color: var(--warning);
 }
 .table tr:hover {
-  background-color: var(--grayse);
+  background-color: var(--gray);
 }
 .table th {
   border-bottom: 2px solid var(--grayse);
   vertical-align: bottom;
   padding: 5px;
   text-align: left;
+  font-weight: 600;
 }
 .table td {
   border-bottom: 1px solid var(--gray);
