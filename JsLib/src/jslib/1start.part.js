@@ -117,8 +117,6 @@
      */
     factory.fragment = (...content) => {
         let fragm = document.createDocumentFragment();
-        for (var i = 0, len = content.length; i < len; i++) {
-            fragm.append(content[i]);
-        }
+        fragm.append(...content);
         return fragm;
     };

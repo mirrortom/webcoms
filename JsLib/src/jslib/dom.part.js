@@ -53,59 +53,66 @@ let _siblings = (elem, dir) => {
     return matched;
 };
 /**
- * 解析html字符串,变成DOM元素后,装入fragment对象.可以再onReady方法上使用fragment对象.
+ * 解析html字符串,变成DOM元素后,装入fragment对象.可以在onReady方法上使用这个fragment对象.
  * 由于innerhtml中包含的script不能执行,分析html字符串时,对script标签会重新生成.外联的script会发请求取js,然后变成内联的.
- * DocumentFragment里的script加到文档对象时,也会不执行.
- * @param {string|DocumentFragment} val html字符串,DocumentFragment对象
+ * 最后生成一个包含解析后的html元素的DocumentFragment对象.
+ * @param {string|any} val html字符串,DocumentFragment对象或者node对象,nodelist对象
  * @param {any} onReady 解析完成后执行
  */
 let _parseHtml = (val, onReady) => {
-    // 临时容器
-    let boxTmp;
-    if (val instanceof DocumentFragment) {
-        boxTmp = val;
+    let framgSource;
+    if (typeof val === 'string') {
+        let range = document.createRange();
+        framgSource = range.createContextualFragment(val);
+    } else if (val instanceof DocumentFragment) {
+        framgSource = val;
+    } else if (val.length) {
+        framgSource = document.createDocumentFragment();
+        framgSource.append(...val);
     } else {
-        boxTmp = document.createElement('div');
-        boxTmp.innerHTML = val;
+        framgSource = document.createDocumentFragment();
+        framgSource.append(val);
     }
-    //console.log(boxTmp);
     // 放入fragment.(解析放入)
     let fragment = document.createDocumentFragment();
-    _parseHtmlNodeLoad(fragment, boxTmp.firstChild, onReady);
+    _parseHtmlNodeLoad(fragment, framgSource, onReady);
 };
 /**
- * 递归将node节点加入fragment,完成后执行onReady.(这个方法用于_parseHtml()方法)
- * @param {DocumentFragment} fragment fragment容器对象
- * @param {Node} node 要加入的节点
+ * 递归将fromFragm里的node节点移动到fragment,完成后执行onReady.(这个方法用于_parseHtml()方法辅助)
+ * @param {DocumentFragment} toFragm fragment容器对象
+ * @param {DocumentFragment} fromFragm 源dom容器
  * @param {Function} onReady 完成后执行
  */
-let _parseHtmlNodeLoad = (fragment, node, onReady) => {
-    if (node === null) {
-        onReady(fragment);
+let _parseHtmlNodeLoad = (toFragm, fromFragm, onReady) => {
+    if (fromFragm.firstChild === null) {
+        onReady(toFragm);
         return;
     }
     // script元素.设置到innerhtml时不会执行,要新建一个script对象,再添加
-    if (node.nodeName === 'SCRIPT') {
+    if (fromFragm.firstChild.nodeName === 'SCRIPT') {
         let newScript = document.createElement('script');
-        if (node.src) {
+        let src = fromFragm.firstChild.src;
+        if (src) {
             // 外联的script,要加载下来,否则有执行顺序问题.外联的没有加载完,内联的就执行了.如果内联js依赖外联则出错.
             // 这个办法是获取js脚本,是设置到生成的script标签中.(变成内联的了)
-            fetch(node.src).then(res => res.text())
+            fetch(src).then(res => res.text())
                 .then((js) => {
                     newScript.innerHTML = js;
-                    fragment.appendChild(newScript);
-                    _parseHtmlNodeLoad(fragment, node.nextSibling, onReady);
+                    toFragm.append(newScript);
+                    fromFragm.removeChild(fromFragm.firstChild);
+                    _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
                 });
         } else {
             // 内联的直接设置innerHtml
-            newScript.innerHTML = node.innerHTML;
-            fragment.appendChild(newScript);
-            _parseHtmlNodeLoad(fragment, node.nextSibling, onReady);
+            newScript.innerHTML = fromFragm.firstChild.innerHTML;
+            toFragm.append(newScript);
+            fromFragm.removeChild(fromFragm.firstChild);
+            _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
         }
     } else {
         // 其它元素
-        fragment.appendChild(node.cloneNode(true));
-        _parseHtmlNodeLoad(fragment, node.nextSibling, onReady);
+        toFragm.append(fromFragm.firstChild);
+        _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
     }
 };
 // ==================================================
@@ -392,40 +399,48 @@ factory.extend({
      */
     'append': function (...content) {
         this.each((dom) => {
-            dom.append(...content);
+            _parseHtml(content, (fragment) => {
+                dom.append(fragment);
+            });
         });
         return this;
     },
     /**
-     * 向每个匹配元素内部第一个子节点前面加入内容(原生: prepend())
+     * 向每个匹配元素内部第一子节点前面加入内容(原生: prepend())
      * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
     'prepend': function (...content) {
         this.each((dom) => {
-            dom.prepend(...content);
+            _parseHtml(content, (fragment) => {
+                dom.prepend(fragment);
+            });
         });
         return this;
     },
     /**
-     * 向每个匹配元素的前面加一个元素(原生: insertBefore())
+     * 向每个匹配元素的前面加元素(原生: insertBefore())
      * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
     'before': function (...content) {
         this.each((dom) => {
-            dom.parentNode.insertBefore(factory.fragment(...content), dom);
+            _parseHtml(content, (fragment) => {
+                dom.parentNode.insertBefore(fragment, dom);
+            });
         });
         return this;
     },
     /**
-     * 向每个匹配元素的后面加一个元素(原生: insertBefore())
+     * 向每个匹配元素的后面加元素(原生: insertBefore())
      * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
     'after': function (...content) {
         this.each((dom) => {
-            dom.parentNode.insertBefore(factory.fragment(...content), dom.nextSibling);
+            _parseHtml(content, (fragment) => {
+                dom.parentNode.insertBefore(fragment, dom.nextSibling);
+            });
         });
         return this;
     },

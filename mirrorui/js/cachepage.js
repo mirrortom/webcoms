@@ -53,21 +53,21 @@ contDom:
         // 生成选项卡工具dom
         createTabDom(tabsDom);
 
-        //-----------------------------------------------------------------
+        //====================================================================================
         // 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态.在菜单的点击事件上执行次方法.
         // 该方法第3个参数onload(loadType)是一个方法,可以根据loadType参数值判断是否要载入新的页面
         // loadType=1: 菜单是当前页面
         // loadType=2: 菜单之前载入过
         // loadType=3: 是新载入菜单,其对应的页面没有载入过,需要做载入新页面的操作
-        //-----------------------------------------------------------------
+        //====================================================================================
         // {pid:菜单唯一标识,title:选项卡标题},点击左侧菜单时,调用此方法
-        self.load = (pid, title,onload) => {
+        self.load = (pid, title, onload) => {
             if (!title) {
                 throw 'tab title is empty!';
             }
             // (情形1) 如果载入的是当前活动的选项卡页,不动作
             if (cache[pid] === null) {
-                //console.log('type1');
+                // console.log('type1');
                 if (typeof onload === 'function')
                     onload(1);
                 return;
@@ -80,13 +80,11 @@ contDom:
                 adjustPositionTab(atabdom);
                 // 添加当前DOM到缓存
                 cacheActiveTab();
-                // 取出pid对应的DOM
-                let cacheDom = cache[pid];
+                // 取出pid对应的DOM片段,放入显示容器
+                $(contDom).html(cache[pid]);
                 // 标识为null,表示pid成为新的活动页
                 cache[pid] = null;
-                //console.log('type2');
-                contDom.innerHTML = '';
-                $(contDom).html(cacheDom);
+                // console.log('type2');
                 if (typeof onload === 'function')
                     onload(2);
                 return;
@@ -102,15 +100,15 @@ contDom:
             }
             // 添加到缓存.当前活动页缓存约定为null,不缓存
             cache[pid] = null;
-            //console.log('type3');
+            // console.log('type3');
             if (typeof onload === 'function')
                 onload(3);
             //return;
         };
 
-        //-----------------------------------------------------------------
+        //==================
         // Mehtod
-        //-----------------------------------------------------------------
+        //==================
         // 新增选项卡
         let addTab = (pid, title) => {
             // 去掉当前活动的选项卡
@@ -145,9 +143,7 @@ contDom:
             for (let prop in cache) {
                 if (cache.hasOwnProperty(prop)) {
                     if (cache[prop] === null) {
-                        let fragment = $.fragment();
-                        fragment.append(...contDom.childNodes);
-                        cache[prop] = fragment;
+                        cache[prop] = $.fragment(...contDom.childNodes);
                         return;
                     }
                 }
@@ -199,9 +195,10 @@ contDom:
             // 让tab位于navdom的中间位置,算法如下:定位到tab离左边距离,再减去navDom宽度的一半
             navDom.scrollTo(tabLeft - (w / 2), 0);
         };
-        //------------------------------------------------------------------
+
+        //======================================================
         // Event 选项卡事件
-        //------------------------------------------------------------------
+        //======================================================
         // 点击关闭选项卡
         let closeTab = (tabDom) => {
             $(tabDom).find('.tabsbox-tabclose')[0].onclick = (event) => {
@@ -222,7 +219,6 @@ contDom:
                 if ($(tabDom).hasClass('active')) {
                     let cacheId = Object.getOwnPropertyNames(cache).pop();
                     let lastTabDom = $(tabsDom).find(".tabsbox-tab[val='" + cacheId + "']").addClass('active');
-                    contDom.innerHTML = '';
                     $(contDom).html(cache[cacheId]);
                     cache[cacheId] = null;
                 }
@@ -250,15 +246,14 @@ contDom:
                 }
                 // 激活点击的选项卡,获取其缓存页加载到显示容器
                 let cacheId = $(tabDom).addClass('active').prop('val');
-                contDom.innerHTML = '';
                 $(contDom).html(cache[cacheId]);
                 cache[cacheId] = null;
-                // console.log(cache);
+                //console.log(cache);
             };
         };
-        //------------------------------------------------------------------
+        //======================================================
         // Event 选项卡条功能事件
-        //------------------------------------------------------------------
+        //======================================================
         // 向左滚动按钮
         $(tabsDom).find('.tabsbox-left')[0].onclick = () => {
             scrollerTabs('left');
