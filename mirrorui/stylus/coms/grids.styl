@@ -5,21 +5,21 @@ for i in range(1, 12)
         grid-template-columns: repeat(i, percentage((1 / i)))
         overflow: hidden
 // 屏幕尺寸
-gridsn(screen-type)
+grids_n(screen-type)
     for i in range(1, 12)
         .grids-{screen-type}-{i}
             grid-template-columns: repeat(i, percentage((1 / i)))
 @media only screen and (min-width: $screen-phone)
-    gridsn(sm)
+    grids_n(sm)
 // 小平板 > 768
 @media only screen and (min-width: $screen-tablet)
-    gridsn(md)
+    grids_n(md)
 // 大平板   > 992
 @media only screen and (min-width: $screen-bigtablet)
-    gridsn(lg)
+    grids_n(lg)
 // pc > 1200
 @media only screen and (min-width: $screen-pc)
-    gridsn(xl)
+    grids_n(xl)
 
 // 二. flex布局,册格工具样式定义,可使用其内项目定制册格占比
 .grids
@@ -34,3 +34,19 @@ for i in range(1, 12)
     .grid-{i}
         flex: 0 1 percentage((i / 12))
         overflow: hidden
+// 屏幕尺寸
+grid_n(screen-type)
+    for i in range(1, 12)
+        .grid-{screen-type}-{i}
+            flex: 0 1 percentage((i / 12))
+@media only screen and (min-width: $screen-phone)
+    grid_n(sm)
+// 小平板 > 768
+@media only screen and (min-width: $screen-tablet)
+    grid_n(md)
+// 大平板   > 992
+@media only screen and (min-width: $screen-bigtablet)
+    grid_n(lg)
+// pc > 1200
+@media only screen and (min-width: $screen-pc)
+    grid_n(xl)

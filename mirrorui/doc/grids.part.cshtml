@@ -45,7 +45,7 @@
       <span class="demo-grid text-center bg-successse">@(i + 1) / 7</span>
     }
   </div>
-  <p>grids支持屏幕尺寸便利类</p>
+  <p>grids-n支持屏幕尺寸便利类</p>
   <p><b>grids-sm-2</b> 在屏幕宽度大于576px时,其下项目均分为2</p>
   <p><b>grids-md-3</b> 在屏幕宽度大于768px时,其下项目均分为3</p>
   <p><b>grids-lg-4</b> 在屏幕宽度大于992px时,其下项目均分为4</p>
@@ -72,6 +72,15 @@
     <div class="grid-5 demo-grid text-center">固定占grid-5</div>
     <div class="grid demo-grid text-center">均分</div>
     <div class="grid demo-grid text-center">均分</div>
+  </div>
+  <br />
+  <p>grids支持屏幕尺寸便利类,在项grid上使用样式.</p>
+  <p><b>grid-sm-8</b> 在屏幕宽度大于576px时,占比8/12</p>
+  <p><b>grid-md-6</b> 在屏幕宽度大于768px时,占比6/12</p>
+  <p><b>grid-lg-4</b> 在屏幕宽度大于992px时,占比4/12</p>
+  <p><b>grid-xl-3</b> 在屏幕宽度大于1200px时,占比3/12</p>
+  <div class="grids">
+    <div class="grid-12 demo-grid grid-sm-8 grid-md-6 grid-lg-4 grid-xl-3">grid-sm-8 grid-md-6 grid-lg-4 grid-xl-3</div>
   </div>
   <p class="article-title">便利grids类使用的是flex布局.需要注意一种情况,display:flex会对其子元素大小产生影响.例如:</p>
   <pre>
