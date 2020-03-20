@@ -269,6 +269,13 @@ factory.extend({
         return this;
     },
     /**
+     * 返回第一个匹配元素在父元素中的索引.(模拟jquery的index())
+     * @returns {number} 索引
+     */
+    'index': function () {
+        return Array.prototype.indexOf.call(this[0].parentNode.children, this[0]);
+    },
+    /**
      * 查找所有匹配元素的同级元素,不包含匹配元素自己.(原生:)
      * @param {string} selector css选择器.如果选择器错误,会报异常.
      * @returns {jslib} 返回this
@@ -371,6 +378,25 @@ factory.extend({
             } else {
                 matched = matched.concat(sibnodes);
             }
+        });
+        // 重置已选元素
+        return this.reset(matched);
+    },
+    /**
+     * 返回每个匹配元素的一个父元素或者祖先元素.不传参数时,返回父元素.(原生: closest(selector))
+     * @param {string} selector css选择器.如果选择器错误,会报异常.
+     * @returns {jslib} 返回this
+     */
+    'parent': function (selector) {
+        let matched = [];
+        this.each((item) => {
+            // 不传参数时, 返回父元素
+            if (selector === undefined) {
+                matched.push(item.parentNode);
+                return true;
+            }
+            let p = item.parentNode.closest(selector);
+            matched.push(p);
         });
         // 重置已选元素
         return this.reset(matched);
