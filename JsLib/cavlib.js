@@ -22,6 +22,7 @@
     /**
      * 画布元素.给canva元素设置style
      * @param {number} num 风格代码 0,1,..0(博客用的风格)
+     * @returns {any} 返回this
      */
     canvalib.prototype.style = function (num = 0) {
         if (num == 0) {
@@ -31,10 +32,10 @@
         }
         return this;
     }
-    ////////////////////////////////////////////////////////////////////////
+    //================================================================================//
     // 工厂函数factory,返回canvalib对象
     // 其它静态方法都绑定在factory上
-    ////////////////////////////////////////////////////////////////////////
+    //================================================================================//
     let factory = (canvasId) => {
         return new canvalib(canvasId);
     };
@@ -98,6 +99,8 @@ factory.extend({
     }
 });
 
-// window上的引用名 "cavlib",外部使用
+// window上的引用名 "cavlib"或者"cl",外部使用
 win.cavlib = factory;
+if (!win.cl)
+    win.cl = factory;
 }) (window);
