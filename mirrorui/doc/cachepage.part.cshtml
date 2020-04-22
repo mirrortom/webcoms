@@ -55,11 +55,11 @@
   </div>
   <h4>实现逻辑</h4>
   <p>
-    使用document.createDocumentFragment这个方法,将当前页面移到 "片段"中,"片段"并不在document中,所以不会引起混乱.保持一个对它的引用,在显示曾经打开过的页面时, 再添加到document中即可.如此可实现不用iframe的方案.
+    使用 document.createDocumentFragment() 这个方法,将当前页面移到 "片段"中,"片段"并不在 document 中,所以不会引起混乱.保持一个对它的引用,在显示曾经打开过的页面时, 再添加到 document 中即可.如此可实现不用 iframe 的方案.
   </p>
   <h4>选项卡HMTL</h4>
   <p>组件只包含选项卡部分,菜单和内容容器部分是自由定义的</p>
-  <p>换主题色,在选项卡html容器上加primary,success,danger</p>
+  <p>换主题色,在选项卡html容器上加 primary , success , danger </p>
   <p>选项卡html内容由js生成,但是外层容器需要写出</p>
   <pre class="bg-gray">
 
@@ -81,6 +81,7 @@
           &lt;span class="tabsbox-close-other"&gt;关闭其它&lt;/span&gt;
       &lt;/div&gt;
   &lt;/div&gt;
+
         </pre>
   <h4>功能与特点</h4>
   <ul class="list square">
@@ -110,6 +111,7 @@ let cacheDoms = cpg.load(pid, title, <b>onload</b>);
 // loadType=1: 菜单是当前页面
 // loadType=2: 菜单之前载入过
 // loadType=3: 是新载入菜单,其对应的页面没有载入过,需要做载入新页面的操作</span>
+
 </pre>
   <h4>经典布局结构</h4>
   <p>左侧菜单,右侧分为2部分,上面是选项卡,下面是内容区</p>

@@ -1,17 +1,20 @@
 ﻿<div class="doc-part-box" id="datetime">
   <h2>日期时间</h2>
   <p>日期控件,兼容PC与手机端.js插件模式.支持日期和日期时间基本功能</p>
-  <div>
-    <label>日期</label>
-    <input onclick="MyDatePick()" type="text">
-    <label>日期时间</label>
-    <input onclick="MyDatePick({fmt:'datetime'})" type="text">
+  <div class="grids">
+    <label class="input-label text-center grid-1">日期</label>
+    <input class="grid-2 input-text" onclick="MyDatePick()" type="text">
+    <label class="input-label text-center grid-1">日期时间</label>
+    <input class="grid-2 input-text" onclick="MyDatePick({fmt:'datetime'})" type="text">
   </div>
-  <pre>
+  <br />
+  <pre class="bg-gray">
 // 日期
 &lt;input onclick="MyDatePick()" type="text"&gt;
+
 // 日期时间
 &lt;input onclick="MyDatePick({fmt:'datetime'})" type="text"&gt;
+
 </pre>
   <p class="article-title">实现思路</p>
   <p>开始参考了火狐浏览器自带日期控件的样子.实现时,将日期看做一个四行七列的表格.首行为年月日今天按钮,第二行放星期,三行为日,四行为小时区.布局后,放入对应按钮,然后绑定各自事件</p>

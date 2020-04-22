@@ -22,7 +22,7 @@
 
   <p class="article-title">使用</p>
   <p>pagenum(cfg);</p>
-  <pre class="code">
+  <pre class="bg-gray">
 &lt;nav class="pagenum" id="pagenumId"&gt;&lt;/nav&gt;
 &lt;nav class="pagenum primary" id="pagenumId2"&gt;&lt;/nav&gt;
 // 调用方法
@@ -44,11 +44,13 @@ function newpagenum(pnnum) {
     pagenum(cfg);
 }
 newpagenum(1);
+
 </pre>
+  <br />
   <p class="article-title">刷新分页和无刷新分页的使用区别</p>
   <p>pageClickE这个方法将绑定到页码按钮的点击事件上,如果是整页面刷新分页,那么该方法执行跳转到新页面,新页面再生成分页条即可.</p>
   <p>web前端一般是无刷新分页,pageClickE方法会包含一个ajax请求,这个请求的回调方法里,再执行生成新的分页条,并且配置参数中的pageClickE,再次指向ajax方法自己</p>
-  <pre class="code">
+  <pre class="bg-gray">
 // ajax请求示例方法
 function getdata()
 {
@@ -76,8 +78,9 @@ function getdata()
   }
   pagenum(cfg);
 }
-</pre>
 
+</pre>
+  <br />
   <nav class="pagenum danger" id="testpagenumbox1"></nav>
   <br />
   <nav class="pagenum primary" id="testpagenumbox2"></nav>
