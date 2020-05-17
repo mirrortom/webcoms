@@ -152,12 +152,12 @@
     // chg theme
     function chgprimary(color) {
       let carr = color.split(',');
-      document.body.style.setProperty('--primary', '#' + carr[0]);
-      document.body.style.setProperty('--primaryse', '#' + carr[1]);
+      document.documentElement.style.setProperty('--primary', '#' + carr[0]);
+      document.documentElement.style.setProperty('--primaryse', '#' + carr[1]);
     }
     // chg font-size
     function chgfontsize(size) {
-      document.body.style.setProperty('--font-size', size + 'px');
+      document.documentElement.style.setProperty('--font-size', size + 'px');
     }
   </script>
 </body>

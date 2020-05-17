@@ -12,7 +12,10 @@
   <p>主色调和基准字体大小使用了css变量,用JS修改变量的值就能改变主题色和字体大小.css变量在":root"伪类下查找,下面是字体和主题色变量</p>
   <p> <b>--font-size: 14px;</b></p>
   <p> <b>--primary: #6c6;</b></p>
-  <p>js修改方法:  <b>document.body.style.setProperty('--primary', 'blue');</b></p>
+  <p>js修改:root伪类里的css变量方法:  <b>document.documentElement.style.setProperty('--primary', 'blue');</b></p>
+  <p>这个方法设置的是内联样式,是在HTML元素上写style="--primary:xxx" .</p>
+  <p></p>
+  <p>获取css变量方法: window.getComputedStyle(document.documentElement).getPropertyValue('--primary')</p>
   <div>
     <p class="article-title">修改主色primary</p>
     @foreach (var item in new string[] { "6c6,44c144", "17a2b8,148a9c", "ffc107,dfa700" })

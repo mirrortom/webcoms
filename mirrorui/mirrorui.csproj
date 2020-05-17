@@ -61,6 +61,7 @@
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
     <None Include="compilerconfig.json" />
+    <None Include="doc\pageload.part.cshtml" />
     <None Include="doc\onoff.part.cshtml" />
     <None Include="doc\themecolor.part.cshtml" />
     <None Include="doc\-------.part.cshtml" />
@@ -102,6 +103,7 @@
     <None Include="stylus\coms\list.styl" />
     <None Include="stylus\coms\msgbox.styl" />
     <None Include="stylus\coms\msgpanel.styl" />
+    <None Include="stylus\coms\pageload.styl" />
     <None Include="stylus\coms\pagenum.styl" />
     <None Include="stylus\coms\panel.styl" />
     <None Include="stylus\coms\sidemenu.styl" />
