@@ -1436,6 +1436,7 @@ p {
   height: 100px;
   padding: 4px;
   resize: none;
+  overflow-y: auto;
 }
 .textarea-label {
   display: inline-block;

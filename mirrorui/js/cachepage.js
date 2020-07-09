@@ -41,7 +41,7 @@ contDom:
         fragment.append(menugroup);
         $(tabsDom).append(fragment).addClass('tabsbox');
     };
-    // 建立cachepage实例
+    // 初始化cachepage实例(工厂函数)
     // tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
     let cachePage = (tabsDom, contDom) => {
         //
