@@ -6,7 +6,6 @@
     &-box
         background-color: var-gray
         user-select: none
-        padding: 15px
     // 每个菜单组是一个ul
     &-group
         margin: 0
@@ -19,7 +18,7 @@
         cursor: pointer
         text-decoration: none
         padding: 0.4em 0 0.4em 2.4em
-        font-weight: 500
+        font-weight: 400
         @extend .text-overflow
     // 菜单项的下划线去掉
     &-item:hover
@@ -28,6 +27,7 @@
     // 菜单项选中
     &-item.active
         font-weight: 600
+        background-color: #00000050
     // 菜单项hover
     &-item:not(.active):hover
         background-color: var-grayse
@@ -58,5 +58,5 @@ for key, val in $themeColorsKV
             background-color: val[0]
         &-box.{key} &-item.active
             color: var-white
-        &-box.{key} &-item:hover
+        &-box.{key} &-item:not(.active):hover
             background-color: var-gray
