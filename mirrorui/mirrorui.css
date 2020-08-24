@@ -1845,7 +1845,6 @@ p {
   color: var(--warning);
 }
 .sidemenu-box {
-  background-color: var(--gray);
   user-select: none;
 }
 .sidemenu-group {
@@ -2376,7 +2375,8 @@ p {
 .date-option-month,
 .date-option-hour,
 .date-option-minute,
-.date-option-second {
+.date-option-second,
+.date-option-title {
   border-bottom: 1px solid var(--grayse);
   font-weight: 500;
 }
@@ -2398,7 +2398,7 @@ p {
   background-color: var(--primary);
 }
 .date-option-hour {
-  flex: 0 1 16.66666666%;
+  flex: 0 1 14.66666666%;
   height: 60px;
   line-height: 60px;
 }
@@ -2407,6 +2407,9 @@ p {
   flex: 0 1 10%;
   height: 40px;
   line-height: 40px;
+}
+.date-option-title {
+  color: var(--grayse);
 }
 .date-btn-year,
 .date-btn-month,

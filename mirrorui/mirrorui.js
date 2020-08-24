@@ -647,7 +647,7 @@ contDom:
  */
 ((win) => {
     // 帮助函数
-    const $ = win.$ui;
+    const M = win.$ui;
     // 生成选项卡和功能区DOM,添加到容器内
     /* html内容:
         <a class="tabsbox-left"></a>
@@ -663,18 +663,18 @@ contDom:
         </div>
      */
     let createTabDom = (tabsDom) => {
-        let fragment = $.fragment();
-        fragment.append($('<a>').addClass('tabsbox-left')[0]);
-        fragment.append($('<nav>').addClass('tabsbox-navbox').append($('<div>').addClass('tabsbox-nav')[0])[0]);
-        fragment.append($('<a>').addClass('tabsbox-right')[0]);
-        fragment.append($('<span>').addClass('tabsbox-menutitle').text('功能')[0]);
-        let menugroup = $('<div>').addClass('tabsbox-menugroup').append(
-            $('<span>').addClass('tabsbox-goto-active').text('定位当前页')[0],
-            $('<span>').addClass('tabsbox-close-all').text('关闭全部')[0],
-            $('<span>').addClass('tabsbox-close-other').text('关闭其它')[0]
+        let fragment = M.fragment();
+        fragment.append(M('<a>').addClass('tabsbox-left')[0]);
+        fragment.append(M('<nav>').addClass('tabsbox-navbox').append(M('<div>').addClass('tabsbox-nav')[0])[0]);
+        fragment.append(M('<a>').addClass('tabsbox-right')[0]);
+        fragment.append(M('<span>').addClass('tabsbox-menutitle').text('功能')[0]);
+        let menugroup = M('<div>').addClass('tabsbox-menugroup').append(
+            M('<span>').addClass('tabsbox-goto-active').text('定位当前页')[0],
+            M('<span>').addClass('tabsbox-close-all').text('关闭全部')[0],
+            M('<span>').addClass('tabsbox-close-other').text('关闭其它')[0]
         )[0];
         fragment.append(menugroup);
-        $(tabsDom).append(fragment).addClass('tabsbox');
+        M(tabsDom).append(fragment).addClass('tabsbox');
     };
     // 初始化cachepage实例(工厂函数)
     // tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
@@ -716,7 +716,7 @@ contDom:
                 // 添加当前DOM到缓存
                 cacheActiveTab();
                 // 取出pid对应的DOM片段,放入显示容器
-                $(contDom).html(cache[pid]);
+                M(contDom).html(cache[pid]);
                 // 标识为null,表示pid成为新的活动页
                 cache[pid] = null;
                 // console.log('type2');
@@ -747,28 +747,28 @@ contDom:
         // 新增选项卡
         let addTab = (pid, title) => {
             // 去掉当前活动的选项卡
-            let activeTabDom = $(tabsDom).find('.tabsbox-tab.active');
+            let activeTabDom = M(tabsDom).find('.tabsbox-tab.active');
             if (activeTabDom.length > 0) {
                 activeTabDom.removeClass('active');
             }
-            let tabdom = $('<label>').addClass('tabsbox-tab', 'active').prop({ 'title': title, 'val': pid })
-                .html(title).append($('<a>').addClass('tabsbox-tabclose').prop('title', '关闭').text('×')[0])[0];
+            let tabdom = M('<label>').addClass('tabsbox-tab', 'active').prop({ 'title': title, 'val': pid })
+                .html(title).append(M('<a>').addClass('tabsbox-tabclose').prop('title', '关闭').text('×')[0])[0];
             // 绑定X关闭事件
             closeTab(tabdom);
             // 绑定点击事件
             selectedTab(tabdom);
             // 添加到选项卡容器
-            $(tabsDom).find('.tabsbox-nav').append(tabdom);
+            M(tabsDom).find('.tabsbox-nav').append(tabdom);
         };
         // 切换激活选项卡.然后返回活动tab的Dom对象
         let activeTab = (pid) => {
             // 去掉当前活动的选项卡
-            let activeTabDom = $(tabsDom).find('.tabsbox-tab.active');
+            let activeTabDom = M(tabsDom).find('.tabsbox-tab.active');
             if (activeTabDom.length > 0) {
                 activeTabDom.removeClass('active');
             }
             // 添加pid选项卡活动样式
-            let tabDom = $(tabsDom).find(".tabsbox-tab[val='" + pid + "']").addClass('active')[0];
+            let tabDom = M(tabsDom).find(".tabsbox-tab[val='" + pid + "']").addClass('active')[0];
             return tabDom;
         };
 
@@ -778,7 +778,7 @@ contDom:
             for (let prop in cache) {
                 if (cache.hasOwnProperty(prop)) {
                     if (cache[prop] === null) {
-                        cache[prop] = $.fragment(...contDom.childNodes);
+                        cache[prop] = M.fragment(...contDom.childNodes);
                         return;
                     }
                 }
@@ -788,7 +788,7 @@ contDom:
         // len:滚动距离,>0 : 向右滚此距离, <0 : 向左滚, 0 : 滚动到最左, 1 : 到最右,
         //              'left': 左滚固定距离, 'right': 右滚固定距离
         let scrollerTabs = (len) => {
-            let navDom = $(tabsDom).find('.tabsbox-nav')[0];
+            let navDom = M(tabsDom).find('.tabsbox-nav')[0];
             // 滚动条位置
             let sPosition = navDom.scrollLeft;
             // nav宽度
@@ -816,7 +816,7 @@ contDom:
 
         // 调整选项卡框的滚动条值,使指定选项卡处于中间位置.
         let adjustPositionTab = (tabDom) => {
-            let navDom = $(tabsDom).find('.tabsbox-nav')[0];
+            let navDom = M(tabsDom).find('.tabsbox-nav')[0];
             // 界限值89px,大致是一个按钮的宽度
             let tabLen = 89;
             // 滚动条位置
@@ -836,29 +836,29 @@ contDom:
         //======================================================
         // 点击关闭选项卡
         let closeTab = (tabDom) => {
-            $(tabDom).find('.tabsbox-tabclose')[0].onclick = (event) => {
+            M(tabDom).find('.tabsbox-tabclose')[0].onclick = (event) => {
                 event.stopPropagation();
                 // (情形1)关闭的是最后一个tab页,删除tab,清空缓存
                 if (Object.getOwnPropertyNames(cache).length == 1) {
                     // 删除选项卡,删除缓存,清空显示容器
                     contDom.innerHTML = '';
                     cache = {};
-                    $(tabDom).remove();
+                    M(tabDom).remove();
                     return;
                 }
                 // (情形2)关闭时,多于1个tab页时
                 // 清除对应缓存,
-                let cacheId = $(tabDom).prop('val');
+                let cacheId = M(tabDom).prop('val');
                 delete cache[cacheId];
                 // 如果关闭的是活动页,将cache中最后一个id,对应的选项卡激活,对应DOM载入显示容器
-                if ($(tabDom).hasClass('active')) {
+                if (M(tabDom).hasClass('active')) {
                     let cacheId = Object.getOwnPropertyNames(cache).pop();
-                    let lastTabDom = $(tabsDom).find(".tabsbox-tab[val='" + cacheId + "']").addClass('active');
-                    $(contDom).html(cache[cacheId]);
+                    let lastTabDom = M(tabsDom).find(".tabsbox-tab[val='" + cacheId + "']").addClass('active');
+                    M(contDom).html(cache[cacheId]);
                     cache[cacheId] = null;
                 }
                 // 删除tab,
-                $(tabDom).remove();
+                M(tabDom).remove();
             };
         };
         // 点击选项卡
@@ -868,20 +868,20 @@ contDom:
                 adjustPositionTab(tabDom);
 
                 // (情形1)点击的是活动页面,退出
-                if ($(tabDom).hasClass('active'))
+                if (M(tabDom).hasClass('active'))
                     return;
 
                 // (情形2)非活动页面,即切换行为
                 // 缓存当前DOM
                 cacheActiveTab();
                 // 去掉当前活动的选项卡活动状态
-                let activeTabDom = $(tabsDom).find('.tabsbox-tab.active');
+                let activeTabDom = M(tabsDom).find('.tabsbox-tab.active');
                 if (activeTabDom.length > 0) {
                     activeTabDom.removeClass('active');
                 }
                 // 激活点击的选项卡,获取其缓存页加载到显示容器
-                let cacheId = $(tabDom).addClass('active').prop('val');
-                $(contDom).html(cache[cacheId]);
+                let cacheId = M(tabDom).addClass('active').prop('val');
+                M(contDom).html(cache[cacheId]);
                 cache[cacheId] = null;
                 //console.log(cache);
             };
@@ -890,31 +890,31 @@ contDom:
         // Event 选项卡条功能事件
         //======================================================
         // 向左滚动按钮
-        $(tabsDom).find('.tabsbox-left')[0].onclick = () => {
+        M(tabsDom).find('.tabsbox-left')[0].onclick = () => {
             scrollerTabs('left');
         };
         // 向右滚动按钮
-        $(tabsDom).find('.tabsbox-right')[0].onclick = () => {
+        M(tabsDom).find('.tabsbox-right')[0].onclick = () => {
             scrollerTabs('right');
         };
 
         // 定位当前按钮
-        $(tabsDom).find('.tabsbox-goto-active')[0].onclick = () => {
-            let activeTab = $(tabsDom).find('.active')[0];
+        M(tabsDom).find('.tabsbox-goto-active')[0].onclick = () => {
+            let activeTab = M(tabsDom).find('.active')[0];
             if (!activeTab) return;
             adjustPositionTab(activeTab);
         };
         // 关闭全部选项卡
-        $(tabsDom).find('.tabsbox-close-all')[0].onclick = () => {
+        M(tabsDom).find('.tabsbox-close-all')[0].onclick = () => {
             // 删除选项卡,删除缓存,清空显示容器
-            let navDom = $(tabsDom).find('.tabsbox-nav').empty();
+            let navDom = M(tabsDom).find('.tabsbox-nav').empty();
             contDom.innerHTML = '';
             cache = {};
         };
         // 关闭除当前外所有选项卡
-        $(tabsDom).find('.tabsbox-close-other')[0].onclick = () => {
+        M(tabsDom).find('.tabsbox-close-other')[0].onclick = () => {
             // 删除选项卡除活动的外
-            let navDom = $(tabsDom).find('.tabsbox-nav .tabsbox-tab:not(.active)').remove();
+            let navDom = M(tabsDom).find('.tabsbox-nav .tabsbox-tab:not(.active)').remove();
             // 除了为null的都删除掉,null是当前页特征
             for (let prop in cache) {
                 if (cache.hasOwnProperty(prop)) {
@@ -941,17 +941,17 @@ contDom:
     // 弹出层样式名
     const msgboxCls = 'msgbox';
     // 帮助函数
-    const $ = win.$ui;
+    const M = win.$ui;
     /**
      * 生成遮罩并显示,生成并返回弹出层父级DOM对象
      * @returns {HTMLElement} 弹出层父级DOM对象
      */
     let createMsgBox = () => {
         // 添加遮罩层
-        let shadow = $('<div>').addClass(shadowCls)[0];
+        let shadow = M('<div>').addClass(shadowCls)[0];
         document.body.append(shadow);
         // 生成弹出框
-        let parentDiv = $('<div>').addClass(modalCls)[0];
+        let parentDiv = M('<div>').addClass(modalCls)[0];
         return parentDiv;
     };
     /**
@@ -971,7 +971,7 @@ contDom:
      */
     let createOuterDiv = (msg, style, position) => {
         // 样式风格,位置样式
-        let outerDiv = $('<div>').addClass(msgboxCls, 'msgbox-' + (position || 'center'));
+        let outerDiv = M('<div>').addClass(msgboxCls, 'msgbox-' + (position || 'center'));
         style && outerDiv.addClass(style);
         // 内容
         outerDiv.text(msg || '');
@@ -983,7 +983,7 @@ contDom:
      * @returns {HTMLElement} 返回按钮dom
      */
     let createBtn = (name) => {
-        let btn = $('<span>').addClass('msgbox-btn', 'msgbox-' + name).text(name === 'ok' ? '确定' : '取消');
+        let btn = M('<span>').addClass('msgbox-btn', 'msgbox-' + name).text(name === 'ok' ? '确定' : '取消');
         return btn[0];
     };
     // 弹出框类
@@ -1094,7 +1094,7 @@ contDom:
         // <span class="msgbox-btn msgbox-ok">Ok</span><span class="msgbox-btn msgbox-cancel">Cancel</span></div>
         let promptDom = createOuterDiv(msg, style, position);
         // input框
-        let inputE = $('<input>').addClass('msgbox-input').prop('type', 'text')[0];
+        let inputE = M('<input>').addClass('msgbox-input').prop('type', 'text')[0];
         // 按钮
         let okBtn = createBtn('ok');
         let cancelBtn = createBtn('cancel');
@@ -1162,7 +1162,7 @@ contDom:
     const maxyear = 2100;
     const minyear = 1900;
     // 帮助函数
-    const $ = win.$ui;
+    const M = win.$ui;
     // 时间格式化函数
     let datefmt = (date, fmtstr) => {
         let format = fmtstr || 'yyyy/MM/dd HH:mm:ss';
@@ -1271,7 +1271,7 @@ contDom:
         }
 
         // 清除可能已有的日期框
-        $(document.body).find('.' + dateboxCls).remove();
+        M(document.body).find('.' + dateboxCls).remove();
 
         // 显示新的日期框
         datedom.style.left = thisleft;
@@ -1288,18 +1288,18 @@ contDom:
      *=======================================================*/
     // 生成整个日期框的DOM.并返回
     let createDom = () => {
-        let ymtarea = $('<div>').addClass('date-area-ymt').append(createDom_Year()
+        let ymtarea = M('<div>').addClass('date-area-ymt').append(createDom_Year()
             , createDom_Month(), createDom_Today())[0];
 
-        let weekarea = $('<div>').addClass('date-area-week').append(createDom_Week())[0];
+        let weekarea = M('<div>').addClass('date-area-week').append(createDom_Week())[0];
 
-        let dayarea = $('<div>').addClass('date-area-day').append(createDom_Day())[0];
+        let dayarea = M('<div>').addClass('date-area-day').append(createDom_Day())[0];
 
-        let datedom = $('<div>').addClass('date-box').prop('tabIndex', -1)
+        let datedom = M('<div>').addClass('date-box').prop('tabIndex', -1)
             .append(ymtarea, weekarea, dayarea);
         // 时间区域,日期+时间格式类型时
         if (cfg.fmtType == 2) {
-            let tcarea = $('<div>').addClass('date-area-tc').append(createDom_Time(), createDom_Clear(),
+            let tcarea = M('<div>').addClass('date-area-tc').append(createDom_Time(), createDom_Clear(),
                 createDom_Ok())[0];
             datedom.append(tcarea);
         }
@@ -1308,10 +1308,10 @@ contDom:
 
     // 1.生成年份区内容 前进,后退,年份 按钮
     let createDom_Year = () => {
-        let prevbtn = $('<a>').addClass('date-btn-prev').text('＜')[0];
-        let yearbtn = $('<b>').addClass('date-btn-year').prop('val', cfg.year).text(cfg.year + '年')[0];
-        let nextbtn = $('<a>').addClass('date-btn-next').text('＞')[0];
-        return $('<div>').addClass('date-area-year').append(prevbtn, yearbtn, nextbtn)[0];
+        let prevbtn = M('<a>').addClass('date-btn-prev').text('＜')[0];
+        let yearbtn = M('<b>').addClass('date-btn-year').prop('val', cfg.year).text(cfg.year + '年')[0];
+        let nextbtn = M('<a>').addClass('date-btn-next').text('＞')[0];
+        return M('<div>').addClass('date-area-year').append(prevbtn, yearbtn, nextbtn)[0];
     };
 
     // 1.1生成年份下拉选择框. selectedYear:可指定一个年份为已选定
@@ -1321,11 +1321,11 @@ contDom:
         if (!selectedYear)
             selectedYear = (new Date()).getFullYear();
         //
-        let dom = $('<div>').addClass('date-select-year');
+        let dom = M('<div>').addClass('date-select-year');
         for (let i = 0; i < ylistData.length; i++) {
             let isselect = ylistData[i] == selectedYear ? "selected" : "";
             let itemtxt = ylistData[i];
-            let itemdom = $('<b>').addClass('date-option-year', isselect).prop('val', itemtxt).text(itemtxt)[0];
+            let itemdom = M('<b>').addClass('date-option-year', isselect).prop('val', itemtxt).text(itemtxt)[0];
             dom.append(itemdom);
         }
         return dom[0];
@@ -1333,18 +1333,18 @@ contDom:
 
     // 2.生成月份区 前进,后退,月份 按钮
     let createDom_Month = () => {
-        let prevbtn = $('<a>').addClass('date-btn-prev').text('＜')[0];
-        let monthbtn = $('<b>').addClass('date-btn-month').prop('val', cfg.month).text(cfg.month + 1 + '月')[0];
-        let nextbtn = $('<a>').addClass('date-btn-next').text('＞')[0];
-        return $('<div>').addClass('date-area-month').append(prevbtn, monthbtn, nextbtn)[0];
+        let prevbtn = M('<a>').addClass('date-btn-prev').text('＜')[0];
+        let monthbtn = M('<b>').addClass('date-btn-month').prop('val', cfg.month).text(cfg.month + 1 + '月')[0];
+        let nextbtn = M('<a>').addClass('date-btn-next').text('＞')[0];
+        return M('<div>').addClass('date-area-month').append(prevbtn, monthbtn, nextbtn)[0];
     };
 
     // 2.1生成月份下拉选择框. selectedMonth:可指定一个月份为已选定
     let createDom_MonthSelect = (selectedMonth) => {
-        let dom = $('<div>').addClass('date-select-month');
+        let dom = M('<div>').addClass('date-select-month');
         for (let i = 0; i < 12; i++) {
             let isselect = selectedMonth == i ? "selected" : "";
-            let itemdom = $('<b>').addClass('date-option-month', isselect).prop('val', i).text(i + 1)[0];
+            let itemdom = M('<b>').addClass('date-option-month', isselect).prop('val', i).text(i + 1)[0];
             dom.append(itemdom);
         }
         return dom[0];
@@ -1352,11 +1352,11 @@ contDom:
 
     // 3.生成星期标题头
     let createDom_Week = () => {
-        let weeksdom = $.fragment();
+        let weeksdom = M.fragment();
         let weeks = ['日', '一', '二', '三', '四', '五', '六'];
         for (let i = 0; i < weeks.length; i++) {
             let isweekend = (i === 0 || i === 6) ? 'date-item-weekend' : '';
-            let itemdom = $('<b>').addClass('date-item-week', isweekend).text(weeks[i])[0];
+            let itemdom = M('<b>').addClass('date-item-week', isweekend).text(weeks[i])[0];
             weeksdom.append(itemdom);
         }
         return weeksdom;
@@ -1365,7 +1365,7 @@ contDom:
     // 4.生成天选项 daylist:日数据.不传则使用选定年月计算出日
     let createDom_Day = (daylist) => {
         let data = daylist || domDay_Data();
-        let fragment = $.fragment();
+        let fragment = M.fragment();
         for (var i = 0; i < data.length; i++) {
             let json = data[i];
             json.istoday = json.Istoday ? 'date-item-today' : '';
@@ -1373,7 +1373,7 @@ contDom:
             json.isdayinmonth = json.Isdayinmonth ? '' : 'date-item-dayoutmonth';
             json.isweekend = json.Isweekend ? 'date-item-weekend' : '';
             //json.exportName = exportName;
-            let daydom = $('<b>').addClass('date-item-day', json.istoday, json.isdayinmonth, json.isselected
+            let daydom = M('<b>').addClass('date-item-day', json.istoday, json.isdayinmonth, json.isselected
                 , json.isweekend).prop({ 'year': json.yyyy, 'month': json.MM, 'day': json.dd }).text(json.dd)[0];
             fragment.append(daydom);
         }
@@ -1381,49 +1381,52 @@ contDom:
     };
     // 5.生成时分秒区域
     let createDom_Time = () => {
-        let hour = $('<b>').addClass('date-btn-time', 'date-btn-hour').text(cfg.hour)[0];
-        let minute = $('<b>').addClass('date-btn-time', 'date-btn-minute').text(cfg.minute)[0];
-        let second = $('<b>').addClass('date-btn-time', 'date-btn-second').text(cfg.second)[0];
-        return $('<div>').addClass('date-area-time').append(hour, minute, second)[0];
+        let hour = M('<b>').addClass('date-btn-time', 'date-btn-hour').text(cfg.hour)[0];
+        let minute = M('<b>').addClass('date-btn-time', 'date-btn-minute').text(cfg.minute)[0];
+        let second = M('<b>').addClass('date-btn-time', 'date-btn-second').text(cfg.second)[0];
+        return M('<div>').addClass('date-area-time').append(hour, minute, second)[0];
     };
     // 5.1生成小时选择框
     let createDom_HourSelect = () => {
-        let dom = $('<div>').addClass('date-select-hour');
+        let dom = M('<div>').addClass('date-select-hour');
+        let title = ['凌晨', '上午', '下午', '夜晚'];
         for (let i = 0; i < 24; i++) {
-            let itemdom = $('<b>').addClass('date-option-hour').prop('val', i).text(i)[0];
+            let itemdom = M('<b>').addClass('date-option-hour').prop('val', i).text(i)[0];
+            if (i % 6 == 0)
+                dom.append(M('<span>').addClass('date-option-title').text(title[i / 6])[0]);
             dom.append(itemdom);
         }
         return dom[0];
     };
     // 5.2生成分钟,秒钟选择框
     let createDom_MinuteSelect = () => {
-        let dom = $('<div>').addClass('date-select-minute');
+        let dom = M('<div>').addClass('date-select-minute');
         for (let i = 0; i < 60; i++) {
-            let itemdom = $('<b>').addClass('date-option-minute').prop('val', i).text(i)[0];
+            let itemdom = M('<b>').addClass('date-option-minute').prop('val', i).text(i)[0];
             dom.append(itemdom);
         }
         return dom[0];
     };
     // 5.3生成秒钟选择框
     let createDom_SecondSelect = () => {
-        let dom = $('<div>').addClass('date-select-second');
+        let dom = M('<div>').addClass('date-select-second');
         for (let i = 0; i < 60; i++) {
-            let itemdom = $('<b>').addClass('date-option-second').prop('val', i).text(i)[0];
+            let itemdom = M('<b>').addClass('date-option-second').prop('val', i).text(i)[0];
             dom.append(itemdom);
         }
         return dom[0];
     };
     // 6.生成今天按钮区域
     let createDom_Today = () => {
-        return $('<div>').addClass('date-area-today').html('<a class="date-btn-today">今天</a>')[0];
+        return M('<div>').addClass('date-area-today').html('<a class="date-btn-today">今天</a>')[0];
     };
     // 7.生成清除按钮区域
     let createDom_Clear = () => {
-        return $('<div>').addClass('date-area-clear').html('<a class="date-btn-clear">清空</a>')[0];
+        return M('<div>').addClass('date-area-clear').html('<a class="date-btn-clear">清空</a>')[0];
     };
     // 8.生成确定按钮区域 
     let createDom_Ok = () => {
-        return $('<div>').addClass('date-area-ok').html('<a class="date-btn-ok">确定</a>')[0];
+        return M('<div>').addClass('date-area-ok').html('<a class="date-btn-ok">确定</a>')[0];
     };
 
     // 根据选定的年,月刷新日(用于当在日期框上操作年,月等会改变年月的动作时)
@@ -1434,7 +1437,7 @@ contDom:
         // 生成天DOM
         let daysdom = createDom_Day(dayslist);
         // 更新天DOM
-        $(dateboxDom).find('.date-area-day').empty().append(daysdom);
+        M(dateboxDom).find('.date-area-day').empty().append(daysdom);
         // 事件绑定
         bindEvent_DaySelected();
     };
@@ -1518,31 +1521,31 @@ contDom:
         dateboxDom.onclick = (event) => {
             event.stopPropagation();
             // 点击空白位置时,关闭已经打开的年,月,日,时,分,秒的选择框.需要在子元素上取消冒泡
-            $(dateboxDom).find('[class^=date-select]').remove();
+            M(dateboxDom).find('[class^=date-select]').remove();
         };
     };
     let bindEvent_YearBtn = () => {
         // 点击年按钮 显示年选择框
-        $(dateboxDom).find('.date-btn-year')[0].onclick = (event) => {
+        M(dateboxDom).find('.date-btn-year')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let seledY = $(thisobj).prop('val');
+            let seledY = M(thisobj).prop('val');
             // 年份选择框 .date-select-year
-            let yearopsbox = $(thisobj.parentElement).find('.date-select-year');
+            let yearopsbox = M(thisobj.parentElement).find('.date-select-year');
             // 如果已经显示则关闭
             if (yearopsbox.length > 0) {
                 yearopsbox.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            let otherDoms = $(dateboxDom).find('[class^=date-select]');
+            let otherDoms = M(dateboxDom).find('[class^=date-select]');
             otherDoms.remove();
             // 生成年份选择框,填充到年份选择框中
             let yearSelectDom = createDom_YearSelect(seledY);
             thisobj.parentElement.append(yearSelectDom);
             // 定位已选年份到滚动框的中间(视口可见范围内)
-            let yseled = $(yearSelectDom).find('.selected')[0];
+            let yseled = M(yearSelectDom).find('.selected')[0];
 
             // 计算这个年份选项离父框的TOP值,然后滚动条滚动这个值-父框高/2
             let scrollval = yseled.offsetTop - yearSelectDom.clientHeight / 2;
@@ -1553,19 +1556,19 @@ contDom:
     };
     let bindEvent_MonthBtn = () => {
         // 点击月按钮 显示月选择框
-        $(dateboxDom).find('.date-btn-month')[0].onclick = (event) => {
+        M(dateboxDom).find('.date-btn-month')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let seledM = $(thisobj).prop('val');
-            let monthsops = $(thisobj.parentElement).find('.date-select-month');
+            let seledM = M(thisobj).prop('val');
+            let monthsops = M(thisobj.parentElement).find('.date-select-month');
             // 如果已经显示则关闭
             if (monthsops.length > 0) {
                 monthsops.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            let otherDoms = $(dateboxDom).find('[class^=date-select]');
+            let otherDoms = M(dateboxDom).find('[class^=date-select]');
             otherDoms.remove();
             //
             thisobj.parentElement.append(createDom_MonthSelect(seledM));
@@ -1575,44 +1578,44 @@ contDom:
     };
     let bindEvent_YearSelected = () => {
         // 点击年份选项 选定一个年份 
-        $(dateboxDom).find('.date-option-year').each((item) => {
+        M(dateboxDom).find('.date-option-year').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 // 
                 // 所选年份值
-                let y = $(thisobj).prop('val');
+                let y = M(thisobj).prop('val');
                 // 更新年份按钮显示值
-                $(dateboxDom).find('.date-btn-year').prop('val', y).text(y + '年');
+                M(dateboxDom).find('.date-btn-year').prop('val', y).text(y + '年');
                 // 关闭年份选择框
-                $(thisobj.parentElement).remove();
+                M(thisobj.parentElement).remove();
                 // 刷新 日
-                let m = $(dateboxDom).find('.date-btn-month').prop('val');
+                let m = M(dateboxDom).find('.date-btn-month').prop('val');
                 resetDaysDom(y, m);
             };
         });
     };
     let bindEvent_MonthSelected = () => {
         // 点击月份选项 选定一个月份
-        $(dateboxDom).find('.date-option-month').each((item) => {
+        M(dateboxDom).find('.date-option-month').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 // 
                 // 所选月份值
-                let m = parseInt($(thisobj).prop('val'));
-                $(dateboxDom).find('.date-btn-month').prop('val', m).text(m + 1 + '月');
+                let m = parseInt(M(thisobj).prop('val'));
+                M(dateboxDom).find('.date-btn-month').prop('val', m).text(m + 1 + '月');
                 // 关闭月份选择框
-                $(thisobj.parentElement).remove();
+                M(thisobj.parentElement).remove();
                 // 刷新 日
-                let y = $(dateboxDom).find('.date-btn-year').prop('val');
+                let y = M(dateboxDom).find('.date-btn-year').prop('val');
                 resetDaysDom(y, m);
             };
         });
     };
     let bindEvent_YearMonthPrevNext = () => {
         // 点击年份,月份的前进和后退按钮 btntype:1=年按钮,2=月按钮. dir:1=前进,2=后退
-        $(dateboxDom).find('.date-btn-prev,.date-btn-next').each((item) => {
+        M(dateboxDom).find('.date-btn-prev,.date-btn-next').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
@@ -1620,8 +1623,8 @@ contDom:
                 let btntype = thisobj.parentElement.classList.contains('date-area-year') ? 1 : 2;
                 let dir = thisobj.classList.contains('date-btn-next') ? 1 : 2;
                 //
-                let ybtn = $(dateboxDom).find('.date-btn-year');
-                let mbtn = $(dateboxDom).find('.date-btn-month');
+                let ybtn = M(dateboxDom).find('.date-btn-year');
+                let mbtn = M(dateboxDom).find('.date-btn-month');
                 let y = parseInt(ybtn.prop('val'));
                 let m = parseInt(mbtn.prop('val'));
                 // 计算并刷新年或月按钮值 年份前进后退值[1900-2100]
@@ -1653,7 +1656,7 @@ contDom:
     };
     let bindEvent_TodayBtn = () => {
         // 点击今天按钮 设置今天日期到input框
-        $(dateboxDom).find('.date-btn-today')[0].onclick = (event) => {
+        M(dateboxDom).find('.date-btn-today')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
@@ -1665,127 +1668,127 @@ contDom:
     };
     let bindEvent_HourBtn = () => {
         // 点击小时按钮 显示小时选择框
-        $(dateboxDom).find('.date-btn-hour')[0].onclick = (event) => {
+        M(dateboxDom).find('.date-btn-hour')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let hourselecct = $(dateboxDom).find('.date-select-hour');
+            let hourselecct = M(dateboxDom).find('.date-select-hour');
             // 点击小时按钮时,弹出小时选择框,同时,按钮加上打开样式,以表示当前选择的是小时
             // 添加样式时,先取消其按钮的打开样式,打开后,再给自己加上打开样式
-            let otherBtns = $(thisobj.parentElement).find('.date-btn-time').removeClass('open');
+            let otherBtns = M(thisobj.parentElement).find('.date-btn-time').removeClass('open');
             // 如果已经是打开状态则关闭
             if (hourselecct.length > 0) {
                 hourselecct.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            let otherdoms = $(dateboxDom).find('[class^=date-select]');
+            let otherdoms = M(dateboxDom).find('[class^=date-select]');
             otherdoms.remove();
             // 显示小时选择框
             dateboxDom.append(createDom_HourSelect());
-            $(thisobj).addClass('open');
+            M(thisobj).addClass('open');
             // 绑定小时选项点击事件
             bindEvent_HourSelected();
         };
     };
     let bindEvent_MinBtn = () => {
         // 点击分钟按钮 显示分钟选择框
-        $(dateboxDom).find('.date-btn-minute')[0].onclick = (event) => {
+        M(dateboxDom).find('.date-btn-minute')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let minselecct = $(dateboxDom).find('.date-select-minute');
+            let minselecct = M(dateboxDom).find('.date-select-minute');
             // 点击时分秒下拉框按钮时,先取消其按钮的打开样式,打开后,再给自己加上打开样式
-            let otherBtns = $(thisobj.parentElement).find('.date-btn-time').removeClass('open');
+            let otherBtns = M(thisobj.parentElement).find('.date-btn-time').removeClass('open');
             // 如果已经显示则关闭
             if (minselecct.length > 0) {
                 minselecct.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            let otherdoms = $(dateboxDom).find('[class^=date-select]');
+            let otherdoms = M(dateboxDom).find('[class^=date-select]');
             otherdoms.remove();
             dateboxDom.append(createDom_MinuteSelect());
-            $(thisobj).addClass('open');
+            M(thisobj).addClass('open');
             // 绑定分钟选项点击事件
             bindEvent_MinSelected();
         };
     };
     let bindEvent_SecBtn = () => {
         // 点击秒钟按钮 显示秒钟选择框
-        $(dateboxDom).find('.date-btn-second')[0].onclick = (event) => {
+        M(dateboxDom).find('.date-btn-second')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let secselecct = $(dateboxDom).find('.date-select-second');
+            let secselecct = M(dateboxDom).find('.date-select-second');
             // 点击时分秒下拉框按钮时,先取消其按钮的打开样式,打开后,再给自己加上打开样式
-            let otherBtns = $(thisobj.parentElement).find('.date-btn-time').removeClass('open');
+            let otherBtns = M(thisobj.parentElement).find('.date-btn-time').removeClass('open');
             // 如果已经显示则关闭
             if (secselecct.length > 0) {
                 secselecct.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            $(dateboxDom).find('[class^=date-select]').remove();
+            M(dateboxDom).find('[class^=date-select]').remove();
             dateboxDom.append(createDom_SecondSelect());
-            $(thisobj).addClass('open');
+            M(thisobj).addClass('open');
             // 绑定秒钟选项点击事件
             bindEvent_SecSelected();
         };
     };
     let bindEvent_HourSelected = () => {
         // 选择小时 修改小时按钮显示值
-        $(dateboxDom).find('.date-option-hour').each((item) => {
+        M(dateboxDom).find('.date-option-hour').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 //
-                let h = $(thisobj).prop('val');
-                $(dateboxDom).find('.date-btn-hour').text(h);
+                let h = M(thisobj).prop('val');
+                M(dateboxDom).find('.date-btn-hour').text(h);
                 cfg.hour = h;
                 //
-                $(thisobj.parentElement).remove();
+                M(thisobj.parentElement).remove();
             };
         });
     };
     let bindEvent_MinSelected = () => {
         // 选择分钟 修改按钮显示值
-        $(dateboxDom).find('.date-option-minute').each((item) => {
+        M(dateboxDom).find('.date-option-minute').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 //
-                let m = $(thisobj).prop('val');
-                $(dateboxDom).find('.date-btn-minute').text(m);
+                let m = M(thisobj).prop('val');
+                M(dateboxDom).find('.date-btn-minute').text(m);
                 cfg.minute = m;
                 //
-                $(thisobj.parentElement).remove();
+                M(thisobj.parentElement).remove();
             };
         });
     };
     let bindEvent_SecSelected = () => {
         // 选择秒钟 修改按钮显示值
-        $(dateboxDom).find('.date-option-second').each((item) => {
+        M(dateboxDom).find('.date-option-second').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 //
-                let s = $(thisobj).prop('val');
-                $(dateboxDom).find('.date-btn-second').text(s);
+                let s = M(thisobj).prop('val');
+                M(dateboxDom).find('.date-btn-second').text(s);
                 cfg.second = s;
                 //
-                $(thisobj.parentElement).remove();
+                M(thisobj.parentElement).remove();
             };
         });
     };
     let bindEvent_DaySelected = () => {
         // 选择天 设置这天日期到Input框
-        $(dateboxDom).find('.date-item-day').each((item) => {
+        M(dateboxDom).find('.date-item-day').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 //
-                let date = new Date($(thisobj).prop('year'), $(thisobj).prop('month'), $(thisobj).prop('day'), cfg.hour, cfg.minute, cfg.second);
+                let date = new Date(M(thisobj).prop('year'), M(thisobj).prop('month'), M(thisobj).prop('day'), cfg.hour, cfg.minute, cfg.second);
                 inputDOM.value = datefmt(date, cfg.dateFmt);
                 //
                 mydate.close();
@@ -1794,7 +1797,7 @@ contDom:
     };
     let bindEvent_ClearBtn = () => {
         // 点击清空
-        $(dateboxDom).find('.date-btn-clear')[0].onclick = (event) => {
+        M(dateboxDom).find('.date-btn-clear')[0].onclick = (event) => {
             event.stopPropagation();
             // let thisobj = event.currentTarget;
             //
@@ -1804,12 +1807,12 @@ contDom:
     };
     let bindEvent_OkBtn = () => {
         // 点击确定按钮
-        $(dateboxDom).find('.date-btn-ok')[0].onclick = (event) => {
+        M(dateboxDom).find('.date-btn-ok')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
             // 找到选中的日 设置到Input框 如果没有选中的日,使用当前设置日期
-            let seledDay = $(dateboxDom).find('.date-item-day.selected');
+            let seledDay = M(dateboxDom).find('.date-item-day.selected');
             let dateStr = datefmt(new Date(cfg.year, cfg.month, cfg.day, cfg.hour, cfg.minute, cfg.second), cfg.dateFmt);
             if (seledDay.length > 0) {
                 let d = new Date(seledDay.prop('year'), seledDay.prop('month'), seledDay.prop('day'), cfg.hour, cfg.minute, cfg.second);
@@ -1827,7 +1830,7 @@ contDom:
         dateboxDom = null;
         inputDOM = null;
         cfg = null;
-        $(document.body).find('.' + dateboxCls).remove();
+        M(document.body).find('.' + dateboxCls).remove();
     };
 
     // 点击日期控件以外区域,关闭控件. 
@@ -1849,7 +1852,7 @@ contDom:
 */
 ((win) => {
     // 帮助函数
-    const $ = win.$ui;
+    const M = win.$ui;
     //------------------------------------------------------------------------------------------------//
     // 总页数(由数量总数和分页大小算出)
     let getTotalPage = (dataCount, pageSize, pageIndex) => {
@@ -1911,18 +1914,18 @@ contDom:
      *====================*/
     let bindEventForAllBtn = (pnDom, cfg) => {
         // 页码按钮点击
-        $(pnDom).find('.pagenum-prev,.pagenum-next,.pagenum-first,.pagenum-last,.pagenum-num').each((item) => {
+        M(pnDom).find('.pagenum-prev,.pagenum-next,.pagenum-first,.pagenum-last,.pagenum-num').each((item) => {
             item.onclick = () => {
                 // 页码参数范围[1-总页码],范围外不动作
-                let pnnum = parseInt($(item).prop('pagenum')) || 0;
+                let pnnum = parseInt(M(item).prop('pagenum')) || 0;
                 if (pnnum < 1 || pnnum > cfg.TotalPage) return;
                 cfg.pageClickE(pnnum);
             };
         });
 
         // 确定按钮点击
-        $(pnDom).find('.pagenum-ok')[0].onclick = () => {
-            let pnnum = parseInt($(pnDom).find('.pagenum-input')[0].value || 0);
+        M(pnDom).find('.pagenum-ok')[0].onclick = () => {
+            let pnnum = parseInt(M(pnDom).find('.pagenum-input')[0].value || 0);
             if (pnnum < 1 || pnnum > cfg.TotalPage) return;
             cfg.pageClickE(pnnum);
         };
@@ -1939,9 +1942,9 @@ contDom:
         pnDom.innerHTML = '';
         pnDom.innerText = '';
         // 1.页码按钮区域
-        let btnsarea = $('<span>').addClass('pagenum-btns')[0];
+        let btnsarea = M('<span>').addClass('pagenum-btns')[0];
         // 2.跳转按钮区域
-        let btnskip = $('<span>').addClass('pagenum-skip')[0];
+        let btnskip = M('<span>').addClass('pagenum-skip')[0];
         btnskip.innerHTML = `共<b class="pagenum-total">${cfg.TotalPage}</b>页&nbsp;&nbsp;到第<input class="pagenum-input" />页<a class="pagenum-ok">确定</a>`;
 
         // 计算页码起止
@@ -1951,38 +1954,38 @@ contDom:
          * 添加按钮DOM
          * 页码区固定按钮4个:前一页,第1页和第末页,后一页.
          *-------------------------------------------------------*/
-        let btndom = $.fragment();
+        let btndom = M.fragment();
 
         // 向前按钮
-        btndom.append($('<a>').addClass('pagenum-prev').prop('pagenum', cfg.PageIndex - 1).text('〈')[0]);
+        btndom.append(M('<a>').addClass('pagenum-prev').prop('pagenum', cfg.PageIndex - 1).text('〈')[0]);
         // 第1页按钮,当起始页码大于1时添加
         if (cfg.StartIndex > 1) {
             let isactiveNum = cfg.PageIndex == 1 ? 'active' : 'num';
-            btndom.append($('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', 1).text('1')[0]);
+            btndom.append(M('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', 1).text('1')[0]);
         }
 
         // 前省略号,当起始页码大于2时添加
         if (cfg.StartIndex > 2) {
-            btndom.append($('<span>').addClass('pagenum-break').text('...')[0]);
+            btndom.append(M('<span>').addClass('pagenum-break').text('...')[0]);
         }
         // 页码按钮
         for (let i = cfg.StartIndex; i <= cfg.EndIndex; i++) {
             let pagenum = i;
             let isactiveNum = pagenum == cfg.PageIndex ? 'active' : 'num';
-            btndom.append($('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', pagenum).text(pagenum)[0]);
+            btndom.append(M('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', pagenum).text(pagenum)[0]);
         }
         // 后省略号,当结束页小于最大页码-1时
         if (cfg.EndIndex < (cfg.TotalPage - 1)) {
-            btndom.append($('<span>').addClass('pagenum-break').text('...')[0]);
+            btndom.append(M('<span>').addClass('pagenum-break').text('...')[0]);
         }
         // 最后页按钮,当结束页小于最大页码时添加
         if (cfg.EndIndex < cfg.TotalPage) {
             let isactiveNum = cfg.PageIndex == cfg.TotalPage ? 'active' : 'num';
-            btndom.append($('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', cfg.TotalPage).text(cfg.TotalPage)[0]);
+            btndom.append(M('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', cfg.TotalPage).text(cfg.TotalPage)[0]);
         }
 
         // 向后按钮
-        btndom.append($('<a>').addClass('pagenum-next').prop('pagenum', cfg.PageIndex + 1).text('〉')[0]);
+        btndom.append(M('<a>').addClass('pagenum-next').prop('pagenum', cfg.PageIndex + 1).text('〉')[0]);
 
         // 将btndom添加到页码按钮区域容器
         btnsarea.appendChild(btndom);
@@ -2060,7 +2063,7 @@ contDom:
     // 标题与面板关联属性名
     const relkey = 'pid';
     // 帮助函数
-    const $ = win.$ui;
+    const M = win.$ui;
     /**
      * 生成一个新的pid
      * @param {Array} pids 现有的pid数组,不能与已有的pid重复
@@ -2092,11 +2095,11 @@ contDom:
         // console.log(labelNow);
         // 去掉其它选项卡激活状态,将当前选项卡置为活动
         // 隐藏其它面板,激活对应面板.选项卡与面板由pid属性关联.选项卡标签pid值与面板pid值相等
-        let pidOld = $(self.tabsDom).find('.' + activeCls).removeClass(activeCls).prop(relkey);
-        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidOld}']`).removeClass(activeCls);
+        let pidOld = M(self.tabsDom).find('.' + activeCls).removeClass(activeCls).prop(relkey);
+        M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidOld}']`).removeClass(activeCls);
         //
-        let pidNow = $(labelNow).addClass(activeCls).prop(relkey);
-        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidNow}']`).addClass(activeCls);
+        let pidNow = M(labelNow).addClass(activeCls).prop(relkey);
+        M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidNow}']`).addClass(activeCls);
 
         // 执行激活后方法
         if (typeof self.onTabActive === 'function')
@@ -2134,20 +2137,20 @@ contDom:
         let pid = newPid(self.tabsLabelsPids);
         self.tabsLabelsPids.push(pid);
         // 生成选项卡标签和面板.
-        let label = $('<span>').addClass(tabLabelCls).text(title).prop(relkey, pid)[0];
+        let label = M('<span>').addClass(tabLabelCls).text(title).prop(relkey, pid)[0];
         //
-        let panel = $('<div>').addClass(tabPanelCls).prop(relkey, pid)[0];
+        let panel = M('<div>').addClass(tabPanelCls).prop(relkey, pid)[0];
         // 绑定标签的点击事件
         bindEvent_onChange(self, label);
         // 标签加入
         if (addIndex == count) {
-            $(self.tabsLabels[self.tabsLabels.length-1]).after(label);
+            M(self.tabsLabels[self.tabsLabels.length-1]).after(label);
         } else {
             // 如果是插入添加,原有位置的标签后移
-            $(self.tabsLabels[addIndex]).before(label);
+            M(self.tabsLabels[addIndex]).before(label);
         }
         // 面板加入
-        $(self.tabsDom).append(panel);
+        M(self.tabsDom).append(panel);
         return pid;
     };
     /**
@@ -2160,8 +2163,8 @@ contDom:
         if (tagType === 'pid') {
             // pid有效时做删除
             if (self.tabsLabelsPids.contains(index)) {
-                let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${index}']`).remove();
-                let label = $(self.tabsDom).find(`.${tabLabelCls}[${relkey}='${index}']`).remove();
+                let panel = M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${index}']`).remove();
+                let label = M(self.tabsDom).find(`.${tabLabelCls}[${relkey}='${index}']`).remove();
                 // pids列表更新
                 let pidIndex = self.tabsLabelsPids.indexOf(index);
                 self.tabsLabelsPids.splice(pidIndex, 1);
@@ -2171,9 +2174,9 @@ contDom:
             if (!index || index < 0 || index >= self.tabsLabels.length)
                 return;
             let label = self.tabsLabels[index];
-            let pid = $(label).prop(relkey);
-            $(label).remove();
-            let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pid}']`).remove();
+            let pid = M(label).prop(relkey);
+            M(label).remove();
+            let panel = M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pid}']`).remove();
             // pids列表更新
             let pidIndex = self.tabsLabelsPids.indexOf(parseInt(pid));
             self.tabsLabelsPids.splice(pidIndex, 1);
@@ -2209,7 +2212,7 @@ contDom:
         // 设置每个标签的pid属性
         for (let i = 0; i < self.tabsLabels.length; i++) {
             let pid = newPid(self.tabsLabelsPids);
-            $(self.tabsLabels[i]).prop(relkey, pid);
+            M(self.tabsLabels[i]).prop(relkey, pid);
             self.tabsLabelsPids.push(pid);
         }
         // 设置每个面板的pid属性
@@ -2217,15 +2220,15 @@ contDom:
         for (let i = 0; i < self.tabsLabelsPids.length; i++) {
             let pid = self.tabsLabelsPids[i];
             if (i >= panels.length) break;
-            $(panels[i]).prop(relkey, pid);
+            M(panels[i]).prop(relkey, pid);
         }
         // 给默认激活的选项卡标签,设置活动样式.如果传入的索引超过选项卡个数,忽略
         let _index = activeIndex;
         if (!activeIndex || activeIndex < 0 || activeIndex >= self.tabsLabels.length)
             _index = 0;
-        $(self.tabsLabels[_index]).addClass(activeCls);
+        M(self.tabsLabels[_index]).addClass(activeCls);
         if (_index < panels.length)
-            $(panels[_index]).addClass(activeCls);
+            M(panels[_index]).addClass(activeCls);
 
         /**** Method ****/
         // 切换选项卡方法 index: 要激活的选项卡索引

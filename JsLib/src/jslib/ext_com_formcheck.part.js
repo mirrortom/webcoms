@@ -26,7 +26,7 @@
         'maxlen': 'isMaxLength',
         // 是否小于长度
         'minlen': 'isMinLength',
-        // 正整数或正1-2位小数
+        // 正整数或正1-3位小数
         'money': "isMoney"
     };
     // 表单元素错误提示样式类,提示语样式类

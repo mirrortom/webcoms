@@ -10,7 +10,7 @@
 */
 ((win) => {
     // 帮助函数
-    const $ = win.$ui;
+    const M = win.$ui;
     //------------------------------------------------------------------------------------------------//
     // 总页数(由数量总数和分页大小算出)
     let getTotalPage = (dataCount, pageSize, pageIndex) => {
@@ -72,18 +72,18 @@
      *====================*/
     let bindEventForAllBtn = (pnDom, cfg) => {
         // 页码按钮点击
-        $(pnDom).find('.pagenum-prev,.pagenum-next,.pagenum-first,.pagenum-last,.pagenum-num').each((item) => {
+        M(pnDom).find('.pagenum-prev,.pagenum-next,.pagenum-first,.pagenum-last,.pagenum-num').each((item) => {
             item.onclick = () => {
                 // 页码参数范围[1-总页码],范围外不动作
-                let pnnum = parseInt($(item).prop('pagenum')) || 0;
+                let pnnum = parseInt(M(item).prop('pagenum')) || 0;
                 if (pnnum < 1 || pnnum > cfg.TotalPage) return;
                 cfg.pageClickE(pnnum);
             };
         });
 
         // 确定按钮点击
-        $(pnDom).find('.pagenum-ok')[0].onclick = () => {
-            let pnnum = parseInt($(pnDom).find('.pagenum-input')[0].value || 0);
+        M(pnDom).find('.pagenum-ok')[0].onclick = () => {
+            let pnnum = parseInt(M(pnDom).find('.pagenum-input')[0].value || 0);
             if (pnnum < 1 || pnnum > cfg.TotalPage) return;
             cfg.pageClickE(pnnum);
         };
@@ -100,9 +100,9 @@
         pnDom.innerHTML = '';
         pnDom.innerText = '';
         // 1.页码按钮区域
-        let btnsarea = $('<span>').addClass('pagenum-btns')[0];
+        let btnsarea = M('<span>').addClass('pagenum-btns')[0];
         // 2.跳转按钮区域
-        let btnskip = $('<span>').addClass('pagenum-skip')[0];
+        let btnskip = M('<span>').addClass('pagenum-skip')[0];
         btnskip.innerHTML = `共<b class="pagenum-total">${cfg.TotalPage}</b>页&nbsp;&nbsp;到第<input class="pagenum-input" />页<a class="pagenum-ok">确定</a>`;
 
         // 计算页码起止
@@ -112,38 +112,38 @@
          * 添加按钮DOM
          * 页码区固定按钮4个:前一页,第1页和第末页,后一页.
          *-------------------------------------------------------*/
-        let btndom = $.fragment();
+        let btndom = M.fragment();
 
         // 向前按钮
-        btndom.append($('<a>').addClass('pagenum-prev').prop('pagenum', cfg.PageIndex - 1).text('〈')[0]);
+        btndom.append(M('<a>').addClass('pagenum-prev').prop('pagenum', cfg.PageIndex - 1).text('〈')[0]);
         // 第1页按钮,当起始页码大于1时添加
         if (cfg.StartIndex > 1) {
             let isactiveNum = cfg.PageIndex == 1 ? 'active' : 'num';
-            btndom.append($('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', 1).text('1')[0]);
+            btndom.append(M('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', 1).text('1')[0]);
         }
 
         // 前省略号,当起始页码大于2时添加
         if (cfg.StartIndex > 2) {
-            btndom.append($('<span>').addClass('pagenum-break').text('...')[0]);
+            btndom.append(M('<span>').addClass('pagenum-break').text('...')[0]);
         }
         // 页码按钮
         for (let i = cfg.StartIndex; i <= cfg.EndIndex; i++) {
             let pagenum = i;
             let isactiveNum = pagenum == cfg.PageIndex ? 'active' : 'num';
-            btndom.append($('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', pagenum).text(pagenum)[0]);
+            btndom.append(M('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', pagenum).text(pagenum)[0]);
         }
         // 后省略号,当结束页小于最大页码-1时
         if (cfg.EndIndex < (cfg.TotalPage - 1)) {
-            btndom.append($('<span>').addClass('pagenum-break').text('...')[0]);
+            btndom.append(M('<span>').addClass('pagenum-break').text('...')[0]);
         }
         // 最后页按钮,当结束页小于最大页码时添加
         if (cfg.EndIndex < cfg.TotalPage) {
             let isactiveNum = cfg.PageIndex == cfg.TotalPage ? 'active' : 'num';
-            btndom.append($('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', cfg.TotalPage).text(cfg.TotalPage)[0]);
+            btndom.append(M('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', cfg.TotalPage).text(cfg.TotalPage)[0]);
         }
 
         // 向后按钮
-        btndom.append($('<a>').addClass('pagenum-next').prop('pagenum', cfg.PageIndex + 1).text('〉')[0]);
+        btndom.append(M('<a>').addClass('pagenum-next').prop('pagenum', cfg.PageIndex + 1).text('〉')[0]);
 
         // 将btndom添加到页码按钮区域容器
         btnsarea.appendChild(btndom);

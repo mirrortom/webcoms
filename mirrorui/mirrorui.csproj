@@ -49,11 +49,9 @@
       <DependentUpon>test.styl</DependentUpon>
     </Content>
     <Content Include="test.html" />
-    <Content Include="zcustom\napoui\js\form.js" />
-    <Content Include="zcustom\napoui\js\msgbox.js" />
-    <Content Include="zcustom\napoui\js\tabs.js" />
-    <Content Include="zcustom\napoui\napoui.css" />
-    <Content Include="zcustom\napoui\napoui.js" />
+    <Content Include="zcustom\lxwsui\js\mydate.js" />
+    <Content Include="zcustom\lxwsui\lxwsdate.css" />
+    <Content Include="zcustom\lxwsui\lxwsdate.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -117,28 +115,21 @@
     <None Include="stylus\variables\mediaquery.styl" />
     <None Include="stylus\variables\transition.styl" />
     <None Include="test.styl" />
-    <None Include="zcustom\napoui\bundleconfig.json" />
-    <None Include="zcustom\napoui\bundleconfig.json.bindings">
+    <None Include="zcustom\lxwsui\bundleconfig.json" />
+    <None Include="zcustom\lxwsui\bundleconfig.json.bindings">
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
-    <None Include="zcustom\napoui\compilerconfig.json" />
-    <None Include="zcustom\napoui\stylus\base.styl" />
-    <None Include="zcustom\napoui\stylus\coms\article.styl" />
-    <None Include="zcustom\napoui\stylus\coms\btn.styl" />
-    <None Include="zcustom\napoui\stylus\coms\form.styl" />
-    <None Include="zcustom\napoui\stylus\coms\grids.styl" />
-    <None Include="zcustom\napoui\stylus\coms\h1h6p.styl" />
-    <None Include="zcustom\napoui\stylus\coms\hr.styl" />
-    <None Include="zcustom\napoui\stylus\coms\msgbox.styl" />
-    <None Include="zcustom\napoui\stylus\coms\table.styl" />
-    <None Include="zcustom\napoui\stylus\coms\tabs.styl" />
-    <None Include="zcustom\napoui\stylus\coms\tools.styl" />
-    <None Include="zcustom\napoui\stylus\function\function.styl" />
-    <None Include="zcustom\napoui\stylus\index.styl" />
-    <None Include="zcustom\napoui\stylus\variables\color.styl" />
-    <None Include="zcustom\napoui\stylus\variables\font.styl" />
-    <None Include="zcustom\napoui\stylus\variables\transition.styl" />
+    <None Include="zcustom\lxwsui\compilerconfig.json" />
+    <None Include="zcustom\lxwsui\stylus\base.styl" />
+    <None Include="zcustom\lxwsui\stylus\coms\datepick.styl" />
+    <None Include="zcustom\lxwsui\stylus\index.styl" />
+    <None Include="zcustom\lxwsui\stylus\variables\color.styl" />
+    <None Include="zcustom\lxwsui\stylus\variables\font.styl" />
+    <None Include="zcustom\lxwsui\stylus\variables\transition.styl" />
     <None Include="如何自定义ui.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="zcustom\lxwsui\stylus\function\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

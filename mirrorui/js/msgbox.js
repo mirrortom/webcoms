@@ -11,17 +11,17 @@
     // 弹出层样式名
     const msgboxCls = 'msgbox';
     // 帮助函数
-    const $ = win.$ui;
+    const M = win.$ui;
     /**
      * 生成遮罩并显示,生成并返回弹出层父级DOM对象
      * @returns {HTMLElement} 弹出层父级DOM对象
      */
     let createMsgBox = () => {
         // 添加遮罩层
-        let shadow = $('<div>').addClass(shadowCls)[0];
+        let shadow = M('<div>').addClass(shadowCls)[0];
         document.body.append(shadow);
         // 生成弹出框
-        let parentDiv = $('<div>').addClass(modalCls)[0];
+        let parentDiv = M('<div>').addClass(modalCls)[0];
         return parentDiv;
     };
     /**
@@ -41,7 +41,7 @@
      */
     let createOuterDiv = (msg, style, position) => {
         // 样式风格,位置样式
-        let outerDiv = $('<div>').addClass(msgboxCls, 'msgbox-' + (position || 'center'));
+        let outerDiv = M('<div>').addClass(msgboxCls, 'msgbox-' + (position || 'center'));
         style && outerDiv.addClass(style);
         // 内容
         outerDiv.text(msg || '');
@@ -53,7 +53,7 @@
      * @returns {HTMLElement} 返回按钮dom
      */
     let createBtn = (name) => {
-        let btn = $('<span>').addClass('msgbox-btn', 'msgbox-' + name).text(name === 'ok' ? '确定' : '取消');
+        let btn = M('<span>').addClass('msgbox-btn', 'msgbox-' + name).text(name === 'ok' ? '确定' : '取消');
         return btn[0];
     };
     // 弹出框类
@@ -164,7 +164,7 @@
         // <span class="msgbox-btn msgbox-ok">Ok</span><span class="msgbox-btn msgbox-cancel">Cancel</span></div>
         let promptDom = createOuterDiv(msg, style, position);
         // input框
-        let inputE = $('<input>').addClass('msgbox-input').prop('type', 'text')[0];
+        let inputE = M('<input>').addClass('msgbox-input').prop('type', 'text')[0];
         // 按钮
         let okBtn = createBtn('ok');
         let cancelBtn = createBtn('cancel');

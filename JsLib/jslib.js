@@ -889,13 +889,13 @@ factory.isMinLength = (str, minlen) => {
 };
 
 /**
- * 指示一个字符串是否为2位小数,或者正数 (d | d.dd),可用于金额
+ * 指示一个字符串是否为1~3位小数,或者正数 (d | d.dd | d.d | d.ddd),可用于金额
  * @param {string} str 被检查字符串
  * @returns {boolean} t/f
  */
 factory.isMoney = (str) => {
     if (!str || str.length === 0) return true;
-    return /^-?[0-9]+([.]{1}[0-9]{1,2})?$/.test(str);
+    return /^-?[0-9]+([.]{1}[0-9]{1,3})?$/.test(str);
 };
 /**
  * 指示一个字符串是否为日期格式
@@ -940,7 +940,7 @@ if (!win.$)
         'maxlen': 'isMaxLength',
         // 是否小于长度
         'minlen': 'isMinLength',
-        // 正整数或正1-2位小数
+        // 正整数或正1-3位小数
         'money': "isMoney"
     };
     // 表单元素错误提示样式类,提示语样式类

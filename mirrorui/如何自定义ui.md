@@ -11,8 +11,9 @@ bundleconfig.json,compilerconfig.json.可以复制系统已有的这两个文件
 ##### 3.修改和编译
 自定义的过程就是修改/stylus,/js文件里的内容.如果有的组件不需要,对于css,修改/stylus/index.styl文件.  
 对于js,修改bundleconfig.json的inputFiles配置.  
+
 简单的讲就是修改源码,调整配置,重新编译输出,就成自己的UI了.这也是模仿bootstrap自定义ui功能的.
 ##### 4.必须环境:
-vs2017  
-Bundler & Minifier 插件(vs2017版本)  
-Web Compiler 插件(vs2017版本)  
+vs2017+  
+Bundler & Minifier 插件(vs2017+版本)  
+Web Compiler 插件(vs2017+版本)  
