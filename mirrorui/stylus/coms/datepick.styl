@@ -84,7 +84,7 @@
         top: 0
 // 年份,月份,小时,分钟,秒 选项
 .date-option
-    &-year, &-month, &-hour, &-minute, &-second
+    &-year, &-month, &-hour, &-minute, &-second, &-title
         border-bottom: 1px solid var-grayse
         font-weight: 500
     &-year, &-month
@@ -97,13 +97,16 @@
     &-year.selected, &-month.selected
         background-color: var-primary
     &-hour
-        flex: 0 1 16.66666666%
+        flex: 0 1 14.66666666%
         height: 60px
         line-height: 60px
     &-minute, &-second
         flex: 0 1 10%
         height: 40px
         line-height: 40px
+    // 小时选择框分组标题
+    &-title
+        color: var-grayse
 // 年,月,今天,前进,后退,时,分,秒,清空,确定 按钮
 .date-btn
     &-year, &-month, &-today, &-prev, &-next, &-time, &-clear, &-ok
