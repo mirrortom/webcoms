@@ -1,0 +1,23 @@
+﻿// 名值对标签
+.kvpair
+    display: inline-grid
+    grid-template-columns: auto auto
+    grid-template-rows: auto auto
+    align-items: center
+// 大小 默认是14px
+for key, val in $fontSizeKV
+    .kvpair.{key}
+        font-size: val
+
+.kvpair
+    // 边框和补白
+    & .key, & .val
+        padding: 0.4em 0.7em
+        border: 1px solid #ddd
+    & .val
+        border-left: none
+    // 圆角
+    & .key.cir
+        border-radius: 6px 0 0 6px
+    & .val.cir
+        border-radius: 0 6px 6px 0

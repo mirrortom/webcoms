@@ -2888,3 +2888,32 @@ p {
     letter-spacing: 1px;
   }
 }
+.kvpair {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+}
+.kvpair.sm {
+  font-size: 12px;
+}
+.kvpair.lg {
+  font-size: calc(var(--font-size) * 1.25);
+}
+.kvpair.xl {
+  font-size: calc(var(--font-size) * 1.5);
+}
+.kvpair .key,
+.kvpair .val {
+  padding: 0.4em 0.7em;
+  border: 1px solid #ddd;
+}
+.kvpair .val {
+  border-left: none;
+}
+.kvpair .key.cir {
+  border-radius: 6px 0 0 6px;
+}
+.kvpair .val.cir {
+  border-radius: 0 6px 6px 0;
+}
