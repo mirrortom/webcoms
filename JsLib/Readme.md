@@ -13,6 +13,7 @@ jslib是一个类数组对象,选择器匹配的元素会保留在其中以供�
 ###### jslib
 类似jquery.选择器,链式调用,还有些静态方法  
 // 取id值为box的元素的val属性的值  
-```let val = lib('#box').prop('val')```  
+```let val = $('#box').prop('val')```  
 // 新建div元素,加上active样式类  
-```lib('<div>').addClass('active')```
+```$('<div>').addClass('active')```  
+文档 [Document](https://mirrortom.date/jslib/index.html)  
