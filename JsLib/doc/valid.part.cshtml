@@ -1,0 +1,73 @@
+﻿@*
+  1.模板页名字规定: "页面名字.part.cshtml""
+  2.内容容器固定如下:
+    <div class="doc-part-box" id="页面名字">
+      <h2>标题</h2>
+      ......
+      ......
+    </div>
+*@
+<div class="doc-part-box" id="valid">
+  <h2>valid</h2>
+  <p>验证相关方法</p>
+  <p class="article-title">$.isNotNull(str)</p>
+  <p>指示一个字符串是否含有内容,并且不能全部是空白字符</p>
+  <br />
+
+  <p class="article-title">$.isNumber(str)</p>
+  <p>指示一个字符串是否为数值</p>
+  <br />
+
+  <p class="article-title">$.isEmail(str)</p>
+  <p>指示一个字符串是否为email地址</p>
+  <br />
+
+  <p class="article-title">$.isMobile(str)</p>
+  <p>指示一个字符串是否为国内11位手机号</p>
+  <p>可匹配"(+86)013800138000",()号可以省略，+号可以省略，(+86)可以省略,11位手机号前的0可以省略;11位手机号第二位数可以是3~9中的任意一个</p>
+  <br />
+
+  <p class="article-title">$.isAbc(str)</p>
+  <p>指示一个字符串是否为26个英文字母组成,大小写不限.</p>
+  <br />
+
+
+
+  <p class="article-title">$.isDigit(str)</p>
+  <p>指示一个字符串是否为0-9整数组成</p>
+  <br />
+
+  <p class="article-title">$.isAbcDigit(str)</p>
+  <p>指示一个字符串是否为26个英文字母和0-9整数(可选)组成,但必须是字母开头.</p>
+  <br />
+
+  <p class="article-title">$.isAbcDigitUline(str)</p>
+  <p>指示一个字符串是否为26个英文字母和0-9整数(可选)和_下划线(可选)组成,并且是字母或者下划线开头.</p>
+  <br />
+  /**
+
+  <p class="article-title">$.isUrl(str)</p>
+  <p>指示一个字符串是否为url</p>
+  <br />
+
+  <p class="article-title">$.isIpv4(str)</p>
+  <p>指示一个字符串是否为ipv4</p>
+  <br />
+
+  <p class="article-title">$.isMaxLength(str, maxlen)</p>
+  <p>指示一个字符串长度是否超过maxlength. maxlen 最大长度</p>
+  <br />
+
+  <p class="article-title">$.isMinLength(str, minlen)</p>
+  <p>指示一个字符串长度是否小于minlength. minlen 最小长度</p>
+  <br />
+
+  <p class="article-title">$.isMoney(str)</p>
+  <p>指示一个字符串是否为1~3位小数,或者正数 (d | d.dd | d.d | d.ddd),可用于金额</p>
+  <br />
+
+  <p class="article-title">$.isDate(str)</p>
+  <p>指示一个字符串是否为日期格式</p>
+  <br />
+
+</div>

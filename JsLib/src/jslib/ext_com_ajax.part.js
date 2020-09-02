@@ -5,7 +5,6 @@
 // (详细讲解)https://www.cnblogs.com/libin-1/p/6853677.html
 // ====================================================================
 ((win) => {
-    let $ = win.lib;
     /**
      * 简易post方式Ajax,对参数做了包装,第一个then()对请求结果判断成败,丢出异常. 内部使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
@@ -14,7 +13,7 @@
      * @param {string} resType 返回值类型 默认"json",可选"html"
      * @returns {Promise} fetch().then()返回的Promise对象
      */
-    $.post = (url, data, initCfg = null, resType = 'json') => {
+    win.lib.post = (url, data, initCfg = null, resType = 'json') => {
         let formData = new FormData();
         if (data instanceof FormData) {
             formData = data;
@@ -41,12 +40,12 @@
     /**
      * 简易 get方式Ajax,对para参数转换为url参数,对请求结果判断成败. 使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
-     * @param {Function} para data json对象或者FormData对象,转化为url参数
+     * @param {any|FormData} para json对象或者FormData对象,转化为url参数
      * @param {RequestInit} initCfg fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证
      * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {Promise} fetch()方法返回的Promise对象
      */
-    $.get = (url, para, initCfg = null, resType = 'html') => {
+    win.lib.get = (url, para, initCfg = null, resType = 'html') => {
         let urlpara = [];
         if (para) {
             if (para instanceof FormData) {

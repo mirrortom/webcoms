@@ -27,6 +27,8 @@
   </style>
 </head>
 <body>
+  <script src="jslib.js"></script>
+  <script src="/mirrorui/mirrorui.js"></script>
   <div class="page">
     <div class="menu-box">
       <nav class="sidemenu-box" id="main_menubox">
@@ -36,26 +38,77 @@
             <span class="sidemenu-label">About<i class="sidemenu-arrdown"></i></span>
           </li>
           <li><a class="sidemenu-item" href="#about">关于</a></li>
+          <li><a class="sidemenu-item" href="#jslib">jslib</a></li>
         </ul>
         <ul class="sidemenu-group">
           <li>
-            <span class="sidemenu-label">dom<i class="sidemenu-arrdown"></i></span>
+            <span class="sidemenu-label">dom操作<i class="sidemenu-arrdown"></i></span>
           </li>
+          <li><a class="sidemenu-item" href="#selectdom">选择器</a></li>
+          <li><a class="sidemenu-item" href="#find">find</a></li>
+          <li><a class="sidemenu-item" href="#eq">eq</a></li>
+          <li><a class="sidemenu-item" href="#index">index</a></li>
+          <li><a class="sidemenu-item" href="#siblings">siblings</a></li>
+          <li><a class="sidemenu-item" href="#next">next</a></li>
+          <li><a class="sidemenu-item" href="#nextAll">nextAll</a></li>
+          <li><a class="sidemenu-item" href="#prev">prev</a></li>
+          <li><a class="sidemenu-item" href="#prevAll">prevAll</a></li>
+          <li><a class="sidemenu-item" href="#parent">parent</a></li>
+          <li><a class="sidemenu-item" href="#prop">prop</a></li>
+          <li><a class="sidemenu-item" href="#val">val</a></li>
+          <li><a class="sidemenu-item" href="#removeProp">removeProp</a></li>
+          <li><a class="sidemenu-item" href="#addClass">addClass</a></li>
+          <li><a class="sidemenu-item" href="#removeClass">removeClass</a></li>
+          <li><a class="sidemenu-item" href="#hasClass">hasClass</a></li>
+          <li><a class="sidemenu-item" href="#text">text</a></li>
+          <li><a class="sidemenu-item" href="#html">html</a></li>
+          <li><a class="sidemenu-item" href="#append">append</a></li>
+          <li><a class="sidemenu-item" href="#prepend">prepend</a></li>
+          <li><a class="sidemenu-item" href="#before">before</a></li>
+          <li><a class="sidemenu-item" href="#after">after</a></li>
+          <li><a class="sidemenu-item" href="#remove">remove</a></li>
+          <li><a class="sidemenu-item" href="#empty">empty</a></li>
+          <li><a class="sidemenu-item" href="#fragment">fragment</a></li>
+        </ul>
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">帮助函数<i class="sidemenu-arrdown"></i></span>
+          </li>
+          <li><a class="sidemenu-item" href="#ajax">ajax</a></li>
+          <li><a class="sidemenu-item" href="#array">array</a></li>
+          <li><a class="sidemenu-item" href="#date">date</a></li>
+          <li><a class="sidemenu-item" href="#formcheck">formcheck</a></li>
+          <li><a class="sidemenu-item" href="#valid">valid</a></li>
+          <li><a class="sidemenu-item" href="#rand">rand</a></li>
+          <li><a class="sidemenu-item" href="#string">string</a></li>
         </ul>
       </nav>
     </div>
     <div class="content pd-15">
       <div id="about">
-        <h1>关于jslib</h1>
+        <h2>关于jslib</h2>
+        <p>在前端框架大发展前,jQuery库是最流行的js库,最强大的功能就是dom操作.还提供好多工具函数,不必使用复杂的原生js,使用jQuery简单多了.</p>
+        <p>随着浏览器的进化,jQuery逐渐丢掉历史包袱,目前最新3.5版本不会再支持旧是浏览器,尤其是很老的IE.</p>
+        <p>新浏览器支持的js函数可以比较方便的操作dom,这种方便和jQuery的便利相差无几了.前端框架使用绑定数据到dom的数据驱动模式,不再使用dom选择器.</p>
+        <p>这两个情况让jQuery的使用热度降低了,不过jQuery的设计是非常值得学习的.做这个jslib库是为了学习jQuery.</p>
+        <p>将模仿jQuery做一个dom操作的库,api名字和操作方式都与jQuery一样,但是没有实现所有的api.</p>
+        <p>jslib实质上,外形是jQuery,内部实现用的新的js函数.例如:document.querySelectorAll()</p>
       </div>
 
       @*片段页路径实际上是Key,不能使用变量,否则会找不到页面*@
       @*Include("/doc/design_form.part.cshtml")*@
-
+      @Include("/doc/jslib.part.cshtml")
+      @Include("/doc/selectdom.part.cshtml")
+      @Include("/doc/ajax.part.cshtml")
+      @Include("/doc/array.part.cshtml")
+      @Include("/doc/date.part.cshtml")
+      @Include("/doc/formcheck.part.cshtml")
+      @Include("/doc/valid.part.cshtml")
+      @Include("/doc/rand.part.cshtml")
+      @Include("/doc/string.part.cshtml")
     </div>
   </div>
-  <script src="jslib.js"></script>
-  <script src="/mirrorui/mirrorui.js"></script>
+
   <script>
     // 为主菜单绑定点击事件 点击后加上sidemenu-active类,标识为活动菜单
     sidemenu('main_menubox');

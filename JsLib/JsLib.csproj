@@ -36,6 +36,15 @@
     <None Include="bundleconfig.json.bindings">
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
+    <None Include="doc\rand.part.cshtml" />
+    <None Include="doc\array.part.cshtml" />
+    <None Include="doc\valid.part.cshtml" />
+    <None Include="doc\formcheck.part.cshtml" />
+    <None Include="doc\ajax.part.cshtml" />
+    <None Include="doc\string.part.cshtml" />
+    <None Include="doc\date.part.cshtml" />
+    <None Include="doc\selectdom.part.cshtml" />
+    <None Include="doc\jslib.part.cshtml" />
     <None Include="index.cshtml" />
     <None Include="publish.json" />
     <None Include="Readme.md" />
@@ -63,8 +72,6 @@
     <Content Include="src\jslib\ext_base_string.part.js" />
     <Content Include="src\jslib\ext_base_array.part.js" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="doc\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

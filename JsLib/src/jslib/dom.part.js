@@ -385,7 +385,7 @@ factory.extend({
         return false;
     },
     /**
-     * 设置所有匹配的元素的innerTEXT.无参数时,返回第一个元素的innerText内容(原生: innerText)
+     * 设置所有匹配的元素的innerText.无参数时,返回第一个元素的innerText内容(原生: innerText)
      * @param {string} val 设置的文本
      * @returns {jslib} 取值时返回值.否则返回this
      */

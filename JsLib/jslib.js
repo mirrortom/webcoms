@@ -73,19 +73,17 @@
         Array.prototype.splice.call(this, 0);
         if (elemlist) {
             elemlist.forEach((item) => {
-                if (!this.contains(item))
-                    this.push(item);
+                this.push(item);
             });
         }
         return this;
     };
     /**
-     * 遍历jslib类数组元素.如果dom元素无效,不会执行函数
+     * 遍历jslib类数组元素.
      * @param {Function} fn fn(item,index),fn返回false时,循环break,返回true时,循环continue
      */
     jslib.prototype.each = function (fn) {
         for (let i = 0, len = this.length; i < len; i++) {
-            if (!this[i]) continue;
             let re = fn(this[i], i);
             if (re == true)
                 continue;
@@ -508,7 +506,7 @@ factory.extend({
         return false;
     },
     /**
-     * 设置所有匹配的元素的innerTEXT.无参数时,返回第一个元素的innerText内容(原生: innerText)
+     * 设置所有匹配的元素的innerText.无参数时,返回第一个元素的innerText内容(原生: innerText)
      * @param {string} val 设置的文本
      * @returns {jslib} 取值时返回值.否则返回this
      */
@@ -750,7 +748,7 @@ factory.datefmt = (date, fmtstr) => {
 /**
  * 将时间字符串转换为Date对象.
  * 支持格式: yyyy/mm/dd yyyy-mm-dd yyyy/mm/dd hh:mm:ss 时分秒可省略自动补0,年月日必须.年份4位月日时分秒支持1位.
- * @param {any} fmtstr 时间格式的字符串
+ * @param {string} fmtstr 时间格式的字符串
  * @returns {Date|null} 成功时返回Date对象,失败返回null
  */
 factory.dateByfmt = (fmtstr) => {
@@ -947,18 +945,18 @@ if (!win.$)
     const inputCls = 'formcheck-err',
         errmsgCls = 'formcheck-errmsg';
     //
-    let $ = win.lib;
+    let _$ = win.lib;
     /**
      * 清除表单元素的错误样式和提示语.
      * @param {HTMLElement|any} elem input,textarea元素
      */
-    $.formClear = (elem) => {
-        if ($(elem).hasClass(inputCls)) {
-            $(elem).next('.' + errmsgCls).remove();
+    _$.formClear = (elem) => {
+        if (_$(elem).hasClass(inputCls)) {
+            _$(elem).next('.' + errmsgCls).remove();
             elem.style.backgroundColor = null;
             elem.parentNode.style.position = null;
         }
-        elem.removeEventListener('focus', $.formClear);
+        elem.removeEventListener('focus', _$.formClear);
     };
     // 
     /**
@@ -966,33 +964,33 @@ if (!win.$)
      * @param {HTMLElement|any} elem input,textarea元素
      * @param {string} msg 提示语
      */
-    $.formAlert = (elem, msg) => {
+    _$.formAlert = (elem, msg) => {
         let bgColor = '#ffebec', fgColor = '#e6393d';
         // input加背景色
-        $(elem).addClass(inputCls);
+        _$(elem).addClass(inputCls);
         elem.style.backgroundColor = bgColor;
         // input父级相对定位
         elem.parentNode.style.position = 'relative';
         // 显示提示语的span.其长度,背景色与input相同.显示在input正下方,对齐input左边
-        let errmsg = $('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
-        errmsg.style.cssText = $.format(
+        let errmsg = _$('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
+        errmsg.style.cssText = _$.format(
             'position:absolute;top:{0}px;left:{1}px;padding:3px;background-color:{2};color:{3};width:{4}px',
             elem.offsetTop + elem.offsetHeight, elem.offsetLeft, bgColor, fgColor, elem.offsetWidth);
-        $(elem).after(errmsg);
+        _$(elem).after(errmsg);
         // 焦点事件
-        elem.addEventListener('focus', () => { $.formClear(elem) });
+        elem.addEventListener('focus', () => { _$.formClear(elem) });
     };
     /**
      * 验证表单元素的值
      * @param {HTMLElement|any} elem input,textarea元素
      * @returns {boolean} t/f 
      */
-    $.formCheck = (elem) => {
+    _$.formCheck = (elem) => {
         // 1.验证准备
         // 获取验证类型和错误提示语.元素上的vtype属性值(多个验证用|隔开).未找到或者类型错误则退出
         let vtypeStr = elem.getAttribute('vtype');
         // 没有在要验证的元素上设置vtype属性,忽略并通过
-        if ($.isNullOrWhiteSpace(vtypeStr))
+        if (_$.isNullOrWhiteSpace(vtypeStr))
             return true;
 
         //
@@ -1006,26 +1004,26 @@ if (!win.$)
         // 自定义的错误提示信息,多个也是|号分开.与vtype索引对应
         let validerrmsg = [],
             verrmsgStr = elem.getAttribute('verrmsg');
-        if (!$.isNullOrWhiteSpace(verrmsgStr))
+        if (!_$.isNullOrWhiteSpace(verrmsgStr))
             validerrmsg = verrmsgStr.split("|");
 
         // 长度验证参数来自input上的maxlength,minlength属性值
         let maxlen = elem.getAttribute('maxlength');
         let minlen = elem.getAttribute('minlength');
         // 验证前清除旧的提示语span(如果有)
-        $.formClear(elem);
+        _$.formClear(elem);
         // 2.开始验证
         for (var n = 0, nlen = validtype.length; n < nlen; n++) {
             // 执行验证的函数名字
             let vfunname = vType[validtype[n]];
             // 验证
-            let isValid = $[vfunname](elem.value);
+            let isValid = _$[vfunname](elem.value);
             if (validtype[n] === 'minlen')
-                isValid = !$[vfunname](elem.value, minlen);
+                isValid = !_$[vfunname](elem.value, minlen);
             else if (validtype[n] === 'maxlen')
-                isValid = !$[vfunname](elem.value, maxlen);
+                isValid = !_$[vfunname](elem.value, maxlen);
             if (!isValid) {
-                $.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
+                _$.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
                 return false;
             }
         }
@@ -1037,7 +1035,7 @@ if (!win.$)
      * @param {HTMLElement} parent 容器元素dom对象
      * @returns {any} json对象
      */
-    $.formJson = (parent) => {
+    _$.formJson = (parent) => {
         let nodelist = parent.querySelectorAll("input[name],select[name],textarea[name]");
         let json = {};
         nodelist.forEach((item) => {
@@ -1066,7 +1064,6 @@ if (!win.$)
 // (详细讲解)https://www.cnblogs.com/libin-1/p/6853677.html
 // ====================================================================
 ((win) => {
-    let $ = win.lib;
     /**
      * 简易post方式Ajax,对参数做了包装,第一个then()对请求结果判断成败,丢出异常. 内部使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
@@ -1075,7 +1072,7 @@ if (!win.$)
      * @param {string} resType 返回值类型 默认"json",可选"html"
      * @returns {Promise} fetch().then()返回的Promise对象
      */
-    $.post = (url, data, initCfg = null, resType = 'json') => {
+    win.lib.post = (url, data, initCfg = null, resType = 'json') => {
         let formData = new FormData();
         if (data instanceof FormData) {
             formData = data;
@@ -1102,12 +1099,12 @@ if (!win.$)
     /**
      * 简易 get方式Ajax,对para参数转换为url参数,对请求结果判断成败. 使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
-     * @param {Function} para data json对象或者FormData对象,转化为url参数
+     * @param {any|FormData} para json对象或者FormData对象,转化为url参数
      * @param {RequestInit} initCfg fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证
      * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {Promise} fetch()方法返回的Promise对象
      */
-    $.get = (url, para, initCfg = null, resType = 'html') => {
+    win.lib.get = (url, para, initCfg = null, resType = 'html') => {
         let urlpara = [];
         if (para) {
             if (para instanceof FormData) {

@@ -73,19 +73,17 @@
         Array.prototype.splice.call(this, 0);
         if (elemlist) {
             elemlist.forEach((item) => {
-                if (!this.contains(item))
-                    this.push(item);
+                this.push(item);
             });
         }
         return this;
     };
     /**
-     * 遍历jslib类数组元素.如果dom元素无效,不会执行函数
+     * 遍历jslib类数组元素.
      * @param {Function} fn fn(item,index),fn返回false时,循环break,返回true时,循环continue
      */
     jslib.prototype.each = function (fn) {
         for (let i = 0, len = this.length; i < len; i++) {
-            if (!this[i]) continue;
             let re = fn(this[i], i);
             if (re == true)
                 continue;
@@ -508,7 +506,7 @@ factory.extend({
         return false;
     },
     /**
-     * 设置所有匹配的元素的innerTEXT.无参数时,返回第一个元素的innerText内容(原生: innerText)
+     * 设置所有匹配的元素的innerText.无参数时,返回第一个元素的innerText内容(原生: innerText)
      * @param {string} val 设置的文本
      * @returns {jslib} 取值时返回值.否则返回this
      */

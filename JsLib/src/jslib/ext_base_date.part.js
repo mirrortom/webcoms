@@ -43,7 +43,7 @@ factory.datefmt = (date, fmtstr) => {
 /**
  * 将时间字符串转换为Date对象.
  * 支持格式: yyyy/mm/dd yyyy-mm-dd yyyy/mm/dd hh:mm:ss 时分秒可省略自动补0,年月日必须.年份4位月日时分秒支持1位.
- * @param {any} fmtstr 时间格式的字符串
+ * @param {string} fmtstr 时间格式的字符串
  * @returns {Date|null} 成功时返回Date对象,失败返回null
  */
 factory.dateByfmt = (fmtstr) => {

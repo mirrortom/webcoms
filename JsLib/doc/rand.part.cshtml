@@ -1,0 +1,22 @@
+﻿@*
+  1.模板页名字规定: "页面名字.part.cshtml""
+  2.内容容器固定如下:
+    <div class="doc-part-box" id="页面名字">
+      <h2>标题</h2>
+      ......
+      ......
+    </div>
+*@
+<div class="doc-part-box" id="rand">
+  <h2>rand</h2>
+  <p class="article-title">$.nextInt(intMin, intMax)</p>
+  <p>生成一个非负随机整数</p>
+  <p><b class="bg-gray">intMin</b><span class="mg-l-20">number ,起始值(>0整数,含)</span></p>
+  <p><b class="bg-gray">intMax</b><span class="mg-l-20">number ,intMax:结束值(大于起始值整数,不含)</span></p>
+  <p><b class="bg-gray">返回</b><span class="mg-l-20">number ,返回整数,范围在 [intMin ~ intMax)</span></p>
+  <pre class="bg-gray">
+    let randNum = $.nextInt(0,100);
+    // 返回0,100间的数,不含100
+
+</pre>
+</div>

@@ -73,19 +73,17 @@
         Array.prototype.splice.call(this, 0);
         if (elemlist) {
             elemlist.forEach((item) => {
-                if (!this.contains(item))
-                    this.push(item);
+                this.push(item);
             });
         }
         return this;
     };
     /**
-     * 遍历jslib类数组元素.如果dom元素无效,不会执行函数
+     * 遍历jslib类数组元素.
      * @param {Function} fn fn(item,index),fn返回false时,循环break,返回true时,循环continue
      */
     jslib.prototype.each = function (fn) {
         for (let i = 0, len = this.length; i < len; i++) {
-            if (!this[i]) continue;
             let re = fn(this[i], i);
             if (re == true)
                 continue;

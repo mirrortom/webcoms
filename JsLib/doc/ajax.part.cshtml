@@ -1,0 +1,53 @@
+﻿@*
+  1.模板页名字规定: "页面名字.part.cshtml""
+  2.内容容器固定如下:
+    <div class="doc-part-box" id="页面名字">
+      <h2>标题</h2>
+      ......
+      ......
+    </div>
+*@
+<div class="doc-part-box" id="ajax">
+  <h2>ajax</h2>
+  <p>内部使用fetch()方法实现.简单处理了参数,方便使用.</p>
+  <p class="article-title">$.post(url, data, initCfg = null, resType = 'json')</p>
+  <p>简易post方式Ajax,对参数做了包装,第一个then()对请求结果判断成败,丢出异常.</p>
+  <p>外部调用后可以继续使用then(),catch().</p>
+  <p><b class="bg-gray">url</b><span class="mg-l-20">string ,请求地址</span></p>
+  <p><b class="bg-gray">data</b><span class="mg-l-20">any|FormData ,json对象或者FormData对象,如果是json对象,会转化成FormData对象</span></p>
+  <p><b class="bg-gray">initCfg</b><span class="mg-l-20">RequestInit ,fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证</span></p>
+  <p><b class="bg-gray">string</b><span class="mg-l-20">string ,返回值类型 默认"json",可选"html"</span></p>
+  <p><b class="bg-gray">返回</b><span class="mg-l-20">Promise ,fetch().then()返回的Promise对象</span></p>
+  <pre class="bg-gray">
+  let para = { p1:'',p2:'' };
+  $.post('https://www.api.io/test/post', para)
+    // 这个data默认服务器返回的是json对象
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log('服务器异常')
+    })
+
+</pre>
+  <br />
+  <p class="article-title">$.post(url, para, initCfg = null, resType = 'html')</p>
+  <p>简易 get方式Ajax,对para参数转换为url参数,对请求结果判断成败.</p>
+  <p><b class="bg-gray">url</b><span class="mg-l-20">string ,请求地址</span></p>
+  <p><b class="bg-gray">data</b><span class="mg-l-20">any|FormData ,para json对象或者FormData对象,转化为url参数</span></p>
+  <p><b class="bg-gray">initCfg</b><span class="mg-l-20">RequestInit ,fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证</span></p>
+  <p><b class="bg-gray">string</b><span class="mg-l-20">string ,resType 返回值类型 默认"html",可选"json"</span></p>
+  <p><b class="bg-gray">返回</b><span class="mg-l-20">Promise ,fetch().then()返回的Promise对象</span></p>
+  <pre class="bg-gray">
+  let para = { p1:'',p2:'' };
+  $.get('https://www.api.io/test/get', para)
+    // 这个html默认服务器返回的是html字符串
+    .then((html) => {
+      console.log(html);
+    })
+    .catch((err) => {
+      console.log('服务器异常')
+    })
+
+</pre>
+</div>
