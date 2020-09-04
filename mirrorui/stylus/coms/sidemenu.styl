@@ -22,14 +22,14 @@
     // 菜单项的下划线去掉
     &-item:hover
         text-decoration: none
-        color: var-font-color
+        color: var-white
     // 菜单项选中
     &-item.active
         font-weight: 600
         background-color: #00000050
     // 菜单项hover
     &-item:not(.active):hover
-        background-color: var-grayse
+        background-color: #00000050
     // 菜单组标题
     &-label
         display: block
@@ -58,4 +58,4 @@ for key, val in $themeColorsKV
         &-box.{key} &-item.active
             color: var-white
         &-box.{key} &-item:not(.active):hover
-            background-color: var-gray
+            background-color: #00000050

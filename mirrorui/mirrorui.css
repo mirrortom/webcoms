@@ -1862,14 +1862,14 @@ p {
 }
 .sidemenu-item:hover {
   text-decoration: none;
-  color: var(--font-color);
+  color: var(--white);
 }
 .sidemenu-item.active {
   font-weight: 600;
   background-color: rgba(0,0,0,0.314);
 }
 .sidemenu-item:not(.active):hover {
-  background-color: var(--grayse);
+  background-color: rgba(0,0,0,0.314);
 }
 .sidemenu-label {
   display: block;
@@ -1909,7 +1909,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.primary .sidemenu-item:not(.active):hover {
-  background-color: var(--gray);
+  background-color: rgba(0,0,0,0.314);
 }
 .sidemenu-box.danger {
   background-color: var(--danger);
@@ -1918,7 +1918,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.danger .sidemenu-item:not(.active):hover {
-  background-color: var(--gray);
+  background-color: rgba(0,0,0,0.314);
 }
 .sidemenu-box.success {
   background-color: var(--success);
@@ -1927,7 +1927,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.success .sidemenu-item:not(.active):hover {
-  background-color: var(--gray);
+  background-color: rgba(0,0,0,0.314);
 }
 .sidemenu-box.info {
   background-color: var(--info);
@@ -1936,7 +1936,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.info .sidemenu-item:not(.active):hover {
-  background-color: var(--gray);
+  background-color: rgba(0,0,0,0.314);
 }
 .sidemenu-box.warning {
   background-color: var(--warning);
@@ -1945,7 +1945,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.warning .sidemenu-item:not(.active):hover {
-  background-color: var(--gray);
+  background-color: rgba(0,0,0,0.314);
 }
 .panel {
   border: 1px solid var(--grayse);
@@ -2892,7 +2892,7 @@ p {
   display: inline-grid;
   grid-template-columns: auto auto;
   grid-template-rows: auto auto;
-  align-items: center;
+  place-items: center;
 }
 .kvpair.sm {
   font-size: 12px;
