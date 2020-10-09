@@ -2038,14 +2038,14 @@ contDom:
     // 菜单项点击
     let bindEvent_menuItem = (menuDom, menuItemClickE) => {
         let clsN = 'active';
-        menuDom.querySelectorAll('.sidemenu-item').forEach((item) => {
+        menuDom.querySelectorAll('.sidemenu-item').forEach((item,index) => {
             item.onclick = () => {
                 menuDom.querySelectorAll('.sidemenu-item.active').forEach((item) => {
                     item.classList.remove(clsN);
                 });
                 item.classList.add(clsN);
                 if (typeof menuItemClickE == 'function')
-                    menuItemClickE(item);
+                    menuItemClickE(item,index);
             }
         });
     };
