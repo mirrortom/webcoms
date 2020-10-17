@@ -31,6 +31,7 @@
   <div class="mg-tb-10">
     <span class="btn-group">
       <a class="btn" id="msg1">msgshow.ok()</a>
+      <a class="btn" id="msg11">msgshow.info()</a>
       <a class="btn" id="msg2">msgshow.err()</a>
       <a class="btn" id="msg3">msgshow.warn()</a>
       <a class="btn" id="msg4">msgshow.show()</a>
@@ -59,6 +60,9 @@
       let msg1 = msgshow('#msgbox1');
       document.getElementById('msg1').onclick = () => {
         msg1.ok('操作成功.');
+      }
+      document.getElementById('msg11').onclick = () => {
+        msg1.info('操作成功2.');
       }
       document.getElementById('msg2').onclick = () => {
         msg1.err('操作失败.');

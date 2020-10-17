@@ -14,6 +14,7 @@
     let msgshow = (id) => {
         let obj = {};
         obj.id = id;
+        //
         /** 
          * 在页面上提示信息.如果只传id,就清空容器.
          * @param {string} msg 信息内容
@@ -22,23 +23,38 @@
          */
         obj.show = function (msg, title, clsN) {
             if (!this.id) return;
-            let tpl = `<div class="msgshow ${clsN}"><span class="title">${title}</span><span class="text">${msg}</span></div>`;
-            M(this.id).html(tpl);
+            let tpl = `<div class="msgshow ${clsN}"><span class="title">${title}</span><span class="text">${msg}</span><b class="close">x</b></div>`;
+            M(this.id).html(tpl).find('.close')[0].onclick = () => {
+                this.clear();
+            }
         }
         obj.ok = function (msg) {
             if (!this.id) return;
-            let tpl = `<div class="msgshow success"><span class="title">\u2714 成功</span><span class="text">${msg}</span></div>`;
-            M(this.id).html(tpl);
+            let tpl = `<div class="msgshow success"><span class="title">\u2714 成功</span><span class="text">${msg}</span><b class="close">x</b></div>`;
+            M(this.id).html(tpl).find('.close')[0].onclick = () => {
+                this.clear();
+            }
+        }
+        obj.info = function (msg) {
+            if (!this.id) return;
+            let tpl = `<div class="msgshow info"><span class="title">! 提示</span><span class="text">${msg}</span><b class="close">x</b></div>`;
+            M(this.id).html(tpl).find('.close')[0].onclick = () => {
+                this.clear();
+            }
         }
         obj.err = function (msg) {
             if (!this.id) return;
-            let tpl = `<div class="msgshow danger"><span class="title">\u2716 错误</span><span class="text">${msg}</span></div>`;
-            M(this.id).html(tpl);
+            let tpl = `<div class="msgshow danger"><span class="title">\u2716 错误</span><span class="text">${msg}</span><b class="close">x</b></div>`;
+            M(this.id).html(tpl).find('.close')[0].onclick = () => {
+                this.clear();
+            }
         }
         obj.warn = function (msg) {
             if (!this.id) return;
-            let tpl = `<div class="msgshow warning"><span class="title">\u26A0 警示</span><span class="text">${msg}</span></div>`;
-            M(this.id).html(tpl);
+            let tpl = `<div class="msgshow warning"><span class="title">\u26A0 警示</span><span class="text">${msg}</span><b class="close">x</b></div>`;
+            M(this.id).html(tpl).find('.close')[0].onclick = () => {
+                this.clear();
+            }
         }
         obj.clear = function () {
             if (!this.id) return;
