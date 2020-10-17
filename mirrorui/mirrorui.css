@@ -36,7 +36,8 @@ td {
   --font-size: 14px;
   --font-color: #343a40;
   --gray: #dee2e6;
-  --grayse: #abb5bf;
+  --graylt: #eef1f3;
+  --grayse: #b7c0c9;
   --white: #fff;
   --primary: #6c6;
   --danger: #dc3545;
@@ -48,6 +49,11 @@ td {
   --successse: #228e3b;
   --warningse: #dfa700;
   --infose: #148a9c;
+  --primarylt: #b3e6b3;
+  --dangerlt: #ee9aa2;
+  --successlt: #85e29a;
+  --warninglt: #ffe083;
+  --infolt: #78deee;
 }
 html {
   font-size: 100px;
@@ -2814,6 +2820,47 @@ p {
 .onoff-check:checked + .onoff-label.warning {
   background-color: var(--warning);
   border-color: var(--warningse);
+}
+.msgshow {
+  padding: 0.8em;
+  font-size: var(--font-size);
+  background-color: var(--graylt);
+  border-radius: 4px;
+}
+.msgshow .title {
+  font-weight: 600;
+}
+.msgshow .text {
+  margin-left: 1em;
+}
+.msgshow.primary {
+  background-color: var(--primarylt);
+  color: var(--primaryse);
+}
+.msgshow.danger {
+  background-color: var(--dangerlt);
+  color: var(--dangerse);
+}
+.msgshow.success {
+  background-color: var(--successlt);
+  color: var(--successse);
+}
+.msgshow.info {
+  background-color: var(--infolt);
+  color: var(--infose);
+}
+.msgshow.warning {
+  background-color: var(--warninglt);
+  color: var(--warningse);
+}
+.msgshow.sm {
+  font-size: 12px;
+}
+.msgshow.lg {
+  font-size: calc(var(--font-size) * 1.3);
+}
+.msgshow.xl {
+  font-size: calc(var(--font-size) * 1.6);
 }
 .pageload {
   display: flex;

@@ -1,0 +1,77 @@
+﻿@*
+  1.模板页名字规定: "页面名字.part.cshtml""
+  2.内容容器固定如下:
+<div class="doc-part-box" id="页面名字">
+  <h2>标题</h2>
+  ......
+  ......
+</div>
+*@
+<div class="doc-part-box" id="msgshow">
+  <h2>信息提示</h2>
+  <p>在页面上显示一个提示信息,可用于操作后返回一个结果说明.</p>
+  <div class="msgshow"><span class="title">提示</span><span class="text">提示内容</span></div>
+  <br />
+  <div class="msgshow success lg"><span class="title">成功</span><span class="text">操作完成</span></div>
+  <br />
+  <pre class="bg-gray">
+
+&lt;div class="msgshow"&gt;&lt;span class="title"&gt;提示&lt;/span&gt;&lt;span class="text"&gt;提示内容&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class="msgshow success lg"&gt;&lt;span class="title"&gt;成功&lt;/span&gt;&lt;span class="text"&gt;操作完成&lt;/span&gt;&lt;/div&gt;
+
+</pre>
+  <br />
+  @foreach (var item in Model.themecolors)
+  {
+  <div class="msgshow @item"><span class="title">提示</span><span class="text"> @item</span></div>
+  <br />
+  }
+  <p>使用js在一个div中生成提示框</p>
+  <div class="mg-tb-10">
+    <span class="btn-group">
+      <a class="btn" id="msg1">msgshow.ok()</a>
+      <a class="btn" id="msg2">msgshow.err()</a>
+      <a class="btn" id="msg3">msgshow.warn()</a>
+      <a class="btn" id="msg4">msgshow.show()</a>
+      <a class="btn" id="msg5">msgshow.clear()</a>
+    </span>
+  </div>
+  <div id="msgbox1"></div>
+  <br />
+  <pre class="bg-gray">
+
+  let msg1 = msgshow('#msgbox1');
+  // 成功
+  msg1.ok('操作成功.');
+  // 失败
+  msg1.err('操作失败.');
+  // 警告
+  msg1.warn('非法操作.');
+  // 自定义
+  msg1.show('自定义内容', '自定标题', 'bg-graylt');
+  // 清空
+  msg1.clear();
+
+</pre>
+  <script>
+    (() => {
+      let msg1 = msgshow('#msgbox1');
+      document.getElementById('msg1').onclick = () => {
+        msg1.ok('操作成功.');
+      }
+      document.getElementById('msg2').onclick = () => {
+        msg1.err('操作失败.');
+      }
+      document.getElementById('msg3').onclick = () => {
+        msg1.warn('非法操作.');
+      }
+      document.getElementById('msg4').onclick = () => {
+        msg1.show('自定义内容', '自定标题', 'bg-graylt');
+      }
+      document.getElementById('msg5').onclick = () => {
+        msg1.clear();
+      }
+    })();
+  </script>
+</div>

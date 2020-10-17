@@ -1,0 +1,19 @@
+﻿// 信息提示框
+.msgshow
+    padding: 0.8em
+    font-size: var-font-size
+    background-color: var-graylt
+    border-radius: 4px
+    & .title
+        font-weight: 600
+    & .text
+        margin-left: 1em
+// 颜色
+for key, val in $themeColorsKV
+    .msgshow.{key}
+        background-color: val[2]
+        color: val[1]
+// 字体大小
+for key, val in $fontSizeKV
+    .msgshow.{key}
+        font-size: val

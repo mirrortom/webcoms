@@ -5,41 +5,54 @@ var-font-color = var(--font-color)
 // 白色
 $white = #fff
 var-white = var(--white)
-// 灰色(默认颜色)
+// 灰色(默认颜色) 第一个lt是减轻色 第2个se是加重色,后同
 $gray = #dee2e6
-$grayse = darken($gray, 20%)
+$graylt = lighten($gray, 50%)
+$grayse = darken($gray, 15%)
 var-gray = var(--gray)
+var-graylt = var(--graylt)
 var-grayse = var(--grayse)
-// 主题颜色 第2个se是加重色,后同
+// 主题颜色 
 $primary = #6C6
+$primarylt = lighten($primary, 50%)
 $primaryse = darken($primary, 15%)
 var-primary = var(--primary)
+var-primarylt = var(--primarylt)
 var-primaryse = var(--primaryse)
 // 红色警示
 $danger = #dc3545
+$dangerlt = lighten($danger, 50%)
 $dangerse = darken($danger, 15%)
 var-danger = var(--danger)
+var-dangerlt = var(--dangerlt)
 var-dangerse = var(--dangerse)
 // 绿色成功
 $success = #28a745
+$successlt = lighten($success, 50%)
 $successse = darken($success, 15%)
 var-success = var(--success)
+var-successlt = var(--successlt)
 var-successse = var(--successse)
 // 黄色警示
 $warning = #ffc107
+$warninglt = lighten($warning, 50%)
 $warningse = darken($warning, 15%)
 var-warning = var(--warning)
+var-warninglt = var(--warninglt)
 var-warningse = var(--warningse)
 // 蓝色提示
 $info = #17a2b8
+$infolt = lighten($info, 50%)
 $infose = darken($info, 15%)
 var-info = var(--info)
+var-infolt = var(--infolt)
 var-infose = var(--infose)
-// 主题颜色css变量KV对-用于for循环,key是主题class名,val值是一个数组,0位是主题色css变量,1位是颜色加深的css变量
+// 主题颜色css变量KV对-用于for循环,key是主题class名,
+// val值是一个数组,0位是主题色css变量,1位是颜色加深的css变量,2位是减淡色
 $themeColorsKV = {
-    primary: (var-primary var-primaryse),
-    danger: (var-danger var-dangerse),
-    success: (var-success var-successse),
-    info: (var-info var-infose),
-    warning: (var-warning var-warningse)
+    primary: (var-primary var-primaryse var-primarylt),
+    danger: (var-danger var-dangerse var-dangerlt),
+    success: (var-success var-successse var-successlt),
+    info: (var-info var-infose var-infolt),
+    warning: (var-warning var-warningse var-warninglt)
 }
