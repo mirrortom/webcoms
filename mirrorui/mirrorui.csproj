@@ -39,6 +39,7 @@
     <Content Include="js\form.js" />
     <Content Include="js\help.js" />
     <Content Include="js\msgbox.js" />
+    <Content Include="js\msgshow.js" />
     <Content Include="js\mydate.js" />
     <Content Include="js\pagenum.js" />
     <Content Include="js\sidemenu.js" />
@@ -59,6 +60,7 @@
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
     <None Include="compilerconfig.json" />
+    <None Include="doc\msgshow.part.cshtml" />
     <None Include="doc\kvpair.part.cshtml" />
     <None Include="doc\pageload.part.cshtml" />
     <None Include="doc\onoff.part.cshtml" />
@@ -96,6 +98,7 @@
     <None Include="stylus\coms\form.styl" />
     <None Include="stylus\coms\grids.styl" />
     <None Include="stylus\coms\h1h6p.styl" />
+    <None Include="stylus\coms\msgshow.styl" />
     <None Include="stylus\coms\onoff.styl" />
     <None Include="stylus\coms\hr.styl" />
     <None Include="stylus\coms\label.styl" />
