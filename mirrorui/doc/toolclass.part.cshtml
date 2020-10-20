@@ -16,8 +16,8 @@
   <p class="article-title">文本大小</p>
   <div class="grids-3">
     <p class="text-sm pd-5 text-center bg-warning">class="text-sm" 小号字12px</p>
-    <p class="text-lg pd-5 text-center bg-danger">class="text-lg" 大</p>
-    <p class="text-xl pd-5 text-center bg-success">class="text-xl" 巨大</p>
+    <p class="text-lg pd-5 text-center bg-danger">class="text-lg" 大 16px</p>
+    <p class="text-xl pd-5 text-center bg-success">class="text-xl" 巨大 20px</p>
   </div>
   <p class="article-title">段落开头空2em</p>
   <p class="text-s">class="text-s" 这个用于一段文字,开头空2em.表示一段文字的开始.</p>
@@ -26,40 +26,58 @@
   <div class="grids-5">
     @foreach (var item in Model.themecolors)
     {
-      <p class="text-@item">class="text-@item"</p>
+    <p class="text-@item">class="text-@item"</p>
     }
   </div>
-  <p>深色</p>
+  <p>深色 se</p>
   <div class="grids-5">
     @foreach (var item in Model.themecolors)
     {
-      string se = item + "se";
-      <p class="text-@se">class="text-@se"</p>
+    string se = item + "se";
+    <p class="text-@se">class="text-@se"</p>
+    }
+  </div>
+  <p>淡色 lt</p>
+  <div class="grids-5">
+    @foreach (var item in Model.themecolors)
+    {
+    string lt = item + "lt";
+    <p class="text-@lt">class="text-@lt"</p>
     }
   </div>
   <p>其它</p>
   <span class="text-white bg-dark pd-5">白色文字 class="text-white"</span>
   <span class="text-gray bg-success pd-5">灰色文字 class="text-gray"</span>
   <span class="text-grayse bg-danger pd-5">加深灰色文字 class="text-grayse"</span>
+  <span class="text-graylt bg-danger pd-5">减淡灰色文字 class="text-graylt"</span>
   <p class="article-title">背景颜色</p>
   <p>主题背景颜色</p>
   <div class="grids-5">
     @foreach (var item in Model.themecolors)
     {
-      <p class="bg-@item pd-5 text-white text-center">class="bg-@item"</p>
+    <p class="bg-@item pd-5 text-white text-center">class="bg-@item"</p>
     }
   </div>
-  <p>深色</p>
+  <p>深色 se</p>
   <div class="grids-5">
     @foreach (var item in Model.themecolors)
     {
-      string se = item + "se";
-      <p class="bg-@se pd-5 text-white text-center">class="bg-@se"</p>
+    string se = item + "se";
+    <p class="bg-@se pd-5 text-white text-center">class="bg-@se"</p>
+    }
+  </div>
+  <p>淡色 lt</p>
+  <div class="grids-5">
+    @foreach (var item in Model.themecolors)
+    {
+    string lt = item + "lt";
+    <p class="bg-@lt pd-5 text-white text-center">class="bg-@lt"</p>
     }
   </div>
   <p>其它</p>
   <span class="bg-gray pd-5">灰色背景 class="bg-gray"</span>
   <span class="bg-grayse pd-5">加深灰色背景 class="bg-grayse"</span>
+  <span class="bg-graylt pd-5">减淡灰色背景 class="bg-graylt"</span>
   <span class="text-white bg-dark pd-5">暗色背景 class="bg-dark"</span>
 
   <p class="article-title">边距margin 内容距padding</p>

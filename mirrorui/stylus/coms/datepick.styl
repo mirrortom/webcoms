@@ -2,7 +2,6 @@
 // 外层容器
 .date-box
     position: absolute
-    box-sizing: border-box
     width: 308px
     cursor: default
     border: 1px solid var-grayse
@@ -10,7 +9,6 @@
     text-align: center
     box-shadow: 1px 1px 10px var-grayse
     background-color: #fff
-    font-size: 14px
     outline: none
     -webkit-user-select: none
     -moz-user-select: none
@@ -21,11 +19,9 @@
     // 年,月,今天容器
     &-ymt
         display: flex
-        box-sizing: border-box
     // 年,月,今天按钮容器
     &-year, &-month, &-today
         position: relative
-        box-sizing: border-box
         padding: 0 4px
     &-year
         flex: 0 1 44%
@@ -36,12 +32,10 @@
 // 星期容器(第二行)
 .date-area-week
     display: flex
-    box-sizing: border-box
     padding: 5px 0
 // 日容器(第三行)
 .date-area-day
     display: flex
-    box-sizing: border-box
     flex-wrap: wrap
 // 时,分,秒,删除,确定 容器(第四行)
 .date-area
@@ -118,11 +112,9 @@
         line-height: 26px
         cursor: pointer
     &-year, &-month
-        box-sizing: border-box
         color: var-font-color
         width: calc(100% - 52px)
     &-today, &-prev, &-next
-        box-sizing: border-box
         color: var-primary
     &-today, &-clear, &-ok
         width: 100%
@@ -165,3 +157,32 @@
     &-today, &-today:hover
         color: #fff
         background-color: var-primary
+// 手机版显示
+@media only screen and (max-width: $screen-phone) 
+    .date-box
+        position: fixed
+        width: calc(100vw - 2px)
+        height: 312px
+        border-color: #007bff
+        right: 0
+        margin: auto
+
+    .date-btn
+        &-year, &-month, &-today, &-prev, &-next, &-time, &-clear, &-ok
+            height: 36px
+            line-height: 36px
+
+        &-year, &-month
+            width: calc(100% - 72px)
+
+        &-prev, &-next
+            width: 36px
+
+    .date-option
+        &-year, &-month, &-hour, &-minute, &-second
+            height: 36px
+            line-height: 36px
+
+    .date-select
+        &-hour, &-minute, &-second
+            bottom: 38px

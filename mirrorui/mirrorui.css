@@ -34,6 +34,7 @@ td {
 }
 :root {
   --font-size: 14px;
+  --font-m-size: 16px;
   --font-color: #343a40;
   --gray: #dee2e6;
   --graylt: #eef1f3;
@@ -65,6 +66,11 @@ body {
   color: var(--font-color);
   background-color: #fff;
 }
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: var(--font-m-size);
+  }
+}
 img {
   vertical-align: middle;
 }
@@ -93,10 +99,10 @@ a {
   font-size: 12px !important;
 }
 .text-lg {
-  font-size: calc(var(--font-size) * 1.3) !important;
+  font-size: 0.16rem !important;
 }
 .text-xl {
-  font-size: calc(var(--font-size) * 1.6) !important;
+  font-size: 0.2rem !important;
 }
 .text-left {
   text-align: left !important;
@@ -116,11 +122,17 @@ a {
 .text-primaryse {
   color: var(--primaryse) !important;
 }
+.text-primarylt {
+  color: var(--primarylt) !important;
+}
 .text-danger {
   color: var(--danger) !important;
 }
 .text-dangerse {
   color: var(--dangerse) !important;
+}
+.text-dangerlt {
+  color: var(--dangerlt) !important;
 }
 .text-success {
   color: var(--success) !important;
@@ -128,17 +140,26 @@ a {
 .text-successse {
   color: var(--successse) !important;
 }
+.text-successlt {
+  color: var(--successlt) !important;
+}
 .text-info {
   color: var(--info) !important;
 }
 .text-infose {
   color: var(--infose) !important;
 }
+.text-infolt {
+  color: var(--infolt) !important;
+}
 .text-warning {
   color: var(--warning) !important;
 }
 .text-warningse {
   color: var(--warningse) !important;
+}
+.text-warninglt {
+  color: var(--warninglt) !important;
 }
 .text-white {
   color: var(--white) !important;
@@ -149,11 +170,17 @@ a {
 .text-grayse {
   color: var(--grayse) !important;
 }
+.text-graylt {
+  color: var(--graylt) !important;
+}
 .bg-primary {
   background-color: var(--primary) !important;
 }
 .bg-primaryse {
   background-color: var(--primaryse) !important;
+}
+.bg-primarylt {
+  background-color: var(--primarylt) !important;
 }
 .bg-danger {
   background-color: var(--danger) !important;
@@ -161,11 +188,17 @@ a {
 .bg-dangerse {
   background-color: var(--dangerse) !important;
 }
+.bg-dangerlt {
+  background-color: var(--dangerlt) !important;
+}
 .bg-success {
   background-color: var(--success) !important;
 }
 .bg-successse {
   background-color: var(--successse) !important;
+}
+.bg-successlt {
+  background-color: var(--successlt) !important;
 }
 .bg-info {
   background-color: var(--info) !important;
@@ -173,11 +206,17 @@ a {
 .bg-infose {
   background-color: var(--infose) !important;
 }
+.bg-infolt {
+  background-color: var(--infolt) !important;
+}
 .bg-warning {
   background-color: var(--warning) !important;
 }
 .bg-warningse {
   background-color: var(--warningse) !important;
+}
+.bg-warninglt {
+  background-color: var(--warninglt) !important;
 }
 .bg-white {
   background: var(--white) !important;
@@ -187,6 +226,9 @@ a {
 }
 .bg-grayse {
   background: var(--grayse) !important;
+}
+.bg-graylt {
+  background: var(--graylt) !important;
 }
 .bg-dark {
   background: var(--font-color) !important;
@@ -1122,41 +1164,39 @@ h6 {
 }
 h1,
 h2,
-h3 {
-  margin: calc(var(--font-size) * 1.5) auto;
-}
+h3,
 h4,
 h5,
 h6 {
-  margin: var(--font-size) auto;
+  margin: 0.08rem auto;
 }
 h1 {
-  font-size: calc(var(--font-size) * 2.6);
+  font-size: 0.4rem;
 }
 h2 {
-  font-size: calc(var(--font-size) * 2.2);
+  font-size: 0.32rem;
 }
 h3 {
-  font-size: calc(var(--font-size) * 1.8);
+  font-size: 0.28rem;
 }
 h4 {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.24rem;
 }
 h5 {
-  font-size: var(--font-size);
+  font-size: 0.2rem;
 }
 h6 {
-  font-size: 12px;
+  font-size: 0.16rem;
 }
 p {
-  margin: 0 0 var(--font-size);
+  margin: 0 0 0.14rem;
 }
 .line {
   height: 1px;
   background-color: var(--grayse);
   border: none;
   outline: none;
-  margin: calc(var(--font-size) * 2) auto;
+  margin: 2em auto;
   padding: 0;
 }
 .line.primary {
@@ -1177,7 +1217,6 @@ p {
 .btn {
   display: inline-block;
   padding: 0.4em 0.7em;
-  font-size: var(--font-size);
   font-weight: 400;
   color: var(--font-color);
   text-align: center;
@@ -1273,10 +1312,10 @@ p {
   font-size: 12px;
 }
 .btn.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .btn.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .btn.link {
   color: var(--font-color);
@@ -1428,7 +1467,6 @@ p {
   border: 1px solid var(--grayse);
   transition: border-color 0.3s;
   width: 100%;
-  font-size: var(--font-size);
   height: 2em;
   padding: 0.3em 0.5em;
 }
@@ -1437,7 +1475,6 @@ p {
   border: 1px solid var(--grayse);
   transition: border-color 0.3s;
   width: 100%;
-  font-size: var(--font-size);
   height: 2em;
   padding: 0.3em 0.5em;
 }
@@ -1620,34 +1657,34 @@ p {
   font-size: 12px;
 }
 .input-label.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .textarea-label.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .input-text.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .select.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .input-check-label.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .input-label.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .textarea-label.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .input-text.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .select.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .input-check-label.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .input-text:hover,
 .textarea:hover,
@@ -1701,7 +1738,6 @@ p {
 }
 .label {
   display: inline-block;
-  font-size: var(--font-size);
   color: var(--font-color);
   text-align: center;
   background-color: inherit;
@@ -1751,10 +1787,10 @@ p {
   font-size: 12px;
 }
 .label.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .label.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .article-title {
   border-left: 5px solid;
@@ -1762,7 +1798,6 @@ p {
   padding: 0.3em 0 0.3em 1em;
   margin: 1em auto;
   border-left-color: var(--grayse);
-  font-size: var(--font-size);
 }
 .article-title.primary {
   border-left-color: var(--primary);
@@ -1783,15 +1818,15 @@ p {
   font-size: 12px;
 }
 .article-title.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .article-title.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .msgpanel {
   border-left: 5px solid;
-  padding: var(--font-size);
-  margin: var(--font-size) auto;
+  padding: 1em;
+  margin: 1em auto;
   color: var(--font-color);
   border-bottom: 1px solid var(--gray);
   border-top: 1px solid var(--gray);
@@ -1892,7 +1927,7 @@ p {
 .sidemenu-arrdown {
   position: absolute;
   top: 10px;
-  right: 0;
+  right: 8px;
 }
 .sidemenu-arrleft {
   display: inline-block;
@@ -1908,8 +1943,14 @@ p {
   border: 8px solid transparent;
   border-top-color: var(--font-color);
 }
-.sidemenu-group-close .sidemenu-item {
+.sidemenu-group-close li:not(:first-child) {
   display: none;
+}
+.sidemenu-split {
+  display: block;
+  height: 1px;
+  margin: 6px 8px 6px 2.4em;
+  border-bottom: 1px dashed var(--gray);
 }
 .sidemenu-box.primary {
   background-color: var(--primary);
@@ -2120,7 +2161,6 @@ p {
   padding: 5px 10px;
   background-color: var(--gray);
   user-select: none;
-  font-size: 14px;
   color: var(--font-color);
   outline: 0;
   cursor: pointer;
@@ -2284,7 +2324,6 @@ p {
 }
 .date-box {
   position: absolute;
-  box-sizing: border-box;
   width: 308px;
   cursor: default;
   border: 1px solid var(--grayse);
@@ -2292,7 +2331,6 @@ p {
   text-align: center;
   box-shadow: 1px 1px 10px var(--grayse);
   background-color: #fff;
-  font-size: 14px;
   outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -2301,13 +2339,11 @@ p {
 }
 .date-area-ymt {
   display: flex;
-  box-sizing: border-box;
 }
 .date-area-year,
 .date-area-month,
 .date-area-today {
   position: relative;
-  box-sizing: border-box;
   padding: 0 4px;
 }
 .date-area-year {
@@ -2321,12 +2357,10 @@ p {
 }
 .date-area-week {
   display: flex;
-  box-sizing: border-box;
   padding: 5px 0;
 }
 .date-area-day {
   display: flex;
-  box-sizing: border-box;
   flex-wrap: wrap;
 }
 .date-area-tc {
@@ -2438,14 +2472,12 @@ p {
 }
 .date-btn-year,
 .date-btn-month {
-  box-sizing: border-box;
   color: var(--font-color);
   width: calc(100% - 52px);
 }
 .date-btn-today,
 .date-btn-prev,
 .date-btn-next {
-  box-sizing: border-box;
   color: var(--primary);
 }
 .date-btn-today,
@@ -2504,6 +2536,48 @@ p {
 .date-item-today:hover {
   color: #fff;
   background-color: var(--primary);
+}
+@media only screen and (max-width: 576px) {
+  .date-box {
+    position: fixed;
+    width: calc(100vw - 2px);
+    height: 312px;
+    border-color: #007bff;
+    right: 0;
+    margin: auto;
+  }
+  .date-btn-year,
+  .date-btn-month,
+  .date-btn-today,
+  .date-btn-prev,
+  .date-btn-next,
+  .date-btn-time,
+  .date-btn-clear,
+  .date-btn-ok {
+    height: 36px;
+    line-height: 36px;
+  }
+  .date-btn-year,
+  .date-btn-month {
+    width: calc(100% - 72px);
+  }
+  .date-btn-prev,
+  .date-btn-next {
+    width: 36px;
+  }
+  .date-option-year,
+  .date-option-month,
+  .date-option-hour,
+  .date-option-minute,
+  .date-option-second {
+    height: 36px;
+    line-height: 36px;
+  }
+  .date-select-hour,
+  .date-select-minute,
+  .date-select-second {
+    bottom: 38px;
+  }
 }
 .tabsbox {
   display: flex;
@@ -2627,7 +2701,6 @@ p {
   padding: 0 15px;
   height: 40px;
   border-right: 1px solid var(--grayse);
-  font-size: 14px;
   cursor: pointer;
 }
 .tabsbox-tab:hover {
@@ -2796,10 +2869,10 @@ p {
   font-size: 12px;
 }
 .onoff-label.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .onoff-label.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .onoff-check:checked + .onoff-label.primary {
   background-color: var(--primary);
@@ -2823,7 +2896,6 @@ p {
 }
 .msgshow {
   padding: 0.8em;
-  font-size: var(--font-size);
   background-color: var(--graylt);
   border-radius: 4px;
 }
@@ -2861,10 +2933,10 @@ p {
   font-size: 12px;
 }
 .msgshow.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .msgshow.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .pageload {
   display: flex;
@@ -2952,10 +3024,10 @@ p {
   font-size: 12px;
 }
 .kvpair.lg {
-  font-size: calc(var(--font-size) * 1.3);
+  font-size: 0.16rem;
 }
 .kvpair.xl {
-  font-size: calc(var(--font-size) * 1.6);
+  font-size: 0.2rem;
 }
 .kvpair .key,
 .kvpair .val {

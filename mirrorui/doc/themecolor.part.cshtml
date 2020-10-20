@@ -1,11 +1,11 @@
 ﻿@*
   1.模板页名字规定: "页面名字.part.cshtml""
   2.内容容器固定如下:
-    <div class="doc-part-box" id="页面名字">
-      <h2>标题</h2>
-      ......
-      ......
-    </div>
+<div class="doc-part-box" id="页面名字">
+  <h2>标题</h2>
+  ......
+  ......
+</div>
 *@
 <div class="doc-part-box" id="theme">
   <h1>主题</h1>
@@ -18,9 +18,9 @@
   <p>获取css变量方法: window.getComputedStyle(document.documentElement).getPropertyValue('--primary')</p>
   <div>
     <p class="article-title">修改主色primary</p>
-    @foreach (var item in new string[] { "6c6,44c144", "17a2b8,148a9c", "ffc107,dfa700" })
+    @foreach (var item in new string[] { "d1ecf1,bee5eb", "17a2b8,148a9c", "ffc107,dfa700" })
     {
-      <span class="btn text-white" onclick="chgprimary('@item')" style="background-color:#@item.Split(',')[0]">#@item.Split(',')[0]</span>
+    <span class="btn text-white" onclick="chgprimary('@item')" style="background-color:#@item.Split(',')[0]">#@item.Split(',')[0]</span>
     }
   </div>
   <div>
@@ -37,16 +37,25 @@
     <div class="grids-7">
       @foreach (var item in Model.themecolors)
       {
-        <p class="bg-@item pd-5 mg-5 text-center text-white">@item</p>
+      <p class="bg-@item pd-5 mg-5 text-center text-white">@item</p>
       }
     </div>
     <p>主题色加深,primary - paimaryse , info - infose</p>
     <div class="grids-7">
       @foreach (var item in Model.themecolors)
       {
-        string se = item + "se";
-        string set = item + "-se";
-        <p class="bg-@se pd-5 mg-5 text-center text-white">@set</p>
+      string claName = item + "se";
+      string set = item + "-se";
+      <p class="bg-@claName pd-5 mg-5 text-center text-white">@set</p>
+      }
+    </div>
+    <p>主题色减淡</p>
+    <div class="grids-7">
+      @foreach (var item in Model.themecolors)
+      {
+      string claName = item + "lt";
+      string set = item + "-lt";
+      <p class="bg-@claName pd-5 mg-5 text-center text-white">@set</p>
       }
     </div>
   </div>

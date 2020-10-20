@@ -42,14 +42,20 @@
     &-arrleft, &-arrdown
         position: absolute
         top: 10px
-        right: 0
+        right: 8px
     &-arrleft
         triangle(8px, left, var-font-color)
     &-arrdown
         triangle(8px, bottom, var-font-color)
     // 菜单组关闭
-    &-group-close &-item
+    &-group-close li:not(:first-child)
         display: none
+    // 菜单组里分隔线
+    &-split
+        display: block
+        height: 1px
+        margin: 6px 8px 6px 2.4em
+        border-bottom: 1px dashed var-gray
 // 颜色
 for key, val in $themeColorsKV
     .sidemenu

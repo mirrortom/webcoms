@@ -1264,7 +1264,7 @@ contDom:
         let thisleft = inputDOM.offsetLeft + 'px';
         let thistop = inputDOM.offsetTop + inputDOM.offsetHeight + 'px';
         // 576px以下屏(手机屏) 显示在屏幕中央(css媒体查询设为固定定位了)
-        let ww = win.innerHeight;
+        let ww = win.innerWidth;
         if (ww < 576) {
             thisleft = 0;
             thistop = '25vh';

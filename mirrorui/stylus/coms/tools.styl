@@ -24,24 +24,32 @@ for key, val in $themeColorsKV
         color: val[0] !important
     .text-{key}se
         color: val[1] !important
+    .text-{key}lt
+        color: val[2] !important
 .text-white
     color: var-white !important
 .text-gray
     color: var-gray !important
 .text-grayse
     color: var-grayse !important
+.text-graylt
+    color: var-graylt !important
 // 背景主题色
 for key, val in $themeColorsKV
     .bg-{key}
         background-color: val[0] !important
     .bg-{key}se
         background-color: val[1] !important
+    .bg-{key}lt
+        background-color: val[2] !important
 .bg-white
     background: var-white !important
 .bg-gray
     background: var-gray !important
 .bg-grayse
     background: var-grayse !important
+.bg-graylt
+    background: var-graylt !important
 .bg-dark
     background: var-font-color !important
 // margin padding 固定设定便利类

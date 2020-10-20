@@ -31,7 +31,6 @@
   <div class="page">
     <div class="menu-box">
       <nav class="sidemenu-box primary" id="main_menubox">
-
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">About<i class="sidemenu-arrdown"></i></span>
@@ -41,18 +40,23 @@
         </ul>
         <ul class="sidemenu-group">
           <li>
-            <span class="sidemenu-label">零件<i class="sidemenu-arrdown"></i></span>
+            <span class="sidemenu-label">布局<i class="sidemenu-arrdown"></i></span>
           </li>
           <li><a class="sidemenu-item" href="#grid">册格</a></li>
+          <li><a class="sidemenu-item" href="#toolclass">工具样式</a></li>
+          <li><a class="sidemenu-item" href="#mediaquery">媒体查询</a></li>
+        </ul>
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">零件<i class="sidemenu-arrdown"></i></span>
+          </li>
           <li><a class="sidemenu-item" href="#typography">大标题</a></li>
-          <li><a class="sidemenu-item" href="#hrline">hr分隔线</a></li>
           <li><a class="sidemenu-item" href="#btn">按钮</a></li>
           <li><a class="sidemenu-item" href="#table">表格</a></li>
           <li><a class="sidemenu-item" href="#form">表单</a></li>
           <li><a class="sidemenu-item" href="#imagedemo">图片</a></li>
           <li><a class="sidemenu-item" href="#list">列表</a></li>
-          <li><a class="sidemenu-item" href="#toolclass">便利样式</a></li>
-          <li><a class="sidemenu-item" href="#mediaquery">媒体查询</a></li>
+          <li><a class="sidemenu-item" href="#hrline">hr分隔线</a></li>
         </ul>
         <ul class="sidemenu-group">
           <li>
@@ -63,13 +67,14 @@
           <li><a class="sidemenu-item" href="#article">段落标题</a></li>
           <li><a class="sidemenu-item" href="#onoff">开关</a></li>
           <li><a class="sidemenu-item" href="#msgpanel">信息面板</a></li>
-          <li><a class="sidemenu-item" href="#panel">面板</a></li>
-          <li><a class="sidemenu-item" href="#tabs">选项卡</a></li>
-          <li><a class="sidemenu-item" href="#msgbox">弹出框</a></li>
-          <li><a class="sidemenu-item" href="#msgshow">提示框</a></li>
-          <li><a class="sidemenu-item" href="#datetime">日期时间</a></li>
           <li><a class="sidemenu-item" href="#pagenum">分页导航</a></li>
           <li><a class="sidemenu-item" href="#sidemenu">侧边菜单</a></li>
+          <li><a class="sidemenu-item" href="#msgshow">提示框</a></li>
+          <li><a class="sidemenu-item" href="#msgbox">弹出框</a></li>
+          <li><a class="sidemenu-item" href="#datetime">日期时间</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" href="#tabs">选项卡</a></li>
+          <li><a class="sidemenu-item" href="#panel">面板</a></li>
           <li><a class="sidemenu-item" href="#cachepage">缓存页</a></li>
         </ul>
         <ul class="sidemenu-group">
@@ -100,9 +105,11 @@
 
       @Include("/doc/grids.part.cshtml")
 
-      @Include("/doc/h1h6p.part.cshtml")
+      @Include("/doc/toolclass.part.cshtml")
 
-      @Include("/doc/hrline.part.cshtml")
+      @Include("/doc/mediaquery.part.cshtml")
+
+      @Include("/doc/h1h6p.part.cshtml")
 
       @Include("/doc/btn.part.cshtml")
 
@@ -114,9 +121,7 @@
 
       @Include("/doc/list.part.cshtml")
 
-      @Include("/doc/toolclass.part.cshtml")
-
-      @Include("/doc/mediaquery.part.cshtml")
+      @Include("/doc/hrline.part.cshtml")
 
       @Include("/doc/btngroup.part.cshtml")
 
@@ -128,19 +133,19 @@
 
       @Include("/doc/msgpanel.part.cshtml")
 
-      @Include("/doc/panel.part.cshtml")
-
-      @Include("/doc/tabs.part.cshtml")
-
-      @Include("/doc/msgbox.part.cshtml")
-
-      @Include("/doc/msgshow.part.cshtml")
-
-      @Include("/doc/datetime.part.cshtml")
-
       @Include("/doc/pagenum.part.cshtml")
 
       @Include("/doc/sidemenu.part.cshtml")
+
+      @Include("/doc/msgshow.part.cshtml")
+
+      @Include("/doc/msgbox.part.cshtml")
+
+      @Include("/doc/datetime.part.cshtml")
+
+      @Include("/doc/tabs.part.cshtml")
+
+      @Include("/doc/panel.part.cshtml")
 
       @Include("/doc/cachepage.part.cshtml")
 
@@ -153,7 +158,7 @@
     </div>
   </div>
   <script>
-    // 为主菜单绑定点击事件 点击后加上sidemenu-active类,标识为活动菜单
+    // 主菜单
     sidemenu('main_menubox');
     // chg theme
     function chgprimary(color) {
