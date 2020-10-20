@@ -2391,17 +2391,14 @@ p {
   flex-wrap: wrap;
   position: absolute;
   left: 0;
+  width: 100%;
   border: 1px solid var(--grayse);
   border-radius: 4px;
   border-top: none;
   background-color: var(--gray);
   z-index: 9999;
 }
-.date-select-month {
-  width: 100%;
-}
 .date-select-year {
-  width: 200px;
   height: 200px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -2410,7 +2407,6 @@ p {
 .date-select-hour,
 .date-select-minute,
 .date-select-second {
-  width: 100%;
   bottom: 48px;
   top: 0;
 }
@@ -2442,13 +2438,11 @@ p {
 }
 .date-option-hour {
   flex: 0 1 14.66666666%;
-  height: 60px;
   line-height: 60px;
 }
 .date-option-minute,
 .date-option-second {
   flex: 0 1 10%;
-  height: 40px;
   line-height: 40px;
 }
 .date-option-title {
@@ -2541,10 +2535,18 @@ p {
   .date-box {
     position: fixed;
     width: calc(100vw - 2px);
-    height: 312px;
+    height: 372px;
     border-color: #007bff;
     right: 0;
     margin: auto;
+  }
+  .date-select-year {
+    height: 240px;
+  }
+  .date-option-year,
+  .date-option-month {
+    height: 48px;
+    line-height: 48px;
   }
   .date-btn-year,
   .date-btn-month,
@@ -2554,29 +2556,21 @@ p {
   .date-btn-time,
   .date-btn-clear,
   .date-btn-ok {
-    height: 36px;
-    line-height: 36px;
+    height: 40px;
+    line-height: 40px;
   }
   .date-btn-year,
   .date-btn-month {
-    width: calc(100% - 72px);
+    width: calc(100% - 80px);
   }
   .date-btn-prev,
   .date-btn-next {
-    width: 36px;
+    width: 40px;
   }
-  .date-option-year,
-  .date-option-month,
-  .date-option-hour,
-  .date-option-minute,
-  .date-option-second {
+  .date-item-week,
+  .date-item-day {
     height: 36px;
     line-height: 36px;
-  }
-  .date-select-hour,
-  .date-select-minute,
-  .date-select-second {
-    bottom: 38px;
   }
 }
 .tabsbox {
