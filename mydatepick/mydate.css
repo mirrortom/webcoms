@@ -241,3 +241,36 @@
     color: #fff;
     background-color: #007bff;
 }
+
+@media only screen and (max-width: 576px) {
+  .date-box {
+    position: fixed;
+    width: calc(100vw - 2px);
+    height: 312px;
+    border-color: #007bff;
+    right: 0;
+    margin: auto;
+  }
+
+  .date-btn-year, .date-btn-month, .date-btn-today, .date-btn-prev, .date-btn-next, .date-btn-time, .date-btn-clear, .date-btn-ok {
+    height: 36px;
+    line-height: 36px;
+  }
+
+  .date-btn-year, .date-btn-month {
+    width: calc(100% - 72px);
+  }
+
+  .date-btn-prev, .date-btn-next {
+    width: 36px;
+  }
+
+  .date-option-year, .date-option-month, .date-option-hour, .date-option-minute, .date-option-second {
+    height: 36px;
+    line-height: 36px;
+  }
+
+  .date-select-hour, .date-select-minute, .date-select-second {
+    bottom: 38px;
+  }
+}
