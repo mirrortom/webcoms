@@ -1,0 +1,47 @@
+﻿// 底部导航主菜单,用于手机版
+
+// 外层容器 nav
+.mnavmenu
+    display: flex
+    align-items: center
+    position: fixed
+    bottom: 0
+    width: 100%
+    min-height: 40px
+    text-align: center
+    // 组容器 div
+    &-group
+        position: relative
+        flex: 1 1 0
+    // 组标题 span
+    &-label
+        display: block
+        padding: 10px 0
+        background-color: white
+    // 子菜单容器 ul
+    &-itembox
+        position: absolute
+        bottom: 40px
+        width: 100%
+        background-color: white
+        z-index: 10000
+        list-style: none
+        box-shadow: 2px -2px 5px var-gray
+
+    // 子菜单收起
+    &-itembox.close
+        display: none
+  
+    // 菜单项
+    &-item
+        display: block
+        padding: 8px 0
+        margin: 4px 0
+
+    // 菜单项分割线
+    &-split
+        display: block
+        height: 1px
+        width:90%
+        margin:0 auto
+        border-bottom: 1px dashed gray

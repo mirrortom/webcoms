@@ -1,0 +1,37 @@
+﻿@*
+  1.模板页名字规定: "页面名字.part.cshtml""
+  2.内容容器固定如下:
+<div class="doc-part-box" id="mnavmenu">
+  <h2>标题</h2>
+  ......
+  ......
+</div>
+*@
+<div class="doc-part-box" id="mnavmenu">
+  <h2>底部导航</h2>
+  <p>用于手机的底部导航菜单,模仿微信公众号那样的菜单</p>
+  <pre class="bg-gray">
+  &lt;nav class="mnavmenu"&gt;
+    &lt;div class="mnavmenu-group"&gt;
+      &lt;ul class="mnavmenu-itembox close"&gt;
+        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单一&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单二&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;b class="mnavmenu-split"&gt;&lt;/b&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单三&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单四&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;span class="mnavmenu-label"&gt;&equiv; 菜单一&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="mnavmenu-group"&gt;
+    ...
+  &lt;/nav&gt;
+
+</pre>
+  <br />
+  <iframe src="doc/mnavmenudemo.html" style="width:360px;height:300px" frameborder="1"></iframe>
+  <br />
+  <div class="kvpair">
+    <span class="key primary cir">查看</span>
+    <a class="val btn link" href="doc/mnavmenudemo.html" target="_blank">手机页面</a>
+  </div>
+</div>

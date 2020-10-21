@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="../mirrorui.css" rel="stylesheet" />
+  <script src="../mirrorui.js"></script>
+  <title></title>
+</head>
+<body>
+  <nav class="mnavmenu" id="mnavmenu1">
+    <div class="mnavmenu-group">
+      <ul class="mnavmenu-itembox close">
+        <li><a class="mnavmenu-item">苹果</a></li>
+        <li><a class="mnavmenu-item">桔子</a></li>
+        <li><b class="mnavmenu-split"></b></li>
+        <li><a class="mnavmenu-item">菠萝</a></li>
+        <li><a class="mnavmenu-item">柠檬</a></li>
+      </ul>
+      <span class="mnavmenu-label">&equiv; 菜单一</span>
+    </div>
+    <div class="mnavmenu-group">
+      <div class="mnavmenu-itembox close">
+        <a class="mnavmenu-item">大米</a>
+        <a class="mnavmenu-item">面条</a>
+        <a class="mnavmenu-item">玉米</a>
+        <span class="mnavmenu-split"></span>
+        <a class="mnavmenu-item">土豆</a>
+      </div>
+      <span class="mnavmenu-label">&equiv; 菜单二</span>
+    </div>
+    <div class="mnavmenu-group">
+      <div class="mnavmenu-itembox close">
+        <a class="mnavmenu-item">咖啡</a>
+        <a class="mnavmenu-item">红茶</a>
+        <span class="mnavmenu-split"></span>
+        <a class="mnavmenu-item">烈酒</a>
+        <a class="mnavmenu-item">葡萄酒</a>
+      </div>
+      <span class="mnavmenu-label">&equiv; 菜单三</span>
+    </div>
+  </nav>
+  <div id="test2"></div>
+  <script>
+    mnavmenu('mnavmenu1', (item, i) => {
+      msgbox.alert(item.innerHTML);
+    });
+    document.getElementById('test2').innerHTML = '页面内容';
+  </script>
+</body>
+</html>
