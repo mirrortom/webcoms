@@ -42,6 +42,7 @@
     <Content Include="js\msgshow.js" />
     <Content Include="js\mydate.js" />
     <Content Include="js\pagenum.js" />
+    <Content Include="js\mnavmenu.js" />
     <Content Include="js\sidemenu.js" />
     <Content Include="js\tabs.js" />
     <Content Include="mirrorui.css" />
@@ -60,6 +61,8 @@
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
     <None Include="compilerconfig.json" />
+    <Content Include="doc\mnavmenudemo.html" />
+    <None Include="doc\mnavmenu.part.cshtml" />
     <None Include="doc\msgshow.part.cshtml" />
     <None Include="doc\kvpair.part.cshtml" />
     <None Include="doc\pageload.part.cshtml" />
@@ -105,6 +108,7 @@
     <None Include="stylus\coms\list.styl" />
     <None Include="stylus\coms\msgbox.styl" />
     <None Include="stylus\coms\msgpanel.styl" />
+    <None Include="stylus\coms\mnavmenu.styl" />
     <None Include="stylus\exts\kvpair.styl" />
     <None Include="stylus\exts\pageload.styl" />
     <None Include="stylus\coms\pagenum.styl" />
