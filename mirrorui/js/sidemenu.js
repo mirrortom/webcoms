@@ -1,6 +1,4 @@
-﻿/**
- * 侧边菜单
- */
+﻿ //侧边菜单
 ((win) => {
     // 传入菜单nav标记的id,生成菜单 menuItemClickE(menuItemDom):菜单项点击事件
     let sideMenu = (menuboxId, menuItemClickE) => {

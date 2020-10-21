@@ -1216,7 +1216,7 @@ p {
 }
 .btn {
   display: inline-block;
-  padding: 0.4em 0.7em;
+  padding: 0.06rem 0.08rem;
   font-weight: 400;
   color: var(--font-color);
   text-align: center;
@@ -2932,6 +2932,48 @@ p {
 .msgshow.xl {
   font-size: 0.2rem;
 }
+.mnavmenu {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  min-height: 40px;
+  text-align: center;
+}
+.mnavmenu-group {
+  position: relative;
+  flex: 1 1 0;
+}
+.mnavmenu-label {
+  display: block;
+  padding: 10px 0;
+  background-color: #fff;
+}
+.mnavmenu-itembox {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  background-color: #fff;
+  z-index: 10000;
+  list-style: none;
+  box-shadow: 2px -2px 5px var(--gray);
+}
+.mnavmenu-itembox.close {
+  display: none;
+}
+.mnavmenu-item {
+  display: block;
+  padding: 8px 0;
+  margin: 4px 0;
+}
+.mnavmenu-split {
+  display: block;
+  height: 1px;
+  width: 90%;
+  margin: 0 auto;
+  border-bottom: 1px dashed #808080;
+}
 .pageload {
   display: flex;
   justify-content: center;
@@ -3025,8 +3067,8 @@ p {
 }
 .kvpair .key,
 .kvpair .val {
-  padding: 0.4em 0.7em;
-  border: 1px solid #ddd;
+  padding: 0.08rem;
+  border: 1px solid var(--gray);
 }
 .kvpair .val {
   border-left: none;
