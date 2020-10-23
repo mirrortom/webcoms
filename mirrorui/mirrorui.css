@@ -2576,10 +2576,9 @@ p {
 .tabsbox {
   display: flex;
   position: relative;
-  height: 42px;
-  line-height: 40px;
-  border-bottom: 2px solid var(--grayse);
-  box-sizing: border-box;
+  height: 44px;
+  border: 2px solid var(--gray);
+  background-color: var(--grayse);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -2588,9 +2587,8 @@ p {
 .tabsbox-left,
 .tabsbox-right {
   flex: 0 1 36px;
-  border-left: 1px solid var(--grayse);
-  border-right: 1px solid var(--grayse);
   cursor: pointer;
+  padding: 8px 0;
   background-color: #fff;
 }
 .tabsbox-right {
@@ -2623,11 +2621,12 @@ p {
 }
 .tabsbox-left:active,
 .tabsbox-right:active {
-  background-color: var(--grayse);
+  background-color: var(--graylt);
 }
 .tabsbox-menutitle {
-  flex-basis: 56px;
+  width: 80px;
   text-align: center;
+  padding: 10px;
   background-color: #fff;
 }
 .tabsbox-menutitle:after {
@@ -2637,7 +2636,7 @@ p {
   height: 0;
   border: 5px solid transparent;
   border-top-color: var(--grayse);
-  margin-left: 2px;
+  margin-left: 4px;
   vertical-align: middle;
 }
 .tabsbox-menutitle:hover {
@@ -2649,14 +2648,14 @@ p {
 .tabsbox-menugroup {
   display: none;
   position: absolute;
-  top: 40px;
+  top: 39px;
   right: 0;
-  width: 120px;
-  color: var(--gray);
+  width: 100px;
+  color: var(--grayse);
   text-align: center;
   background-color: #fff;
-  border-left: 2px solid var(--grayse);
-  border-bottom: 2px solid var(--grayse);
+  border: 1px solid var(--grayse);
+  border-top: none;
   cursor: pointer;
 }
 .tabsbox-menugroup:hover {
@@ -2665,10 +2664,11 @@ p {
 .tabsbox-close-all,
 .tabsbox-close-other,
 .tabsbox-goto-active {
+  padding: 10px;
   display: block;
 }
 .tabsbox-goto-active {
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--gray);
 }
 .tabsbox-close-all:hover,
 .tabsbox-close-other:hover,
@@ -2679,26 +2679,26 @@ p {
 .tabsbox-navbox {
   flex: 1 1 0;
   width: 0;
-  height: 40px;
   overflow: hidden;
-  background-color: var(--gray);
 }
 .tabsbox-nav {
   position: relative;
   margin-right: 100px;
   white-space: nowrap;
   overflow-x: auto;
+  background-color: var(--graylt);
 }
 .tabsbox-tab {
   display: inline-block;
   position: relative;
-  padding: 0 15px;
+  padding: 10px 15px;
   height: 40px;
-  border-right: 1px solid var(--grayse);
+  margin: 0 2px;
+  background-color: var(--grayse);
   cursor: pointer;
 }
 .tabsbox-tab:hover {
-  background-color: var(--grayse);
+  color: var(--graylt);
   padding-right: 24px;
   transition: padding-right 0.3s;
 }
@@ -2732,6 +2732,12 @@ p {
   border-left-color: var(--primary);
   border-bottom-color: var(--primary);
 }
+.tabsbox.primary .tabsbox-left:before {
+  border-right-color: var(--primary);
+}
+.tabsbox.primary .tabsbox-right:before {
+  border-left-color: var(--primary);
+}
 .tabsbox.danger {
   border-bottom-color: var(--danger);
 }
@@ -2741,6 +2747,12 @@ p {
 .tabsbox.danger .tabsbox-menugroup {
   border-left-color: var(--danger);
   border-bottom-color: var(--danger);
+}
+.tabsbox.danger .tabsbox-left:before {
+  border-right-color: var(--danger);
+}
+.tabsbox.danger .tabsbox-right:before {
+  border-left-color: var(--danger);
 }
 .tabsbox.success {
   border-bottom-color: var(--success);
@@ -2752,6 +2764,12 @@ p {
   border-left-color: var(--success);
   border-bottom-color: var(--success);
 }
+.tabsbox.success .tabsbox-left:before {
+  border-right-color: var(--success);
+}
+.tabsbox.success .tabsbox-right:before {
+  border-left-color: var(--success);
+}
 .tabsbox.info {
   border-bottom-color: var(--info);
 }
@@ -2762,6 +2780,12 @@ p {
   border-left-color: var(--info);
   border-bottom-color: var(--info);
 }
+.tabsbox.info .tabsbox-left:before {
+  border-right-color: var(--info);
+}
+.tabsbox.info .tabsbox-right:before {
+  border-left-color: var(--info);
+}
 .tabsbox.warning {
   border-bottom-color: var(--warning);
 }
@@ -2771,6 +2795,12 @@ p {
 .tabsbox.warning .tabsbox-menugroup {
   border-left-color: var(--warning);
   border-bottom-color: var(--warning);
+}
+.tabsbox.warning .tabsbox-left:before {
+  border-right-color: var(--warning);
+}
+.tabsbox.warning .tabsbox-right:before {
+  border-left-color: var(--warning);
 }
 .list {
   padding-left: 0;

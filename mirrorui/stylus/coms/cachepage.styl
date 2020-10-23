@@ -2,10 +2,9 @@
 .tabsbox
     display: flex
     position: relative
-    height: 42px
-    line-height: 40px
-    border-bottom: 2px solid var-grayse
-    box-sizing: border-box
+    height: 44px
+    border: 2px solid var-gray
+    background-color: var-grayse
     -webkit-user-select: none
     -moz-user-select: none
     -ms-user-select: none
@@ -14,9 +13,8 @@
 .tabsbox
     &-left, &-right
         flex: 0 1 36px
-        border-left: 1px solid var-grayse
-        border-right: 1px solid var-grayse
         cursor: pointer
+        padding: 8px 0
         background-color: #fff
     &-right
         text-align: right
@@ -34,18 +32,19 @@
         background-color: var-gray
     // 按钮点击时
     &-left:active, &-right:active
-        background-color: var-grayse
+        background-color: var-graylt
 // 右侧功能菜单按钮
 .tabsbox
     &-menutitle
-        flex-basis: 56px
+        width: 80px
         text-align: center
+        padding: 10px
         background-color: #fff
     // 按钮三角形
     &-menutitle:after
         content: ''
         triangle(5px, bottom, var-grayse)
-        margin-left: 2px
+        margin-left: 4px
         vertical-align: middle
     &-menutitle:hover
         background-color: var-gray
@@ -57,23 +56,24 @@
     &-menugroup
         display: none
         position: absolute
-        top: 40px
+        top: 39px
         right: 0
-        width: 120px
-        color: var-gray
+        width: 100px
+        color: var-grayse
         text-align: center
         background-color: #fff
-        border-left: 2px solid var-grayse
-        border-bottom: 2px solid var-grayse
+        border: 1px solid var-grayse
+        border-top: none
         cursor: pointer
     &-menugroup:hover
         display: block
     // 菜单项
     &-close-all, &-close-other, &-goto-active
+        padding: 10px
         display: block
     // 第1个菜单项加个下边
     &-goto-active
-        border-bottom: 1px solid #e9ecef
+        border-bottom: 1px solid var-gray
     // 菜单项hover
     &-close-all:hover, &-close-other:hover, &-goto-active:hover
         color: var-font-color
@@ -84,26 +84,26 @@
     &-navbox
         flex: 1 1 0
         width: 0
-        height: 40px
         overflow: hidden
-        background-color: var-gray
     // 选项卡框
     &-nav
         position: relative
         margin-right: 100px
         white-space: nowrap
         overflow-x: auto
+        background-color: var-graylt
     // 选项卡
     &-tab
         display: inline-block
         position: relative
-        padding: 0 15px
+        padding: 10px 15px
         height: 40px
-        border-right: 1px solid var-grayse
+        margin: 0 2px
+        background-color: var-grayse
         cursor: pointer
     // hover时,增大padding-right,为右上角关闭按钮取得空间
     &-tab:hover
-        background-color: var-grayse
+        color: var-graylt
         padding-right: 24px
         transition: padding-right $duration
     // 活动的选项卡
@@ -126,7 +126,7 @@
     // 鼠标移入选项卡,显示关闭按钮
     &-tab:hover &-tabclose
         display: inline-block
-// 颜色 导航底边,活动选项卡,右边功能菜单框左和下边框
+// 颜色 导航底边,活动选项卡,右边功能菜单框左和下边框,导航三角形
 for key, val in $themeColorsKV
     .tabsbox
         &.{key}
@@ -136,3 +136,7 @@ for key, val in $themeColorsKV
         &.{key} &-menugroup
             border-left-color: val[0]
             border-bottom-color: val[0]
+        &.{key} &-left:before
+            border-right-color: val[0]
+        &.{key} &-right:before
+            border-left-color: val[0]
