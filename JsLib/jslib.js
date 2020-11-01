@@ -872,7 +872,7 @@ factory.isIpv4 = (str) => {
  * @returns {boolean} t/f
  */
 factory.isMaxLength = (str, maxlen) => {
-    if (!str || str.length === 0) return true;
+    if (!str || str.length === 0) return false;
     return str.length > maxlen;
 };
 /**
@@ -882,7 +882,7 @@ factory.isMaxLength = (str, maxlen) => {
  * @returns {boolean} t/f
  */
 factory.isMinLength = (str, minlen) => {
-    if (!str || str.length === 0) return true;
+    if (!str || str.length === 0) return false;
     return str.length < minlen;
 };
 
@@ -1006,10 +1006,6 @@ if (!win.$)
             verrmsgStr = elem.getAttribute('verrmsg');
         if (!_$.isNullOrWhiteSpace(verrmsgStr))
             validerrmsg = verrmsgStr.split("|");
-
-        // 长度验证参数来自input上的maxlength,minlength属性值
-        let maxlen = elem.getAttribute('maxlength');
-        let minlen = elem.getAttribute('minlength');
         // 验证前清除旧的提示语span(如果有)
         _$.formClear(elem);
         // 2.开始验证
@@ -1018,10 +1014,15 @@ if (!win.$)
             let vfunname = vType[validtype[n]];
             // 验证
             let isValid = _$[vfunname](elem.value);
-            if (validtype[n] === 'minlen')
+            // 长度验证参数来自input上的maxlength,minlength属性值
+            if (validtype[n] === 'minlen') {
+                let minlen = parseInt(elem.getAttribute('minlength'));
                 isValid = !_$[vfunname](elem.value, minlen);
-            else if (validtype[n] === 'maxlen')
+            }
+            else if (validtype[n] === 'maxlen') {
+                let maxlen = parseInt(elem.getAttribute('maxlength'));
                 isValid = !_$[vfunname](elem.value, maxlen);
+            }
             if (!isValid) {
                 _$.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
                 return false;
@@ -1033,12 +1034,16 @@ if (!win.$)
     /**
      * 将一个父元素中的所有含有name属性的input,select,textarea子元素,将其name值为属性名,value值为属性值,组成一个json对象返回.
      * @param {HTMLElement} parent 容器元素dom对象
+     * @param {bool} notEmptyVal 设为true时,input的值长度为空时,不加入json
      * @returns {any} json对象
      */
-    _$.formJson = (parent) => {
+    _$.formJson = (parent, notEmptyVal) => {
         let nodelist = parent.querySelectorAll("input[name],select[name],textarea[name]");
         let json = {};
-        nodelist.forEach((item) => {
+        for (var i = 0, len = nodelist.length; i < len; i++) {
+            let item = nodelist[i];
+            if (notEmptyVal == true && item.value.length == 0)
+                continue;
             // 如果json中已经添加了这个属性(这里是防止相同name值,如果发现则变数组)
             if (json.hasOwnProperty(item.name)) {
                 if (json instanceof Array)// 如果这个属性是数组
@@ -1053,7 +1058,7 @@ if (!win.$)
             else {
                 json[item.name] = item.value;// 加入键值对
             }
-        });
+        };
         return json;
     };
 })(window);

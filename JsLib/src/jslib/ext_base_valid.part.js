@@ -98,7 +98,7 @@ factory.isIpv4 = (str) => {
  * @returns {boolean} t/f
  */
 factory.isMaxLength = (str, maxlen) => {
-    if (!str || str.length === 0) return true;
+    if (!str || str.length === 0) return false;
     return str.length > maxlen;
 };
 /**
@@ -108,7 +108,7 @@ factory.isMaxLength = (str, maxlen) => {
  * @returns {boolean} t/f
  */
 factory.isMinLength = (str, minlen) => {
-    if (!str || str.length === 0) return true;
+    if (!str || str.length === 0) return false;
     return str.length < minlen;
 };
 

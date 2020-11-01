@@ -3,6 +3,7 @@
     display: inline-block
     padding: .06rem .08rem
     font-weight: 400
+    font-size: .14rem
     color: var-font-color
     text-align: center
     text-decoration: none
@@ -41,7 +42,7 @@
     border-radius: 50%
     border-top: none
     border-bottom: none
-    margin-left: 0.5em
+    margin-left: .8em
     vertical-align: middle
     animation: btnloading 1.5s linear infinite
     cursor: wait
@@ -63,9 +64,11 @@ for key, val in $themeColorsKV
 .btn.gray:hover
     background-color: var-grayse
 // 大小 默认是14px
+$btnPaddingKV = { sm: (.05rem .07rem), lg: (.08rem .1rem), xl: (.1rem .12rem)}
 for key, val in $fontSizeKV
     .btn.{key}
         font-size: val
+        padding: $btnPaddingKV[key][0] $btnPaddingKV[key][1]
 // 链接式按钮
 .btn.link
     color: var-font-color

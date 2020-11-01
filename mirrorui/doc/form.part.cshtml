@@ -71,15 +71,15 @@
   <div class="grids">
     @for (int i = 0; i < 3; i++)
     {<div class="grid">
-        <input class="input-check" type="checkbox" id="testcheck_@i" checked />
-        <label class="input-check-label" for="testcheck_@i"><b class="check"></b>复选框(@i)</label>
-      </div>
+      <input class="input-check" type="checkbox" id="testcheck_@i" checked />
+      <label class="input-check-label" for="testcheck_@i"><b class="check"></b>复选框(@i)</label>
+    </div>
     }
     @for (int i = 0; i < 3; i++)
     {<div class="grid">
-        <input class="input-check" name="radiogroup1" type="radio" id="testradio_@i" />
-        <label class="input-check-label" for="testradio_@i"><b class="radio"></b>单选框(@i)</label>
-      </div>
+      <input class="input-check" name="radiogroup1" type="radio" id="testradio_@i" />
+      <label class="input-check-label" for="testradio_@i"><b class="radio"></b>单选框(@i)</label>
+    </div>
     }
   </div>
   <br />
@@ -96,12 +96,12 @@
   <div class="grids">
     @foreach (string item in Model.fontsizes)
     {<div class="grid">
-        <input class="input-check" type="checkbox" id="sizecheck_@item" checked />
-        <label class="input-check-label @item" for="sizecheck_@item"><b class="check"></b>复选框(@item)</label>
+      <input class="input-check" type="checkbox" id="sizecheck_@item" checked />
+      <label class="input-check-label @item" for="sizecheck_@item"><b class="check"></b>复选框(@item)</label>
 
-        <input class="input-check" name="sizegroup1" type="radio" id="sizeradio_@item" />
-        <label class="input-check-label @item" for="sizeradio_@item"><b class="radio"></b>单选框(@item)</label>
-      </div>
+      <input class="input-check" name="sizegroup1" type="radio" id="sizeradio_@item" />
+      <label class="input-check-label @item" for="sizeradio_@item"><b class="radio"></b>单选框(@item)</label>
+    </div>
     }
   </div>
   <br />
@@ -109,18 +109,18 @@
   <div class="grids">
     @foreach (string item in Model.themecolors)
     {<div class="grid">
-        <input class="input-check" type="checkbox" id="colorcheck_@item" checked />
-        <label class="input-check-label @item" for="colorcheck_@item"><b class="check"></b>复选框(@item)</label>
-      </div>
+      <input class="input-check" type="checkbox" id="colorcheck_@item" checked />
+      <label class="input-check-label @item" for="colorcheck_@item"><b class="check"></b>复选框(@item)</label>
+    </div>
     }
   </div>
   <br />
   <div class="grids">
     @foreach (string item in Model.themecolors)
     {<div class="grid">
-        <input class="input-check" name="colorgroup1" type="radio" id="colorradio_@item" />
-        <label class="input-check-label @item" for="colorradio_@item"><b class="radio"></b>单选框(@item)</label>
-      </div>
+      <input class="input-check" name="colorgroup1" type="radio" id="colorradio_@item" />
+      <label class="input-check-label @item" for="colorradio_@item"><b class="radio"></b>单选框(@item)</label>
+    </div>
     }
   </div>
   <br />
@@ -134,33 +134,41 @@
 </pre>
   <br />
   <p class="article-title">select</p>
-  <p>下拉框.有四种大小.</p>
+  <p>下拉框.</p>
   <div class="grids-4">
-    <select class="select sm">
-      <option>明月几时有</option>
-      <option>把酒问青天</option>
-      <option>不知天上宫阙</option>
-      <option>今昔是何年</option>
-    </select>
-    <select class="select">
-      <option>我欲乘风归去</option>
-      <option>又恐琼楼玉宇</option>
-      <option>高处不胜寒</option>
-      <option>起舞弄清影</option>
-      <option>何似在人间</option>
-    </select>
-    <select class="select lg">
-      <option>转朱阁,低绮户,照无眠</option>
-      <option>不应有恨</option>
-      <option>何事长向别时圆</option>
-    </select>
-    <select class="select xl">
-      <option>人有悲欢离合</option>
-      <option>月有阴晴圆缺</option>
-      <option>此事古难全</option>
-      <option>但愿人长久</option>
-      <option>千里共婵娟</option>
-    </select>
+    <div>
+      <select class="select sm">
+        <option>明月几时有</option>
+        <option>把酒问青天</option>
+        <option>不知天上宫阙</option>
+        <option>今昔是何年</option>
+      </select>
+    </div>
+    <div>
+      <select class="select">
+        <option>我欲乘风归去</option>
+        <option>又恐琼楼玉宇</option>
+        <option>高处不胜寒</option>
+        <option>起舞弄清影</option>
+        <option>何似在人间</option>
+      </select>
+    </div>
+    <div>
+      <select class="select lg">
+        <option>转朱阁,低绮户,照无眠</option>
+        <option>不应有恨</option>
+        <option>何事长向别时圆</option>
+      </select>
+    </div>
+    <div>
+      <select class="select xl">
+        <option>人有悲欢离合</option>
+        <option>月有阴晴圆缺</option>
+        <option>此事古难全</option>
+        <option>但愿人长久</option>
+        <option>千里共婵娟</option>
+      </select>
+    </div>
   </div>
   <pre class="bg-gray">
 &lt;select class="select sm"&gt;
@@ -172,18 +180,18 @@
 </pre>
   <p class="article-title">表单栅格布局</p>
   <p>可以将表单元素放到栅格里,做横向布局.可以用栅格框分组表单元素</p>
-  <div class="grids mg-b-5">
-    <label class="input-label bg-gray text-center grid-1">姓名</label>
+  <div class="grids mg-b-5 bg-gray">
+    <label class="input-label grid-1 text-center">姓名</label>
     <input class="input-text grid-5" type="text" name="name1" value="mirror" />
   </div>
-  <div class="grids mg-b-5">
-    <label class="input-label bg-gray text-center grid-1">国家</label>
+  <div class="grids mg-b-5 bg-gray">
+    <label class="input-label text-center grid-1">国家</label>
     <select class="select grid-2">
       <option>China</option>
       <option>USA</option>
       <option>UK</option>
     </select>
-    <label class="input-label bg-gray text-center grid-1">WebSite</label>
+    <label class="input-label text-center grid-1">WebSite</label>
     <input class="input-text grid-2" type="text" name="name3" value="mirrortom.date" />
   </div>
   <pre class="bg-gray">

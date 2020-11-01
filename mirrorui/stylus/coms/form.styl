@@ -12,17 +12,14 @@ ctrl-width()
 // 需要水平对齐方式可再添加文字对齐的类
 form-label()
     display: inline-block
-    height: 2em
-    padding: .3em 0
-    margin-bottom: .3em
+    margin-bottom: .08rem
 // 用于input输入框和select下拉框.其中input类型是text,password,email..除了radio check file
 // 边框灰,得到焦点时边框颜色变主色 有四种字体大小 没有设计圆角边框
 input-text()
     display: block
     ctrl-border()
     ctrl-width()
-    height: 2em
-    padding: .3em .5em
+    padding: .05rem .08rem
 // input输入框的标题
 .input-label
     form-label()
@@ -40,7 +37,7 @@ input-text()
 .textarea
     ctrl-border()
     ctrl-width()
-    height: 100px
+    height: 1rem
     padding: 4px
     resize: none
     overflow-y: auto
@@ -53,8 +50,8 @@ input-text()
 .input-file
     &-box
         position: relative
-        height: 28px
-        line-height: 28px
+        height: .28rem
+        line-height: .28rem
     // input file 透明的覆盖在label上
     &
         position: absolute
@@ -73,7 +70,7 @@ input-text()
         height: 100%
         ctrl-border()
         ctrl-width()
-        color: #555
+        color: var-dark
         padding: 0 8px
         z-index: 10
         overflow: hidden
@@ -119,7 +116,7 @@ input-text()
         margin: auto
         // 勾是一个方形DOM的边框,去掉上边与左边,旋转45度后得到
         content: ''
-        width: 0.7em
+        width: .7em
         height: 1em
         border: 0 solid var-font-color
         border-top: none
@@ -131,8 +128,8 @@ input-text()
     // input-radio 选中之后,生成单选框中的圆点
     // 选中时,修改其内样式为.radio元素的伪类的width和height,动画效果
     &:checked + &-label .radio:after
-        width: 0.5em
-        height: 0.5em
+        width: .5em
+        height: .5em
     &-label .radio:after
         // 绝对定位于框,上下左右对齐
         position: absolute
@@ -163,6 +160,7 @@ for key, val in $themeColorsKV
         &:checked + &-label.{key} .radio:after
             background-color: val[0]
 // 四种大小 默认是14px  并非所有表单元素都设计有
+$inputPaddingKV = { sm: (.04rem .06rem), lg: (.06rem .08rem), xl: (.08rem .08rem)}
 for key, val in $fontSizeKV
     // input 文本框的标题
     .input-label.{key}
@@ -173,9 +171,11 @@ for key, val in $fontSizeKV
     // input 文本框..输入性质的框
     .input-text.{key}
         font-size: val
+        padding: $inputPaddingKV[key][0] $inputPaddingKV[key][1]
     // 选择框
     .select.{key}
         font-size: val
+        padding: $inputPaddingKV[key][0] $inputPaddingKV[key][1]
     // 复选框和单选框的标题
     .input-check-label.{key}
         font-size: val
@@ -184,7 +184,7 @@ for key, val in $fontSizeKV
     border-color: var-primary
 // 表单控件得焦点时: 外边框色为主色 外边框不占空间位置 (输入框,多行框,文件框,下拉框)
 .input-text:focus, .textarea:focus, .input-file:focus + .input-file-label, .select:focus
-    outline: 2px solid var-primary
+    outline: 2px solid var-primarylt
 // =======表单布局1==============================================================
 // 表单栅格布局 表单元素放在class="grids"里,自己加类class="grid-x"
 // 使用栅格布局时,表单元素和表单标题要设置高度,否则发生标题和元素高度不一样的问题

@@ -44,6 +44,10 @@
     {
       <a class="btn @item">@item 尺寸</a>
     }
+    @foreach (var item in Model.fontsizes)
+    {
+      <a class="btn @item loading">@item 尺寸</a>
+    }
   </div>
   <pre class="bg-gray">
  &lt;a class="btn lg"&gt;lg 尺寸&lt;/a&gt;
