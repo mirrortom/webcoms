@@ -23,7 +23,6 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 // 匹配文档根元素 (html) 颜色变量,组件元素颜色都引用此变量色
 :root
     --font-size: $font-size
-    --font-m-size: $font-m-size
     --font-color: $font-color
     // 灰白色
     --gray: $gray
@@ -58,10 +57,10 @@ body
     font-size: var(--font-size)
     color: var(--font-color)
     background-color: #ffffff
-// 手机版本使用16px字体大小
+// body字体大小 默认14px , 手机版本使用16px,
 @media only screen and (max-width: $screen-tablet)
-    body
-        font-size: var(--font-m-size)
+    :root
+        --font-size: 16px
 // Images
 img
     vertical-align: middle

@@ -34,7 +34,6 @@ td {
 }
 :root {
   --font-size: 14px;
-  --font-m-size: 16px;
   --font-color: #343a40;
   --gray: #dee2e6;
   --graylt: #eef1f3;
@@ -67,8 +66,8 @@ body {
   background-color: #fff;
 }
 @media only screen and (max-width: 768px) {
-  body {
-    font-size: var(--font-m-size);
+  :root {
+    --font-size: 16px;
   }
 }
 img {
@@ -1302,13 +1301,6 @@ p {
 .btn.warning:hover {
   background-color: var(--warningse);
 }
-.btn.gray {
-  background-color: var(--gray);
-  border-color: var(--grayse);
-}
-.btn.gray:hover {
-  background-color: var(--grayse);
-}
 .btn.sm {
   font-size: 12px;
   padding: 0.05rem 0.07rem;
@@ -1470,6 +1462,7 @@ p {
   transition: border-color 0.3s;
   width: 100%;
   padding: 0.05rem 0.08rem;
+  font-size: var(--font-size);
 }
 .select {
   display: block;
@@ -1477,11 +1470,13 @@ p {
   transition: border-color 0.3s;
   width: 100%;
   padding: 0.05rem 0.08rem;
+  font-size: var(--font-size);
 }
 .textarea {
   border: 1px solid var(--grayse);
   transition: border-color 0.3s;
   width: 100%;
+  font-size: var(--font-size);
   height: 1rem;
   padding: 4px;
   resize: none;
@@ -1514,7 +1509,6 @@ p {
   border: 1px solid var(--grayse);
   transition: border-color 0.3s;
   width: 100%;
-  color: var-dark;
   padding: 0 8px;
   z-index: 10;
   overflow: hidden;
@@ -2973,6 +2967,7 @@ p {
   bottom: 0;
   width: 100%;
   min-height: 40px;
+  border-top: 1px solid var(--grayse);
   text-align: center;
 }
 .mnavmenu-group {
@@ -2983,6 +2978,10 @@ p {
   display: block;
   padding: 10px 0;
   background-color: #fff;
+}
+.mnavmenu-label:not(.last),
+.mnavmenu-item.direct {
+  border-right: 1px solid var(--gray);
 }
 .mnavmenu-itembox {
   position: absolute;

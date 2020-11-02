@@ -2361,9 +2361,14 @@ contDom:
     let mnavMenu = (menuboxId, menuItemClickE) => {
         // 菜单navDom
         let self = {};
-        let menuDom = document.getElementById(menuboxId);
-        bindEvent_menuGroup(menuDom);
-        bindEvent_menuItem(menuDom, menuItemClickE);
+        self.menuDom = document.getElementById(menuboxId);
+        bindEvent_menuGroup(self.menuDom);
+        bindEvent_menuItem(self.menuDom, menuItemClickE);
+        // 程序操作点击菜单
+        self.activeItem = (menuIndex) => {
+            let activeMenuItem = self.menuDom.querySelectorAll('.mnavmenu-item')[menuIndex];
+            activeMenuItem.click();
+        }
         return self;
     };
 

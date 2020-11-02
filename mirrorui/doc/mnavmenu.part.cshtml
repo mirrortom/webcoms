@@ -1,13 +1,4 @@
-﻿@*
-  1.模板页名字规定: "页面名字.part.cshtml""
-  2.内容容器固定如下:
-<div class="doc-part-box" id="mnavmenu">
-  <h2>标题</h2>
-  ......
-  ......
-</div>
-*@
-<div class="doc-part-box" id="mnavmenu">
+﻿<div class="doc-part-box" id="mnavmenu">
   <h2>底部导航</h2>
   <p>用于手机的底部导航菜单,模仿微信公众号那样的菜单</p>
   <pre class="bg-gray">
@@ -23,7 +14,15 @@
       &lt;span class="mnavmenu-label"&gt;&equiv; 菜单一&lt;/span&gt;
     &lt;/div&gt;
     &lt;div class="mnavmenu-group"&gt;
-    ...
+      &lt;a class="mnavmenu-item"&gt;&equiv; 一级菜单&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="mnavmenu-group"&gt;
+      &lt;ul class="mnavmenu-itembox close"&gt;
+        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单2.1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单2.2&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;span class="mnavmenu-label <strong>last</strong>"&gt;&equiv; 菜单二&lt;/span&gt;
+    &lt;/div&gt;
   &lt;/nav&gt;
 
 </pre>
@@ -34,4 +33,18 @@
     <span class="key primary cir">查看</span>
     <a class="val btn link" href="doc/mnavmenudemo.html" target="_blank">手机页面</a>
   </div>
+  <p class="article-title">js</p>
+  <pre class="bg-gray">
+    // mnavmenuId,dom的id
+    // item: 当前点击的菜单dom
+    // index: 当前点击的菜单dom索引
+    let mnavmenu1 = mnavmenu('mnavmenuId', (item, index) => {
+      msgbox.alert(item.innerHTML);
+    });
+
+    // index 的顺序是,左边第一组菜单的最上面那个菜单为0,开始,到最右边最下面那个菜单.
+    // 方法: 点击一个菜单
+    mnavmenu1.activeItem(0)
+    
+</pre>
 </div>

@@ -22,29 +22,29 @@
     </div>
     <div class="mnavmenu-group">
       <div class="mnavmenu-itembox close">
-        <a class="mnavmenu-item">大米</a>
-        <a class="mnavmenu-item">面条</a>
-        <a class="mnavmenu-item">玉米</a>
-        <span class="mnavmenu-split"></span>
-        <a class="mnavmenu-item">土豆</a>
-      </div>
-      <span class="mnavmenu-label">&equiv; 菜单二</span>
-    </div>
-    <div class="mnavmenu-group">
-      <div class="mnavmenu-itembox close">
         <a class="mnavmenu-item">咖啡</a>
         <a class="mnavmenu-item">红茶</a>
         <span class="mnavmenu-split"></span>
         <a class="mnavmenu-item">烈酒</a>
         <a class="mnavmenu-item">葡萄酒</a>
       </div>
-      <span class="mnavmenu-label">&equiv; 菜单三</span>
+      <span class="mnavmenu-label">&equiv; 菜单二</span>
+    </div>
+    <div class="mnavmenu-group">
+      <a class="mnavmenu-item direct">一级菜单</a>
+    </div>
+    <div class="mnavmenu-group">
+      <div class="mnavmenu-itembox close">
+        <a class="mnavmenu-item">烤鸭</a>
+        <a class="mnavmenu-item">烤鹅</a>
+      </div>
+      <span class="mnavmenu-label last">&equiv; 最后菜单</span>
     </div>
   </nav>
   <div id="test2"></div>
   <script>
     mnavmenu('mnavmenu1', (item, i) => {
-      msgbox.alert(item.innerHTML);
+      msgbox.alert(item.innerHTML+ '  index: '+i);
     });
     document.getElementById('test2').innerHTML = '页面内容';
   </script>
