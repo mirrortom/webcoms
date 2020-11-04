@@ -165,14 +165,85 @@
     // 主菜单
     sidemenu('main_menubox');
     // chg theme
-    function chgprimary(color) {
-      let carr = color.split(',');
-      document.documentElement.style.setProperty('--primary', '#' + carr[0]);
-      document.documentElement.style.setProperty('--primaryse', '#' + carr[1]);
+    function chgtheme(themeId) {
+      let colors = themeColors(themeId);
+      for (let colorKey in colors) {
+        if (colors[colorKey].length < 3) {
+          document.documentElement.style.setProperty(`--${colorKey.replace('_', '-')}`, colors[colorKey][0]);
+          continue;
+        }
+        document.documentElement.style.setProperty(`--${colorKey}`, colors[colorKey][1]);
+        document.documentElement.style.setProperty(`--${colorKey}se`, colors[colorKey][2]);
+        //
+        document.querySelector(`#themecolorshowbox td.bg-${colorKey}lt`).innerHTML = colors[colorKey][0];
+        document.querySelector(`#themecolorshowbox td.bg-${colorKey}`).innerHTML = colors[colorKey][1];
+        document.querySelector(`#themecolorshowbox td.bg-${colorKey}se`).innerHTML = colors[colorKey][2];
+      }
     }
     // chg font-size
     function chgfontsize(size) {
       document.documentElement.style.setProperty('--font-size', size + 'px');
+    }
+    // pink主题色
+    function themeColors(themeId) {
+      if (themeId == 'sky') {
+        return {
+          font_color: ['#2D3748'],
+          body_bgcolor: ['#fff'],
+          gray: ['#EDF2F7', '#CBD5E0', '#718096'],
+          primary: ['#EBF8FF', '#90CDF4', '#4299E1'],
+          success: ['#C6F6D5', '#68D391', '#38A169'],
+          danger: ['#FC8181', '#E53E3E', '#9B2C2C'],
+          info: ['#C3DAFE', '#7F9CF5', '#5A67D8'],
+          warning: ['#FEEBC8', '#F6AD55', '#DD6B20'],
+        };
+      }
+      if (themeId == 'dark') {
+        return {
+          font_color: ['#E2E8F0'],
+          body_bgcolor: ['#2D3748'],
+          gray: ['#A0AEC0', '#4A5568', '#1A202C'],
+          primary: ['#A0AEC0', '#4A5568', '#1A202C'],
+          success: ['#48BB78', '#2F855A', '#22543D'],
+          danger: ['#F56565', '#C53030', '#742A2A'],
+          info: ['#4299E1', '#2B6CB0', '#2A4365'],
+          warning: ['#ED8936', '#C05621', '#7B341E']
+        };
+      }
+      if (themeId == 'teal') {
+        return {
+          font_color: ['#2D3748'],
+          body_bgcolor: ['#fefefe'],
+          gray: ['#EDF2F7', '#CBD5E0', '#718096'],
+          primary: ['#B2F5EA', '#4FD1C5', '#319795'],
+          success: ['#9AE6B4', '#48BB78', '#2F855A'],
+          danger: ['#FEB2B2', '#F56565', '#C53030'],
+          info: ['#A3BFFA', '#667EEA', '#4C51BF'],
+          warning: ['#FBD38D', '#ED8936', '#C05621']
+        };
+      }
+      if (themeId == 'pink') {
+        return {
+          font_color: ['#2D3748'],
+          body_bgcolor: ['#fefefe'],
+          gray: ['#eef1f3', '#dee2e6', '#b7c0c9'],
+          primary: ['#FED7E2', '#F687B3', '#D53F8C'],
+          success: ['#C6F6D5', '#68D391', '#38A169'],
+          danger: ['#FED7D7', '#FC8181', '#E53E3E'],
+          info: ['#BEE3F8', '#63B3ED', '#3182CE'],
+          warning: ['#FEFCBF', '#F6AD55', '#DD6B20']
+        };
+      }
+      return {
+        font_color: ['#343a40'],
+        body_bgcolor: ['#fff'],
+        gray: ['#eef1f3', '#dee2e6', '#b7c0c9'],
+        primary: ['#b3e6b3', '#6c6', '#44c144'],
+        success: ['#85e29a', '#28a745', '#228e3b'],
+        danger: ['#ee9aa2', '#dc3545', '#c62232'],
+        info: ['#78deee', '#17a2b8', '#148a9c'],
+        warning: ['#ffe083', '#ffc107', '#dfa700']
+      };
     }
   </script>
 </body>

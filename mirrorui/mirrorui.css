@@ -35,6 +35,7 @@ td {
 :root {
   --font-size: 14px;
   --font-color: #343a40;
+  --body-bgcolor: #fff;
   --gray: #dee2e6;
   --graylt: #eef1f3;
   --grayse: #b7c0c9;
@@ -63,7 +64,7 @@ body {
   font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif, '\5B8B\4F53';
   font-size: var(--font-size);
   color: var(--font-color);
-  background-color: #fff;
+  background-color: var(--body-bgcolor);
 }
 @media only screen and (max-width: 768px) {
   :root {
@@ -698,7 +699,7 @@ a {
 .d-block {
   display: block !important;
 }
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: 640px) {
   .d-sm-none {
     display: none !important;
   }
@@ -790,7 +791,7 @@ a {
   grid-template-columns: repeat(12, 8.333333333333332%);
   overflow: hidden;
 }
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: 640px) {
   .grids-sm-1 {
     grid-template-columns: repeat(1, 100%);
   }
@@ -998,7 +999,7 @@ a {
   flex: 0 1 100%;
   overflow: hidden;
 }
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: 640px) {
   .grid-sm-1 {
     flex: 0 1 8.333333333333332%;
   }
@@ -2529,7 +2530,7 @@ p {
   color: #fff;
   background-color: var(--primary);
 }
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 640px) {
   .date-box {
     position: fixed;
     width: calc(100vw - 2px);
@@ -2969,6 +2970,7 @@ p {
   min-height: 40px;
   border-top: 1px solid var(--grayse);
   text-align: center;
+  background-color: #fff;
 }
 .mnavmenu-group {
   position: relative;
@@ -2977,7 +2979,6 @@ p {
 .mnavmenu-label {
   display: block;
   padding: 10px 0;
-  background-color: #fff;
 }
 .mnavmenu-label:not(.last),
 .mnavmenu-item.direct {

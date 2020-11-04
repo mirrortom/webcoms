@@ -46,7 +46,11 @@
     mnavmenu('mnavmenu1', (item, i) => {
       msgbox.alert(item.innerHTML+ '  index: '+i);
     });
-    document.getElementById('test2').innerHTML = '页面内容';
+    let html = '';
+    for (var i = 0; i < 30; i++) {
+      html += '<h4>页面内容</h4>';
+    }
+    document.getElementById('test2').innerHTML = html;
   </script>
 </body>
 </html>

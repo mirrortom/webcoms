@@ -24,6 +24,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 :root
     --font-size: $font-size
     --font-color: $font-color
+    --body-bgcolor: $white
     // 灰白色
     --gray: $gray
     --graylt: $graylt
@@ -56,7 +57,7 @@ body
     font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif, '\5B8B\4F53'
     font-size: var(--font-size)
     color: var(--font-color)
-    background-color: #ffffff
+    background-color: var(--body-bgcolor)
 // body字体大小 默认14px , 手机版本使用16px,
 @media only screen and (max-width: $screen-tablet)
     :root

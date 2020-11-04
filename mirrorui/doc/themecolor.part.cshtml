@@ -10,53 +10,56 @@
 <div class="doc-part-box" id="theme">
   <h1>主题</h1>
   <p>主色调和基准字体大小使用了css变量,用JS修改变量的值就能改变主题色和字体大小.css变量在":root"伪类下查找,下面是字体和主题色变量</p>
-  <p> <b>--font-size: 14px;</b></p>
+  <p> <b>--font-size: 14px;</b> 手机屏幕576以下,用媒体查询设置了 <b>--font-size: 16px;</b></p>
   <p> <b>--primary: #6c6;</b></p>
   <p>js修改:root伪类里的css变量方法:  <b>document.documentElement.style.setProperty('--primary', 'blue');</b></p>
   <p>这个方法设置的是内联样式,是在HTML元素上写style="--primary:xxx" .</p>
   <p></p>
   <p>获取css变量方法: window.getComputedStyle(document.documentElement).getPropertyValue('--primary')</p>
+  <p class="article-title">:root 所有变量</p>
   <div>
-    <p class="article-title">修改主色primary</p>
-    @foreach (var item in new string[] { "d1ecf1,bee5eb", "17a2b8,148a9c", "ffc107,dfa700" })
-    {
-    <span class="btn text-white" onclick="chgprimary('@item')" style="background-color:#@item.Split(',')[0]">#@item.Split(',')[0]</span>
-    }
+    <table class="table border" style="max-width:600px" id="themecolorshowbox">
+      <tr><th>变量</th><th>变量值</th><th>说明</th></tr>
+      <tr><td class="text-center bg-gray" colspan="3">字体和基本颜色</td></tr>
+      <tr><td>--font-size</td><td>14px</td><td>body字体大小,手机为16</td></tr>
+      <tr><td>--font-color</td><td>#343a40</td><td>body字体颜色</td></tr>
+      <tr><td>--body-bgcolor</td><td>#fff</td><td>body背景颜色</td></tr>
+      <tr><td>--gray</td><td class="bg-gray">#dee2e6</td><td>灰色</td></tr>
+      <tr><td>--graylt</td><td class="bg-graylt">#eef1f3</td><td>淡灰</td></tr>
+      <tr><td>--grayse</td><td class="bg-grayse">#b7c0c9</td><td>深灰</td></tr>
+      <tr><td>--white</td><td>#fff</td><td>白色</td></tr>
+      <tr><td class="text-center bg-gray" colspan="3">主题色(色值来自bootstrap4.0)</td></tr>
+      <tr><td>--primary</td><td class="bg-primary text-white">#6c6</td><td>主题色</td></tr>
+      <tr><td>--success</td><td class="bg-success text-white">#28a745</td><td>成功 success</td></tr>
+      <tr><td>--danger</td><td class="bg-danger text-white">#dc3545</td><td>危险 danger</td></tr>
+      <tr><td>--warning</td><td class="bg-warning text-white">#ffc107</td><td>警告 warning</td></tr>
+      <tr><td>--info</td><td class="bg-info text-white">#17a2b8</td><td>一般信息 info</td></tr>
+      <tr><td class="text-center bg-gray" colspan="3">主题色淡lt</td></tr>
+      <tr><td>--primarylt</td><td class="bg-primarylt text-white">#b3e6b3</td><td>主题色</td></tr>
+      <tr><td>--successlt</td><td class="bg-successlt text-white">#85e29a</td><td>成功 success</td></tr>
+      <tr><td>--dangerlt</td><td class="bg-dangerlt text-white">#ee9aa2</td><td>危险 danger</td></tr>
+      <tr><td>--warninglt</td><td class="bg-warninglt text-white">#ffe083</td><td>警告 warning</td></tr>
+      <tr><td>--infolt</td><td class="bg-infolt text-white">#78deee</td><td>一般信息 info</td></tr>
+      <tr><td class="text-center bg-gray" colspan="3">主题色深se</td></tr>
+      <tr><td>--primaryse</td><td class="bg-primaryse text-white">#44c144</td><td>主题色</td></tr>
+      <tr><td>--successse</td><td class="bg-successse text-white">#228e3b</td><td>成功 success</td></tr>
+      <tr><td>--dangerse</td><td class="bg-dangerse text-white">#c62232</td><td>危险 danger</td></tr>
+      <tr><td>--warningse</td><td class="bg-warningse text-white">#dfa700</td><td>警告 warning</td></tr>
+      <tr><td>--infose</td><td class="bg-infose text-white">#148a9c</td><td>一般信息 info</td></tr>
+    </table>
   </div>
   <div>
+    <p class="article-title">修改主题色</p>
+    <p>颜色来源 <a href="https://www.tailwindcss.cn/docs/customizing-colors#default-color-palette" target="_blank">https://www.tailwindcss.cn/docs/customizing-colors#default-color-palette</a></p>
+    <span class="btn" onclick="chgtheme()">草地(默认)</span>
+    <span class="btn" onclick="chgtheme('sky')">蓝天</span>
+    <span class="btn" onclick="chgtheme('dark')">星夜</span>
+    <span class="btn" onclick="chgtheme('teal')">水鸭</span>
+    <span class="btn" onclick="chgtheme('pink')">粉红</span>
     <p class="article-title">修改字体大小</p>
     <span class="btn" onclick="chgfontsize(12)">12px</span>
     <span class="btn" onclick="chgfontsize(14)">14px(默认)</span>
     <span class="btn" onclick="chgfontsize(16)">16px</span>
-    <span class="btn" onclick="chgfontsize(20)">18px</span>
-    <span class="btn" onclick="chgfontsize(24)">22px</span>
-  </div>
-  <div>
-    <p class="article-title">主题色</p>
-    <p>部分主题色值来自bootstrap4.0</p>
-    <div class="grids-7">
-      @foreach (var item in Model.themecolors)
-      {
-      <p class="bg-@item pd-5 mg-5 text-center text-white">@item</p>
-      }
-    </div>
-    <p>主题色加深,primary - paimaryse , info - infose</p>
-    <div class="grids-7">
-      @foreach (var item in Model.themecolors)
-      {
-      string claName = item + "se";
-      string set = item + "-se";
-      <p class="bg-@claName pd-5 mg-5 text-center text-white">@set</p>
-      }
-    </div>
-    <p>主题色减淡</p>
-    <div class="grids-7">
-      @foreach (var item in Model.themecolors)
-      {
-      string claName = item + "lt";
-      string set = item + "-lt";
-      <p class="bg-@claName pd-5 mg-5 text-center text-white">@set</p>
-      }
-    </div>
+    <span class="btn" onclick="chgfontsize(20)">20px</span>
   </div>
 </div>
