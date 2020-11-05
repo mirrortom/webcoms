@@ -1464,6 +1464,7 @@ p {
   width: 100%;
   padding: 0.05rem 0.08rem;
   font-size: var(--font-size);
+  background-color: var(--white);
 }
 .select {
   display: block;
@@ -1472,6 +1473,7 @@ p {
   width: 100%;
   padding: 0.05rem 0.08rem;
   font-size: var(--font-size);
+  background-color: var(--white);
 }
 .textarea {
   border: 1px solid var(--grayse);
@@ -1481,6 +1483,7 @@ p {
   height: 1rem;
   padding: 4px;
   resize: none;
+  background-color: var(--white);
   overflow-y: auto;
 }
 .textarea-label {
