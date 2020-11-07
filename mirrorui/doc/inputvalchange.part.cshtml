@@ -1,0 +1,54 @@
+﻿<div class="doc-part-box" id="inputvalchange">
+  <h2>监听输入变化</h2>
+  <p class="article-title">定时检测input输入框的值的变化,检测到变化时执行一个方法</p>
+  <p>为实现输入框自动提示功能,当输入内容发生变化时,提示与内容相关的数据.类似于搜索框的自动提示功能</p>
+  <p>可用于搜索数据时自动显示相关的内容,增加操作便捷性.</p>
+  <p>input在获取焦点时触发监听,失去焦点时结束监听.</p>
+  <p>对于中文输入时的状态问题,会监听compositionstart,compositionend两个事件,避免在中文输入过程中触发判断.</p>
+  <p>以下测试输入一个字,筛选出包含这个字的结果</p>
+  <div class="grids">
+    <label class="input-label grid-1">搜索关键字</label>
+    <input class="input-text grid" type="text" id="inputvalchange1" />
+  </div>
+  <div>
+    <label class="input-label">搜索结果</label>
+    <div id="alldatabox"></div>
+  </div>
+  <pre class="bg-gray">
+    let inputdom = document.getElementById('inputvalchange1');
+
+    // 实例化: inputValWatch(inputdom,eventfun);
+    let inputlisten1 = inputValWatch(inputdom, (val, input) => {
+      // val当前input的值,input input的dom对象
+      console.log(val);
+    });
+
+    // 方法: 清除监听解绑所有事件
+    inputlisten1.clear();
+
+</pre>
+</div>
+<script>
+  (() => {
+    var alldata = ['苹果', '手机', '电脑', '安卓', '手游', '老干妈', '苹果酱', '安全', '老子', '干货', '水果', '电磁场', '旅游', '头脑', '黄金', '白金', '黄帝', '白色', '白头山'];
+    adddom(alldata);
+
+    let inputdom = document.getElementById('inputvalchange1');
+    let input1 = inputValWatch(inputdom, (val, input) => {
+      let filterdata = [];
+      for (var i = 0; i < alldata.length; i++) {
+        if (alldata[i].indexOf(val) > -1)
+          filterdata.push(alldata[i]);
+      }
+      adddom(filterdata);
+    });
+    //
+    function adddom(data) {
+      var dom = '';
+      for (var i = 0; i < data.length; i++) {
+        dom += '<span class="label mg-5">' + data[i] + '</span>';
+      }
+      document.getElementById('alldatabox').innerHTML = dom;
+    }
+  })();
+</script>
