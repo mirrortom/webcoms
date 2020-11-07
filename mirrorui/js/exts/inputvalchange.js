@@ -41,7 +41,7 @@
         // 1.input获得焦点时开始监听
         let watchStartE = () => {
             obj.stopListen = 1;
-            obj.lastValue = '';
+            obj.lastValue = obj.dom.value;
             watch(obj);
         }
         // 2.失去焦点,结束监听
@@ -70,7 +70,7 @@
             obj.dom.removeEventListener('blur', watchEndE);
             obj.dom.removeEventListener('compositionstart', zhTypingStart);
             obj.dom.removeEventListener('compositionend', zhTypingEnd);
-            obj.stopListen = 1;
+            obj.stopListen = 0;
         }
         //
         return obj;
