@@ -1069,6 +1069,7 @@ if (!win.$)
 // (详细讲解)https://www.cnblogs.com/libin-1/p/6853677.html
 // ====================================================================
 ((win) => {
+    let _$ = win.lib;
     /**
      * 简易post方式Ajax,对参数做了包装,第一个then()对请求结果判断成败,丢出异常. 内部使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
@@ -1077,7 +1078,7 @@ if (!win.$)
      * @param {string} resType 返回值类型 默认"json",可选"html"
      * @returns {Promise} fetch().then()返回的Promise对象
      */
-    win.lib.post = (url, data, initCfg = null, resType = 'json') => {
+    _$.post = (url, data, initCfg = null, resType = 'json') => {
         let formData = new FormData();
         if (data instanceof FormData) {
             formData = data;
@@ -1109,7 +1110,7 @@ if (!win.$)
      * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {Promise} fetch()方法返回的Promise对象
      */
-    win.lib.get = (url, para, initCfg = null, resType = 'html') => {
+    _$.get = (url, para, initCfg = null, resType = 'html') => {
         let urlpara = [];
         if (para) {
             if (para instanceof FormData) {
@@ -1137,4 +1138,42 @@ if (!win.$)
                     return res.text();
             });
     };
+})(window);
+// ====================================================================
+// 生成dom元素字符串,主要用于拼接html字符串的情况
+// ====================================================================
+((win) => {
+
+    let elems = ['div', 'span', 'a', 'p', 'table','tr', 'th', 'td', 'option', 'ul', 'li'];
+    let domStr = {};
+    for (var i = 0, len = elems.length; i < len; i++) {
+        let elem = elems[i]
+        domStr[elem] = (text, classN, attrkv) => {
+            if (typeof classN == 'object')
+                return elestring(elem, text, null, classN)
+            return elestring(elem, text, classN, attrkv)
+        }
+    }
+    function elestring(elemN, text, classN, attrkv) {
+        let cls = classN ? ` class="${classN}"` : '';
+        let attrs = '';
+        if (attrkv) {
+            for (var k in attrkv) {
+                attrs += ` ${k}="${attrkv[k]}"`;
+            }
+        }
+        //
+        if (text.indexOf(':for') == 0) {
+            let txtarr = text.substr(4).split('|');
+            let html = '';
+            for (var i = 0, len = txtarr.length; i < len; i++) {
+                let txt = txtarr[i];
+                html += `<${elemN}${cls}${attrs}>${txt}</${elemN}>`;
+            }
+            return html;
+        }
+        return `<${elemN}${cls}${attrs}>${text}</${elemN}>`;
+    }
+    //
+    win.lib.dom = domStr;
 })(window);

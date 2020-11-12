@@ -5,6 +5,7 @@
 // (详细讲解)https://www.cnblogs.com/libin-1/p/6853677.html
 // ====================================================================
 ((win) => {
+    let _$ = win.lib;
     /**
      * 简易post方式Ajax,对参数做了包装,第一个then()对请求结果判断成败,丢出异常. 内部使用fetch()方法,外部可以继续使用then(),catch().
      * @param {string} url 请求url
@@ -13,7 +14,7 @@
      * @param {string} resType 返回值类型 默认"json",可选"html"
      * @returns {Promise} fetch().then()返回的Promise对象
      */
-    win.lib.post = (url, data, initCfg = null, resType = 'json') => {
+    _$.post = (url, data, initCfg = null, resType = 'json') => {
         let formData = new FormData();
         if (data instanceof FormData) {
             formData = data;
@@ -45,7 +46,7 @@
      * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {Promise} fetch()方法返回的Promise对象
      */
-    win.lib.get = (url, para, initCfg = null, resType = 'html') => {
+    _$.get = (url, para, initCfg = null, resType = 'html') => {
         let urlpara = [];
         if (para) {
             if (para instanceof FormData) {
