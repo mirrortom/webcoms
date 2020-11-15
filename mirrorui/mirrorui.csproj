@@ -33,10 +33,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="404.html" />
+    <Content Include="doc\mdirbardemo.html" />
     <Content Include="img\imgdemo.gif" />
     <Content Include="img\msgboxlayer.png" />
     <Content Include="js\cachepage.js" />
     <Content Include="js\exts\inputvalchange.js" />
+    <Content Include="js\mdirbar.js" />
     <Content Include="js\form.js" />
     <Content Include="js\help.js" />
     <Content Include="js\msgbox.js" />
@@ -63,6 +65,7 @@
     </None>
     <None Include="compilerconfig.json" />
     <Content Include="doc\mnavmenudemo.html" />
+    <None Include="doc\mdirbar.part.cshtml" />
     <None Include="doc\inputvalchange.part.cshtml" />
     <None Include="doc\mnavmenu.part.cshtml" />
     <None Include="doc\msgshow.part.cshtml" />
@@ -103,6 +106,7 @@
     <None Include="stylus\coms\form.styl" />
     <None Include="stylus\coms\grids.styl" />
     <None Include="stylus\coms\h1h6p.styl" />
+    <None Include="stylus\coms\mdirbar.styl" />
     <None Include="stylus\coms\msgshow.styl" />
     <None Include="stylus\coms\onoff.styl" />
     <None Include="stylus\coms\hr.styl" />

@@ -36,6 +36,7 @@
     <None Include="bundleconfig.json.bindings">
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
+    <None Include="doc\domstring.part.cshtml" />
     <None Include="doc\rand.part.cshtml" />
     <None Include="doc\array.part.cshtml" />
     <None Include="doc\valid.part.cshtml" />
@@ -64,6 +65,7 @@
     <Content Include="src\jslib\domEvent.part.js" />
     <Content Include="src\jslib\2end.part.js" />
     <Content Include="src\jslib\dom.part.js" />
+    <Content Include="src\jslib\ext_com_elemstring.part.js" />
     <Content Include="src\jslib\ext_com_ajax.part.js" />
     <Content Include="src\jslib\ext_base_rand.part.js" />
     <Content Include="src\jslib\ext_base_date.part.js" />

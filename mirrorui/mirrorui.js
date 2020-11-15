@@ -704,13 +704,15 @@ contDom:
     // tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
     let cachePage = (tabsDom, contDom) => {
         //
-        if (!tabsDom || !contDom) throw '必须传入DOM对象';
+        if (!tabsDom || !contDom) throw '必须传入tabsDom,contDom容器对象';
         // 缓存页对象
         let self = {};
+        self.tabsDom = tabsDom;
+        self.contDom = contDom;
         // 缓存器,{c_id:createDocumentFragment片断,c_id2:null},值为null的表示当前活动页,只能有一个
-        let cache = {};
+        self.cache = {};
         // 生成选项卡工具dom
-        createTabDom(tabsDom);
+        createTabDom(self.tabsDom);
 
         //====================================================================================
         // 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态.在菜单的点击事件上执行次方法.
@@ -725,14 +727,14 @@ contDom:
                 throw 'tab title is empty!';
             }
             // (情形1) 如果载入的是当前活动的选项卡页,不动作
-            if (cache[pid] === null) {
+            if (self.cache[pid] === null) {
                 // console.log('type1');
                 if (typeof onload === 'function')
                     onload(1);
                 return;
             }
             // (情形2)激活选项卡.如果pid已添加过,则到缓存中取出页面显示在contDom中,激活对应选项卡.
-            if (cache[pid]) {
+            if (self.cache[pid]) {
                 // 切换活动选项卡状态
                 let atabdom = activeTab(pid);
                 // 选项卡位置调整到可见区域
@@ -740,9 +742,9 @@ contDom:
                 // 添加当前DOM到缓存
                 cacheActiveTab();
                 // 取出pid对应的DOM片段,放入显示容器
-                M(contDom).html(cache[pid]);
+                M(self.contDom).html(self.cache[pid]);
                 // 标识为null,表示pid成为新的活动页
-                cache[pid] = null;
+                self.cache[pid] = null;
                 // console.log('type2');
                 if (typeof onload === 'function')
                     onload(2);
@@ -754,11 +756,11 @@ contDom:
             // 选项卡框滚动条移动到最后
             scrollerTabs(1);
             // 当增加的是第1个选项卡时,没有活动页面,不需要缓存
-            if (Object.getOwnPropertyNames(cache).length > 0) {
+            if (Object.getOwnPropertyNames(self.cache).length > 0) {
                 cacheActiveTab();
             }
             // 添加到缓存.当前活动页缓存约定为null,不缓存
-            cache[pid] = null;
+            self.cache[pid] = null;
             // console.log('type3');
             if (typeof onload === 'function')
                 onload(3);
@@ -771,7 +773,7 @@ contDom:
         // 新增选项卡
         let addTab = (pid, title) => {
             // 去掉当前活动的选项卡
-            let activeTabDom = M(tabsDom).find('.tabsbox-tab.active');
+            let activeTabDom = M(self.tabsDom).find('.tabsbox-tab.active');
             if (activeTabDom.length > 0) {
                 activeTabDom.removeClass('active');
             }
@@ -782,27 +784,27 @@ contDom:
             // 绑定点击事件
             selectedTab(tabdom);
             // 添加到选项卡容器
-            M(tabsDom).find('.tabsbox-nav').append(tabdom);
+            M(self.tabsDom).find('.tabsbox-nav').append(tabdom);
         };
         // 切换激活选项卡.然后返回活动tab的Dom对象
         let activeTab = (pid) => {
             // 去掉当前活动的选项卡
-            let activeTabDom = M(tabsDom).find('.tabsbox-tab.active');
+            let activeTabDom = M(self.tabsDom).find('.tabsbox-tab.active');
             if (activeTabDom.length > 0) {
                 activeTabDom.removeClass('active');
             }
             // 添加pid选项卡活动样式
-            let tabDom = M(tabsDom).find(".tabsbox-tab[val='" + pid + "']").addClass('active')[0];
+            let tabDom = M(self.tabsDom).find(".tabsbox-tab[val='" + pid + "']").addClass('active')[0];
             return tabDom;
         };
 
         // 将活动页内容DOM添加到缓存.(缓存当前页面)
         let cacheActiveTab = () => {
             // 找到cache中null值的键,将显示容器div中的所有元素添加DOM片段后,赋值
-            for (let prop in cache) {
-                if (cache.hasOwnProperty(prop)) {
-                    if (cache[prop] === null) {
-                        cache[prop] = M.fragment(...contDom.childNodes);
+            for (let prop in self.cache) {
+                if (self.cache.hasOwnProperty(prop)) {
+                    if (self.cache[prop] === null) {
+                        self.cache[prop] = M.fragment(...self.contDom.childNodes);
                         return;
                     }
                 }
@@ -812,7 +814,7 @@ contDom:
         // len:滚动距离,>0 : 向右滚此距离, <0 : 向左滚, 0 : 滚动到最左, 1 : 到最右,
         //              'left': 左滚固定距离, 'right': 右滚固定距离
         let scrollerTabs = (len) => {
-            let navDom = M(tabsDom).find('.tabsbox-nav')[0];
+            let navDom = M(self.tabsDom).find('.tabsbox-nav')[0];
             // 滚动条位置
             let sPosition = navDom.scrollLeft;
             // nav宽度
@@ -840,7 +842,7 @@ contDom:
 
         // 调整选项卡框的滚动条值,使指定选项卡处于中间位置.
         let adjustPositionTab = (tabDom) => {
-            let navDom = M(tabsDom).find('.tabsbox-nav')[0];
+            let navDom = M(self.tabsDom).find('.tabsbox-nav')[0];
             // 界限值89px,大致是一个按钮的宽度
             let tabLen = 89;
             // 滚动条位置
@@ -863,23 +865,23 @@ contDom:
             M(tabDom).find('.tabsbox-tabclose')[0].onclick = (event) => {
                 event.stopPropagation();
                 // (情形1)关闭的是最后一个tab页,删除tab,清空缓存
-                if (Object.getOwnPropertyNames(cache).length == 1) {
+                if (Object.getOwnPropertyNames(self.cache).length == 1) {
                     // 删除选项卡,删除缓存,清空显示容器
-                    contDom.innerHTML = '';
-                    cache = {};
+                    self.contDom.innerHTML = '';
+                    self.cache = {};
                     M(tabDom).remove();
                     return;
                 }
                 // (情形2)关闭时,多于1个tab页时
                 // 清除对应缓存,
                 let cacheId = M(tabDom).prop('val');
-                delete cache[cacheId];
+                delete self.cache[cacheId];
                 // 如果关闭的是活动页,将cache中最后一个id,对应的选项卡激活,对应DOM载入显示容器
                 if (M(tabDom).hasClass('active')) {
-                    let cacheId = Object.getOwnPropertyNames(cache).pop();
-                    let lastTabDom = M(tabsDom).find(".tabsbox-tab[val='" + cacheId + "']").addClass('active');
-                    M(contDom).html(cache[cacheId]);
-                    cache[cacheId] = null;
+                    let cacheId = Object.getOwnPropertyNames(self.cache).pop();
+                    let lastTabDom = M(self.tabsDom).find(".tabsbox-tab[val='" + cacheId + "']").addClass('active');
+                    M(self.contDom).html(self.cache[cacheId]);
+                    self.cache[cacheId] = null;
                 }
                 // 删除tab,
                 M(tabDom).remove();
@@ -899,14 +901,14 @@ contDom:
                 // 缓存当前DOM
                 cacheActiveTab();
                 // 去掉当前活动的选项卡活动状态
-                let activeTabDom = M(tabsDom).find('.tabsbox-tab.active');
+                let activeTabDom = M(self.tabsDom).find('.tabsbox-tab.active');
                 if (activeTabDom.length > 0) {
                     activeTabDom.removeClass('active');
                 }
                 // 激活点击的选项卡,获取其缓存页加载到显示容器
                 let cacheId = M(tabDom).addClass('active').prop('val');
-                M(contDom).html(cache[cacheId]);
-                cache[cacheId] = null;
+                M(self.contDom).html(self.cache[cacheId]);
+                self.cache[cacheId] = null;
                 //console.log(cache);
             };
         };
@@ -914,37 +916,37 @@ contDom:
         // Event 选项卡条功能事件
         //======================================================
         // 向左滚动按钮
-        M(tabsDom).find('.tabsbox-left')[0].onclick = () => {
+        M(self.tabsDom).find('.tabsbox-left')[0].onclick = () => {
             scrollerTabs('left');
         };
         // 向右滚动按钮
-        M(tabsDom).find('.tabsbox-right')[0].onclick = () => {
+        M(self.tabsDom).find('.tabsbox-right')[0].onclick = () => {
             scrollerTabs('right');
         };
 
         // 定位当前按钮
-        M(tabsDom).find('.tabsbox-goto-active')[0].onclick = () => {
-            let activeTab = M(tabsDom).find('.active')[0];
+        M(self.tabsDom).find('.tabsbox-goto-active')[0].onclick = () => {
+            let activeTab = M(self.tabsDom).find('.active')[0];
             if (!activeTab) return;
             adjustPositionTab(activeTab);
         };
         // 关闭全部选项卡
-        M(tabsDom).find('.tabsbox-close-all')[0].onclick = () => {
+        M(self.tabsDom).find('.tabsbox-close-all')[0].onclick = () => {
             // 删除选项卡,删除缓存,清空显示容器
-            let navDom = M(tabsDom).find('.tabsbox-nav').empty();
-            contDom.innerHTML = '';
-            cache = {};
+            let navDom = M(self.tabsDom).find('.tabsbox-nav').empty();
+            self.contDom.innerHTML = '';
+            self.cache = {};
         };
         // 关闭除当前外所有选项卡
-        M(tabsDom).find('.tabsbox-close-other')[0].onclick = () => {
+        M(self.tabsDom).find('.tabsbox-close-other')[0].onclick = () => {
             // 删除选项卡除活动的外
-            let navDom = M(tabsDom).find('.tabsbox-nav .tabsbox-tab:not(.active)').remove();
+            let navDom = M(self.tabsDom).find('.tabsbox-nav .tabsbox-tab:not(.active)').remove();
             // 除了为null的都删除掉,null是当前页特征
-            for (let prop in cache) {
-                if (cache.hasOwnProperty(prop)) {
-                    if (cache[prop] === null)
+            for (let prop in self.cache) {
+                if (self.cache.hasOwnProperty(prop)) {
+                    if (self.cache[prop] === null)
                         continue;
-                    delete cache[prop];
+                    delete self.cache[prop];
                 }
             }
         };
@@ -2399,6 +2401,160 @@ contDom:
 
     // window上的引用名字
     win.mnavmenu = mnavMenu;
+})(window);
+((win) => {
+    // 帮助函数
+    const M = win.$ui;
+    // 生成选项卡和功能区DOM,添加到容器内
+    /* html内容:
+        <a class="back"></a>
+        <span class="title text-overflow"></span>
+        <a class=""></a>
+     */
+    let createBarDom = (barDom) => {
+        let fragment = M.fragment();
+        fragment.append(M('<a>').addClass('back')[0]);
+        fragment.append(M('<span>').addClass('title', 'text-overflow')[0]);
+        fragment.append(M('<a>')[0]);
+        M(barDom).append(fragment).addClass('mdirbar');
+    };
+
+    // 初始化mdirbar实例(构造)
+    // barDom:导航容器DOM
+    let mDirBar = (barDom, contDom) => {
+        if (!barDom) throw '必须传入barDom,contDom容器对象';
+        let self = {};
+        self.barDom = barDom;
+        self.contDom = contDom;
+        // 缓存数组容器 {pid,title,documentFragment}
+        self.cache = [];
+        // 生成dom
+        createBarDom(self.barDom);
+        //====================================================================================
+        // 主要方法 载入新页面.做了更新缓存状态,新载入的页面始终在缓存设置最后.在菜单的点击事件上要执行此方法.
+        // 该方法第3个参数onload(loadType)是一个方法,可以根据loadType参数值判断是否要载入新的页面
+        // loadType=1: 菜单是当前页面
+        // loadType=2: 菜单之前载入过
+        // loadType=3: 是新载入菜单,其对应的页面没有载入过,需要做载入新页面的操作
+        //====================================================================================
+        // {pid:菜单唯一标识,title:选项卡标题},点击左侧菜单时,调用此方法
+        self.load = (pid, title, onload) => {
+            //console.log(`pid:${pid},title:${title}`);
+            // 1.载入的页面是当前页面,不动作
+            if (isCurrPage(pid) == true) {
+                if (typeof onload === 'function')
+                    onload(1);
+                //printlog(1);
+                return;
+            }
+            // 2.载入是的已缓存过的页面
+            let pidIndex = pidCacheIndex(pid);
+            if (pidIndex > -1) {
+                // 添加当前DOM到缓存
+                cacheActivePage();
+                // 取出pid对应的DOM片段,放入显示容器
+                let pidItem = self.cache[pidIndex];
+                M(contDom).html(pidItem.dom);
+                barTitle(pidItem.title);
+                // 移动到缓存最后,设置dom为null.(当前页面始终在缓存最后面)
+                self.cache.splice(pidIndex, 1);
+                pidItem.dom = null;
+                self.cache.push(pidItem);
+                //
+                if (typeof onload === 'function')
+                    onload(2);
+                //printlog(2);
+                return;
+            }
+            // 3.新页面
+            // 当增加的是第1个选项卡时,没有活动页面,不需要缓存
+            if (self.cache.length > 0) {
+                cacheActivePage();
+            }
+            // 加到缓存最后
+            self.cache.push({ pid: pid, title: title, dom: null });
+            barTitle(title);
+            if (typeof onload === 'function')
+                onload(3);
+            //printlog(3);
+        }
+
+        // 指定的pid是否为当前页面
+        let isCurrPage = (pid) => {
+            let index = pidCacheIndex(pid);
+            if (index == -1) return false;
+            // dom属性为null表示当前页面
+            return self.cache[index].dom == null;
+        }
+
+        // 缓存当前页面
+        let cacheActivePage = () => {
+            // 找到cache中null值的键,将显示容器div中的所有元素添加DOM片段后,赋值
+            for (var i = 0, len = self.cache.length; i < len; i++) {
+                if (self.cache[i].dom == null) {
+                    self.cache[i].title = barTitle();
+                    self.cache[i].dom = M.fragment(...self.contDom.childNodes)
+                    return;
+                }
+            }
+        }
+
+        // 返回指定pid在缓存数组中的索引,不存在返回-1;
+        let pidCacheIndex = (pid) => {
+            for (var i = 0, len = self.cache.length; i < len; i++) {
+                if (self.cache[i].pid == pid)
+                    return i;
+            }
+            return -1;
+        }
+
+        // 设置获取标题
+        let barTitle = (title) => {
+            if (!title)
+                return M(barDom).find('.title').text();
+            M(barDom).find('.title').text(title);
+        }
+
+        //==========
+        // back 回退
+        //==========
+        self.back = (onback) => {
+            // 回退目标页面是cache的倒数第2个项
+            let targetIndex = self.cache.length - 2;
+            // 回退到最后一个页面,返回-1
+            if (targetIndex < 0) {
+                //msgbox.alert('已经不能退了!');
+                if (typeof onback === 'function')
+                    onback(-1);
+                return;
+            }
+            // 删除cahce最后一个项
+            self.cache.pop();
+            // 取出缓存
+            let pageitem = self.cache[targetIndex];
+            // 载入缓存页面,设置标题
+            M(self.contDom).html(pageitem.dom);
+            barTitle(pageitem.title)
+            // 设置为当前页面
+            pageitem.dom = null;
+            //
+            if (typeof onback === 'function')
+                onback(0);
+            //printlog();
+        }
+        M(barDom).find('.back')[0].onclick = self.back;
+
+        //let printlog = (type) => {
+        //  if (type)
+        //    console.log('type: ' + type);
+        //  console.log('cache:');
+        //  console.log(self.cache);
+        //  console.log('--- --- --- ---');
+        //}
+        return self;
+    }
+    //
+    win.mdirbar = mDirBar;
 })(window);
 // 定时检测input输入框的值的变化,检测到变化时执行一个方法
 ((win) => {

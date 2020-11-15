@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="../mirrorui.css" rel="stylesheet" />
+  <script src="../mirrorui.js"></script>
+  <title></title>
+  <style>
+    #contentbox {
+      margin-top: 48px;
+    }
+  </style>
+</head>
+<body>
+  <div id="mdirbarbox"></div>
+  <nav class="mnavmenu" id="mnavmenu1">
+    <div class="mnavmenu-group">
+      <ul class="mnavmenu-itembox close">
+        <li><a class="mnavmenu-item">苹果</a></li>
+        <li><a class="mnavmenu-item">桔子</a></li>
+        <li><b class="mnavmenu-split"></b></li>
+        <li><a class="mnavmenu-item">菠萝</a></li>
+        <li><a class="mnavmenu-item">柠檬</a></li>
+      </ul>
+      <span class="mnavmenu-label">&equiv; 果</span>
+    </div>
+    <div class="mnavmenu-group">
+      <div class="mnavmenu-itembox close">
+        <a class="mnavmenu-item">咖啡</a>
+        <a class="mnavmenu-item">红茶</a>
+        <span class="mnavmenu-split"></span>
+        <a class="mnavmenu-item">烈酒</a>
+        <a class="mnavmenu-item">葡萄酒</a>
+      </div>
+      <span class="mnavmenu-label">&equiv; 酒</span>
+    </div>
+  </nav>
+  <div id="contentbox"></div>
+  <script>
+    // 导航条
+    let barbox = $ui("#mdirbarbox")[0];
+    let contbox = $ui("#contentbox")[0];
+    let mbar = mdirbar(barbox, contbox);
+    // 底部菜单
+    let mnavm1 = mnavmenu('mnavmenu1', (item, index) => {
+      let pid = '_' + index;
+      let pagetitle = $ui(item).text();
+      mbar.load(pid, pagetitle, (type) => {
+        if (type == 3) {
+          let pageId = `<h3 class="text-center mg-t-30">${pagetitle}</h3>`;
+          pageId += '<p><a class="btn" onclick="mbaronback()">手动回退</a></p>';
+          $ui('#contentbox').html(pageId);
+        }
+      });
+    });
+    // 默认加载第一页
+    mnavm1.activeItem(0);
+    //
+    function mbaronback() {
+      mbar.back((type) => {
+        if (type == -1)
+          msgbox.alert('已经不能退了!');
+      })
+    }
+  </script>
+</body>
+</html>
