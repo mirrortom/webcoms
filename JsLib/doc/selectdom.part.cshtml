@@ -1,11 +1,11 @@
 ﻿@*
   1.模板页名字规定: "页面名字.part.cshtml""
   2.内容容器固定如下:
-    <div class="doc-part-box" id="页面名字">
-      <h2>标题</h2>
-      ......
-      ......
-    </div>
+<div class="doc-part-box" id="页面名字">
+  <h2>标题</h2>
+  ......
+  ......
+</div>
 *@
 <div class="doc-part-box" id="selectdom">
   <h2>dom选择</h2>
@@ -274,6 +274,19 @@
   <pre class="bg-gray">
     // 参数是node节点 或者 DocumentFragment对象,返回 DocumentFragment实例
     $.fragment(...content)
+
+</pre>
+</div>
+
+<div class="doc-part-box" id="loadhtml">
+  <h2>$('#id').load(url)</h2>
+  <p>从url加载html,然后设置到所有匹配元素的innerHTML.</p>
+  <p>$ 的实例方法,类似于jquery.load()的功能.这里是使用XMLHttpRequest对象的get方法实现.不能跨域.</p>
+  <p>如果返回失败了,丢出异常.如果成功:xhr.readyState === 4 && xhr.status === 200 则设置返回的html到容器元素里.</p>
+  <p>这个主要用于,ajax请求html片段页面.不使用fetch的原因是,为了兼容打包APP.使用xhr时,可以从包本地取得html片段.</p>
+  <pre class="bg-gray">
+    // 参数是url地址
+    $('#div1').load('test.html');
 
 </pre>
 </div>

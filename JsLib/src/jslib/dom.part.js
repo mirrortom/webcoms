@@ -488,5 +488,27 @@ factory.extend({
             dom.innerHTML = '';
         });
         return this;
+    },
+    /**
+     * 从url加载html,然后设置到所有匹配元素的innerHTML.不能跨域
+     * @param {any} url
+     */
+    'load': function (url) {
+        if (!url) return this;
+        // 1. 实例化 XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        // 2. 处理请求回调
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    this.html(xhr.response);
+                } else {
+                    throw new Error(xhr.statusText);
+                }
+            }
+        }
+        // 3.发送请求
+        xhr.open('GET', url);
+        xhr.send();
     }
 });
