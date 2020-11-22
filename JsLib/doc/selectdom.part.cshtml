@@ -287,6 +287,10 @@
   <pre class="bg-gray">
     // 参数是url地址
     $('#div1').load('test.html');
-
+    // 也支持js,扩展名js
+    $('#div1').load('testjs.js');
 </pre>
+  <br />
+  <p>也可以加载js,为了实现动态加载js.用url扩展名判断,例如 xx.js是js文件,hh.html是html文件.</p>
+  <p>如果请求的是js,那么将js放到script标记中. 再放到this.html('&lt;script&gt;xhr.response)</p>
 </div>

@@ -490,7 +490,9 @@ factory.extend({
         return this;
     },
     /**
-     * 从url加载html,然后设置到所有匹配元素的innerHTML.不能跨域
+     * 从url加载html,然后设置到所有匹配元素的innerHTML.不能跨域.
+     * 也可以加载js,为了实现动态加载js.
+     * 用url扩展名判断,例如 xx.js是js文件,hh.html是html文件
      * @param {any} url
      */
     'load': function (url) {
@@ -501,6 +503,11 @@ factory.extend({
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
+                    // 支持js,如果是js文件,那么放到script中. this.html()会解析执行脚本的
+                    if (url.lastIndexOf('.js') == url.length - 3) {
+                        this.html(`<script>${xhr.response}</script>`);
+                        return;
+                    }
                     this.html(xhr.response);
                 } else {
                     throw new Error(xhr.statusText);
