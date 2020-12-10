@@ -902,7 +902,8 @@ factory.isIpv4 = (str) => {
  */
 factory.isMaxLength = (str, maxlen) => {
     if (!str || str.length === 0) return false;
-    return str.length > maxlen;
+    if (isNaN(parseInt(maxlen))) return false;
+    return str.length > parseInt(maxlen);
 };
 /**
  * 指示一个字符串长度是否小于minlength
@@ -912,9 +913,35 @@ factory.isMaxLength = (str, maxlen) => {
  */
 factory.isMinLength = (str, minlen) => {
     if (!str || str.length === 0) return false;
-    return str.length < minlen;
+    if (isNaN(parseInt(minlen))) return false;
+    return str.length < parseInt(minlen);
 };
-
+/**
+ * 指示一个数值是否小于minnum
+ * @param {any} str
+ * @param {any} minnum
+ */
+factory.isMinNum = (str, minnum) => {
+    let n = parseFloat(str);
+    if (isNaN(n)) return false;
+    // 对于'3s'这种字符串,parseFloat也成功,这里也不考虑比较
+    if (n != str) return false;
+    if (isNaN(parseFloat(minnum))) return false;
+    return n < minnum;
+};
+/**
+ * 指示一个数值是否大于minnum
+ * @param {any} str
+ * @param {any} maxnum
+ */
+factory.isMaxNum = (str, maxnum) => {
+    let n = parseFloat(str);
+    if (isNaN(n)) return false;
+    // 对于'3s'这种字符串,parseFloat也成功,这里也不考虑比较
+    if (n != str) return false;
+    if (isNaN(parseFloat(maxnum))) return false;
+    return n > maxnum;
+};
 /**
  * 指示一个字符串是否为1~3位小数,或者正数 (d | d.dd | d.d | d.ddd),可用于金额
  * @param {string} str 被检查字符串
@@ -967,6 +994,10 @@ if (!win.$)
         'maxlen': 'isMaxLength',
         // 是否小于长度
         'minlen': 'isMinLength',
+        // 数值是否小于指定数值
+        'minnum': 'isMinNum',
+        // 数值是否大于指定数值
+        'maxnum': 'isMaxNum',
         // 正整数或正1-3位小数
         'money': "isMoney"
     };
@@ -1042,17 +1073,28 @@ if (!win.$)
             // 执行验证的函数名字
             let vfunname = vType[validtype[n]];
             // 验证
-            let isValid = _$[vfunname](elem.value);
+            let isValid = true;
             // 长度验证参数来自input上的maxlength,minlength属性值
             if (validtype[n] === 'minlen') {
-                let minlen = parseInt(elem.getAttribute('minlength'));
+                let minlen = elem.getAttribute('minlength');
                 isValid = !_$[vfunname](elem.value, minlen);
             }
             else if (validtype[n] === 'maxlen') {
-                let maxlen = parseInt(elem.getAttribute('maxlength'));
+                let maxlen = elem.getAttribute('maxlength');
                 isValid = !_$[vfunname](elem.value, maxlen);
             }
-            if (!isValid) {
+            else if (validtype[n] === 'minnum') {
+                let minnum = elem.getAttribute('minnum');
+                isValid = !_$[vfunname](elem.value, minnum);
+            }
+            else if (validtype[n] === 'maxnum') {
+                let maxnum = elem.getAttribute('maxnum');
+                isValid = !_$[vfunname](elem.value, maxnum);
+            }
+            else {
+                isValid = _$[vfunname](elem.value);
+            }
+            if (isValid != true) {
                 _$.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
                 return false;
             }
@@ -1173,7 +1215,7 @@ if (!win.$)
 // ====================================================================
 ((win) => {
 
-    let elems = ['div', 'span', 'a', 'p', 'table','tr', 'th', 'td', 'option', 'ul', 'li'];
+    let elems = ['div', 'span', 'a', 'p', 'table', 'tr', 'th', 'td', 'select', 'option', 'ul', 'li', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     let domStr = {};
     for (var i = 0, len = elems.length; i < len; i++) {
         let elem = elems[i]
@@ -1191,8 +1233,8 @@ if (!win.$)
                 attrs += ` ${k}="${attrkv[k]}"`;
             }
         }
-        //
-        if (text.indexOf(':for') == 0) {
+        // 如果是数字的情况,调用.indexOf(':for')就出错,没有这个函数
+        if (typeof text == "string" && text.indexOf(':for') == 0) {
             let txtarr = text.substr(4).split('|');
             let html = '';
             for (var i = 0, len = txtarr.length; i < len; i++) {

@@ -99,7 +99,8 @@ factory.isIpv4 = (str) => {
  */
 factory.isMaxLength = (str, maxlen) => {
     if (!str || str.length === 0) return false;
-    return str.length > maxlen;
+    if (isNaN(parseInt(maxlen))) return false;
+    return str.length > parseInt(maxlen);
 };
 /**
  * 指示一个字符串长度是否小于minlength
@@ -109,9 +110,35 @@ factory.isMaxLength = (str, maxlen) => {
  */
 factory.isMinLength = (str, minlen) => {
     if (!str || str.length === 0) return false;
-    return str.length < minlen;
+    if (isNaN(parseInt(minlen))) return false;
+    return str.length < parseInt(minlen);
 };
-
+/**
+ * 指示一个数值是否小于minnum
+ * @param {any} str
+ * @param {any} minnum
+ */
+factory.isMinNum = (str, minnum) => {
+    let n = parseFloat(str);
+    if (isNaN(n)) return false;
+    // 对于'3s'这种字符串,parseFloat也成功,这里也不考虑比较
+    if (n != str) return false;
+    if (isNaN(parseFloat(minnum))) return false;
+    return n < minnum;
+};
+/**
+ * 指示一个数值是否大于minnum
+ * @param {any} str
+ * @param {any} maxnum
+ */
+factory.isMaxNum = (str, maxnum) => {
+    let n = parseFloat(str);
+    if (isNaN(n)) return false;
+    // 对于'3s'这种字符串,parseFloat也成功,这里也不考虑比较
+    if (n != str) return false;
+    if (isNaN(parseFloat(maxnum))) return false;
+    return n > maxnum;
+};
 /**
  * 指示一个字符串是否为1~3位小数,或者正数 (d | d.dd | d.d | d.ddd),可用于金额
  * @param {string} str 被检查字符串

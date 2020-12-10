@@ -26,6 +26,10 @@
         'maxlen': 'isMaxLength',
         // 是否小于长度
         'minlen': 'isMinLength',
+        // 数值是否小于指定数值
+        'minnum': 'isMinNum',
+        // 数值是否大于指定数值
+        'maxnum': 'isMaxNum',
         // 正整数或正1-3位小数
         'money': "isMoney"
     };
@@ -101,17 +105,28 @@
             // 执行验证的函数名字
             let vfunname = vType[validtype[n]];
             // 验证
-            let isValid = _$[vfunname](elem.value);
+            let isValid = true;
             // 长度验证参数来自input上的maxlength,minlength属性值
             if (validtype[n] === 'minlen') {
-                let minlen = parseInt(elem.getAttribute('minlength'));
+                let minlen = elem.getAttribute('minlength');
                 isValid = !_$[vfunname](elem.value, minlen);
             }
             else if (validtype[n] === 'maxlen') {
-                let maxlen = parseInt(elem.getAttribute('maxlength'));
+                let maxlen = elem.getAttribute('maxlength');
                 isValid = !_$[vfunname](elem.value, maxlen);
             }
-            if (!isValid) {
+            else if (validtype[n] === 'minnum') {
+                let minnum = elem.getAttribute('minnum');
+                isValid = !_$[vfunname](elem.value, minnum);
+            }
+            else if (validtype[n] === 'maxnum') {
+                let maxnum = elem.getAttribute('maxnum');
+                isValid = !_$[vfunname](elem.value, maxnum);
+            }
+            else {
+                isValid = _$[vfunname](elem.value);
+            }
+            if (isValid != true) {
                 _$.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
                 return false;
             }

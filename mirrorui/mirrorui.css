@@ -2998,10 +2998,10 @@ p {
   position: absolute;
   bottom: 40px;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--white);
   z-index: 10000;
   list-style: none;
-  box-shadow: 2px -2px 5px var(--gray);
+  box-shadow: 2px -2px 5px var(--graylt);
 }
 .mnavmenu-itembox.close {
   display: none;
@@ -3033,6 +3033,7 @@ p {
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  box-shadow: 0 2px 5px var(--graylt);
 }
 .mdirbar .back {
   width: 1em;

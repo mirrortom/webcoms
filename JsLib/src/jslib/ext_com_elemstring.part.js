@@ -3,7 +3,7 @@
 // ====================================================================
 ((win) => {
 
-    let elems = ['div', 'span', 'a', 'p', 'table','tr', 'th', 'td', 'option', 'ul', 'li'];
+    let elems = ['div', 'span', 'a', 'p', 'table', 'tr', 'th', 'td', 'select', 'option', 'ul', 'li', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     let domStr = {};
     for (var i = 0, len = elems.length; i < len; i++) {
         let elem = elems[i]
@@ -21,8 +21,8 @@
                 attrs += ` ${k}="${attrkv[k]}"`;
             }
         }
-        //
-        if (text.indexOf(':for') == 0) {
+        // 如果是数字的情况,调用.indexOf(':for')就出错,没有这个函数
+        if (typeof text == "string" && text.indexOf(':for') == 0) {
             let txtarr = text.substr(4).split('|');
             let html = '';
             for (var i = 0, len = txtarr.length; i < len; i++) {

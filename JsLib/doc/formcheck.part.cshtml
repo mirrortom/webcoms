@@ -7,57 +7,64 @@
       ......
     </div>
 *@
-<div class="doc-part-box" id="formcheck">
-  <h2>formcheck</h2>
-  <p>验证表单元素的值.支持 input,textarea</p>
-  <p class="article-title">$.formCheck(elem)</p>
-  <p>提交表单前,验证值的有效性.返回 true / false</p>
-  <p>需要设置表单元素的vtype属性,一个或者多个,用逗号隔开.verrmsg是自定义提示语,和vtype对应,可以不设置.</p>
-  <p>如果验证不通过,那么表单上会变色提示.</p>
-  <pre class="bg-gray">    
+    <div class="doc-part-box" id="formcheck">
+      <h2>formcheck</h2>
+      <p>验证表单元素的值.支持 input,textarea</p>
+      <p class="article-title">$.formCheck(elem)</p>
+      <p>提交表单前,验证值的有效性.返回 true / false</p>
+      <p>需要设置表单元素的vtype属性,一个或者多个,用逗号隔开.verrmsg是自定义提示语,和vtype对应,可以不设置.</p>
+      <p>如果验证不通过,那么表单上会变色提示.</p>
+      <pre class="bg-gray">    
     &lt;input class="input-text" name="title" type="text" value="" placeholder="请输入名字" <b>vtype="notnull" verrmsg="必填项"</b>&gt;
     let isCheck = $.formCheck(input);
     // true / false
 
 </pre>
-  <br />
-  <p>一般情况下只需要使用$.formCheck(elem)即可.后面两个方法也可以手动操作.</p>
+      <br />
+      <p>一般情况下只需要使用$.formCheck(elem)即可.后面两个方法也可以手动操作.</p>
 
-  <p class="article-title">$.formClear(elem)</p>
-  <p>清除表单元素的错误样式和提示语.</p>
-  <p>清除$.formAlert()产生的表单错误提示.</p>
+      <p class="article-title">$.formClear(elem)</p>
+      <p>清除表单元素的错误样式和提示语.</p>
+      <p>清除$.formAlert()产生的表单错误提示.</p>
 
-  <br />
-  <p class="article-title">$.formAlert(elem,msg)</p>
-  <p>触发错误提示</p>
-  <p>生成表单元素验证出错时的错误样式和提示语: 背景变红,在其正下方生成span,显示提示语</p>
+      <br />
+      <p class="article-title">$.formAlert(elem,msg)</p>
+      <p>触发错误提示</p>
+      <p>生成表单元素验证出错时的错误样式和提示语: 背景变红,在其正下方生成span,显示提示语</p>
 
-  <br />
-  <p class="article-title">vtype选项</p>
-  <p><b class="bg-gray">notnull</b><span class="mg-l-20">必要项且不能为空或空白字符</span></p>
+      <br />
+      <p class="article-title">vtype选项</p>
+      <p><b class="bg-gray">notnull</b><span class="mg-l-20">必要项且不能为空或空白字符</span></p>
 
-  <p><b class="bg-gray">email</b><span class="mg-l-20">电子邮件格式</span></p>
+      <p><b class="bg-gray">email</b><span class="mg-l-20">电子邮件格式</span></p>
 
-  <p><b class="bg-gray">mobile</b><span class="mg-l-20">指示一个字符串是否为国内11位手机号</span></p>
+      <p><b class="bg-gray">mobile</b><span class="mg-l-20">指示一个字符串是否为国内11位手机号</span></p>
 
-  <p><b class="bg-gray">abc</b><span class="mg-l-20">限26个英文,大小写不限.</span></p>
+      <p><b class="bg-gray">abc</b><span class="mg-l-20">限26个英文,大小写不限.</span></p>
 
-  <p><b class="bg-gray">123</b><span class="mg-l-20">限0-9数字</span></p>
+      <p><b class="bg-gray">123</b><span class="mg-l-20">限0-9数字</span></p>
 
-  <p><b class="bg-gray">abc123</b><span class="mg-l-20">限26个英文字母(开头)和0-9整数(可选)</span></p>
+      <p><b class="bg-gray">abc123</b><span class="mg-l-20">限26个英文字母(开头)和0-9整数(可选)</span></p>
 
-  <p><b class="bg-gray">abc_123</b><span class="mg-l-20">限26个英文字母和0-9整数(可选)和_下划线(可选),并且是字母或者下划线开头.</span></p>
+      <p><b class="bg-gray">abc_123</b><span class="mg-l-20">限26个英文字母和0-9整数(可选)和_下划线(可选),并且是字母或者下划线开头.</span></p>
 
-  <p><b class="bg-gray">url</b><span class="mg-l-20">限url</span></p>
+      <p><b class="bg-gray">url</b><span class="mg-l-20">限url</span></p>
 
-  <p><b class="bg-gray">ipv4</b><span class="mg-l-20">限ipv4</span></p>
+      <p><b class="bg-gray">ipv4</b><span class="mg-l-20">限ipv4</span></p>
 
-  <p><b class="bg-gray">date</b><span class="mg-l-20">标准日期 "1999-02-28 12:08:33"</span></p>
+      <p><b class="bg-gray">date</b><span class="mg-l-20">是否为可以转换为Date对象的日期字符串,例如: "1999-02-28 12:08:33"</span></p>
 
-  <p><b class="bg-gray">maxlen</b><span class="mg-l-20">是否超长度限制.</span></p>
-  <p>需要在表单元素上设置属性 maxlength</p>
+      <p><b class="bg-gray">maxlen</b><span class="mg-l-20">是否超长度限制.</span></p>
+      <p>需要在表单元素上设置属性 maxlength</p>
 
-  <p><b class="bg-gray">minlen</b><span class="mg-l-20">是否小于长度</span></p>
-  <p>需要在表单元素上设置属性 minlength</p>
-  <p><b class="bg-gray">money</b><span class="mg-l-20">正整数或正1-3位小数</span></p>
-</div>
+      <p><b class="bg-gray">minlen</b><span class="mg-l-20">是否小于长度</span></p>
+      <p>需要在表单元素上设置属性 minlength</p>
+
+      <p><b class="bg-gray">maxnum</b><span class="mg-l-20">是否大于数值限制.</span></p>
+      <p>需要在表单元素上设置属性 maxnum</p>
+
+      <p><b class="bg-gray">minnum</b><span class="mg-l-20">是否小于数值限制</span></p>
+      <p>需要在表单元素上设置属性 minnum</p>
+
+      <p><b class="bg-gray">money</b><span class="mg-l-20">正整数或正1-3位小数</span></p>
+    </div>
