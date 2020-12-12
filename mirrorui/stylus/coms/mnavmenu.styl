@@ -1,4 +1,4 @@
-﻿// 底部导航主菜单,用于手机版
+﻿// 底部导航主菜单,用于手机版.支持类似微信菜单形式和APP导航菜单形式
 
 // 外层容器 nav
 .mnavmenu
@@ -7,32 +7,38 @@
     position: fixed
     bottom: 0
     width: 100%
-    min-height: 40px
+    min-height: 36px
+    padding: 8px 0
     border-top: 1px solid var-grayse
     text-align: center
-    background-color: white
-    // 组容器 div
+    background-color: var-white
+    user-select: none
+
+    // 菜单组容器 div
     &-group
         position: relative
         flex: 1 1 0
-    // 组标题 span
+
+    // 菜单组容器加分割线
+    &-group.split
+        border-right: 1px solid var-gray
+
+    // 菜单形式1:点击后出子菜单,模仿微信那种的.每个菜单组容器里含有 span,ul
+    // 菜单组标题 span
     &-label
         display: block
-        padding: 10px 0
-    // 组右边界线,直接菜单也要右边界线
-    &-label:not(.last),&-item.direct
-        border-right: 1px solid var-gray
-    // 子菜单容器 ul
+
+    // 菜单组菜单容器 ul
     &-itembox
         position: absolute
-        bottom: 40px
+        bottom: 28px
         width: 100%
         background-color: var-white
         z-index: 10000
         list-style: none
         box-shadow: 2px -2px 5px var-graylt
 
-    // 子菜单收起
+    // 菜单容器收起(默认状态)
     &-itembox.close
         display: none
   
@@ -48,4 +54,9 @@
         height: 1px
         width:90%
         margin:0 auto
-        border-bottom: 1px dashed gray
+        border-bottom: 1px dashed var-gray
+
+    // 菜单形式2: 导航菜单,没有子菜单,模仿app那种.每个菜单组容器里含有 span
+    // 导航菜单 span
+    &-menu
+        display: block

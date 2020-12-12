@@ -7,7 +7,7 @@
   <label class="input-label">密码框</label>
   <input class="input-text" type="password" value="123456" />
   <label class="input-label">Email</label>
-  <input class="input-text" type="email" value="xxx@@mirror.com" />
+  <input class="input-text" type="email" value="xxx@mirror.com" />
   <br />
   <pre class="bg-gray">
 &lt;label class="input-label"&gt;文本框&lt;/label&gt;
@@ -17,7 +17,7 @@
 &lt;input class="input-text" type="password" value="123456" /&gt;
 
 &lt;label class="input-label"&gt;Email&lt;/label&gt;
-&lt;input class="input-text" type="email" value="xxx@@mirror.com" /&gt;
+&lt;input class="input-text" type="email" value="xxx@mirror.com" /&gt;
 </pre>
   <br />
   <p>四种大小,sm md(默认) lg xl</p>
@@ -70,15 +70,17 @@
   <br />
   <div class="grids">
     @for (int i = 0; i < 3; i++)
-    {<div class="grid">
+    {
+    <div class="grid">
       <input class="input-check" type="checkbox" id="testcheck_@i" checked />
-      <label class="input-check-label" for="testcheck_@i"><b class="check"></b>复选框(@i)</label>
+      <label class="input-check-label" for="testcheck_@i"><b class="check"></b>复选框( @i )</label>
     </div>
     }
     @for (int i = 0; i < 3; i++)
-    {<div class="grid">
+    {
+    <div class="grid">
       <input class="input-check" name="radiogroup1" type="radio" id="testradio_@i" />
-      <label class="input-check-label" for="testradio_@i"><b class="radio"></b>单选框(@i)</label>
+      <label class="input-check-label" for="testradio_@i"><b class="radio"></b>单选框( @i )</label>
     </div>
     }
   </div>
@@ -95,12 +97,13 @@
   <p class="text-info">四种大小,默认14px.在label上加上样式 <b>sm lg xl</b></p>
   <div class="grids">
     @foreach (string item in Model.fontsizes)
-    {<div class="grid">
+    {
+    <div class="grid">
       <input class="input-check" type="checkbox" id="sizecheck_@item" checked />
-      <label class="input-check-label @item" for="sizecheck_@item"><b class="check"></b>复选框(@item)</label>
+      <label class="input-check-label @item" for="sizecheck_@item"><b class="check"></b>复选框( @item )</label>
 
       <input class="input-check" name="sizegroup1" type="radio" id="sizeradio_@item" />
-      <label class="input-check-label @item" for="sizeradio_@item"><b class="radio"></b>单选框(@item)</label>
+      <label class="input-check-label @item" for="sizeradio_@item"><b class="radio"></b>单选框( @item )</label>
     </div>
     }
   </div>
@@ -108,18 +111,20 @@
   <p class="text-info">主题颜色.在label上加上主题样式 <b>primary danger success</b></p>
   <div class="grids">
     @foreach (string item in Model.themecolors)
-    {<div class="grid">
+    {
+    <div class="grid">
       <input class="input-check" type="checkbox" id="colorcheck_@item" checked />
-      <label class="input-check-label @item" for="colorcheck_@item"><b class="check"></b>复选框(@item)</label>
+      <label class="input-check-label @item" for="colorcheck_@item"><b class="check"></b>复选框( @item )</label>
     </div>
     }
   </div>
   <br />
   <div class="grids">
     @foreach (string item in Model.themecolors)
-    {<div class="grid">
+    {
+    <div class="grid">
       <input class="input-check" name="colorgroup1" type="radio" id="colorradio_@item" />
-      <label class="input-check-label @item" for="colorradio_@item"><b class="radio"></b>单选框(@item)</label>
+      <label class="input-check-label @item" for="colorradio_@item"><b class="radio"></b>单选框( @item )</label>
     </div>
     }
   </div>

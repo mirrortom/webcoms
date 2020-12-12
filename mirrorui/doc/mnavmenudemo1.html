@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="../mirrorui.css" rel="stylesheet" />
+  <script src="../mirrorui.js"></script>
+  <title></title>
+</head>
+<body>
+  <nav class="mnavmenu" id="mnavmenu1">
+    <div class="mnavmenu-group">
+      <span class="mnavmenu-menu"><span class="d-block">🏝</span>旅游</span>
+    </div>
+    <div class="mnavmenu-group">
+      <span class="mnavmenu-menu"><span class="d-block">💯</span>比赛</span>
+    </div>
+    <div class="mnavmenu-group">
+      <span class="mnavmenu-menu"><span class="d-block">🐶</span>动物</span>
+    </div>
+    <div class="mnavmenu-group">
+      <span class="mnavmenu-menu"><span class="d-block">🍇</span>水果</span>
+    </div>
+  </nav>
+  <div id="test2"></div>
+  <script>
+    mnavmenu('mnavmenu1', (item, i) => {
+      msgbox.alert(item.innerText+ '  index: '+i);
+    });
+    let html = '';
+    for (var i = 0; i < 30; i++) {
+      html += '<h4>页面内容</h4>';
+    }
+    document.getElementById('test2').innerHTML = html;
+  </script>
+</body>
+</html>

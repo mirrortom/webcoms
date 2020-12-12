@@ -14,7 +14,7 @@
         bindEvent_menuItem(self.menuDom, menuItemClickE);
         // 程序操作点击菜单
         self.activeItem = (menuIndex) => {
-            let activeMenuItem = self.menuDom.querySelectorAll('.mnavmenu-item')[menuIndex];
+            let activeMenuItem = self.menuDom.querySelectorAll('.mnavmenu-item,.mnavmenu-menu')[menuIndex];
             activeMenuItem.click();
         }
         return self;
@@ -34,9 +34,9 @@
         })
     };
 
-    // 菜单项点击
+    // 子菜单项点击
     let bindEvent_menuItem = (menuDom, menuItemClickE) => {
-        M(menuDom).find('.mnavmenu-item').each((item, index) => {
+        M(menuDom).find('.mnavmenu-item,.mnavmenu-menu').each((item, index) => {
             item.onclick = () => {
                 M(item).parent('.mnavmenu').find('.mnavmenu-itembox').addClass('close');
                 if (typeof menuItemClickE == 'function')
@@ -44,7 +44,6 @@
             }
         });
     };
-
     // window上的引用名字
     win.mnavmenu = mnavMenu;
 })(window);

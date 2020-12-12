@@ -2977,26 +2977,26 @@ p {
   position: fixed;
   bottom: 0;
   width: 100%;
-  min-height: 40px;
+  min-height: 36px;
+  padding: 8px 0;
   border-top: 1px solid var(--grayse);
   text-align: center;
-  background-color: #fff;
+  background-color: var(--white);
+  user-select: none;
 }
 .mnavmenu-group {
   position: relative;
   flex: 1 1 0;
 }
+.mnavmenu-group.split {
+  border-right: 1px solid var(--gray);
+}
 .mnavmenu-label {
   display: block;
-  padding: 10px 0;
-}
-.mnavmenu-label:not(.last),
-.mnavmenu-item.direct {
-  border-right: 1px solid var(--gray);
 }
 .mnavmenu-itembox {
   position: absolute;
-  bottom: 40px;
+  bottom: 28px;
   width: 100%;
   background-color: var(--white);
   z-index: 10000;
@@ -3016,7 +3016,10 @@ p {
   height: 1px;
   width: 90%;
   margin: 0 auto;
-  border-bottom: 1px dashed #808080;
+  border-bottom: 1px dashed var(--gray);
+}
+.mnavmenu-menu {
+  display: block;
 }
 .mdirbar {
   display: grid;
