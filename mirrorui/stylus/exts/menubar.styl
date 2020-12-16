@@ -1,0 +1,31 @@
+﻿// 菜单栏.用于手机版
+// 容器 flex布局,里面内容两端对齐.内容子集元素最多2个,如有多个用div包起
+.menubar
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 10px 0
+    margin-bottom: 10px
+    border: 1px solid var-gray
+    border-left: none
+    border-right: none
+    user-select: none
+    box-shadow: 0 2px 5px var-graylt
+
+    // 第一个子元素是左边容器,让左边有点距离
+    & > :first-child
+        padding-left: 20px
+    
+    // 右侧箭头
+    & .arr
+      display: inline-block
+      width: .8em
+      height: .8em
+      border: 2px solid gray
+      border-left: none
+      border-bottom: none
+      margin-right: 25px
+      transform: rotate(45deg)
+
+    &:active .arr
+        border-color: orangered

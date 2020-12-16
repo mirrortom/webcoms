@@ -72,6 +72,7 @@
     </None>
     <None Include="compilerconfig.json" />
     <Content Include="doc\mnavmenudemo.html" />
+    <None Include="doc\menubar.part.cshtml" />
     <None Include="doc\mdirbar.part.cshtml" />
     <None Include="doc\inputvalchange.part.cshtml" />
     <None Include="doc\mnavmenu.part.cshtml" />
@@ -122,6 +123,7 @@
     <None Include="stylus\coms\msgbox.styl" />
     <None Include="stylus\coms\msgpanel.styl" />
     <None Include="stylus\coms\mnavmenu.styl" />
+    <None Include="stylus\exts\menubar.styl" />
     <None Include="stylus\exts\kvpair.styl" />
     <None Include="stylus\exts\pageload.styl" />
     <None Include="stylus\coms\pagenum.styl" />

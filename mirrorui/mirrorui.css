@@ -3156,3 +3156,31 @@ p {
 .kvpair .val.cir {
   border-radius: 0 6px 6px 0;
 }
+.menubar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  border: 1px solid var(--gray);
+  border-left: none;
+  border-right: none;
+  user-select: none;
+  box-shadow: 0 2px 5px var(--graylt);
+}
+.menubar > :first-child {
+  padding-left: 20px;
+}
+.menubar .arr {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  border: 2px solid #808080;
+  border-left: none;
+  border-bottom: none;
+  margin-right: 25px;
+  transform: rotate(45deg);
+}
+.menubar:active .arr {
+  border-color: #ff4500;
+}
