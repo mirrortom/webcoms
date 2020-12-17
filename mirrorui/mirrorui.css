@@ -2974,11 +2974,6 @@ p {
 .mnavmenu {
   display: flex;
   align-items: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  min-height: 36px;
-  padding: 8px 0;
   border-top: 1px solid var(--grayse);
   text-align: center;
   background-color: var(--white);
@@ -2996,7 +2991,7 @@ p {
 }
 .mnavmenu-itembox {
   position: absolute;
-  bottom: 28px;
+  bottom: 1.8em;
   width: 100%;
   background-color: var(--white);
   z-index: 10000;
@@ -3023,22 +3018,15 @@ p {
 }
 .mdirbar {
   display: grid;
-  position: fixed;
-  top: 0;
   grid-template-columns: 15% auto 15%;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  padding: 10px 0;
+  place-items: center;
   background-color: var(--white);
   border-bottom: 1px solid var(--graylt);
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
   user-select: none;
   box-shadow: 0 2px 5px var(--graylt);
 }
 .mdirbar .back {
+  display: inline-block;
   width: 1em;
   height: 1em;
   border: 2px solid #333;

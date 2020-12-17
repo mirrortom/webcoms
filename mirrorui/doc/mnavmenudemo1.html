@@ -6,26 +6,44 @@
   <link href="../mirrorui.css" rel="stylesheet" />
   <script src="../mirrorui.js"></script>
   <title></title>
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    .container {
+      display: grid;
+      grid-template-rows: 36px auto 56px;
+      height: 100%;
+    }
+
+    .content {
+      overflow-y: auto;
+    }
+  </style>
 </head>
 <body>
-  <nav class="mnavmenu" id="mnavmenu1">
-    <div class="mnavmenu-group">
-      <span class="mnavmenu-menu"><span class="d-block">🏝</span>旅游</span>
-    </div>
-    <div class="mnavmenu-group">
-      <span class="mnavmenu-menu"><span class="d-block">💯</span>比赛</span>
-    </div>
-    <div class="mnavmenu-group">
-      <span class="mnavmenu-menu"><span class="d-block">🐶</span>动物</span>
-    </div>
-    <div class="mnavmenu-group">
-      <span class="mnavmenu-menu"><span class="d-block">🍇</span>水果</span>
-    </div>
-  </nav>
-  <div id="test2"></div>
+  <div class="container">
+    <div></div>
+    <div id="test2" class="content"></div>
+    <nav class="mnavmenu" id="mnavmenu1">
+      <div class="mnavmenu-group">
+        <span class="mnavmenu-menu"><span class="d-block">🏝</span>旅游</span>
+      </div>
+      <div class="mnavmenu-group">
+        <span class="mnavmenu-menu"><span class="d-block">💯</span>比赛</span>
+      </div>
+      <div class="mnavmenu-group">
+        <span class="mnavmenu-menu"><span class="d-block">🐶</span>动物</span>
+      </div>
+      <div class="mnavmenu-group">
+        <span class="mnavmenu-menu"><span class="d-block">🍇</span>水果</span>
+      </div>
+    </nav>
+  </div>
   <script>
     mnavmenu('mnavmenu1', (item, i) => {
-      msgbox.alert(item.innerText+ '  index: '+i);
+      msgbox.alert(item.innerText + '  index: ' + i);
     });
     let html = '';
     for (var i = 0; i < 30; i++) {

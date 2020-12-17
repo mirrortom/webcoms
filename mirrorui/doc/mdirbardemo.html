@@ -8,36 +8,44 @@
   <script src="../mirrorui.js"></script>
   <title></title>
   <style>
-    #contentbox {
-      margin-top: 48px;
+    html, body {
+      height: 100%;
+    }
+
+    .container {
+      display: grid;
+      grid-template-rows: 36px auto 44px;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-  <div id="mdirbarbox"></div>
-  <nav class="mnavmenu" id="mnavmenu1">
-    <div class="mnavmenu-group split">
-      <ul class="mnavmenu-itembox close">
-        <li><a class="mnavmenu-item">苹果</a></li>
-        <li><a class="mnavmenu-item">桔子</a></li>
-        <li><b class="mnavmenu-split"></b></li>
-        <li><a class="mnavmenu-item">菠萝</a></li>
-        <li><a class="mnavmenu-item">柠檬</a></li>
-      </ul>
-      <span class="mnavmenu-label">&equiv; 果</span>
-    </div>
-    <div class="mnavmenu-group">
-      <div class="mnavmenu-itembox close">
-        <a class="mnavmenu-item">咖啡</a>
-        <a class="mnavmenu-item">红茶</a>
-        <span class="mnavmenu-split"></span>
-        <a class="mnavmenu-item">烈酒</a>
-        <a class="mnavmenu-item">葡萄酒</a>
+  <div class="container">
+    <div id="mdirbarbox"></div>
+    <div id="contentbox"></div>
+    <nav class="mnavmenu" id="mnavmenu1">
+      <div class="mnavmenu-group split">
+        <ul class="mnavmenu-itembox close">
+          <li><a class="mnavmenu-item">苹果</a></li>
+          <li><a class="mnavmenu-item">桔子</a></li>
+          <li><b class="mnavmenu-split"></b></li>
+          <li><a class="mnavmenu-item">菠萝</a></li>
+          <li><a class="mnavmenu-item">柠檬</a></li>
+        </ul>
+        <span class="mnavmenu-label">&equiv; 果</span>
       </div>
-      <span class="mnavmenu-label">&equiv; 酒</span>
-    </div>
-  </nav>
-  <div id="contentbox"></div>
+      <div class="mnavmenu-group">
+        <div class="mnavmenu-itembox close">
+          <a class="mnavmenu-item">咖啡</a>
+          <a class="mnavmenu-item">红茶</a>
+          <span class="mnavmenu-split"></span>
+          <a class="mnavmenu-item">烈酒</a>
+          <a class="mnavmenu-item">葡萄酒</a>
+        </div>
+        <span class="mnavmenu-label">&equiv; 酒</span>
+      </div>
+    </nav>
+  </div>
   <script>
     // 导航条
     let barbox = $ui("#mdirbarbox")[0];

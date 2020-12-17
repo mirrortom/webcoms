@@ -72,6 +72,7 @@
     </None>
     <None Include="compilerconfig.json" />
     <Content Include="doc\mnavmenudemo.html" />
+    <None Include="doc\pagelayout.part.cshtml" />
     <None Include="doc\menubar.part.cshtml" />
     <None Include="doc\mdirbar.part.cshtml" />
     <None Include="doc\inputvalchange.part.cshtml" />

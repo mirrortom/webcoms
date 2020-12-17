@@ -6,47 +6,64 @@
   <link href="../mirrorui.css" rel="stylesheet" />
   <script src="../mirrorui.js"></script>
   <title></title>
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    .container {
+      display: grid;
+      grid-template-rows: 36px auto 44px;
+      height: 100%;
+    }
+    .content{
+      overflow-y:auto;
+    }
+  </style>
 </head>
 <body>
-  <nav class="mnavmenu" id="mnavmenu1">
-    <div class="mnavmenu-group split">
-      <ul class="mnavmenu-itembox close">
-        <li><a class="mnavmenu-item">苹果</a></li>
-        <li><a class="mnavmenu-item">桔子</a></li>
-        <li><b class="mnavmenu-split"></b></li>
-        <li><a class="mnavmenu-item">菠萝</a></li>
-        <li><a class="mnavmenu-item">柠檬</a></li>
-      </ul>
-      <span class="mnavmenu-label">&equiv; 菜单一</span>
-    </div>
-    <div class="mnavmenu-group split">
-      <ul class="mnavmenu-itembox close">
-        <li><a class="mnavmenu-item">咖啡</a></li>
-        <li><a class="mnavmenu-item">红茶</a></li>
-        <li><span class="mnavmenu-split"></span></li>
-        <li><a class="mnavmenu-item">烈酒</a></li>
-        <li><a class="mnavmenu-item">葡萄酒</a></li>
-      </ul>
-      <span class="mnavmenu-label">&equiv; 菜单二</span>
-    </div>
-    <div class="mnavmenu-group">
-      <ul class="mnavmenu-itembox close">
-        <li><a class="mnavmenu-item">烤鸭</a></li>
-        <li><a class="mnavmenu-item">烤鹅</a></li>
-      </ul>
-      <span class="mnavmenu-label">&equiv; 最后菜单</span>
-    </div>
-  </nav>
-  <div id="test2"></div>
-  <script>
-    mnavmenu('mnavmenu1', (item, i) => {
-      msgbox.alert(item.innerHTML + '  index: ' + i);
-    });
-    let html = '';
-    for (var i = 0; i < 30; i++) {
-      html += '<h4>页面内容</h4>';
-    }
-    document.getElementById('test2').innerHTML = html;
-  </script>
+  <div class="container">
+    <div></div>
+    <div id="contbox" class="content"></div>
+    <nav class="mnavmenu" id="mnavmenu1">
+      <div class="mnavmenu-group split">
+        <ul class="mnavmenu-itembox close">
+          <li><a class="mnavmenu-item">苹果</a></li>
+          <li><a class="mnavmenu-item">桔子</a></li>
+          <li><b class="mnavmenu-split"></b></li>
+          <li><a class="mnavmenu-item">菠萝</a></li>
+          <li><a class="mnavmenu-item">柠檬</a></li>
+        </ul>
+        <span class="mnavmenu-label">&equiv; 菜单一</span>
+      </div>
+      <div class="mnavmenu-group split">
+        <ul class="mnavmenu-itembox close">
+          <li><a class="mnavmenu-item">咖啡</a></li>
+          <li><a class="mnavmenu-item">红茶</a></li>
+          <li><span class="mnavmenu-split"></span></li>
+          <li><a class="mnavmenu-item">烈酒</a></li>
+          <li><a class="mnavmenu-item">葡萄酒</a></li>
+        </ul>
+        <span class="mnavmenu-label">&equiv; 菜单二</span>
+      </div>
+      <div class="mnavmenu-group">
+        <ul class="mnavmenu-itembox close">
+          <li><a class="mnavmenu-item">烤鸭</a></li>
+          <li><a class="mnavmenu-item">烤鹅</a></li>
+        </ul>
+        <span class="mnavmenu-label">&equiv; 最后菜单</span>
+      </div>
+    </nav>
+  </div>
+    <script>
+      mnavmenu('mnavmenu1', (item, i) => {
+        msgbox.alert(item.innerHTML + '  index: ' + i);
+      });
+      let html = '';
+      for (var i = 0; i < 30; i++) {
+        html += '<h4>页面内容</h4>';
+      }
+      document.getElementById('contbox').innerHTML = html;
+    </script>
 </body>
 </html>

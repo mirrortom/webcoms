@@ -1,0 +1,163 @@
+﻿@*
+  1.模板页名字规定: "页面名字.part.cshtml""
+  2.内容容器固定如下:
+<div class="doc-part-box" id="页面名字">
+  <h2>标题</h2>
+  ......
+  ......
+</div>
+*@
+<style>
+  .layoutdemo1 {
+    display: grid;
+    grid-template-columns: 30% 70%;
+  }
+
+    .layoutdemo1 .menubox {
+      position: sticky;
+      top: 0;
+      width: 94%;
+      max-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+  .layoutdemo2 {
+    display: grid;
+    grid-template-rows: 45px auto 56px;
+  }
+</style>
+<div class="doc-part-box" id="pagelayout">
+  <h2>常见页面布局</h2>
+  <p>使用grid的功能可以容易的做出一些常见页面布局</p>
+
+  <p class="article-title">左右布局</p>
+  <p>左边是菜单,占30%,右边是内容占70%.</p>
+  <p>使用grid布局,可以看成是一行二列的页面,行高是自动的,列宽进行了设置.</p>
+  <div class="grids">
+    <div class="layoutdemo1" style="width:500px;max-width:100%;">
+      <div class="bg-primary"></div>
+      <div class="bg-warning"></div>
+    </div>
+    <div class="mg-l-10">
+      <pre class="bg-gray">
+    // 容器DIV用grid布局,里面两栏两个DIV
+    &lt;div class="layoutdemo1"&gt;
+      &lt;div class="bg-primary"&gt;&lt;/div&gt;
+      &lt;div class="bg-warning"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    // 样式
+    .layoutdemo1 {
+      display: grid;
+      grid-template-columns: 30% 70%;
+    }
+
+</pre>
+    </div>
+    <div class="mg-l-10">
+      <pre class="bg-gray">
+    // 左边固定宽度,右边自动宽度
+    .layoutdemo1 {
+      display: grid;
+      grid-template-columns: 180px auto;
+    }
+
+</pre>
+    </div>
+  </div>
+  <br />
+  <p>左边菜单区域固定,不随右边内容区域滚动</p>
+  <div class="grids">
+    <div class="layoutdemo1" style="width:500px;max-width:100%;height:290px;overflow-y: auto">
+      <div class="bg-primary">
+        <div class="menubox">
+          <nav class="sidemenu-box">
+            <ul class="sidemenu-group">
+              <li><a class="sidemenu-item">菜单1</a></li>
+              <li><b class="sidemenu-split"></b></li>
+              <li><a class="sidemenu-item">菜单2</a></li>
+              <li><a class="sidemenu-item">菜单3</a></li>
+              <li><a class="sidemenu-item">菜单4</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="bg-warning" style="height: 500px"></div>
+    </div>
+    <div class="mg-l-10">
+      <pre class="bg-gray">
+    // html
+    &lt;div class="layoutdemo1" style="width:500px;max-width:100%;"&gt;
+      &lt;div class="bg-primary"&gt;
+        &lt;div class="menu-box"&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="bg-warning"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    // 给菜单容器加sticky定位,这个类似于固定定位,当位置超过top的之后就固定不动了
+    .menu-box {
+        position: sticky;
+        top: 0;
+        width: 94%;
+        max-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+</pre>
+    </div>
+  </div>
+  <p class="article-title">上(中)下布局</p>
+  <p>用于PC和手机的常见布局,对于PC页面,上面是主菜单,中间是内容,下面是页脚.</p>
+  <p>外层容器grid布局,上中下3个DIV可以看作是一个1列3行的页面.列宽自动,行高进行设置.</p>
+  <div class="grids">
+    <div class="layoutdemo2" style="width:500px;height:300px">
+      <div class="bg-primary"></div>
+      <div class="bg-warning"></div>
+      <div class="bg-danger"></div>
+    </div>
+    <div class="mg-l-10">
+      <pre class="bg-gray">
+    // 外层grid布局,里面3个DIV
+    &lt;div class="layoutdemo2" style="width:500px;height:300px"&gt;
+      &lt;div class="bg-primary"&gt;&lt;/div&gt;
+      &lt;div class="bg-gray"&gt;&lt;/div&gt;
+      &lt;div class="bg-danger"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    // 中间层高度自动,这样会将下层div挤到贴底部的位置
+    .layoutdemo2 {
+      display: grid;
+      grid-template-rows: 45px auto 56px;
+    }
+
+</pre>
+    </div>
+  </div>
+  <br />
+  <p>对于手机页面,上面是回退工具栏,中间是内容,下面是主菜单. <a href="#mdirbar">示例</a></p>
+  <p>手机这个布局的特定是,顶部工具栏和底部主菜单是固定不动的,中间内容区域可以滚动.grid的设置如下:</p>
+  <pre class="bg-gray">
+    // 页面高度要设置100%,这个是为了下面的容器DIV能设置100%的高度
+    html, body {
+      height: 100%;
+    }
+    // 外层容器,grid布局,高度100%,设置上中下的高度
+    .container {
+      display: grid;
+      grid-template-rows: 36px auto 44px;
+      height: 100%;
+      // 也可以设置100vh,那么html,body就不用设置高度
+      // 但有个小问题,手机浏览器100vh的高度是包含地址栏的,这时下层的主菜单就会挤到屏幕下面
+      // 如果是在webview中,没有地址栏,则不存在这问题
+      // height: 100vh;
+    }
+    // 内容层需要设置滚动条,否则会撑开外层容器,高度超过100%,把主菜单挤下屏幕
+    .content{
+      overflow-y:auto;
+    }
+
+</pre>
+</div>

@@ -1,22 +1,15 @@
 ﻿// 手机版顶部导航
 .mdirbar
     display: grid
-    position: fixed
-    top: 0
-    grid-template-columns: 15% auto 15%  
-    align-items: center
-    text-align: center
-    width: 100%
-    padding: 10px 0
+    grid-template-columns: 15% auto 15%
+    place-items: center
     background-color: var-white
     border-bottom: 1px solid var-graylt
-    -moz-user-select: none    
-    -ms-user-select: none    
-    -webkit-user-select: none    
     user-select: none    
     box-shadow: 0 2px 5px var-graylt
 // 回退按钮
 .mdirbar .back
+    display: inline-block
     width: 1em    
     height: 1em    
     border: 2px solid #333    
