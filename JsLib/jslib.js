@@ -1161,7 +1161,7 @@ if (!win.$)
         return cfg;
     }
     // 初始化get请求
-    let initGet = (para) => {
+    let initGet = (url,para) => {
         let urlpara = [];
         if (para) {
             if (para instanceof FormData) {
@@ -1256,7 +1256,7 @@ if (!win.$)
      * @returns {Promise} fetch()方法返回的Promise对象
      */
     _$.get = (url, para, initCfg = null, resType = 'html') => {
-        let eurl = initGet(url, para);
+        let eurl = initGet(url,para);
         return fetch(eurl, initCfg)
             .then(res => {
                 if (res.ok)
