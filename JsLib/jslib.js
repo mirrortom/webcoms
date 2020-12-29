@@ -1146,9 +1146,9 @@ if (!win.$)
     let initPost = (para, initCfg) => {
         let formData = new FormData();
         if (para instanceof FormData) {
-            formData = data;
+            formData = para;
         } else if (para) {
-            Object.keys(data).forEach((key) => {
+            Object.keys(para).forEach((key) => {
                 formData.append(key, para[key]);
             });
         }
