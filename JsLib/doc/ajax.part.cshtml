@@ -1,17 +1,19 @@
 ﻿@*
   1.模板页名字规定: "页面名字.part.cshtml""
   2.内容容器固定如下:
-    <div class="doc-part-box" id="页面名字">
-      <h2>标题</h2>
-      ......
-      ......
-    </div>
+<div class="doc-part-box" id="页面名字">
+  <h2>标题</h2>
+  ......
+  ......
+</div>
 *@
 <div class="doc-part-box" id="ajax">
   <h2>ajax</h2>
-  <p>内部使用fetch()方法实现.简单处理了参数,方便使用.</p>
+  <p>内部使用fetch()方法实现.包装处理了参数,方便使用.</p>
   <p class="article-title">$.post(url, data, initCfg = null, resType = 'json')</p>
-  <p>简易post方式Ajax,对参数做了包装,第一个then()对请求结果判断成败,丢出异常.</p>
+  <p>post请求,.then()链式调用方式.方法发送fetch请求后,调用then()处理,如果res.ok==ok,默认返回json结果.</p>
+  <p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.</p>
+  <p>后面需要继续调用.then()来处理结果,也可以调用.catch()处理异常</p>
   <p>外部调用后可以继续使用then(),catch().</p>
   <p><b class="bg-gray">url</b><span class="mg-l-20">string ,请求地址</span></p>
   <p><b class="bg-gray">data</b><span class="mg-l-20">any|FormData ,json对象或者FormData对象,如果是json对象,会转化成FormData对象</span></p>
@@ -32,7 +34,9 @@
 </pre>
   <br />
   <p class="article-title">$.get(url, para, initCfg = null, resType = 'html')</p>
-  <p>简易 get方式Ajax,对para参数转换为url参数,对请求结果判断成败.</p>
+  <p>get请求,.then()链式调用方式.方法发送fetch请求后,调用then()处理,如果res.ok==ok,默认返回text结果.</p>
+  <p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.</p>
+  <p>后面需要继续调用.then()来处理结果,也可以调用.catch()处理异常</p>
   <p><b class="bg-gray">url</b><span class="mg-l-20">string ,请求地址</span></p>
   <p><b class="bg-gray">data</b><span class="mg-l-20">any|FormData ,para json对象或者FormData对象,转化为url参数</span></p>
   <p><b class="bg-gray">initCfg</b><span class="mg-l-20">RequestInit ,fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证</span></p>
@@ -49,5 +53,32 @@
       console.log('服务器异常')
     })
 
+</pre>
+  <p class="article-title lg">await方式</p>
+  <p>使用await的语法,可读性更好.是同步代码的习惯,远离繁琐的回调函数.</p>
+  <p class="article-title">$.postAsync(url, para, initCfg = null, resType = 'json')</p>
+  <p>post请求,使用await方式.当res.ok==true时,默认返回fetch结果的json对象.</p>
+  <p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.要获取异常,可以在try catch中使用本方法</p>
+  <pre class="bg-gray">
+    try {
+      let para = { p1:'',p2:'' };
+      let json = await $.postAsync('https://www.api.io/test/get',para);
+      console.log(json);
+    } catch (err) {
+      console.log(err);
+    }
+
+</pre>
+  <p class="article-title">$.getAsync(url, para, initCfg = null, resType = 'html')</p>
+  <p>get请求,使用await方式.当res.ok==true时,默认返回fetch结果的text对象.</p>
+  <p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.要获取异常,可以在try catch中使用本方法</p>
+  <pre class="bg-gray">
+    try {
+      let html = await $.postAsync('https://www.api.io/test/get');
+      console.log(html);
+    } catch (err) {
+      console.log(err);
+    }
+    
 </pre>
 </div>
