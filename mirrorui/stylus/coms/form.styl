@@ -12,7 +12,7 @@ ctrl-width()
 // 需要水平对齐方式可再添加文字对齐的类
 form-label()
     display: inline-block
-    margin-bottom: .08rem
+    
 // 用于input输入框和select下拉框.其中input类型是text,password,email..除了radio check file
 // 边框灰,得到焦点时边框颜色变主色 有四种字体大小 没有设计圆角边框
 input-text()
@@ -194,8 +194,6 @@ for key, val in $fontSizeKV
 .grids
     & .input-label,& .textarea-label,& .input-check-label,& .input-text,& .textarea,& .input-file-box,& .select,& .input-check
         align-self: center
-    & .input-label
-	    margin-bottom: 0
 // =======表单布局2==============================================================
 // 传统纸质表单的模仿,在此样式内的表单界面就像纸质的那种.输入框没有边框,是在一个格子中
 // 整体表单是个表格,里面合理分布表单项

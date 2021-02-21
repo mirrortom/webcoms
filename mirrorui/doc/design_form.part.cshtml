@@ -6,14 +6,69 @@
   <p>不同行业不同业务场景的表单不会完全一样,在样式上应该都尽量简洁明了.可以参考传统纸质风格的表单样子</p>
   <p>传统纸质风格的单子,就是一个表格,里面有各种要填写的信息和标题.依照这种风格实现电子版本的话,工作人员</p>
   <p>看起来就很熟悉,在计算机上操作填写时,感觉如同拿笔填写一样.不用改习惯,学习使用成本非常低.</p>
-  <p class="article-title">编辑与查看</p>
-  <p>上面是新建表单时的情景,如果需要查看与修改表单,有的解决办法是做两个页面,一个查看,一个修改.这样做其实</p>
-  <p>多做了查看页面,因为编辑页面也有查看的功能.不仅多一个页面,还多一按钮.与简洁必须原则不相符合.</p>
-  <p>在查看页面点击编辑,就可以修改,这样查看页面变成了编辑页面.这种就好多了.</p>
-  <p class="article-title">分段修改</p>
-  <p>一般在编辑表单时,只会编辑表单的某一项或者几项,并不会全部修改.而在保存时,却不会加以区别.总是保存</p>
-  <p>这个表单的所有字段,不管它有没修改过.这也是一个不好的地方.应该做到修改哪个保存哪个,如果修改的这个</p>
-  <p>字段也会引起其它字段的变化,那么其它字段也应做为修改字段,只不过它是自动修改的.</p>
-  <p>如何做到保存修改项,有的网站设计的是将表单的项分成小组,每个小组有一个编辑保存按钮.这样每次修改的就只</p>
-  <p>限于这个小组的几个字段,而不是整个表单.这种做法显然好多了.</p>
+  <p class="article-title">少填多选</p>
+  <p>填写需要打字,很麻烦,如果是选项就轻松了.可以提供一些常用选项,选项可以是常量也可以从接口获取.</p>
+  <p>在表单后面做一个选择框,选择后填入文本框</p>
+  <div class="grids">
+    <label class="input-label grid-1">常吃水果</label>
+    <input class="input-text grid-2" id="formdesigninput1" type="text" value="" placeholder="输入经常吃的水果" />
+    <select class="select grid-2" id="formdesignselect1">
+      <option value="">不吃</option>
+      <option>苹果</option>
+      <option>桔子</option>
+      <option>香蕉</option>
+      <option>西瓜</option>
+    </select>
+  </div>
+  <p class="article-title">输入框和标签</p>
+  <p>标签是对输入框的用途说明,标签放在输入框的上面比较好,一行只放一个表单项.在手机上也可以兼容.</p>
+  <p>在表单项比较多时,可能不希望页面太长要往下滚动,所有就把一些长度小的表单项放在一行里,标签和输入框显示在一行,</p>
+  <p>这个也没有问题,只要做到每行整齐,比如每行3个表单项,看起来也不会乱.</p>
+  <div class="mg-b-20">
+    <label class="input-label">项目1</label>
+    <input class="input-text" type="text" value="" />
+    <label class="input-label">项目2</label>
+    <input class="input-text" type="text" value="" />
+    <label class="input-label">项目3</label>
+    <input class="input-text" type="text" value="" />
+  </div>
+  <div class="mg-b-20">
+    <div class="grids">
+      <label class="input-label grid-1">项目1</label>
+      <input class="input-text grid-2  mg-r-10" type="text" value="" />
+      <label class="input-label grid-1">项目2</label>
+      <input class="input-text grid-2  mg-r-10" type="text" value="" />
+      <label class="input-label grid-1">项目3</label>
+      <input class="input-text grid-2" type="text" value="" />
+    </div>
+  </div>
+  <div class="grids mg-b-20">
+    <div class="grid-3 mg-r-10">
+      <label class="input-label">项目1</label>
+      <input class="input-text" type="text" value="" />
+    </div>
+    <div class="grid-3 mg-r-10">
+      <label class="input-label">项目2</label>
+      <input class="input-text" type="text" value="" />
+    </div>
+    <div class="grid-3">
+      <label class="input-label">项目3</label>
+      <input class="input-text" type="text" value="" />
+    </div>
+  </div>
+  <p class="article-title">分组</p>
+  <p>分组是个好办法,当表单项太多时,怎么排列都超过一屏幕,必须滚动了,假如有几十个,每组分10个以内,这样也会减少多而乱的感觉.</p>
 </div>
+<script>
+  (() => {
+    let select1 = document.getElementById('formdesignselect1');
+    let input1 = document.getElementById('formdesigninput1');
+    select1.onchange = () => {
+      let index = select1.selectedIndex;
+      let val = select1.options[index].innerText;
+      if (val == '不吃')
+        val = '';
+      input1.value = val;
+    }
+  })();
+</script>

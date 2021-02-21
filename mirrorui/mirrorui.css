@@ -36,6 +36,7 @@ td {
   --font-size: 14px;
   --font-color: #343a40;
   --body-bgcolor: #fff;
+  --black50: rgba(0,0,0,0.314);
   --gray: #dee2e6;
   --graylt: #eef1f3;
   --grayse: #b7c0c9;
@@ -1420,32 +1421,30 @@ p {
 .table.border-all td {
   border: 1px solid var(--grayse);
 }
-.table.hover tr:nth-child(even) {
+.table.striped tr:nth-child(even) {
   background-color: var(--gray);
 }
-.table.hover.primary tr:nth-child(even) {
+.table.striped.primary tr:nth-child(even) {
   background-color: var(--primary);
 }
-.table.hover.danger tr:nth-child(even) {
+.table.striped.danger tr:nth-child(even) {
   background-color: var(--danger);
 }
-.table.hover.success tr:nth-child(even) {
+.table.striped.success tr:nth-child(even) {
   background-color: var(--success);
 }
-.table.hover.info tr:nth-child(even) {
+.table.striped.info tr:nth-child(even) {
   background-color: var(--info);
 }
-.table.hover.warning tr:nth-child(even) {
+.table.striped.warning tr:nth-child(even) {
   background-color: var(--warning);
 }
-.table tr:hover {
-  background-color: var(--primary);
-}
-.table.primary tr:hover {
-  background-color: var(--gray);
+.table.hover tr:hover {
+  background-color: var(--black50);
 }
 .table th {
-  border-bottom: 2px solid var(--grayse);
+  border-top: 1px solid var(--gray);
+  border-bottom: 2px solid var(--gray);
   vertical-align: bottom;
   padding: 5px;
   text-align: left;
@@ -1462,7 +1461,6 @@ p {
 }
 .input-label {
   display: inline-block;
-  margin-bottom: 0.08rem;
 }
 .input-text {
   display: block;
@@ -1495,7 +1493,6 @@ p {
 }
 .textarea-label {
   display: inline-block;
-  margin-bottom: 0.08rem;
 }
 .input-file-box {
   position: relative;
@@ -1716,9 +1713,6 @@ p {
 .grids .select,
 .grids .input-check {
   align-self: center;
-}
-.grids .input-label {
-  margin-bottom: 0;
 }
 .form-table-box {
   border: 1px solid var(--grayse);
@@ -1968,7 +1962,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.primary .sidemenu-item:not(.active):hover {
-  background-color: rgba(0,0,0,0.314);
+  background-color: var(--black50);
 }
 .sidemenu-box.danger {
   background-color: var(--danger);
@@ -1977,7 +1971,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.danger .sidemenu-item:not(.active):hover {
-  background-color: rgba(0,0,0,0.314);
+  background-color: var(--black50);
 }
 .sidemenu-box.success {
   background-color: var(--success);
@@ -1986,7 +1980,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.success .sidemenu-item:not(.active):hover {
-  background-color: rgba(0,0,0,0.314);
+  background-color: var(--black50);
 }
 .sidemenu-box.info {
   background-color: var(--info);
@@ -1995,7 +1989,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.info .sidemenu-item:not(.active):hover {
-  background-color: rgba(0,0,0,0.314);
+  background-color: var(--black50);
 }
 .sidemenu-box.warning {
   background-color: var(--warning);
@@ -2004,7 +1998,7 @@ p {
   color: var(--white);
 }
 .sidemenu-box.warning .sidemenu-item:not(.active):hover {
-  background-color: rgba(0,0,0,0.314);
+  background-color: var(--black50);
 }
 .panel {
   border: 1px solid var(--grayse);

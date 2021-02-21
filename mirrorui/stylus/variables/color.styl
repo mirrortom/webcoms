@@ -1,13 +1,21 @@
 ﻿// -- 基本颜色和字体变量 有对应的css变量定义,便于引用 --//
 // 字体黑色
 $font-color = #343a40
-// 前景色
-var-font-color = var(--font-color)
-// 背景色
-var-body-color = var(--body-bgcolor)
+
 // 白色
 $white = #fff
 var-white = var(--white)
+
+// 半透明黑色,用于一般hover
+$black50 = #00000050
+var-black50 = var(--black50)
+
+// 前景色
+var-font-color = var(--font-color)
+
+// 背景色
+var-body-color = var(--body-bgcolor)
+
 // 灰色(默认颜色) 第一个lt是减轻色 第2个se是加重色,后同
 $gray = #dee2e6
 $graylt = lighten($gray, 50%)
@@ -15,6 +23,7 @@ $grayse = darken($gray, 15%)
 var-gray = var(--gray)
 var-graylt = var(--graylt)
 var-grayse = var(--grayse)
+
 // 主题颜色 
 $primary = #6C6
 $primarylt = lighten($primary, 50%)
