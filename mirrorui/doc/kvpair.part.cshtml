@@ -1,30 +1,20 @@
-﻿@*
-  1.模板页名字规定: "页面名字.part.cshtml""
-  2.内容容器固定如下:
-    <div class="doc-part-box" id="页面名字">
-      <h2>标题</h2>
-      ......
-      ......
-    </div>
-*@
-<div class="doc-part-box" id="kvpair">
+﻿<div class="doc-part-box" id="kvpair">
   <h2>名值对标签</h2>
   <p class="lead">标题和内容两个部分,用于简短的提示或者说明.</p>
   <div class="kvpair mg-b-10">
     <span class="key">Name</span>
     <span class="val">Value</span>
   </div>
-  <p class="article-title">基本html与class</p>
-  <p>.kvpair使用grid布局,子项垂直居中.宽度auto.</p>
-  <pre class="bg-gray">
+  <p># .kvpair使用grid布局,子项垂直居中.宽度auto.</p>
+  <pre class="bg-gray-lt">
     &lt;div class="<b>kvpair</b>"&gt;
       &lt;span class="<b>key</b>"&gt;Name&lt;/span&gt;
       &lt;span class="<b>val</b>"&gt;Value&lt;/span&gt;
     &lt;/div&gt;
+
 </pre>
   <br />
-  <p class="article-title">背景色</p>
-  <p>在key上使用背景样式 bg-primary bg-info 等等.</p>
+  <p># 背景色在key上使用背景样式 bg-primary bg-info 等等.</p>
   <div class="mg-b-10">
     <div class="kvpair mg-r-10">
       <span class="key bg-primary">信仰</span>
@@ -40,8 +30,7 @@
     </div>
   </div>
   <br />
-  <p class="article-title">圆角与大小</p>
-  <p>在.key,.val上加 <b>cir</b>. 在.kvpair上加 sm lg xl</p>
+  <p># 圆角与大小</p>
   <div class="mg-b-10">
     <div class="kvpair mg-r-10">
       <span class="key cir bg-warning">生产总值</span>
@@ -61,21 +50,15 @@
     </div>
   </div>
   <div class="mg-b-10">
-    <div class="kvpair sm mg-r-10">
-      <span class="key cir bg-info">小号</span>
-      <span class="val cir">使用sm</span>
-    </div>
-    <div class="kvpair lg mg-r-10">
-      <span class="key cir bg-success">大号</span>
-      <span class="val cir">比较大一点lg</span>
-    </div>
-    <div class="kvpair xl mg-r-10">
-      <span class="key cir bg-info">更大号</span>
-      <span class="val cir">比较大一点xl</span>
-    </div>
+    @foreach (var item in Model.fontsizes)
+    {
+      <div class="kvpair text-@item mg-r-10">
+        <span class="key cir bg-info">@item</span>
+        <span class="val cir"> text-@item</span>
+      </div>
+    }
   </div>
-  <p class="article-title">其它用法</p>
-  <p>值是一个链接.值一个按钮组件.</p>
+  <p># 其它用法,值是一个链接.值一个按钮组件.</p>
   <div class="mg-b-10">
     <div class="kvpair mg-r-10">
       <span class="key cir bg-info">谷歌</span>
@@ -86,7 +69,7 @@
       <a class="val btn">On / Off</a>
     </div>
     <br /><br />
-    <pre class="bg-gray">
+    <pre class="bg-gray-lt">
     &lt;div class="kvpair mg-r-10"&gt;
       &lt;span class="key cir"&gt;按钮&lt;/span&gt;
       &lt;a class="val btn"&gt;On / Off&lt;/a&gt;

@@ -1,70 +1,97 @@
-﻿// -- 基本颜色和字体变量 有对应的css变量定义,便于引用 --//
-// 字体黑色
-$font-color = #343a40
+﻿// ==========================================================
+// sytlus颜色变量定义,5种主题颜色和灰色每种3个,加上黑白一共20个变量
+// lt表示减淡色,dk表示加深色
+// ==========================================================
 
-// 白色
+// 1.黑白灰
+$black = #000
+// 字体颜色,body
+$black-lt = lighten($black,20%)
+// 透明背景用于鼠标hover
+$black-opa50 = #00000050
+// 背景色,body
 $white = #fff
-var-white = var(--white)
-
-// 半透明黑色,用于一般hover
-$black50 = #00000050
-var-black50 = var(--black50)
-
-// 前景色
-var-font-color = var(--font-color)
-
-// 背景色
-var-body-color = var(--body-bgcolor)
-
-// 灰色(默认颜色) 第一个lt是减轻色 第2个se是加重色,后同
+// 默认色
 $gray = #dee2e6
-$graylt = lighten($gray, 50%)
-$grayse = darken($gray, 15%)
-var-gray = var(--gray)
-var-graylt = var(--graylt)
-var-grayse = var(--grayse)
+$gray-lt = lighten($gray, 45%)
+$gray-dk = darken($gray, 15%)
 
-// 主题颜色 
-$primary = #6C6
-$primarylt = lighten($primary, 50%)
-$primaryse = darken($primary, 15%)
-var-primary = var(--primary)
-var-primarylt = var(--primarylt)
-var-primaryse = var(--primaryse)
-// 红色警示
-$danger = #dc3545
-$dangerlt = lighten($danger, 50%)
-$dangerse = darken($danger, 15%)
-var-danger = var(--danger)
-var-dangerlt = var(--dangerlt)
-var-dangerse = var(--dangerse)
-// 绿色成功
+// 2.主题色
+$primary = #38bdf8
+$primary-lt = lighten($primary, 45%)
+$primary-dk = darken($primary, 15%)
+
+// 3.成功
 $success = #28a745
-$successlt = lighten($success, 50%)
-$successse = darken($success, 15%)
-var-success = var(--success)
-var-successlt = var(--successlt)
-var-successse = var(--successse)
-// 黄色警示
+$success-lt = lighten($success, 45%)
+$success-dk = darken($success, 15%)
+
+// 4.警示
 $warning = #ffc107
-$warninglt = lighten($warning, 50%)
-$warningse = darken($warning, 15%)
-var-warning = var(--warning)
-var-warninglt = var(--warninglt)
-var-warningse = var(--warningse)
-// 蓝色提示
+$warning-lt = lighten($warning, 45%)
+$warning-dk = darken($warning, 15%)
+
+// 5.提示
 $info = #17a2b8
-$infolt = lighten($info, 50%)
-$infose = darken($info, 15%)
-var-info = var(--info)
-var-infolt = var(--infolt)
-var-infose = var(--infose)
+$info-lt = lighten($info, 45%)
+$info-dk = darken($info, 15%)
+
+// 6.失败
+$danger = #dc3545
+$danger-lt = lighten($danger, 45%)
+$danger-dk = darken($danger, 15%)
+
+// ============================================================================
+// 颜色变量对应一个css变量,如 "$black" "--color-balck" 命名规则 "$" 换成 "--color-" 
+// 组件样式颜色使用了css变量,为了省去写css变量的 var() 函数的麻烦,这里设置成变量方便使用
+// 命名规则 "var(--color-balck)" 对应 "var-black"
+// ============================================================================
+
+// 1.黑白灰
+var-black = var(--color-black)
+// 字体颜色,body
+var-black-lt = var(--color-black-lt)
+var-font-color = var(--font-color)
+// 透明背景用于鼠标hover
+var-black-opa50 = var(--color-black-opa50)
+// 背景色,body
+var-white = var(--color-white)
+// 默认色
+var-gray = var(--color-gray)
+var-gray-lt = var(--color-gray-lt)
+var-gray-dk = var(--color-gray-dk)
+
+// 2.主题色
+var-primary = var(--color-primary)
+var-primary-lt = var(--color-primary-lt)
+var-primary-dk = var(--color-primary-dk)
+
+// 3.成功
+var-success = var(--color-success)
+var-success-lt = var(--color-success-lt)
+var-success-dk = var(--color-success-dk)
+
+// 4.警示
+var-warning = var(--color-warning)
+var-warning-lt = var(--color-warning-lt)
+var-warning-dk = var(--color-warning-dk)
+
+// 5.提示
+var-info = var(--color-info)
+var-info-lt = var(--color-info-lt)
+var-info-dk = var(--color-info-dk)
+
+// 6.失败
+var-danger = var(--color-danger)
+var-danger-lt = var(--color-danger-lt)
+var-danger-dk = var(--color-danger-dk)
+
 // 主题颜色css变量KV对-用于for循环,key是主题class名,
 // val值是一个数组,0位是主题色css变量,1位是颜色加深的css变量,2位是减淡色
 $themeColorsKV = {
-    primary: (var-primary var-primaryse var-primarylt),
-    danger: (var-danger var-dangerse var-dangerlt),
-    success: (var-success var-successse var-successlt),
-    info: (var-info var-infose var-infolt),
-    warning: (var-warning var-warningse var-warninglt)
+    primary: (var-primary var-primary-dk var-primary-lt),
+    danger: (var-danger var-danger-dk var-danger-lt),
+    success: (var-success var-success-dk var-success-lt),
+    info: (var-info var-info-dk var-info-lt),
+    warning: (var-warning var-warning-dk var-warning-lt)
 }

@@ -1,77 +1,70 @@
 ﻿<div class="doc-part-box" id="mnavmenu">
   <h2>底部菜单</h2>
-  <p>用于手机的底部导航菜单,模仿微信公众号那样的菜单</p>
-  <p>也可以像APP那种没有子菜单,图标加文字那种的.</p>
-  <pre class="bg-gray">
-  &lt;nav class="mnavmenu"&gt;
-    &lt;div class="mnavmenu-group split"&gt;
-      &lt;ul class="mnavmenu-itembox close"&gt;
-        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单1&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单2&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-      &lt;span class="mnavmenu-label"&gt;&equiv; 菜单&lt;/span&gt;
-    &lt;/div&gt;
+  <p># 使用自定义标记 <strong>&lt;m-mnavmenu&gt;</strong></p>
+  <p class="text-in">用于手机的底部导航菜单,模仿微信公众号那样的菜单.也可以是APP那种没有子菜单,图标加文字那种的.</p>
+  <div class="grids">
+    <div class="grid-4">
+      <iframe src="doc/mnavmenudemo.html" style="width:360px;height:300px" frameborder="1"></iframe>
+    </div>
+    <div class="grid-4">
+      <iframe src="doc/mnavmenudemo1.html" style="width:360px;height:300px" frameborder="1"></iframe>
+    </div>
+    <div class="grid-2">
+      <a class="val btn link" href="doc/mnavmenudemo.html" target="_blank">新窗口查看-菜单</a>
+      <a class="val btn link" href="doc/mnavmenudemo1.html" target="_blank">新窗口查看-app导航</a>
+    </div>
+  </div>
+  <br />
+  <pre class="bg-gray-lt">
+
+  // 类微信菜单
+  &lt;<strong>m-mnavmenu</strong>&gt;
+
+    // 菜单组之间分割线样式 split
     &lt;div class="mnavmenu-group split"&gt;
       &lt;ul class="mnavmenu-itembox close"&gt;
         &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单3&lt;/a&gt;&lt;/li&gt;
+
+        // 子菜单之间分割线
         &lt;li&gt;&lt;b class="mnavmenu-split"&gt;&lt;/b&gt;&lt;/li&gt;
+
         &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单4&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;
       &lt;span class="mnavmenu-label"&gt;&equiv;菜单二&lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="mnavmenu-group"&gt;
-      &lt;ul class="mnavmenu-itembox close"&gt;
-        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单5&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a class="mnavmenu-item"&gt;菜单6&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-      &lt;span class="mnavmenu-label"&gt;&equiv;菜单三&lt;/span&gt;
-    &lt;/div&gt;
-  &lt;/nav&gt;
-</pre>
-  <br />
-  <iframe src="doc/mnavmenudemo.html" style="width:360px;height:300px" frameborder="1"></iframe>
-  <div class="kvpair" style="vertical-align:top">
-    <span class="key primary cir">查看</span>
-    <a class="val btn link" href="doc/mnavmenudemo.html" target="_blank">手机页面</a>
-  </div>
-  <br />
-  <br />
-  <pre class="bg-gray">
-  &lt;nav class="mnavmenu" id="mnavmenu1"&gt;
-    &lt;div class="mnavmenu-group"&gt;
-      &lt;span class="mnavmenu-menu"&gt;&lt;span class="d-block"&gt;🏝&lt;/span&gt;旅游&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class="mnavmenu-group"&gt;
-      &lt;span class="mnavmenu-menu"&gt;&lt;span class="d-block"&gt;💯&lt;/span&gt;比赛&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class="mnavmenu-group"&gt;
-      &lt;span class="mnavmenu-menu"&gt;&lt;span class="d-block"&gt;🐶&lt;/span&gt;动物&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class="mnavmenu-group"&gt;
-      &lt;span class="mnavmenu-menu"&gt;&lt;span class="d-block"&gt;🍇&lt;/span&gt;水果&lt;/span&gt;
-    &lt;/div&gt;
-  &lt;/nav&gt;
+    ...
+  &lt;/m-mnavmenu&gt;
 
 </pre>
   <br />
-  <iframe src="doc/mnavmenudemo1.html" style="width:360px;height:300px" frameborder="1"></iframe>
-  <div class="kvpair" style="vertical-align:top">
-    <span class="key primary cir">查看</span>
-    <a class="val btn link" href="doc/mnavmenudemo1.html" target="_blank">手机页面</a>
-  </div>
+
+  <pre class="bg-gray-lt">
+
+  // 类app下方导航
+  &lt;<strong>m-mnavmenu</strong>&gt;
+    &lt;div class="mnavmenu-group"&gt;
+      &lt;span class="mnavmenu-menu"&gt;&lt;span class="d-block"&gt;🏝&lt;/span&gt;旅游&lt;/span&gt;
+    &lt;/div&gt;
+    ...
+  &lt;/m-mnavmenu&gt;
+
+</pre>
   <br />
-  <p class="article-title">js</p>
-  <pre class="bg-gray">
-    // mnavmenuId,dom的id
+  <p># 方法 <strong>create(fn)</strong> 生成菜单,fn 点击菜单执行方法</p>
+  <p># 方法 <strong>activeItem(itemIndex)</strong> 指定一个激活的菜单,itemIndex 是菜单索引</p>
+  <pre class="bg-gray-lt">
+
+    let mnav1 = document.getElementById('mnavmenu1');
+    
     // item: 当前点击的菜单dom
     // index: 当前点击的菜单dom索引
-    let mnavmenu1 = mnavmenu('mnavmenuId', (item, index) => {
-      msgbox.alert(item.innerHTML);
+    mnav1.<strong>create</strong>((item, index) => {
+      window.ns.msgbox.alert(item.innerHTML + '  index: ' + i);
     });
 
     // index 的顺序是,左边第一组菜单的最上面那个菜单为0,开始,到最右边最下面那个菜单.
     // 方法: 点击一个菜单
-    mnavmenu1.activeItem(0)
+    mnavmenu1.<strong>activeItem(0)</strong>
     
 </pre>
 </div>

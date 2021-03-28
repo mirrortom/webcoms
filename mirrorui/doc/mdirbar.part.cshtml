@@ -1,46 +1,41 @@
-﻿@*
-  1.模板页名字规定: "页面名字.part.cshtml""
-  2.内容容器固定如下:
-<div class="doc-part-box" id="页面名字">
-  <h2>标题</h2>
-  ......
-  ......
-</div>
-*@
-<div class="doc-part-box" id="mdirbar">
+﻿<div class="doc-part-box" id="mdirbar">
   <h2>顶部导航</h2>
   <p>用于手机的顶部导航,有一个回退键,和标题.模仿app的顶部状态条.</p>
   <p>载入页面时,组件缓存当前页面,载入新页面.按回退键时,从缓存中取出页面显示.</p>
+  <div class="grids">
+    <div class="grid-6 grid-md-4">
+      <iframe src="doc/mdirbardemo.html" style="width:360px;height:300px" frameborder="1"></iframe>
+    </div>
+    <div class="grid-2">
+      <a class="val btn link" href="doc/mdirbardemo.html" target="_blank">新窗口查看</a>
+    </div>
+  </div>
+  <br />
   <pre class="bg-gray">
-&lt;div id="mdirbarbox" class="mdirbar"&gt;
-    &lt;a class="back"&gt;&lt;/a&gt;
-    &lt;span class="title text-overflow"&gt;第一页&lt;/span&gt;
-    &lt;a&gt;&lt;/a&gt;
-&lt;/div&gt;
+  &lt;div id="mdirbarbox" class="mdirbar"&gt;
+      &lt;a class="back"&gt;&lt;/a&gt;
+      &lt;span class="title text-overflow"&gt;第一页&lt;/span&gt;
+      &lt;a&gt;&lt;/a&gt;
+  &lt;/div&gt;
+
 </pre>
   <br />
-  <iframe src="doc/mdirbardemo.html" style="width:360px;height:300px" frameborder="1"></iframe>
+  <p># 功能与特点</p>
+  <p class="text-in">点击底部菜单时,缓存当前页面,显示新页面.如果菜单已经打开过,它的缓存位置调整到缓存数组最后.当前页面永远在缓存数组末尾.</p>
+  <p class="text-in">返回按钮:返回到缓存数组的倒数第2个位置的页面.并且其后的缓存会删除.</p>
+  <p class="text-in">当前活动页面不缓存,页面由缓存到显示后,其对应缓存的dom属性为null</p>
+  <p class="text-in">缓存页面使用document.createDocumentFragment,加入其中的DOM会从当前文档中脱离.</p>
+  <p class="text-in">缓存数组元素对象:{pid:页面id,title:页面标题,dom:页面缓存(当前页面为null)}</p>
   <br />
-  <div class="kvpair">
-    <span class="key primary cir">查看</span>
-    <a class="val btn link" href="doc/mdirbardemo.html" target="_blank">手机页面</a>
-  </div>
-  <h4>功能与特点</h4>
-  <ul class="list square">
-    <li>点击底部菜单时,缓存当前页面,显示新页面.如果菜单已经打开过,它的缓存位置调整到缓存数组最后.当前页面永远在缓存数组末尾.</li>
-    <li>返回按钮:返回到缓存数组的倒数第2个位置的页面.并且其后的缓存会删除.</li>
-    <li>当前活动页面不缓存,页面由缓存到显示后,其对应缓存的dom属性为null</li>
-    <li>缓存页面使用document.createDocumentFragment,加入其中的DOM会从当前文档中脱离.</li>
-    <li>缓存数组元素对象:{pid:页面id,title:页面标题,dom:页面缓存(当前页面为null)}</li>
-  </ul>
-  <p class="article-title">js</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
+
     // 实例化组件对象
     // 需要提供导航条容器对象,还有内容容器对象
     let barbox = document.getElementById("mdirbarbox");
     let contbox = document.getElementById("content");
+
     // 实例化
-    let mbar = mdirbar(barbox, contbox);
+    let mbar = <strong>mdirbar</strong>(barbox, contbox);
 
     // 主要方法:load(pid, title, onload),{pid:菜单唯一标识,title:选项卡标题,onload:载入时执行}, 
     // 点击底部菜单时,调用此方法
@@ -59,5 +54,6 @@
         if(type==-1)
             msgbox.alert('已经不能退了!');
     })
+
 </pre>
 </div>

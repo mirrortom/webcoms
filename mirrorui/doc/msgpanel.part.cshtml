@@ -1,63 +1,23 @@
 ﻿<div class="doc-part-box" id="msgpanel">
-  <h1>信息面板</h1>
-  <p>内容包含标题和一段文字.也可无标题.标题使用h1~h6,段落使用p.</p>
-  <div class="msgpanel">
+  <h2>信息牌</h2>
+  <p>内容包含标题和一段文字.标题使用h1~h6,文字段落使用p.</p>
+  <div class="msgpanel mg-b-10">
     <h5>标题h1~h6</h5>
     <p>可用于介绍说明,有一个醒目的标题和简短的文字描述.</p>
   </div>
-  <div class="msgpanel primary">
-    <h3>Primary</h3>
-    <p>class="msgpanel primary",应用主题色时,标题跟随主题色</p>
+  <div class="msgpanel primary mg-b-10">
+    <h5 class="text-primary-dk">主题样式</h5>
+    <p>class="msgpanel primary",左边框会应用主题色.</p>
   </div>
-  <pre class="bg-gray">
-&lt;div class="msgpanel"&gt;
-  &lt;h2&gt;标题h1~h6&lt;/h2&gt;
-  &lt;p&gt;可用于介绍说明,有一个醒目的标题和简短的文字描述.&lt;/p&gt;
-&lt;/div&gt;
+  <div class="msgpanel warning mg-b-10 bg-warning-lt">
+    <h5 class="text-warning-dk">! 安全警示</h5>
+    <p class="text-warning-dk">进入前必须检查防护服!</p>
+  </div>
+  <pre class="bg-gray-lt">
+  &lt;div class="<strong>msgpanel primary</strong>"&gt;
+    &lt;h2&gt;标题h1~h6&lt;/h2&gt;
+    &lt;p&gt;可用于介绍说明,有一个醒目的标题和简短的文字描述.&lt;/p&gt;
+  &lt;/div&gt;
+
 </pre>
-  <p class="article-title">根据主题色可以做成信息提示</p>
-  <div class="grids-3">
-    <div>
-      <div class="msgpanel primary">
-        <h4>💚 简介</h4>
-        <p>Mirror UI 模仿bootstrap</p>
-      </div>
-    </div>
-    <div>
-      <div class="msgpanel warning">
-        <h4>⚠ 警示</h4>
-        <p>该操作可能导致错误!</p>
-      </div>
-    </div>
-    <div>
-      <div class="msgpanel danger">
-        <h4>❌ 错误</h4>
-        <p>服务器返回操作失败!</p>
-      </div>
-    </div>
-  </div>
-  <div class="grids-3">
-    <div>
-
-      <div class="msgpanel">
-        <h4>🔕 说明</h4>
-        <p>不可吵闹!</p>
-      </div>
-    </div>
-    <div>
-
-      <div class="msgpanel success">
-        <h4>✅ 成功</h4>
-        <p>您的申请成功!</p>
-      </div>
-    </div>
-    <div>
-
-      <div class="msgpanel info">
-        <h4>💦 提示</h4>
-        <p>今天晚间有暴雨</p>
-      </div>
-    </div>
-  </div>
-
 </div>

@@ -1,82 +1,99 @@
 ﻿<div class="doc-part-box" id="btn">
   <h2>按钮</h2>
-  <p class="article-title">标记使用a span button,添加.btn样式.</p>
+  <p># 使用自定义标记 <strong>&lt;m-btn&gt;</strong> .也可以使用a,span,button标记添加 .btn 样式.</p>
   <div class="mg-tb-10">
-    <span class="btn">btn normal</span>
-    <a class="btn link">链接式</a>
-    <button class="btn disabled">禁用</button>
-    <a class="btn cir">圆角</a>
-    <button class="btn loading">等待中...</button>
+    <m-btn>btn normal</m-btn>
+    <m-btn class="link mg-lr-10">链接式 link</m-btn>
+    <m-btn class="disabled mg-lr-10">禁用 disabled</m-btn>
+    <m-btn class="cir mg-lr-10">圆角 cir</m-btn>
+    <m-btn class="loading">等待中 loading</m-btn>
   </div>
-  <pre class="bg-gray">
-&lt;span class="btn"&gt;btn normal&lt;/span&gt;
+  <pre class="bg-gray-lt">
+    &lt;m-btn&gt;btn normal&lt;/m-btn&gt;
 
-&lt;a class="btn link"&gt;链接式&lt;/a&gt;
+    &lt;m-btn class="<strong>link</strong>"&gt;链接式&lt;/m-btn&gt;
 
-&lt;button class="btn disabled"&gt;禁用&lt;/button&gt;
+    &lt;m-btn class="<strong>disabled</strong>"&gt;禁用&lt;/m-btn&gt;
 
-&lt;a class="btn cir"&gt;圆角&lt;/a&gt;
+    &lt;m-btn class="<strong>cir</strong>"&gt;圆角&lt;/m-btn&gt;
 
-&lt;button class="btn loading"&gt;等待中&lt;/button&gt;
+    &lt;m-btn class="<strong>loading</strong>"&gt;等待中&lt;/m-btn&gt;
+
 </pre>
   <br />
-  <p class="article-title">颜色,尺寸,块级</p>
+  <p># 主题颜色,大小尺寸,块级</p>
   <div class="mg-tb-10">
     @foreach (var item in Model.themecolors)
     {
-      <a class="btn @item">@item</a>
+      <m-btn class="btn @item mg-r-10">@item</m-btn>
+    }
+
+  </div>
+  <div class="mg-tb-10">
+    @foreach (var item in Model.themecolors)
+    {
+      <m-btn class="btn link @item">hover @item link</m-btn>
     }
   </div>
   <div class="mg-tb-10">
     @foreach (var item in Model.themecolors)
     {
-      <a class="btn link @item">@item link</a>
+      <m-btn class="btn link text-@item">text-@item link</m-btn>
     }
   </div>
-  <pre class="bg-gray">
-&lt;a&gt; class="btn primary">primary&lt;/a&gt;
+  <div class="mg-tb-10">
+    @foreach (var item in Model.fontsizes)
+    {
+      <m-btn class="btn text-@item loading mg-r-10">text-@item</m-btn>
+    }
+  </div>
+  <div class="mg-tb-10">
+    <m-btn class="btn d-block">块级按钮</m-btn>
+    <br />
+    <m-btn class="btn d-block primary">块级按钮class="btn d-block primary"</m-btn>
+  </div>
+  <pre class="bg-gray-lt">
+  &lt;m-btn&gt; class="btn primary">primary&lt;/m-btn&gt;
 
-&lt;a&gt; class="btn link primary">primary link&lt;/a&gt;
+  // link连接式按钮的文字颜色,添加工具样式 text-primary|success|....
+  &lt;m-btn&gt; class="btn link text-primary">primary link&lt;/m-btn&gt;
+
+  // 调整按钮大小,添加工具样式 text-sm|md|lg|....
+  &lt;m-btn&gt; class="btn text-sm">btn text-sm&lt;/m-btn&gt;
+
+  // 块级按钮就是占一行的,添加 d-block
+  &lt;m-btn&gt; class="btn d-block">btn d-block&lt;/m-btn&gt;
+
 </pre>
+
   <br />
-  <div class="mg-tb-10">
-    @foreach (var item in Model.fontsizes)
-    {
-      <a class="btn @item">@item 尺寸</a>
-    }
-    @foreach (var item in Model.fontsizes)
-    {
-      <a class="btn @item loading">@item 尺寸</a>
-    }
-  </div>
-  <pre class="bg-gray">
- &lt;a class="btn lg"&gt;lg 尺寸&lt;/a&gt;
+
+  <p># 如果按钮处于等待状态,说明任务进行中,忽略之.这种场景用于避免按钮频繁点击. &lt;m-btn&gt; 定义了添加和删除等待状态的方法.</p>
+  <p>
+    <m-btn id="btnloadtest1" class="btn mg-r-10">点击等待 isLoading()</m-btn>
+    <m-btn id="btnloadtest2" class="btn">消除等待 clsLoading(2000)</m-btn>
+  </p>
+  <pre class="bg-gray-lt">
+  let btn1 = document.querySelector('#btnloadtest1');
+
+  // 如果按钮处于等待状态(含有loading样式类),返回true.否则添加loading样式,返回false.
+  btn1.<strong>isLoading()</strong>
+
+  // 取消按钮等待状态(去掉loading样式类).可选参数:经过time毫秒后取消.
+  btn1.<strong>clsLoading(time)</strong>
+
 </pre>
-  <br />
-  <div class="mg-tb-10">
-    <a class="btn block">块级按钮</a>
-    <a class="btn block primary">块级按钮class="btn block primary"</a>
-  </div>
-  <pre class="bg-gray">
-&lt;a class="btn block"&gt;块级按钮&lt;/a&gt;
-</pre>
-  <br />
-  <p class="article-title">等待效果</p>
-  <p>调用 "$ui.isBtnLoading(btn)" 给按钮加等待效果</p>
-  <a id="btnloadtest1" class="btn">点击等待</a>
-  <p>按钮等待时.调用 "$ui.clsBtnLoading(btn,2000)" 消除等待</p>
-  <a id="btnloadtest2" class="btn">2秒后等待消除</a>
   <script>
     (() => {
       let btn1 = document.querySelector('#btnloadtest1');
       let btn2 = document.querySelector('#btnloadtest2');
       btn1.onclick = () => {
-        if ($ui.isBtnLoading(btn1) == true)
-          $ui.clsBtnLoading(btn1);
+        if (btn1.isLoading())
+          btn1.clsLoading();
       }
       btn2.onclick = () => {
-        if ($ui.isBtnLoading(btn2) == false)
-          $ui.clsBtnLoading(btn2, 2000);
+        if (btn2.isLoading() == false)
+          btn2.clsLoading(2000);
       }
     })();
   </script>

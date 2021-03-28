@@ -26,7 +26,7 @@
   <div class="container">
     <div></div>
     <div id="test2" class="content"></div>
-    <nav class="mnavmenu" id="mnavmenu1">
+    <m-mnavmenu id="mnavmenu1">
       <div class="mnavmenu-group">
         <span class="mnavmenu-menu"><span class="d-block">🏝</span>旅游</span>
       </div>
@@ -39,11 +39,11 @@
       <div class="mnavmenu-group">
         <span class="mnavmenu-menu"><span class="d-block">🍇</span>水果</span>
       </div>
-    </nav>
+    </m-mnavmenu>
   </div>
   <script>
-    mnavmenu('mnavmenu1', (item, i) => {
-      msgbox.alert(item.innerText + '  index: ' + i);
+    document.getElementById('mnavmenu1').create((item, i) => {
+      window.ns.msgbox.alert(item.innerHTML + '  index: ' + i);
     });
     let html = '';
     for (var i = 0; i < 30; i++) {

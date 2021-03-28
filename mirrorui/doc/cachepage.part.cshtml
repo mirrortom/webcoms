@@ -27,21 +27,16 @@
     }
   </style>
   <h2>CachePage</h2>
-  <p>缓存页,每显示一个页面时,缓存当前的页面</p>
-  <span class="label">主题</span>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_def" />
-  <label onclick="changethem('cache_def')" class="input-check-label" for="cache_def"><b class="radio"></b>default</label>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_primary" />
-  <label onclick="changethem('cache_primary','primary')" class="input-check-label primary" for="cache_primary"><b class="radio"></b>primary</label>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_danger" />
-  <label onclick="changethem('cache_danger','danger')" class="input-check-label danger" for="cache_danger"><b class="radio"></b>danger</label>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_success" />
-  <label onclick="changethem('cache_success','success')" class="input-check-label success" for="cache_success"><b class="radio"></b>success</label>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_info" />
-  <label onclick="changethem('cache_info','info')" class="input-check-label info" for="cache_info"><b class="radio"></b>info</label>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_warning" />
-  <label onclick="changethem('cache_warning','warning')" class="input-check-label warning" for="cache_warning"><b class="radio"></b>warning</label>
-  <br />
+  <p># 缓存页,每显示一个页面时,缓存当前的页面</p>
+  <div id="cachethemebox">
+    <span class="label mg-r-10">主题</span>
+    <m-radio tag="default" class=checked name="radiogroup1" id="cache_def"></m-radio>
+    <m-radio tag="primary" class="primary" name="radiogroup1" id="cache_primary"></m-radio>
+    <m-radio tag="danger" class="danger" name="radiogroup1" id="cache_danger"></m-radio>
+    <m-radio tag="success" class="success" name="radiogroup1" id="cache_success"></m-radio>
+    <m-radio tag="info" class="info" name="radiogroup1" id="cache_info"></m-radio>
+    <m-radio tag="warning" class="warning" name="radiogroup1" id="cache_warning"></m-radio>
+  </div>
   <br />
   <div class="cachepagedemo">
     <div class="leftbox">
@@ -53,15 +48,13 @@
       <div id="mainbox"></div>
     </div>
   </div>
-  <h4>实现逻辑</h4>
-  <p>
-    使用 document.createDocumentFragment() 这个方法,将当前页面移到 "片段"中,"片段"并不在 document 中,所以不会引起混乱.保持一个对它的引用,在显示曾经打开过的页面时, 再添加到 document 中即可.如此可实现不用 iframe 的方案.
-  </p>
-  <h4>选项卡HMTL</h4>
-  <p>组件只包含选项卡部分,菜单和内容容器部分是自由定义的</p>
-  <p>换主题色,在选项卡html容器上加 primary , success , danger </p>
-  <p>选项卡html内容由js生成,但是外层容器需要写出</p>
-  <pre class="bg-gray">
+  <br />
+  <p># 实现逻辑</p>
+  <p class="text-in">使用 document.createDocumentFragment() 这个方法,将当前页面移到 "片段"中,"片段"并不在 document 中,所以不会引起混乱.保持一个对它的引用,在显示曾经打开过的页面时, 再添加到 document 中即可.如此可实现不用 iframe 的方案.</p>
+  <p class="text-in">组件只包含选项卡部分,菜单和内容容器部分是自由定义的</p>
+  <p class="text-in">换主题色,在选项卡html容器上加 primary , success , danger </p>
+  <p class="text-in">选项卡html内容由js生成,但是外层DIV容器需要写出</p>
+  <pre class="bg-gray-lt">
 
   &lt;div class="tabsbox <b>primary</b>" id="tabsbox1"&gt;
       // 向左按钮
@@ -83,92 +76,97 @@
   &lt;/div&gt;
 
         </pre>
-  <h4>功能与特点</h4>
-  <ul class="list square">
-    <li>点击左侧菜单时,缓存当前页面,新增选项卡,显示新页面.如果菜单已经打开过,则显示对应选项卡.</li>
-    <li>导航按钮:每个选项卡对应一个缓存页面,当选项卡超出可视范围后,使用前进后退按钮滚动选项卡框</li>
-    <li>当被点击的选项卡靠近选项卡框的两端,则调整该选项卡到中间位置</li>
-    <li>关闭所有选项卡.关闭除活动选项卡外的.定位当前活动选项卡,当其不在可视范围内时.</li>
-    <li>当前活动页面不缓存,页面由缓存到显示后,其对应缓存会删除(设置为null)</li>
-    <li>缓存页面使用document.createDocumentFragment,加入其中的DOM会从当前文档中脱离.用以替代经典的iframe方法</li>
-    <li>经过测试,一个填写过的表单页面在放入文档片段对象之后,再取出来时,其状态不变.</li>
-  </ul>
-  <h4>用途</h4>
-  <p>该功能用于一个经典的场景,在管理系统中,左侧菜单,右侧显示页面.点击左侧菜单时,打开多个页面.</p>
-  <p>为了避免页面冲突,通常是使用iframe来解决的,这个方案用于替代iframe.</p>
-  <h4>用法</h4>
-  <p>在点击菜单时,调用cachepage.load方法,会将当前活动页面加入到缓存中,然后显示菜单对应页面到显示区</p>
-  <pre class="bg-gray">
-<span class="text-success">// 新建实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM</span>
-let cpg = cachepage(tabsDom, contDom);
+  <br />
+  <p># 功能与特点</p>
+  <p class="text-in">点击左侧菜单时,缓存当前页面,新增选项卡,显示新页面.如果菜单已经打开过,则显示对应选项卡.</p>
+  <p class="text-in">导航按钮:每个选项卡对应一个缓存页面,当选项卡超出可视范围后,使用前进后退按钮滚动选项卡框</p>
+  <p class="text-in">当被点击的选项卡靠近选项卡框的两端,则调整该选项卡到中间位置</p>
+  <p class="text-in">关闭所有选项卡.关闭除活动选项卡外的.定位当前活动选项卡,当其不在可视范围内时.</p>
+  <p class="text-in">当前活动页面不缓存,页面由缓存到显示后,其对应缓存会删除(设置为null)</p>
+  <p class="text-in">缓存页面使用document.createDocumentFragment,加入其中的DOM会从当前文档中脱离.用以替代经典的iframe方法</p>
+  <p class="text-in">经过测试,一个填写过的表单页面在放入文档片段对象之后,再取出来时,其状态不变.</p>
+  <p># 用途</p>
+  <p class="text-in">该功能用于一个经典的场景,在管理系统中,左侧菜单,右侧显示页面.点击左侧菜单时,打开多个页面.</p>
+  <p class="text-in">为了避免页面冲突,通常是使用iframe来解决的,这个方案用于替代iframe.</p>
+  <p># 用法</p>
+  <p class="text-in">在点击菜单时,调用cachepage.load方法,会将当前活动页面加入到缓存中,然后显示菜单对应页面到显示区</p>
+  <pre class="bg-gray-lt">
 
-<span class="text-success">// load方法,{pid:菜单唯一标识,title:选项卡标题,onload:载入时执行}, 
-// <strong>点击左侧菜单时,调用此方法</strong>
-// pid不能重复,每个菜单一个pid,可以在绑定菜单点击方法时,统一分配.</span>
-let cacheDoms = cpg.load(pid, title, <b>onload</b>);
-<span class="text-success">
-// <b>onload(loadType)方法</b>
-// 调用load()方法后,可以执行这个方法,loadType的值如下.<b>当loadType==3时,可以做新页面载入操作</b>
-// loadType=1: 菜单是当前页面
-// loadType=2: 菜单之前载入过
-// loadType=3: 是新载入菜单,其对应的页面没有载入过,需要做载入新页面的操作</span>
+  <span class="text-success">// 新建实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM</span>
+  let cpg = cachepage(tabsDom, contDom);
+
+  <span class="text-success">// load方法,{pid:菜单唯一标识,title:选项卡标题,onload:载入时执行}, 
+  // <strong>点击左侧菜单时,调用此方法</strong>
+  // pid不能重复,每个菜单一个pid,可以在绑定菜单点击方法时,统一分配.</span>
+  let cacheDoms = cpg.load(pid, title, <b>onload</b>);
+  <span class="text-success">
+  // <b>onload(loadType)方法</b>
+  // 调用load()方法后,可以执行这个方法,loadType的值如下.<b>当loadType==3时,可以做新页面载入操作</b>
+  // loadType=1: 菜单是当前页面
+  // loadType=2: 菜单之前载入过
+  // loadType=3: 是新载入菜单,其对应的页面没有载入过,需要做载入新页面的操作</span>
 
 </pre>
-  <h4>经典布局结构</h4>
-  <p>缓存页组件可用于导航.信息管理系统的经典布局就是左变菜单,右边内容,右边上面缓存打开的页面,点击可以切换.</p>
-  <p>HTML结构如下:左侧菜单,右侧分为2部分,上面是选项卡,下面是内容区</p>
-  <pre class="bg-gray">
-&lt;div class="container"&gt;
+  <p># 经典布局结构</p>
+  <p class="text-in">缓存页组件可用于导航.信息管理系统的经典布局就是左变菜单,右边内容,右边上面缓存打开的页面,点击可以切换.</p>
+  <p class="text-in">HTML结构如下:左侧菜单,右侧分为2部分,上面是选项卡,下面是内容区</p>
+  <pre class="bg-gray-lt">
 
-  &lt;div class="left"&gt;&lt;ul&gt;菜单区域&lt;/ul&gt;&lt;/div&gt;
+  &lt;div class="container"&gt;
 
-  &lt;div class="right"&gt;
-    &lt;div class="tabsbox"&gt;选项卡区域&lt;/div&gt;
-    &lt;div&gt;内容区域&lt;/div&gt;
+    &lt;div class="left"&gt;&lt;ul&gt;菜单区域&lt;/ul&gt;&lt;/div&gt;
+
+    &lt;div class="right"&gt;
+      &lt;div class="tabsbox"&gt;选项卡区域&lt;/div&gt;
+      &lt;div&gt;内容区域&lt;/div&gt;
+    &lt;/div&gt;
+
   &lt;/div&gt;
 
-&lt;/div&gt;
 </pre>
 
   <script>
-    // 选项卡框Dom容器
-    let tabsDom = document.getElementById('tabsbox1');
-    // 显示内容Dom容器
-    let contDom = document.getElementById('mainbox');
-    // cachepage
-    let cpg = cachepage(tabsDom, contDom);
-    // 左侧菜单绑定事件
-    let menus = ['MainPage', '人员管理', '部门管理', '订单管理', '资料管理', '报表管理', '信息查询', '日志查询', '财务会计', '权限设置', '系统设置'];
-    let fragment = document.createDocumentFragment();
-    for (var i = 0; i < menus.length; i++) {
-      let li = document.createElement('li');
-      let a = document.createElement('a');
-      a.innerText = menus[i];
-      let index = i;
-      a.onclick = () => {
-        let cacheDom = cpg.load(index, menus[index], (loadType) => {
-          if (loadType == 3) {
-            contDom.innerHTML = '';
-            contDom.innerHTML = `<h1>${menus[index]}</h1>`;
-          }
-        });
+    (() => {
+      // 选项卡框Dom容器
+      let tabsDom = document.getElementById('tabsbox1');
+      // 显示内容Dom容器
+      let contDom = document.getElementById('mainbox');
+      // cachepage
+      let cpg = window.ns.cachepage(tabsDom, contDom);
+      // 左侧菜单绑定事件
+      let menus = ['MainPage', '人员管理', '部门管理', '订单管理', '资料管理', '报表管理', '信息查询', '日志查询', '财务会计', '权限设置', '系统设置'];
+      let fragment = document.createDocumentFragment();
+      for (var i = 0; i < menus.length; i++) {
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        a.innerText = menus[i];
+        let index = i;
+        a.onclick = () => {
+          let cacheDom = cpg.load(index, menus[index], (loadType) => {
+            if (loadType == 3) {
+              contDom.innerHTML = '';
+              contDom.innerHTML = `<h1>${menus[index]}</h1>`;
+            }
+          });
+        }
+        li.append(a);
+        fragment.append(li);
       }
-      li.append(a);
-      fragment.append(li);
-    }
-    let menubox = document.getElementById('main_menu1');
-    menubox.append(fragment);
+      let menubox = document.getElementById('main_menu1');
+      menubox.append(fragment);
 
-    // 默认载入MainPage页
-    menubox.querySelector('a').click();
+      // 默认载入MainPage页
+      menubox.querySelector('a').click();
 
-    // 换色
-    function changethem(btnId, classN) {
-      let btn = document.getElementById(btnId);
-      let cachepagebox = document.getElementById('tabsbox1');
-      cachepagebox.classList.remove('primary', 'success', 'danger','info','warning');
-      if (classN)
-        cachepagebox.classList.add(classN);
-    }
+      // 换色
+      document.getElementById('cachethemebox').querySelectorAll('m-radio').forEach((item) => {
+        item.onClicked = (radio) => {
+          let style = radio.getAttribute('tag');
+          let cachepagebox = document.getElementById('tabsbox1');
+          cachepagebox.classList.remove('primary', 'success', 'danger', 'info', 'warning');
+          cachepagebox.classList.add(style);
+        }
+      })
+    })();
   </script>
 </div>

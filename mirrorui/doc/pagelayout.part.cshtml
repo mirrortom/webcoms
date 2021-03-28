@@ -1,11 +1,11 @@
 ﻿@*
-  1.模板页名字规定: "页面名字.part.cshtml""
-  2.内容容器固定如下:
-<div class="doc-part-box" id="页面名字">
-  <h2>标题</h2>
-  ......
-  ......
-</div>
+    1.模板页名字规定: "页面名字.part.cshtml""
+    2.内容容器固定如下:
+  <div class="doc-part-box" id="页面名字">
+    <h2>标题</h2>
+    ......
+    ......
+  </div>
 *@
 <style>
   .layoutdemo1 {
@@ -29,7 +29,7 @@
 </style>
 <div class="doc-part-box" id="pagelayout">
   <h2>常见页面布局</h2>
-  <p>使用grid的功能可以容易的做出一些常见页面布局</p>
+  <p>使用grid布局的强大功能可以容易的做出一些常见页面布局</p>
 
   <p class="article-title">左右布局</p>
   <p>左边是菜单,占30%,右边是内容占70%.</p>
@@ -39,8 +39,7 @@
       <div class="bg-primary"></div>
       <div class="bg-warning"></div>
     </div>
-    <div class="mg-l-10">
-      <pre class="bg-gray">
+    <pre class="grid mg-l-10 bg-gray-lt">
     // 容器DIV用grid布局,里面两栏两个DIV
     &lt;div class="layoutdemo1"&gt;
       &lt;div class="bg-primary"&gt;&lt;/div&gt;
@@ -54,9 +53,7 @@
     }
 
 </pre>
-    </div>
-    <div class="mg-l-10">
-      <pre class="bg-gray">
+    <pre class="grid bg-gray-lt">
     // 左边固定宽度,右边自动宽度
     .layoutdemo1 {
       display: grid;
@@ -64,7 +61,7 @@
     }
 
 </pre>
-    </div>
+
   </div>
   <br />
   <p>左边菜单区域固定,不随右边内容区域滚动</p>
@@ -85,8 +82,8 @@
       </div>
       <div class="bg-warning" style="height: 500px"></div>
     </div>
-    <div class="mg-l-10">
-      <pre class="bg-gray">
+
+    <pre class="grid mg-l-10 bg-gray-lt">
     // html
     &lt;div class="layoutdemo1" style="width:500px;max-width:100%;"&gt;
       &lt;div class="bg-primary"&gt;
@@ -107,7 +104,7 @@
     }
 
 </pre>
-    </div>
+
   </div>
   <p class="article-title">上(中)下布局</p>
   <p>用于PC和手机的常见布局,对于PC页面,上面是主菜单,中间是内容,下面是页脚.</p>
@@ -118,8 +115,7 @@
       <div class="bg-warning"></div>
       <div class="bg-danger"></div>
     </div>
-    <div class="mg-l-10">
-      <pre class="bg-gray">
+    <pre class="grid mg-l-10 bg-gray-lt">
     // 外层grid布局,里面3个DIV
     &lt;div class="layoutdemo2" style="width:500px;height:300px"&gt;
       &lt;div class="bg-primary"&gt;&lt;/div&gt;
@@ -134,12 +130,12 @@
     }
 
 </pre>
-    </div>
+
   </div>
   <br />
   <p>对于手机页面,上面是回退工具栏,中间是内容,下面是主菜单. <a href="#mdirbar">示例</a></p>
   <p>手机这个布局的特定是,顶部工具栏和底部主菜单是固定不动的,中间内容区域可以滚动.grid的设置如下:</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     // 页面高度要设置100%,这个是为了下面的容器DIV能设置100%的高度
     html, body {
       height: 100%;

@@ -17,14 +17,14 @@
     // 选项卡框
     &-header
         display: flex
-        border-bottom: 2px solid var-grayse
+        border-bottom: 1px solid var-gray-dk
     // 选项卡
     &-label
         flex: 0 1 auto
         padding: 0 15px
         height: 31px
         line-height: 30px
-        background-color: var-gray
+        background-color: var-gray-lt
         color: var-font-color
         cursor: pointer
     // 选项卡均分整行
@@ -32,8 +32,8 @@
         flex: 1 1 0
     // 选项卡激活时颜色
     &-label.active, &-box.list &-label.active
-        background-color: var-grayse
-        color: #ffffff
+        background-color: var-gray-dk
+        color: var-white
     // 面板
     &-panel
         display: none
@@ -50,7 +50,7 @@
     &-box.list &-header
         display: block
         border: none
-        border-right: 2px solid var-grayse
+        border-right: 2px solid var-gray-dk
     // 选项卡
     &-box.list &-label
         height: auto

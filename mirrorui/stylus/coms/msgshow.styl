@@ -1,11 +1,12 @@
 ﻿// 信息提示框
 .msgshow
+    display: block
     padding: 0.8em
-    background-color: var-graylt
-    border-radius: 4px
+    background-color: var-gray-lt
+    border-radius: $cir-angle
     & .title
         font-weight: 600
-    & .text
+    & .msg
         margin-left: 1em
     & .close
         float: right
@@ -15,7 +16,3 @@ for key, val in $themeColorsKV
     .msgshow.{key}
         background-color: val[2]
         color: val[1]
-// 字体大小
-for key, val in $fontSizeKV
-    .msgshow.{key}
-        font-size: val

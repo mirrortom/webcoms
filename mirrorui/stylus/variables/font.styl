@@ -1,10 +1,28 @@
 ﻿// body font-size 基准,手机是16px
-$font-size = 14px
-// 如果没有必要,元素的字体大小不必设置,直接继承body
-var-font-size = var(--font-size)
-// html根元素
-$rem-size = 100px
-// 最小字体,12px
+// 如果没有必要,组件的字体大小不必设置,继承body
+// 最小字体12px,默认14px(手机16px)
 $font-size-sm = 12px
+$font-size = 14px
+$font-size-md = 16px
+$font-size-lg = 20px
+$font-size-xl = 24px
+$font-size-xxl = 36px
+$font-size-xxxl = 48px
+// 对应css变量
+var-font-size-sm = var(--font-size-sm)
+var-font-size = var(--font-size)
+var-font-size-md = var(--font-size-md)
+var-font-size-lg = var(--font-size-lg)
+var-font-size-xl = var(--font-size-xl)
+var-font-size-xxl = var(--font-size-xxl)
+var-font-size-xxxl = var(--font-size-xxxl)
+
 // 字体大小键值对
-$fontSizeKV = { sm: $font-size-sm, lg: .16rem, xl: .2rem }
+$fontSizeKV = {
+    sm: var-font-size-sm,
+    md: var-font-size-md,
+    lg: var-font-size-lg,
+    xl: var-font-size-xl,
+    xxl: var-font-size-xxl,
+    xxxl: var-font-size-xxxl
+}

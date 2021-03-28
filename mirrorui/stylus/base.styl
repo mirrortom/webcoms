@@ -1,69 +1,93 @@
-﻿// ------------------------
+﻿// ================================
 // 全局样式基础设置
 // html,body,img,a标签在此设置
-// css reset在此设置
-// ------------------------
-// 如何多主题设置?
-// 可以用js修改变量的值,实现多颜色主题
+// 部分元素重置reset在此设置
+// ================================
+
+// =====================================================================
+// 如何多主题设置?可以用js修改css变量的值,实现多颜色主题
 // js设置css变量
 // document.body.style.setProperty('--primary', '#000000')
 // 获取变量值
-// document.body.style.getPropertyValue('--primary').trim()
-// '#000000'
+// document.body.style.getPropertyValue('--primary').trim() // '#000000'
 // 删除变量
 // document.body.style.removeProperty('--primary')
+// 如果一个css变量 "--var-a" 的值是另一个css变量的值 --var-b : var(--var-a)
+// 那么改变--var-a的值后,--var-b不变,这种引用是"值"传递的
+// =====================================================================
 
 // 所有DOM使用边框盒模型
 *, *::before, *::after
     box-sizing: border-box
-// 样式重置
+
+// 部分样式重置
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td
     margin: 0
     padding: 0
-// 匹配文档根元素 (html) 颜色变量,组件元素颜色都引用此变量色
+
+// ========================================
+// :root匹配文档根元素(html),设置css全局变量
+// 组件元素颜色都引用此变量色
+// ========================================
 :root
-    --font-size: $font-size
-    --font-color: $font-color
-    --body-bgcolor: $white
-    --black50: $black50
-    // 灰白色
-    --gray: $gray
-    --graylt: $graylt
-    --grayse: $grayse
-    --white: $white
+    // 黑灰白色
+    --color-black: $black
+    --color-black-lt: $black-lt
+    --color-black-opa50: $black-opa50
+    --color-white: $white
+    --color-gray: $gray
+    --color-gray-lt: $gray-lt
+    --color-gray-dk: $gray-dk
     // 主题色
-    --primary: $primary
-    --danger: $danger
-    --success: $success
-    --warning: $warning
-    --info: $info
-    // 加深色
-    --primaryse: $primaryse
-    --dangerse: $dangerse
-    --successse: $successse
-    --warningse: $warningse
-    --infose: $infose
-    // 减淡色
-    --primarylt: $primarylt
-    --dangerlt: $dangerlt
-    --successlt: $successlt
-    --warninglt: $warninglt
-    --infolt: $infolt
+    --color-primary: $primary
+    --color-primary-lt: $primary-lt
+    --color-primary-dk: $primary-dk
+    --color-success: $success
+    --color-success-lt: $success-lt
+    --color-success-dk: $success-dk
+    --color-warning: $warning
+    --color-warning-lt: $warning-lt
+    --color-warning-dk: $warning-dk
+    --color-info: $info
+    --color-info-lt: $info-lt
+    --color-info-dk: $info-dk
+    --color-danger: $danger
+    --color-danger-lt: $danger-lt
+    --color-danger-dk: $danger-dk
+    // 字体大小和颜色
+    --font-size-sm: $font-size-sm
+    --font-size: $font-size
+    --font-size-md: $font-size-md
+    --font-size-lg: $font-size-lg
+    --font-size-xl: $font-size-xl
+    --font-size-xxl: $font-size-xxl
+    --font-size-xxxl: $font-size-xxxl
+    --font-color: var(--color-black-lt)    
+    // 默认背景色
+    --bg-color: var(--color-white)
+
+// ========================
 // html字体大小用于rem单位基准
+// ========================
 html
-    font-size: $rem-size
+    font-size: 100px
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+
+// ===================================
 // body背景,颜色,行高,字体等设定在此处修改
+// ===================================
 body
     font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif, '\5B8B\4F53'
     font-size: var(--font-size)
     color: var(--font-color)
-    background-color: var(--body-bgcolor)
-// body字体大小 默认14px , 手机版本使用16px,
+    background-color: var(--bg-color)
+// body字体大小 默认14px , 手机版本使用16px.屏幕640以下时,css变量--font-size的值修改为16px
 @media only screen and (max-width: $screen-tablet)
     :root
-        --font-size: 16px
-// Images
+        --font-size: var(--font-size-md)
+// ========
+// img标记
+// ========
 img
     vertical-align: middle
 // 自适应大小
@@ -78,6 +102,8 @@ img
 .img-circle
     border-radius: 50%
 
+// ========
 // a链接
+// ========
 a
     color: var(--font-color)

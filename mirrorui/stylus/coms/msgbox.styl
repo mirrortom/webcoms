@@ -31,6 +31,9 @@
         background-color: #fff
         box-sizing: border-box
         box-shadow: 2px 2px 16px #000
+// 输入框高度大一些
+.msgbox-prompt
+    height: 140px
 .msgbox
     // 位置中
     &-center
@@ -43,47 +46,15 @@
         align-self: flex-end
 // 弹出框按钮
 .msgbox
-    &-btn
+    &-ok,&-cancel
         position: absolute
-        bottom: 10px
-        width: 76px
-        text-align: center
-        box-sizing: border-box
-        border: 1px solid var-grayse
-        border-radius: 5px
-        padding: 5px 10px
-        background-color: var-gray
-        user-select: none
-        color: var-font-color
-        outline: 0
-        cursor: pointer
+        bottom: 1em
     &-ok
-        right: 10px
+        left: 80%
     &-cancel
-        right: 96px
-    &-btn:hover
-        background-color: var-grayse
-// 按钮颜色
-for key, val in $themeColorsKV
-    .msgbox.{key} .msgbox-btn
-        background-color: val[0]
-        color: var-white
-for key, val in $themeColorsKV
-    .msgbox.{key} .msgbox-btn:hover
-        background-color: val[1]
-// prompt框的input
-.msgbox-input
-    display: block
-    border-radius: 4px
-    box-sizing: border-box
-    padding: 4px 8px
-    margin: 5px auto
-    width: 100%
-    border: 1px solid var-grayse
-    color: var-font-color
-    background-color: var-white
-    outline: 0
+        left: 60%
+
 // PC屏
-@media only screen and (min-width: 768px)
+@media only screen and (min-width: $screen-tablet)
     .msgbox
         width: 360px

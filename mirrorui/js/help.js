@@ -1,8 +1,6 @@
 //================================================================================//
-// 模仿jquery的封装库.由于jsAPI大多比较长,为了简洁封装一些常用的js函数.如dom操作,数组操作等等
-// 主要定义函数 "jslib" ,window上的引用名字 "lib"
-// jslib是一个类数组对象,用function定义的,和jquery类似,方法名也大多数使用jquery的方法名.
-// 使用方法如: lib('#id').addClass('acitve')
+// 简化JS的DOM操作API做了封装
+// 使用方法同jQuery: $('#id').addClass('acitve')
 //=================================================================================//
 // 
 ((win) => {
@@ -51,18 +49,6 @@
     jslib.prototype.push = function (item) {
         Array.prototype.push.call(this, item);
         return this;
-    };
-    /**
-     * jslib类数组中是否已有指定元素
-     * @param {any} item 指定node节点
-     * @returns {boolean} 返回 t / f
-     */
-    jslib.prototype.contains = function (item) {
-        for (let i = 0, len = this.length; i < len; i++) {
-            if (this[i] === item)
-                return true;
-        }
-        return false;
     };
     /**
      * 重置jslib类数组内容
@@ -175,7 +161,6 @@
     };
     /**
      * 解析html字符串,变成DOM元素后,装入fragment对象.可以在onReady方法上使用这个fragment对象.
-     * 由于innerhtml中包含的script不能执行,分析html字符串时,对script标签会重新生成.外联的script会发请求取js,然后变成内联的.
      * 最后生成一个包含解析后的html元素的DocumentFragment对象.
      * @param {string|any} val html字符串,DocumentFragment对象或者node对象,nodelist对象
      * @param {any} onReady 解析完成后执行
@@ -194,48 +179,9 @@
             framgSource = document.createDocumentFragment();
             framgSource.append(val);
         }
-        // 放入fragment.(解析放入)
-        let fragment = document.createDocumentFragment();
-        _parseHtmlNodeLoad(fragment, framgSource, onReady);
+        onReady(framgSource);
     };
-    /**
-     * 递归将fromFragm里的node节点移动到fragment,完成后执行onReady.(这个方法用于_parseHtml()方法辅助)
-     * @param {DocumentFragment} toFragm fragment容器对象
-     * @param {DocumentFragment} fromFragm 源dom容器
-     * @param {Function} onReady 完成后执行
-     */
-    let _parseHtmlNodeLoad = (toFragm, fromFragm, onReady) => {
-        if (fromFragm.firstChild === null) {
-            onReady(toFragm);
-            return;
-        }
-        // script元素.设置到innerhtml时不会执行,要新建一个script对象,再添加
-        if (fromFragm.firstChild.nodeName === 'SCRIPT') {
-            let newScript = document.createElement('script');
-            let src = fromFragm.firstChild.src;
-            if (src) {
-                // 外联的script,要加载下来,否则有执行顺序问题.外联的没有加载完,内联的就执行了.如果内联js依赖外联则出错.
-                // 这个办法是获取js脚本,是设置到生成的script标签中.(变成内联的了)
-                fetch(src).then(res => res.text())
-                    .then((js) => {
-                        newScript.innerHTML = js;
-                        toFragm.append(newScript);
-                        fromFragm.removeChild(fromFragm.firstChild);
-                        _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
-                    });
-            } else {
-                // 内联的直接设置innerHtml
-                newScript.innerHTML = fromFragm.firstChild.innerHTML;
-                toFragm.append(newScript);
-                fromFragm.removeChild(fromFragm.firstChild);
-                _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
-            }
-        } else {
-            // 其它元素
-            toFragm.append(fromFragm.firstChild);
-            _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
-        }
-    };
+
     // ==================================================
     // jslib实例方法 选择器
     // ==================================================
@@ -521,9 +467,9 @@
             return this;
         },
         /**
-         * 设置所有匹配的元素的innerHTML属性.如果html中,含有script时,会重新生成script标签再加入文档中
+         * 设置所有匹配的元素的innerHTML属性.
          * 无参数时,返回第一个元素的innerHTML内容.
-         * @param {string} val 设置的html标记
+         * @param {any} val node节点 | DOMString对象 | DocumentFragment对象
          * @returns {jslib} 取值时返回值.否则返回this
          */
         'html': function (val) {
@@ -611,6 +557,8 @@
             return this;
         }
     });
-    // window上的引用名 "$ui",外部使用.这个打包只用于mirrorui
-    win.$ui = factory;
+    // window上的引用名
+    if (!win.ns)
+        win.ns = {};
+    win.ns.domHelp = factory;
 })(window);

@@ -1,9 +1,9 @@
 ﻿// 默认按钮
 .btn
     display: inline-block
-    padding: .06rem .08rem
+    padding: 6px 8px
     font-weight: 400
-    font-size: .14rem
+    font-size: inherit
     color: var-font-color
     text-align: center
     text-decoration: none
@@ -19,7 +19,7 @@
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
 // hover时,背景色加深
 .btn:hover
-    background-color: var-gray
+    background-color: var-gray-lt
 // 禁用(样式来自bt)
 .btn.disabled
     cursor: not-allowed
@@ -28,10 +28,7 @@
     opacity: 0.65
 // 圆角
 .btn.cir
-    border-radius: 4px
-// 块极按钮
-.btn.block
-    display: block
+    border-radius: $cir-angle
 // 按钮等待动画
 .btn.loading::after
     content: ''
@@ -45,10 +42,11 @@
     margin-left: .8em
     vertical-align: middle
     animation: btnloading 1.5s linear infinite
-    cursor: wait
 @keyframes btnloading
     100%
         transform: rotate(360deg)
+.btn.loading
+    cursor: wait
 // 主题色按钮:背景颜色为主题色,边框为主题色加深,字为白色 特别注意{插值}不能用于属性的值
 for key, val in $themeColorsKV
     .btn.{key}
@@ -57,12 +55,6 @@ for key, val in $themeColorsKV
         border-color: val[1]
     .btn.{key}:hover
 	    background-color: val[1]
-// 大小 默认是14px
-$btnPaddingKV = { sm: (.05rem .07rem), lg: (.08rem .1rem), xl: (.1rem .12rem)}
-for key, val in $fontSizeKV
-    .btn.{key}
-        font-size: val
-        padding: $btnPaddingKV[key][0] $btnPaddingKV[key][1]
 // 链接式按钮
 .btn.link
     color: var-font-color
@@ -70,43 +62,42 @@ for key, val in $fontSizeKV
     background-color: transparent
     // 链接式按钮hover
     &:hover
-        color: var-danger
         text-decoration: underline
-        background-color: transparent
-        border-color: transparent
     // 点击时
     &:active
-        text-decoration: underline
         box-shadow: none
-// 链接式按钮颜色主题是文字颜色
+// 链接式按钮主题色,显示为hover变色
 for key, val in $themeColorsKV
-    .btn.link.{key}
+    .btn.link.{key}:hover
         color: val[0]
-// /////////////////////////////////////////////////////////////////////////////////////
+        background-color: transparent
+// ===============
 // 按钮组
+// ===============
 .btn-group
     display: inline-flex
+    // 按钮去掉右边框,除了末尾的那么
     & > .btn
         flex: auto
-    // 按钮组首尾加圆角
+        border-right: none
+    & > .btn:last-child
+        border-right: 1px solid var-gray
+    // 按钮组首尾加圆角,
     &.cir > .btn:first-child
-        border-radius: 4px 0 0 4px
+        border-radius: $cir-angle 0 0 $cir-angle
     &.cir > .btn:last-child
-        border-radius: 0 4px 4px 0
+        border-radius: 0 $cir-angle $cir-angle 0
 // 下拉式按钮组
 .btn-list
     // 外框
     &-group
         position: relative
-    // 鼠标hover时,显示下拉按钮组
-    &-group:hover &-area
-        display: block
-    // 第1个按钮是标题
+    // 第1个按钮是标题,加一个三角形
     &-group > .btn:after
         content: ''
         triangle(0.4em, bottom, var-font-color)
         vertical-align: middle
-        margin-left: 4px
+        margin-left: 0.4em
     // 下拉按钮组框
     &-area
         display: none
@@ -115,4 +106,7 @@ for key, val in $themeColorsKV
         right: 0
     // 让按钮占满下拉框
     &-area .btn
+        display: block
+    // 鼠标hover时,显示下拉按钮组
+    &-group:hover &-area
         display: block

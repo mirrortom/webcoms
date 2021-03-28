@@ -45,8 +45,12 @@
     <Content Include="img\msgboxlayer.png" />
     <Content Include="js\cachepage.js" />
     <Content Include="js\exts\inputvalchange.js" />
+    <Content Include="js\m-file.js" />
+    <Content Include="js\m-radio.js" />
+    <Content Include="js\m-check.js" />
+    <Content Include="js\m-switch.js" />
+    <Content Include="js\m-btn.js" />
     <Content Include="js\mdirbar.js" />
-    <Content Include="js\form.js" />
     <Content Include="js\help.js" />
     <Content Include="js\msgbox.js" />
     <Content Include="js\msgshow.js" />
@@ -72,6 +76,8 @@
     </None>
     <None Include="compilerconfig.json" />
     <Content Include="doc\mnavmenudemo.html" />
+    <None Include="doc\about.part.cshtml" />
+    <None Include="doc\cssvar.part.cshtml" />
     <None Include="doc\pagelayout.part.cshtml" />
     <None Include="doc\menubar.part.cshtml" />
     <None Include="doc\mdirbar.part.cshtml" />
@@ -81,7 +87,6 @@
     <None Include="doc\kvpair.part.cshtml" />
     <None Include="doc\pageload.part.cshtml" />
     <None Include="doc\onoff.part.cshtml" />
-    <None Include="doc\themecolor.part.cshtml" />
     <None Include="doc\-------.part.cshtml" />
     <None Include="doc\article.part.cshtml" />
     <None Include="doc\btn.part.cshtml" />
@@ -138,6 +143,7 @@
     <None Include="stylus\variables\color.styl" />
     <None Include="stylus\variables\font.styl" />
     <None Include="stylus\variables\mediaquery.styl" />
+    <None Include="stylus\variables\cirangle.styl" />
     <None Include="stylus\variables\transition.styl" />
     <None Include="test.styl" />
     <None Include="zcustom\lxwsui\bundleconfig.json" />

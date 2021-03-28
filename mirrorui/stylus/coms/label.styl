@@ -4,19 +4,13 @@
     color: var-font-color
     text-align: center
     background-color: inherit
-    padding: 0.2em 0.8em
     border: 1px solid var-gray
+    padding: 3px 6px
+// 圆角
+.label.cir
     border-radius: 1em
-.label:hover
-    background-color: var-gray
 // 主题背景颜色 字都是白色
 for key, val in $themeColorsKV
     .label.{key}
         color: var-white
         background-color: val[0]
-    .label.{key}:hover
-        background-color: val[1]
-// 四种大小 默认是14px
-for key, val in $fontSizeKV
-    .label.{key}
-        font-size: val

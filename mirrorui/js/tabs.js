@@ -9,7 +9,7 @@
     // 标题与面板关联属性名
     const relkey = 'pid';
     // 帮助函数
-    const M = win.$ui;
+    const $ = win.ns.domHelp;
     /**
      * 生成一个新的pid
      * @param {Array} pids 现有的pid数组,不能与已有的pid重复
@@ -41,11 +41,11 @@
         // console.log(labelNow);
         // 去掉其它选项卡激活状态,将当前选项卡置为活动
         // 隐藏其它面板,激活对应面板.选项卡与面板由pid属性关联.选项卡标签pid值与面板pid值相等
-        let pidOld = M(self.tabsDom).find('.' + activeCls).removeClass(activeCls).prop(relkey);
-        M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidOld}']`).removeClass(activeCls);
+        let pidOld = $(self.tabsDom).find('.' + activeCls).removeClass(activeCls).prop(relkey);
+        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidOld}']`).removeClass(activeCls);
         //
-        let pidNow = M(labelNow).addClass(activeCls).prop(relkey);
-        M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidNow}']`).addClass(activeCls);
+        let pidNow = $(labelNow).addClass(activeCls).prop(relkey);
+        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidNow}']`).addClass(activeCls);
 
         // 执行激活后方法
         if (typeof self.onTabActive === 'function')
@@ -83,20 +83,20 @@
         let pid = newPid(self.tabsLabelsPids);
         self.tabsLabelsPids.push(pid);
         // 生成选项卡标签和面板.
-        let label = M('<span>').addClass(tabLabelCls).text(title).prop(relkey, pid)[0];
+        let label = $('<span>').addClass(tabLabelCls).text(title).prop(relkey, pid)[0];
         //
-        let panel = M('<div>').addClass(tabPanelCls).prop(relkey, pid)[0];
+        let panel = $('<div>').addClass(tabPanelCls).prop(relkey, pid)[0];
         // 绑定标签的点击事件
         bindEvent_onChange(self, label);
         // 标签加入
         if (addIndex == count) {
-            M(self.tabsLabels[self.tabsLabels.length-1]).after(label);
+            $(self.tabsLabels[self.tabsLabels.length-1]).after(label);
         } else {
             // 如果是插入添加,原有位置的标签后移
-            M(self.tabsLabels[addIndex]).before(label);
+            $(self.tabsLabels[addIndex]).before(label);
         }
         // 面板加入
-        M(self.tabsDom).append(panel);
+        $(self.tabsDom).append(panel);
         return pid;
     };
     /**
@@ -109,8 +109,8 @@
         if (tagType === 'pid') {
             // pid有效时做删除
             if (self.tabsLabelsPids.contains(index)) {
-                let panel = M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${index}']`).remove();
-                let label = M(self.tabsDom).find(`.${tabLabelCls}[${relkey}='${index}']`).remove();
+                let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${index}']`).remove();
+                let label = $(self.tabsDom).find(`.${tabLabelCls}[${relkey}='${index}']`).remove();
                 // pids列表更新
                 let pidIndex = self.tabsLabelsPids.indexOf(index);
                 self.tabsLabelsPids.splice(pidIndex, 1);
@@ -120,9 +120,9 @@
             if (!index || index < 0 || index >= self.tabsLabels.length)
                 return;
             let label = self.tabsLabels[index];
-            let pid = M(label).prop(relkey);
-            M(label).remove();
-            let panel = M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pid}']`).remove();
+            let pid = $(label).prop(relkey);
+            $(label).remove();
+            let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pid}']`).remove();
             // pids列表更新
             let pidIndex = self.tabsLabelsPids.indexOf(parseInt(pid));
             self.tabsLabelsPids.splice(pidIndex, 1);
@@ -158,7 +158,7 @@
         // 设置每个标签的pid属性
         for (let i = 0; i < self.tabsLabels.length; i++) {
             let pid = newPid(self.tabsLabelsPids);
-            M(self.tabsLabels[i]).prop(relkey, pid);
+            $(self.tabsLabels[i]).prop(relkey, pid);
             self.tabsLabelsPids.push(pid);
         }
         // 设置每个面板的pid属性
@@ -166,15 +166,15 @@
         for (let i = 0; i < self.tabsLabelsPids.length; i++) {
             let pid = self.tabsLabelsPids[i];
             if (i >= panels.length) break;
-            M(panels[i]).prop(relkey, pid);
+            $(panels[i]).prop(relkey, pid);
         }
         // 给默认激活的选项卡标签,设置活动样式.如果传入的索引超过选项卡个数,忽略
         let _index = activeIndex;
         if (!activeIndex || activeIndex < 0 || activeIndex >= self.tabsLabels.length)
             _index = 0;
-        M(self.tabsLabels[_index]).addClass(activeCls);
+        $(self.tabsLabels[_index]).addClass(activeCls);
         if (_index < panels.length)
-            M(panels[_index]).addClass(activeCls);
+            $(panels[_index]).addClass(activeCls);
 
         /**** Method ****/
         // 切换选项卡方法 index: 要激活的选项卡索引
@@ -205,5 +205,5 @@
         return self;
     };
     // window引用名
-    win.tabs = tabs;
+    win.ns.tabs = tabs;
 })(window);

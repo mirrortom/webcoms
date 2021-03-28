@@ -1,41 +1,22 @@
-﻿// 开关 ON / OFF
-// type=checkbox 勾选是ON,没选是OFF
-.onoff-check
-    position: absolute
-    opacity: 0
-
-// label 点击改变checkbox选中状态
-.onoff-label
+﻿// 开关 swtich ON / OFF
+.switch
     display: inline-block
     width: 5em
-    height:2em
-    line-height:2em
-    border: 1px solid var-grayse
-    border-radius: 20px
+    line-height: 1.5em
+    padding: 4px .8em
+    border: 1px solid var-gray-dk
+    border-radius: 1em
     background-color: var-gray
     user-select: none
     transition: background-color 1s
 
-.onoff-label:after
-    content: 'OFF'
-    padding-left: 10px
-
-// 勾选
-.onoff-check:checked + .onoff-label
+.switch.checked
     text-align: right
-    background-color: var-font-color
-    color:white
+    background-color: var-black-lt
+    color: var-white
 
-.onoff-check:checked + .onoff-label:after
-    content: 'ON'
-    padding-right: 10px
-
-// 大小
-for key, val in $fontSizeKV
-    .onoff-label.{key}
-        font-size: val
 // 颜色
 for key, val in $themeColorsKV
-    .onoff-check:checked + .onoff-label.{key}
+    .switch.checked.{key}
         background-color: val[0]
         border-color: val[1]

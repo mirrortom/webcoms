@@ -1,8 +1,6 @@
 //================================================================================//
-// 模仿jquery的封装库.由于jsAPI大多比较长,为了简洁封装一些常用的js函数.如dom操作,数组操作等等
-// 主要定义函数 "jslib" ,window上的引用名字 "lib"
-// jslib是一个类数组对象,用function定义的,和jquery类似,方法名也大多数使用jquery的方法名.
-// 使用方法如: lib('#id').addClass('acitve')
+// 简化JS的DOM操作API做了封装
+// 使用方法同jQuery: $('#id').addClass('acitve')
 //=================================================================================//
 // 
 ((win) => {
@@ -51,18 +49,6 @@
     jslib.prototype.push = function (item) {
         Array.prototype.push.call(this, item);
         return this;
-    };
-    /**
-     * jslib类数组中是否已有指定元素
-     * @param {any} item 指定node节点
-     * @returns {boolean} 返回 t / f
-     */
-    jslib.prototype.contains = function (item) {
-        for (let i = 0, len = this.length; i < len; i++) {
-            if (this[i] === item)
-                return true;
-        }
-        return false;
     };
     /**
      * 重置jslib类数组内容
@@ -175,7 +161,6 @@
     };
     /**
      * 解析html字符串,变成DOM元素后,装入fragment对象.可以在onReady方法上使用这个fragment对象.
-     * 由于innerhtml中包含的script不能执行,分析html字符串时,对script标签会重新生成.外联的script会发请求取js,然后变成内联的.
      * 最后生成一个包含解析后的html元素的DocumentFragment对象.
      * @param {string|any} val html字符串,DocumentFragment对象或者node对象,nodelist对象
      * @param {any} onReady 解析完成后执行
@@ -194,48 +179,9 @@
             framgSource = document.createDocumentFragment();
             framgSource.append(val);
         }
-        // 放入fragment.(解析放入)
-        let fragment = document.createDocumentFragment();
-        _parseHtmlNodeLoad(fragment, framgSource, onReady);
+        onReady(framgSource);
     };
-    /**
-     * 递归将fromFragm里的node节点移动到fragment,完成后执行onReady.(这个方法用于_parseHtml()方法辅助)
-     * @param {DocumentFragment} toFragm fragment容器对象
-     * @param {DocumentFragment} fromFragm 源dom容器
-     * @param {Function} onReady 完成后执行
-     */
-    let _parseHtmlNodeLoad = (toFragm, fromFragm, onReady) => {
-        if (fromFragm.firstChild === null) {
-            onReady(toFragm);
-            return;
-        }
-        // script元素.设置到innerhtml时不会执行,要新建一个script对象,再添加
-        if (fromFragm.firstChild.nodeName === 'SCRIPT') {
-            let newScript = document.createElement('script');
-            let src = fromFragm.firstChild.src;
-            if (src) {
-                // 外联的script,要加载下来,否则有执行顺序问题.外联的没有加载完,内联的就执行了.如果内联js依赖外联则出错.
-                // 这个办法是获取js脚本,是设置到生成的script标签中.(变成内联的了)
-                fetch(src).then(res => res.text())
-                    .then((js) => {
-                        newScript.innerHTML = js;
-                        toFragm.append(newScript);
-                        fromFragm.removeChild(fromFragm.firstChild);
-                        _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
-                    });
-            } else {
-                // 内联的直接设置innerHtml
-                newScript.innerHTML = fromFragm.firstChild.innerHTML;
-                toFragm.append(newScript);
-                fromFragm.removeChild(fromFragm.firstChild);
-                _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
-            }
-        } else {
-            // 其它元素
-            toFragm.append(fromFragm.firstChild);
-            _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
-        }
-    };
+
     // ==================================================
     // jslib实例方法 选择器
     // ==================================================
@@ -521,9 +467,9 @@
             return this;
         },
         /**
-         * 设置所有匹配的元素的innerHTML属性.如果html中,含有script时,会重新生成script标签再加入文档中
+         * 设置所有匹配的元素的innerHTML属性.
          * 无参数时,返回第一个元素的innerHTML内容.
-         * @param {string} val 设置的html标记
+         * @param {any} val node节点 | DOMString对象 | DocumentFragment对象
          * @returns {jslib} 取值时返回值.否则返回this
          */
         'html': function (val) {
@@ -611,51 +557,322 @@
             return this;
         }
     });
-    // window上的引用名 "$ui",外部使用.这个打包只用于mirrorui
-    win.$ui = factory;
+    // window上的引用名
+    if (!win.ns)
+        win.ns = {};
+    win.ns.domHelp = factory;
 })(window);
-/*====================================================================================*
- * 处理表单元素的一些辅助方法.例如文件选择框选中文件时,将文件名显示在文件框标题上,
- * 使用这些方法时,一般是绑定到表单元素的事件上,例如change,blur等事件.
- * 所有辅助方法都绑定到$ui这个对象上,调用时 $ui.fn(参数);
- *====================================================================================*/
+// ====================================================================================
+// m-btn 自定义标记
+// ====================================================================================
 ((win) => {
-    // 文件选择框选择后,将文件名显示在标签上.可绑定到input-file的onchange方法,传参this
-    win.$ui.inputFileChange = (inputfileDom) => {
-        let fnlist = '';
-        [].forEach.call(inputfileDom.files, (item) => {
-            fnlist += item.name + ',';
-            //console.dir(item);
-        });
-        fnlist = fnlist.substr(0, fnlist.length - 1);
-        let labelDom = inputfileDom.parentNode.querySelector('.input-file-label');
-        labelDom.innerHTML = fnlist;
-    };
-    // 清空文件选择框
-    win.$ui.clsInputFile = (inputfileDom) => {
-        // 标签清空一定要先执行,然后再执行文件框清空.
-        // 如果反过来执行,那么inputfileDom就会找不到对象,因为outterHTML相当于换一个input
-        let labelDom = inputfileDom.parentNode.querySelector('.input-file-label');
-        labelDom.innerHTML = '';
-        inputfileDom.outerHTML = inputfileDom.outerHTML;
-    };
-    // 判断btn是否含有loading样式.如果没有会添加上等待样式
-    win.$ui.isBtnLoading = (btn) => {
-        if (btn.classList.contains('loading'))
-            return true;
-        btn.classList.add('loading');
-        return false;
-    };
-    // 去掉btn的loading样式.time是豪秒数,表示经过此时间后去掉loading样式
-    win.$ui.clsBtnLoading = (btn, time) => {
-        if (time >= 0) {
-            setTimeout(() => {
-                btn.classList.remove('loading');
-            }, time);
-        } else {
-            btn.classList.remove('loading');
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-btn', class extends HTMLElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
         }
-    };
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            // ==================
+            // init set prop
+            // ==================
+            // 样式
+            $(this).addClass('btn');
+        }
+
+        // =======
+        // method
+        // =======
+        // 判断btn是否含有loading样式.如果没有会添加上等待样式
+        isLoading() {
+            let thisobj = $(this);
+            if (thisobj.hasClass('loading'))
+                return true;
+            thisobj.addClass('loading');
+            return false;
+        }
+        // 去掉btn的loading样式.time是豪秒数,表示经过此时间后去掉loading样式
+        clsLoading(time) {
+            let thisobj = $(this);
+            if (time >= 0) {
+                setTimeout(() => {
+                    thisobj.removeClass('loading');
+                }, time);
+            } else {
+                thisobj.removeClass('loading');
+            }
+        }
+    });
+})(window);
+// ====================================================================================
+// m-switch 自定义标记
+// ====================================================================================
+((win) => {
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-switch', class extends HTMLElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
+            // =======
+            // event
+            // =======
+            // 点击切换
+            this.onclick = () => {
+                let thisobj = $(this);
+                if (this.onoff == true) {
+                    this.onoff = false;
+                    thisobj.removeClass('checked');
+                    thisobj.text(this.offTag);
+                } else {
+                    this.onoff = true;
+                    thisobj.addClass('checked');
+                    thisobj.text(this.onTag);
+                }
+                //
+                //console.log(this.checked);
+            }
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            let thisobj = $(this);
+            // ==================
+            // init set prop
+            // ==================
+            // 开关属性标题可以设置,默认是ON/OFF
+            this.onoff = thisobj.hasClass('checked') ? true : false;
+            this.onTag = thisobj.prop('on') || 'ON';
+            this.offTag = thisobj.prop('off') || 'OFF';
+            thisobj.text(this.onoff ? this.onTag : this.offTag);
+        }
+
+        // =======
+        // prop
+        // =======
+        // checked属性.开返回true,关返回false
+        get checked() {
+            return this.onoff;
+        }
+
+        // =======
+        // method
+        // =======
+    });
+})(window);
+// ====================================================================================
+// m-file 自定义标记
+// ====================================================================================
+((win) => {
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-file', class extends HTMLElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
+            // =======
+            // event
+            // =======
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            let thisobj = $(this);
+            // ==================
+            // init set prop
+            // ==================
+            // tag属性设置初始标题
+            this.tag = thisobj.prop('tag') || '请选择文件...';
+            // 样式
+            thisobj.addClass('input-file');
+            //
+            this.reset();
+        }
+
+        // =======
+        // prop
+        // =======
+        // 获取input-file的dom对象
+        get inputFile() {
+            return this.querySelector('input[type=file]');
+        }
+
+        // =======
+        // method
+        // =======
+        // 重置控件,已选的文件会清除
+        reset() {
+            this.innerHTML = '';
+            this.innerText = '';
+            let thisobj = $(this);
+
+            // 添加input type=file和label标签
+            let fileDom = $('<input>').prop('type', 'file')[0];
+            if (this.hasAttribute('disabled')) {
+                fileDom.disabled = true;
+            }
+            if (this.hasAttribute('multiple')) {
+                fileDom.multiple = true;
+            }
+            // input-file选择改变时,文件路径显示在label上
+            fileDom.onchange = () => {
+                let fnlist = '';
+                let files = this.inputFile.files;
+                [].forEach.call(files, (item) => {
+                    fnlist += item.name + ',';
+                });
+                fnlist = fnlist.substr(0, fnlist.length - 1);
+                console.log(fnlist);
+                $(this).find('.form-label').text(fnlist);
+            }
+            // 设置标题
+            let labelDom = $('<label>').addClass('form-label').text(this.tag)[0];
+            //
+            thisobj.append(fileDom);
+            thisobj.append(labelDom);
+        }
+    });
+})(window);
+// ====================================================================================
+// m-check 自定义标记
+// ====================================================================================
+((win) => {
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-check', class extends HTMLElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
+            // =======
+            // event
+            // =======
+            // 点击切换
+            this.onclick = () => {
+                if (this.hasAttribute('disabled')) return;
+                let thisobj = $(this);
+                let ischecked = thisobj.hasClass('checked');
+                if (ischecked == true) {
+                    thisobj.removeClass('checked');
+                } else {
+                    thisobj.addClass('checked');
+                }
+                //
+                //console.log(this.checked);
+            }
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            let thisobj = $(this);
+            // ==================
+            // init set prop
+            // ==================
+            // 样式
+            thisobj.addClass('input-check');
+            // 复选框
+            thisobj.append($('<span>').addClass('check')[0]);
+            // 标题
+            let tag = thisobj.prop('tag') || '';
+            thisobj.append($('<label>').addClass('form-label').text(tag)[0]);
+        }
+
+        // =======
+        // prop
+        // =======
+        // checked属性.勾选返回true,未勾选返回false
+        get checked() {
+            return $(this).hasClass('checked');
+        }
+
+        // =======
+        // method
+        // =======
+    });
+})(window);
+// ====================================================================================
+// m-radio 自定义标记
+// ====================================================================================
+((win) => {
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-radio', class extends HTMLElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
+            // =======
+            // event
+            // =======
+            // 点击切换
+            this.onclick = () => {
+                if (this.hasAttribute('disabled')) return;
+                let thisobj = $(this);
+                if (thisobj.hasClass('checked')) return;
+                thisobj.addClass('checked');
+                // 取消同级的(在同一个父元素下的),name属性值相同的单选按钮的选中状态
+                thisobj.siblings('m-radio[name=' + thisobj.prop('name') + ']').removeClass('checked');
+                // 点击切换后执行方法
+                if (typeof this._onClick == 'function')
+                    this._onClick(this);
+            }
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            let thisobj = $(this);
+            // ==================
+            // init set prop
+            // ==================
+            // 样式
+            thisobj.addClass('input-check');
+            // 单选框
+            thisobj.append($('<span>').addClass('radio')[0]);
+            // 标题
+            let tag = thisobj.prop('tag') || '';
+            thisobj.append($('<label>').addClass('form-label').text(tag)[0]);
+        }
+
+        // =======
+        // prop
+        // =======
+        // checked属性.选中true
+        get checked() {
+            return $(this).hasClass('checked');
+        }
+        // 点击切换后执行方法
+        set onClicked(fn) {
+            this._onClick = fn;
+        }
+        // =======
+        // method
+        // =======
+    });
 })(window);
 /*
 缓存页组件:
@@ -671,7 +888,7 @@ contDom:
  */
 ((win) => {
     // 帮助函数
-    const M = win.$ui;
+    const $ = win.ns.domHelp;
     // 生成选项卡和功能区DOM,添加到容器内
     /* html内容:
         <a class="tabsbox-left"></a>
@@ -687,18 +904,18 @@ contDom:
         </div>
      */
     let createTabDom = (tabsDom) => {
-        let fragment = M.fragment();
-        fragment.append(M('<a>').addClass('tabsbox-left')[0]);
-        fragment.append(M('<nav>').addClass('tabsbox-navbox').append(M('<div>').addClass('tabsbox-nav')[0])[0]);
-        fragment.append(M('<a>').addClass('tabsbox-right')[0]);
-        fragment.append(M('<span>').addClass('tabsbox-menutitle').text('功能')[0]);
-        let menugroup = M('<div>').addClass('tabsbox-menugroup').append(
-            M('<span>').addClass('tabsbox-goto-active').text('定位当前页')[0],
-            M('<span>').addClass('tabsbox-close-all').text('关闭全部')[0],
-            M('<span>').addClass('tabsbox-close-other').text('关闭其它')[0]
+        let fragment = $.fragment();
+        fragment.append($('<a>').addClass('tabsbox-left')[0]);
+        fragment.append($('<nav>').addClass('tabsbox-navbox').append($('<div>').addClass('tabsbox-nav')[0])[0]);
+        fragment.append($('<a>').addClass('tabsbox-right')[0]);
+        fragment.append($('<span>').addClass('tabsbox-menutitle').text('功能')[0]);
+        let menugroup = $('<div>').addClass('tabsbox-menugroup').append(
+            $('<span>').addClass('tabsbox-goto-active').text('定位当前页')[0],
+            $('<span>').addClass('tabsbox-close-all').text('关闭全部')[0],
+            $('<span>').addClass('tabsbox-close-other').text('关闭其它')[0]
         )[0];
         fragment.append(menugroup);
-        M(tabsDom).append(fragment).addClass('tabsbox');
+        $(tabsDom).append(fragment).addClass('tabsbox');
     };
     // 初始化cachepage实例(工厂函数)
     // tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
@@ -742,7 +959,7 @@ contDom:
                 // 添加当前DOM到缓存
                 cacheActiveTab();
                 // 取出pid对应的DOM片段,放入显示容器
-                M(self.contDom).html(self.cache[pid]);
+                $(self.contDom).html(self.cache[pid]);
                 // 标识为null,表示pid成为新的活动页
                 self.cache[pid] = null;
                 // console.log('type2');
@@ -773,28 +990,28 @@ contDom:
         // 新增选项卡
         let addTab = (pid, title) => {
             // 去掉当前活动的选项卡
-            let activeTabDom = M(self.tabsDom).find('.tabsbox-tab.active');
+            let activeTabDom = $(self.tabsDom).find('.tabsbox-tab.active');
             if (activeTabDom.length > 0) {
                 activeTabDom.removeClass('active');
             }
-            let tabdom = M('<label>').addClass('tabsbox-tab', 'active').prop({ 'title': title, 'val': pid })
-                .html(title).append(M('<a>').addClass('tabsbox-tabclose').prop('title', '关闭').text('×')[0])[0];
+            let tabdom = $('<label>').addClass('tabsbox-tab', 'active').prop({ 'title': title, 'val': pid })
+                .html(title).append($('<a>').addClass('tabsbox-tabclose').prop('title', '关闭').text('×')[0])[0];
             // 绑定X关闭事件
             closeTab(tabdom);
             // 绑定点击事件
             selectedTab(tabdom);
             // 添加到选项卡容器
-            M(self.tabsDom).find('.tabsbox-nav').append(tabdom);
+            $(self.tabsDom).find('.tabsbox-nav').append(tabdom);
         };
         // 切换激活选项卡.然后返回活动tab的Dom对象
         let activeTab = (pid) => {
             // 去掉当前活动的选项卡
-            let activeTabDom = M(self.tabsDom).find('.tabsbox-tab.active');
+            let activeTabDom = $(self.tabsDom).find('.tabsbox-tab.active');
             if (activeTabDom.length > 0) {
                 activeTabDom.removeClass('active');
             }
             // 添加pid选项卡活动样式
-            let tabDom = M(self.tabsDom).find(".tabsbox-tab[val='" + pid + "']").addClass('active')[0];
+            let tabDom = $(self.tabsDom).find(".tabsbox-tab[val='" + pid + "']").addClass('active')[0];
             return tabDom;
         };
 
@@ -804,7 +1021,7 @@ contDom:
             for (let prop in self.cache) {
                 if (self.cache.hasOwnProperty(prop)) {
                     if (self.cache[prop] === null) {
-                        self.cache[prop] = M.fragment(...self.contDom.childNodes);
+                        self.cache[prop] = $.fragment(...self.contDom.childNodes);
                         return;
                     }
                 }
@@ -814,7 +1031,7 @@ contDom:
         // len:滚动距离,>0 : 向右滚此距离, <0 : 向左滚, 0 : 滚动到最左, 1 : 到最右,
         //              'left': 左滚固定距离, 'right': 右滚固定距离
         let scrollerTabs = (len) => {
-            let navDom = M(self.tabsDom).find('.tabsbox-nav')[0];
+            let navDom = $(self.tabsDom).find('.tabsbox-nav')[0];
             // 滚动条位置
             let sPosition = navDom.scrollLeft;
             // nav宽度
@@ -842,7 +1059,7 @@ contDom:
 
         // 调整选项卡框的滚动条值,使指定选项卡处于中间位置.
         let adjustPositionTab = (tabDom) => {
-            let navDom = M(self.tabsDom).find('.tabsbox-nav')[0];
+            let navDom = $(self.tabsDom).find('.tabsbox-nav')[0];
             // 界限值89px,大致是一个按钮的宽度
             let tabLen = 89;
             // 滚动条位置
@@ -862,29 +1079,29 @@ contDom:
         //======================================================
         // 点击关闭选项卡
         let closeTab = (tabDom) => {
-            M(tabDom).find('.tabsbox-tabclose')[0].onclick = (event) => {
+            $(tabDom).find('.tabsbox-tabclose')[0].onclick = (event) => {
                 event.stopPropagation();
                 // (情形1)关闭的是最后一个tab页,删除tab,清空缓存
                 if (Object.getOwnPropertyNames(self.cache).length == 1) {
                     // 删除选项卡,删除缓存,清空显示容器
                     self.contDom.innerHTML = '';
                     self.cache = {};
-                    M(tabDom).remove();
+                    $(tabDom).remove();
                     return;
                 }
                 // (情形2)关闭时,多于1个tab页时
                 // 清除对应缓存,
-                let cacheId = M(tabDom).prop('val');
+                let cacheId = $(tabDom).prop('val');
                 delete self.cache[cacheId];
                 // 如果关闭的是活动页,将cache中最后一个id,对应的选项卡激活,对应DOM载入显示容器
-                if (M(tabDom).hasClass('active')) {
+                if ($(tabDom).hasClass('active')) {
                     let cacheId = Object.getOwnPropertyNames(self.cache).pop();
-                    let lastTabDom = M(self.tabsDom).find(".tabsbox-tab[val='" + cacheId + "']").addClass('active');
-                    M(self.contDom).html(self.cache[cacheId]);
+                    let lastTabDom = $(self.tabsDom).find(".tabsbox-tab[val='" + cacheId + "']").addClass('active');
+                    $(self.contDom).html(self.cache[cacheId]);
                     self.cache[cacheId] = null;
                 }
                 // 删除tab,
-                M(tabDom).remove();
+                $(tabDom).remove();
             };
         };
         // 点击选项卡
@@ -894,20 +1111,20 @@ contDom:
                 adjustPositionTab(tabDom);
 
                 // (情形1)点击的是活动页面,退出
-                if (M(tabDom).hasClass('active'))
+                if ($(tabDom).hasClass('active'))
                     return;
 
                 // (情形2)非活动页面,即切换行为
                 // 缓存当前DOM
                 cacheActiveTab();
                 // 去掉当前活动的选项卡活动状态
-                let activeTabDom = M(self.tabsDom).find('.tabsbox-tab.active');
+                let activeTabDom = $(self.tabsDom).find('.tabsbox-tab.active');
                 if (activeTabDom.length > 0) {
                     activeTabDom.removeClass('active');
                 }
                 // 激活点击的选项卡,获取其缓存页加载到显示容器
-                let cacheId = M(tabDom).addClass('active').prop('val');
-                M(self.contDom).html(self.cache[cacheId]);
+                let cacheId = $(tabDom).addClass('active').prop('val');
+                $(self.contDom).html(self.cache[cacheId]);
                 self.cache[cacheId] = null;
                 //console.log(cache);
             };
@@ -916,31 +1133,31 @@ contDom:
         // Event 选项卡条功能事件
         //======================================================
         // 向左滚动按钮
-        M(self.tabsDom).find('.tabsbox-left')[0].onclick = () => {
+        $(self.tabsDom).find('.tabsbox-left')[0].onclick = () => {
             scrollerTabs('left');
         };
         // 向右滚动按钮
-        M(self.tabsDom).find('.tabsbox-right')[0].onclick = () => {
+        $(self.tabsDom).find('.tabsbox-right')[0].onclick = () => {
             scrollerTabs('right');
         };
 
         // 定位当前按钮
-        M(self.tabsDom).find('.tabsbox-goto-active')[0].onclick = () => {
-            let activeTab = M(self.tabsDom).find('.active')[0];
+        $(self.tabsDom).find('.tabsbox-goto-active')[0].onclick = () => {
+            let activeTab = $(self.tabsDom).find('.active')[0];
             if (!activeTab) return;
             adjustPositionTab(activeTab);
         };
         // 关闭全部选项卡
-        M(self.tabsDom).find('.tabsbox-close-all')[0].onclick = () => {
+        $(self.tabsDom).find('.tabsbox-close-all')[0].onclick = () => {
             // 删除选项卡,删除缓存,清空显示容器
-            let navDom = M(self.tabsDom).find('.tabsbox-nav').empty();
+            let navDom = $(self.tabsDom).find('.tabsbox-nav').empty();
             self.contDom.innerHTML = '';
             self.cache = {};
         };
         // 关闭除当前外所有选项卡
-        M(self.tabsDom).find('.tabsbox-close-other')[0].onclick = () => {
+        $(self.tabsDom).find('.tabsbox-close-other')[0].onclick = () => {
             // 删除选项卡除活动的外
-            let navDom = M(self.tabsDom).find('.tabsbox-nav .tabsbox-tab:not(.active)').remove();
+            let navDom = $(self.tabsDom).find('.tabsbox-nav .tabsbox-tab:not(.active)').remove();
             // 除了为null的都删除掉,null是当前页特征
             for (let prop in self.cache) {
                 if (self.cache.hasOwnProperty(prop)) {
@@ -952,13 +1169,13 @@ contDom:
         };
         return self;
     };
-    win.cachepage = cachePage;
+    win.ns.cachepage = cachePage;
 })(window);
-/**
- * 模拟系统的弹出框 alert confirm prompt
- * 显示在上中下三个位置
- * 用于理解弹出框原理
- */
+// ==============================================
+// 模拟系统的弹出框 alert confirm prompt
+// 显示在上中下三个位置
+// 用于理解弹出框原理
+// ==============================================
 ((win) => {
     // 遮罩样式命
     const shadowCls = 'msgbox-shadow';
@@ -967,17 +1184,17 @@ contDom:
     // 弹出层样式名
     const msgboxCls = 'msgbox';
     // 帮助函数
-    const M = win.$ui;
+    const $ = win.ns.domHelp;
     /**
      * 生成遮罩并显示,生成并返回弹出层父级DOM对象
      * @returns {HTMLElement} 弹出层父级DOM对象
      */
     let createMsgBox = () => {
         // 添加遮罩层
-        let shadow = M('<div>').addClass(shadowCls)[0];
+        let shadow = $('<div>').addClass(shadowCls)[0];
         document.body.append(shadow);
         // 生成弹出框
-        let parentDiv = M('<div>').addClass(modalCls)[0];
+        let parentDiv = $('<div>').addClass(modalCls)[0];
         return parentDiv;
     };
     /**
@@ -991,25 +1208,24 @@ contDom:
     /**
      * 生成标准弹出层的外层div元素,并设置风格样式和位置样式
      * @param {string} msg 要显示的信息
-     * @param {string} style 样式风格:primary | danger | success
      * @param {string} position 位置:top | bottom
      * @returns {HTMLElement} 返回外层div元素
      */
-    let createOuterDiv = (msg, style, position) => {
+    let createOuterDiv = (msg, position) => {
         // 样式风格,位置样式
-        let outerDiv = M('<div>').addClass(msgboxCls, 'msgbox-' + (position || 'center'));
-        style && outerDiv.addClass(style);
+        let outerDiv = $('<div>').addClass(msgboxCls, msgboxCls + '-' + (position || 'center'));
         // 内容
         outerDiv.text(msg || '');
         return outerDiv[0];
     };
     /**
      * 生成标准按钮:确定,取消
-     * @param {string} name 按钮风格 ok|cancel
+     * @param {string} name 按钮种类 ok|cancel
+     * * @param {string} theme 按钮风格 primary|success|...
      * @returns {HTMLElement} 返回按钮dom
      */
-    let createBtn = (name) => {
-        let btn = M('<span>').addClass('msgbox-btn', 'msgbox-' + name).text(name === 'ok' ? '确定' : '取消');
+    let createBtn = (name, theme) => {
+        let btn = $('<span>').addClass('btn', msgboxCls + '-' + name, theme).text(name === 'ok' ? '确定' : '取消');
         return btn[0];
     };
     // 弹出框类
@@ -1034,7 +1250,7 @@ contDom:
      * alert 弹出框
      * @param {string} msg 要提示的信息
      * @param {Function} onClosed 关闭后执行方法
-     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} style 样式风格:primary | danger | success...
      * @param {string} position 位置:top | bottom
      */
     msgBox.alert = (msg, onClosed, style, position) => {
@@ -1043,10 +1259,10 @@ contDom:
         // 生成遮罩层和弹出层父级,并且加入到body直属
         let parentDiv = createMsgBox();
         // 生成alertDom: 
-        // <div class="msgbox 样式? 位置?">内容<span class="msgbox-btn msgbox-ok">OK</span></div>
-        let alertDom = createOuterDiv(msg, style, position);
+        // <div class="msgbox 样式? 位置?">内容<span class="btn msgbox-ok">OK</span></div>
+        let alertDom = createOuterDiv(msg, position);
         // 按钮
-        let okBtn = createBtn('ok');
+        let okBtn = createBtn('ok', style);
         // 按钮事件
         okBtn.onclick = () => {
             // 删除弹出框
@@ -1065,7 +1281,7 @@ contDom:
      * confirm 弹出框
      * @param {string} msg 要提示的信息
      * @param {Function} callback 回调函数
-     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} style 样式风格:primary | danger | success...
      * @param {string} position 位置:top | bottom
      */
     msgBox.confirm = (msg, callback, style, position) => {
@@ -1076,9 +1292,9 @@ contDom:
         // 生成confirmDom:
         // <div class="msgbox 样式? 位置?">内容<span class="msgbox-btn msgbox-ok">OK</span>
         //                    <span class="msgbox-btn msgbox-cancel">Cancel</span></div >
-        let confirmDom = createOuterDiv(msg, style, position);
+        let confirmDom = createOuterDiv(msg, position);
         // 按钮
-        let okBtn = createBtn('ok');
+        let okBtn = createBtn('ok', style);
         let cancelBtn = createBtn('cancel');
         // 绑定事件
         okBtn.onclick = () => {
@@ -1107,7 +1323,7 @@ contDom:
      * prompt 弹出框
      * @param {string} msg 要提示的信息
      * @param {Function} callback 回调函数
-     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} style 样式风格:primary | danger | success...
      * @param {string} position 位置:top | bottom
      */
     msgBox.prompt = (msg, callback, style, position) => {
@@ -1118,12 +1334,13 @@ contDom:
         // 生成promptDom:
         // <div class="msgbox 样式? 位置?">内容<input class="msgbox-input" type="text"/>
         // <span class="msgbox-btn msgbox-ok">Ok</span><span class="msgbox-btn msgbox-cancel">Cancel</span></div>
-        let promptDom = createOuterDiv(msg, style, position);
+        let promptDom = createOuterDiv(msg, position);
+        promptDom.classList.add('msgbox-prompt');
         // input框
-        let inputE = M('<input>').addClass('msgbox-input').prop('type', 'text')[0];
+        let inputE = $('<input>').addClass('input-text','mg-tb-10').prop('type', 'text')[0];
         // 按钮
-        let okBtn = createBtn('ok');
-        let cancelBtn = createBtn('cancel');
+        let okBtn = createBtn('ok', style);
+        let cancelBtn = createBtn('cancel', style);
         // 绑定事件
         okBtn.onclick = () => {
             // 删除弹出框
@@ -1175,12 +1392,13 @@ contDom:
     };
 
     // 引用名称可在此修改
-    win.msgbox = msgBox;
+    win.ns.msgbox = msgBox;
 })(window);
-/*
-日期组件,是一个函数.
-在input上使用此方法. <input onclick="MyDatePick()" />,需要时间部分: MyDatePick({fmt:datetime})
- */
+// =======================================
+// 日期组件, 是一个函数.在input上使用此方法.
+//  <input onclick="myDatePick()" />
+//  时间部分: myDatePick({ fmt: datetime })
+// =======================================
 ((win) => {
     // datebox样式类名
     const dateboxCls = 'date-box';
@@ -1188,7 +1406,7 @@ contDom:
     const maxyear = 2100;
     const minyear = 1900;
     // 帮助函数
-    const M = win.$ui;
+    const $ = win.ns.domHelp;
     // 时间格式化函数
     let datefmt = (date, fmtstr) => {
         let format = fmtstr || 'yyyy/MM/dd HH:mm:ss';
@@ -1297,7 +1515,7 @@ contDom:
         }
 
         // 清除可能已有的日期框
-        M(document.body).find('.' + dateboxCls).remove();
+        $(document.body).find('.' + dateboxCls).remove();
 
         // 显示新的日期框
         datedom.style.left = thisleft;
@@ -1314,18 +1532,18 @@ contDom:
      *=======================================================*/
     // 生成整个日期框的DOM.并返回
     let createDom = () => {
-        let ymtarea = M('<div>').addClass('date-area-ymt').append(createDom_Year()
+        let ymtarea = $('<div>').addClass('date-area-ymt').append(createDom_Year()
             , createDom_Month(), createDom_Today())[0];
 
-        let weekarea = M('<div>').addClass('date-area-week').append(createDom_Week())[0];
+        let weekarea = $('<div>').addClass('date-area-week').append(createDom_Week())[0];
 
-        let dayarea = M('<div>').addClass('date-area-day').append(createDom_Day())[0];
+        let dayarea = $('<div>').addClass('date-area-day').append(createDom_Day())[0];
 
-        let datedom = M('<div>').addClass('date-box').prop('tabIndex', -1)
+        let datedom = $('<div>').addClass('date-box').prop('tabIndex', -1)
             .append(ymtarea, weekarea, dayarea);
         // 时间区域,日期+时间格式类型时
         if (cfg.fmtType == 2) {
-            let tcarea = M('<div>').addClass('date-area-tc').append(createDom_Time(), createDom_Clear(),
+            let tcarea = $('<div>').addClass('date-area-tc').append(createDom_Time(), createDom_Clear(),
                 createDom_Ok())[0];
             datedom.append(tcarea);
         }
@@ -1334,10 +1552,10 @@ contDom:
 
     // 1.生成年份区内容 前进,后退,年份 按钮
     let createDom_Year = () => {
-        let prevbtn = M('<a>').addClass('date-btn-prev').text('＜')[0];
-        let yearbtn = M('<b>').addClass('date-btn-year').prop('val', cfg.year).text(cfg.year + '年')[0];
-        let nextbtn = M('<a>').addClass('date-btn-next').text('＞')[0];
-        return M('<div>').addClass('date-area-year').append(prevbtn, yearbtn, nextbtn)[0];
+        let prevbtn = $('<a>').addClass('date-btn-prev').text('＜')[0];
+        let yearbtn = $('<b>').addClass('date-btn-year').prop('val', cfg.year).text(cfg.year + '年')[0];
+        let nextbtn = $('<a>').addClass('date-btn-next').text('＞')[0];
+        return $('<div>').addClass('date-area-year').append(prevbtn, yearbtn, nextbtn)[0];
     };
 
     // 1.1生成年份下拉选择框. selectedYear:可指定一个年份为已选定
@@ -1347,11 +1565,11 @@ contDom:
         if (!selectedYear)
             selectedYear = (new Date()).getFullYear();
         //
-        let dom = M('<div>').addClass('date-select-year');
+        let dom = $('<div>').addClass('date-select-year');
         for (let i = 0; i < ylistData.length; i++) {
             let isselect = ylistData[i] == selectedYear ? "selected" : "";
             let itemtxt = ylistData[i];
-            let itemdom = M('<b>').addClass('date-option-year', isselect).prop('val', itemtxt).text(itemtxt)[0];
+            let itemdom = $('<b>').addClass('date-option-year', isselect).prop('val', itemtxt).text(itemtxt)[0];
             dom.append(itemdom);
         }
         return dom[0];
@@ -1359,18 +1577,18 @@ contDom:
 
     // 2.生成月份区 前进,后退,月份 按钮
     let createDom_Month = () => {
-        let prevbtn = M('<a>').addClass('date-btn-prev').text('＜')[0];
-        let monthbtn = M('<b>').addClass('date-btn-month').prop('val', cfg.month).text(cfg.month + 1 + '月')[0];
-        let nextbtn = M('<a>').addClass('date-btn-next').text('＞')[0];
-        return M('<div>').addClass('date-area-month').append(prevbtn, monthbtn, nextbtn)[0];
+        let prevbtn = $('<a>').addClass('date-btn-prev').text('＜')[0];
+        let monthbtn = $('<b>').addClass('date-btn-month').prop('val', cfg.month).text(cfg.month + 1 + '月')[0];
+        let nextbtn = $('<a>').addClass('date-btn-next').text('＞')[0];
+        return $('<div>').addClass('date-area-month').append(prevbtn, monthbtn, nextbtn)[0];
     };
 
     // 2.1生成月份下拉选择框. selectedMonth:可指定一个月份为已选定
     let createDom_MonthSelect = (selectedMonth) => {
-        let dom = M('<div>').addClass('date-select-month');
+        let dom = $('<div>').addClass('date-select-month');
         for (let i = 0; i < 12; i++) {
             let isselect = selectedMonth == i ? "selected" : "";
-            let itemdom = M('<b>').addClass('date-option-month', isselect).prop('val', i).text(i + 1)[0];
+            let itemdom = $('<b>').addClass('date-option-month', isselect).prop('val', i).text(i + 1)[0];
             dom.append(itemdom);
         }
         return dom[0];
@@ -1378,11 +1596,11 @@ contDom:
 
     // 3.生成星期标题头
     let createDom_Week = () => {
-        let weeksdom = M.fragment();
+        let weeksdom = $.fragment();
         let weeks = ['日', '一', '二', '三', '四', '五', '六'];
         for (let i = 0; i < weeks.length; i++) {
             let isweekend = (i === 0 || i === 6) ? 'date-item-weekend' : '';
-            let itemdom = M('<b>').addClass('date-item-week', isweekend).text(weeks[i])[0];
+            let itemdom = $('<b>').addClass('date-item-week', isweekend).text(weeks[i])[0];
             weeksdom.append(itemdom);
         }
         return weeksdom;
@@ -1391,7 +1609,7 @@ contDom:
     // 4.生成天选项 daylist:日数据.不传则使用选定年月计算出日
     let createDom_Day = (daylist) => {
         let data = daylist || domDay_Data();
-        let fragment = M.fragment();
+        let fragment = $.fragment();
         for (var i = 0; i < data.length; i++) {
             let json = data[i];
             json.istoday = json.Istoday ? 'date-item-today' : '';
@@ -1399,7 +1617,7 @@ contDom:
             json.isdayinmonth = json.Isdayinmonth ? '' : 'date-item-dayoutmonth';
             json.isweekend = json.Isweekend ? 'date-item-weekend' : '';
             //json.exportName = exportName;
-            let daydom = M('<b>').addClass('date-item-day', json.istoday, json.isdayinmonth, json.isselected
+            let daydom = $('<b>').addClass('date-item-day', json.istoday, json.isdayinmonth, json.isselected
                 , json.isweekend).prop({ 'year': json.yyyy, 'month': json.MM, 'day': json.dd }).text(json.dd)[0];
             fragment.append(daydom);
         }
@@ -1407,52 +1625,52 @@ contDom:
     };
     // 5.生成时分秒区域
     let createDom_Time = () => {
-        let hour = M('<b>').addClass('date-btn-time', 'date-btn-hour').text(cfg.hour)[0];
-        let minute = M('<b>').addClass('date-btn-time', 'date-btn-minute').text(cfg.minute)[0];
-        let second = M('<b>').addClass('date-btn-time', 'date-btn-second').text(cfg.second)[0];
-        return M('<div>').addClass('date-area-time').append(hour, minute, second)[0];
+        let hour = $('<b>').addClass('date-btn-time', 'date-btn-hour').text(cfg.hour)[0];
+        let minute = $('<b>').addClass('date-btn-time', 'date-btn-minute').text(cfg.minute)[0];
+        let second = $('<b>').addClass('date-btn-time', 'date-btn-second').text(cfg.second)[0];
+        return $('<div>').addClass('date-area-time').append(hour, minute, second)[0];
     };
     // 5.1生成小时选择框
     let createDom_HourSelect = () => {
-        let dom = M('<div>').addClass('date-select-hour');
+        let dom = $('<div>').addClass('date-select-hour');
         let title = ['凌晨', '上午', '下午', '夜晚'];
         for (let i = 0; i < 24; i++) {
-            let itemdom = M('<b>').addClass('date-option-hour').prop('val', i).text(i)[0];
+            let itemdom = $('<b>').addClass('date-option-hour').prop('val', i).text(i)[0];
             if (i % 6 == 0)
-                dom.append(M('<span>').addClass('date-option-title').text(title[i / 6])[0]);
+                dom.append($('<span>').addClass('date-option-title').text(title[i / 6])[0]);
             dom.append(itemdom);
         }
         return dom[0];
     };
     // 5.2生成分钟,秒钟选择框
     let createDom_MinuteSelect = () => {
-        let dom = M('<div>').addClass('date-select-minute');
+        let dom = $('<div>').addClass('date-select-minute');
         for (let i = 0; i < 60; i++) {
-            let itemdom = M('<b>').addClass('date-option-minute').prop('val', i).text(i)[0];
+            let itemdom = $('<b>').addClass('date-option-minute').prop('val', i).text(i)[0];
             dom.append(itemdom);
         }
         return dom[0];
     };
     // 5.3生成秒钟选择框
     let createDom_SecondSelect = () => {
-        let dom = M('<div>').addClass('date-select-second');
+        let dom = $('<div>').addClass('date-select-second');
         for (let i = 0; i < 60; i++) {
-            let itemdom = M('<b>').addClass('date-option-second').prop('val', i).text(i)[0];
+            let itemdom = $('<b>').addClass('date-option-second').prop('val', i).text(i)[0];
             dom.append(itemdom);
         }
         return dom[0];
     };
     // 6.生成今天按钮区域
     let createDom_Today = () => {
-        return M('<div>').addClass('date-area-today').html('<a class="date-btn-today">今天</a>')[0];
+        return $('<div>').addClass('date-area-today').html('<a class="date-btn-today">今天</a>')[0];
     };
     // 7.生成清除按钮区域
     let createDom_Clear = () => {
-        return M('<div>').addClass('date-area-clear').html('<a class="date-btn-clear">清空</a>')[0];
+        return $('<div>').addClass('date-area-clear').html('<a class="date-btn-clear">清空</a>')[0];
     };
     // 8.生成确定按钮区域 
     let createDom_Ok = () => {
-        return M('<div>').addClass('date-area-ok').html('<a class="date-btn-ok">确定</a>')[0];
+        return $('<div>').addClass('date-area-ok').html('<a class="date-btn-ok">确定</a>')[0];
     };
 
     // 根据选定的年,月刷新日(用于当在日期框上操作年,月等会改变年月的动作时)
@@ -1463,7 +1681,7 @@ contDom:
         // 生成天DOM
         let daysdom = createDom_Day(dayslist);
         // 更新天DOM
-        M(dateboxDom).find('.date-area-day').empty().append(daysdom);
+        $(dateboxDom).find('.date-area-day').empty().append(daysdom);
         // 事件绑定
         bindEvent_DaySelected();
     };
@@ -1547,31 +1765,31 @@ contDom:
         dateboxDom.onclick = (event) => {
             event.stopPropagation();
             // 点击空白位置时,关闭已经打开的年,月,日,时,分,秒的选择框.需要在子元素上取消冒泡
-            M(dateboxDom).find('[class^=date-select]').remove();
+            $(dateboxDom).find('[class^=date-select]').remove();
         };
     };
     let bindEvent_YearBtn = () => {
         // 点击年按钮 显示年选择框
-        M(dateboxDom).find('.date-btn-year')[0].onclick = (event) => {
+        $(dateboxDom).find('.date-btn-year')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let seledY = M(thisobj).prop('val');
+            let seledY = $(thisobj).prop('val');
             // 年份选择框 .date-select-year
-            let yearopsbox = M(thisobj.parentElement).find('.date-select-year');
+            let yearopsbox = $(thisobj.parentElement).find('.date-select-year');
             // 如果已经显示则关闭
             if (yearopsbox.length > 0) {
                 yearopsbox.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            let otherDoms = M(dateboxDom).find('[class^=date-select]');
+            let otherDoms = $(dateboxDom).find('[class^=date-select]');
             otherDoms.remove();
             // 生成年份选择框,填充到年份选择框中
             let yearSelectDom = createDom_YearSelect(seledY);
             thisobj.parentElement.append(yearSelectDom);
             // 定位已选年份到滚动框的中间(视口可见范围内)
-            let yseled = M(yearSelectDom).find('.selected')[0];
+            let yseled = $(yearSelectDom).find('.selected')[0];
 
             // 计算这个年份选项离父框的TOP值,然后滚动条滚动这个值-父框高/2
             let scrollval = yseled.offsetTop - yearSelectDom.clientHeight / 2;
@@ -1582,19 +1800,19 @@ contDom:
     };
     let bindEvent_MonthBtn = () => {
         // 点击月按钮 显示月选择框
-        M(dateboxDom).find('.date-btn-month')[0].onclick = (event) => {
+        $(dateboxDom).find('.date-btn-month')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let seledM = M(thisobj).prop('val');
-            let monthsops = M(thisobj.parentElement).find('.date-select-month');
+            let seledM = $(thisobj).prop('val');
+            let monthsops = $(thisobj.parentElement).find('.date-select-month');
             // 如果已经显示则关闭
             if (monthsops.length > 0) {
                 monthsops.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            let otherDoms = M(dateboxDom).find('[class^=date-select]');
+            let otherDoms = $(dateboxDom).find('[class^=date-select]');
             otherDoms.remove();
             //
             thisobj.parentElement.append(createDom_MonthSelect(seledM));
@@ -1604,44 +1822,44 @@ contDom:
     };
     let bindEvent_YearSelected = () => {
         // 点击年份选项 选定一个年份 
-        M(dateboxDom).find('.date-option-year').each((item) => {
+        $(dateboxDom).find('.date-option-year').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 // 
                 // 所选年份值
-                let y = M(thisobj).prop('val');
+                let y = $(thisobj).prop('val');
                 // 更新年份按钮显示值
-                M(dateboxDom).find('.date-btn-year').prop('val', y).text(y + '年');
+                $(dateboxDom).find('.date-btn-year').prop('val', y).text(y + '年');
                 // 关闭年份选择框
-                M(thisobj.parentElement).remove();
+                $(thisobj.parentElement).remove();
                 // 刷新 日
-                let m = M(dateboxDom).find('.date-btn-month').prop('val');
+                let m = $(dateboxDom).find('.date-btn-month').prop('val');
                 resetDaysDom(y, m);
             };
         });
     };
     let bindEvent_MonthSelected = () => {
         // 点击月份选项 选定一个月份
-        M(dateboxDom).find('.date-option-month').each((item) => {
+        $(dateboxDom).find('.date-option-month').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 // 
                 // 所选月份值
-                let m = parseInt(M(thisobj).prop('val'));
-                M(dateboxDom).find('.date-btn-month').prop('val', m).text(m + 1 + '月');
+                let m = parseInt($(thisobj).prop('val'));
+                $(dateboxDom).find('.date-btn-month').prop('val', m).text(m + 1 + '月');
                 // 关闭月份选择框
-                M(thisobj.parentElement).remove();
+                $(thisobj.parentElement).remove();
                 // 刷新 日
-                let y = M(dateboxDom).find('.date-btn-year').prop('val');
+                let y = $(dateboxDom).find('.date-btn-year').prop('val');
                 resetDaysDom(y, m);
             };
         });
     };
     let bindEvent_YearMonthPrevNext = () => {
         // 点击年份,月份的前进和后退按钮 btntype:1=年按钮,2=月按钮. dir:1=前进,2=后退
-        M(dateboxDom).find('.date-btn-prev,.date-btn-next').each((item) => {
+        $(dateboxDom).find('.date-btn-prev,.date-btn-next').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
@@ -1649,8 +1867,8 @@ contDom:
                 let btntype = thisobj.parentElement.classList.contains('date-area-year') ? 1 : 2;
                 let dir = thisobj.classList.contains('date-btn-next') ? 1 : 2;
                 //
-                let ybtn = M(dateboxDom).find('.date-btn-year');
-                let mbtn = M(dateboxDom).find('.date-btn-month');
+                let ybtn = $(dateboxDom).find('.date-btn-year');
+                let mbtn = $(dateboxDom).find('.date-btn-month');
                 let y = parseInt(ybtn.prop('val'));
                 let m = parseInt(mbtn.prop('val'));
                 // 计算并刷新年或月按钮值 年份前进后退值[1900-2100]
@@ -1682,7 +1900,7 @@ contDom:
     };
     let bindEvent_TodayBtn = () => {
         // 点击今天按钮 设置今天日期到input框
-        M(dateboxDom).find('.date-btn-today')[0].onclick = (event) => {
+        $(dateboxDom).find('.date-btn-today')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
@@ -1694,127 +1912,127 @@ contDom:
     };
     let bindEvent_HourBtn = () => {
         // 点击小时按钮 显示小时选择框
-        M(dateboxDom).find('.date-btn-hour')[0].onclick = (event) => {
+        $(dateboxDom).find('.date-btn-hour')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let hourselecct = M(dateboxDom).find('.date-select-hour');
+            let hourselecct = $(dateboxDom).find('.date-select-hour');
             // 点击小时按钮时,弹出小时选择框,同时,按钮加上打开样式,以表示当前选择的是小时
             // 添加样式时,先取消其按钮的打开样式,打开后,再给自己加上打开样式
-            let otherBtns = M(thisobj.parentElement).find('.date-btn-time').removeClass('open');
+            let otherBtns = $(thisobj.parentElement).find('.date-btn-time').removeClass('open');
             // 如果已经是打开状态则关闭
             if (hourselecct.length > 0) {
                 hourselecct.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            let otherdoms = M(dateboxDom).find('[class^=date-select]');
+            let otherdoms = $(dateboxDom).find('[class^=date-select]');
             otherdoms.remove();
             // 显示小时选择框
             dateboxDom.append(createDom_HourSelect());
-            M(thisobj).addClass('open');
+            $(thisobj).addClass('open');
             // 绑定小时选项点击事件
             bindEvent_HourSelected();
         };
     };
     let bindEvent_MinBtn = () => {
         // 点击分钟按钮 显示分钟选择框
-        M(dateboxDom).find('.date-btn-minute')[0].onclick = (event) => {
+        $(dateboxDom).find('.date-btn-minute')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let minselecct = M(dateboxDom).find('.date-select-minute');
+            let minselecct = $(dateboxDom).find('.date-select-minute');
             // 点击时分秒下拉框按钮时,先取消其按钮的打开样式,打开后,再给自己加上打开样式
-            let otherBtns = M(thisobj.parentElement).find('.date-btn-time').removeClass('open');
+            let otherBtns = $(thisobj.parentElement).find('.date-btn-time').removeClass('open');
             // 如果已经显示则关闭
             if (minselecct.length > 0) {
                 minselecct.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            let otherdoms = M(dateboxDom).find('[class^=date-select]');
+            let otherdoms = $(dateboxDom).find('[class^=date-select]');
             otherdoms.remove();
             dateboxDom.append(createDom_MinuteSelect());
-            M(thisobj).addClass('open');
+            $(thisobj).addClass('open');
             // 绑定分钟选项点击事件
             bindEvent_MinSelected();
         };
     };
     let bindEvent_SecBtn = () => {
         // 点击秒钟按钮 显示秒钟选择框
-        M(dateboxDom).find('.date-btn-second')[0].onclick = (event) => {
+        $(dateboxDom).find('.date-btn-second')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
-            let secselecct = M(dateboxDom).find('.date-select-second');
+            let secselecct = $(dateboxDom).find('.date-select-second');
             // 点击时分秒下拉框按钮时,先取消其按钮的打开样式,打开后,再给自己加上打开样式
-            let otherBtns = M(thisobj.parentElement).find('.date-btn-time').removeClass('open');
+            let otherBtns = $(thisobj.parentElement).find('.date-btn-time').removeClass('open');
             // 如果已经显示则关闭
             if (secselecct.length > 0) {
                 secselecct.remove();
                 return;
             }
             // 先关闭其它弹出窗
-            M(dateboxDom).find('[class^=date-select]').remove();
+            $(dateboxDom).find('[class^=date-select]').remove();
             dateboxDom.append(createDom_SecondSelect());
-            M(thisobj).addClass('open');
+            $(thisobj).addClass('open');
             // 绑定秒钟选项点击事件
             bindEvent_SecSelected();
         };
     };
     let bindEvent_HourSelected = () => {
         // 选择小时 修改小时按钮显示值
-        M(dateboxDom).find('.date-option-hour').each((item) => {
+        $(dateboxDom).find('.date-option-hour').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 //
-                let h = M(thisobj).prop('val');
-                M(dateboxDom).find('.date-btn-hour').text(h);
+                let h = $(thisobj).prop('val');
+                $(dateboxDom).find('.date-btn-hour').text(h);
                 cfg.hour = h;
                 //
-                M(thisobj.parentElement).remove();
+                $(thisobj.parentElement).remove();
             };
         });
     };
     let bindEvent_MinSelected = () => {
         // 选择分钟 修改按钮显示值
-        M(dateboxDom).find('.date-option-minute').each((item) => {
+        $(dateboxDom).find('.date-option-minute').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 //
-                let m = M(thisobj).prop('val');
-                M(dateboxDom).find('.date-btn-minute').text(m);
+                let m = $(thisobj).prop('val');
+                $(dateboxDom).find('.date-btn-minute').text(m);
                 cfg.minute = m;
                 //
-                M(thisobj.parentElement).remove();
+                $(thisobj.parentElement).remove();
             };
         });
     };
     let bindEvent_SecSelected = () => {
         // 选择秒钟 修改按钮显示值
-        M(dateboxDom).find('.date-option-second').each((item) => {
+        $(dateboxDom).find('.date-option-second').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 //
-                let s = M(thisobj).prop('val');
-                M(dateboxDom).find('.date-btn-second').text(s);
+                let s = $(thisobj).prop('val');
+                $(dateboxDom).find('.date-btn-second').text(s);
                 cfg.second = s;
                 //
-                M(thisobj.parentElement).remove();
+                $(thisobj.parentElement).remove();
             };
         });
     };
     let bindEvent_DaySelected = () => {
         // 选择天 设置这天日期到Input框
-        M(dateboxDom).find('.date-item-day').each((item) => {
+        $(dateboxDom).find('.date-item-day').each((item) => {
             item.onclick = (event) => {
                 event.stopPropagation();
                 let thisobj = event.currentTarget;
                 //
-                let date = new Date(M(thisobj).prop('year'), M(thisobj).prop('month'), M(thisobj).prop('day'), cfg.hour, cfg.minute, cfg.second);
+                let date = new Date($(thisobj).prop('year'), $(thisobj).prop('month'), $(thisobj).prop('day'), cfg.hour, cfg.minute, cfg.second);
                 inputDOM.value = datefmt(date, cfg.dateFmt);
                 //
                 mydate.close();
@@ -1823,7 +2041,7 @@ contDom:
     };
     let bindEvent_ClearBtn = () => {
         // 点击清空
-        M(dateboxDom).find('.date-btn-clear')[0].onclick = (event) => {
+        $(dateboxDom).find('.date-btn-clear')[0].onclick = (event) => {
             event.stopPropagation();
             // let thisobj = event.currentTarget;
             //
@@ -1833,12 +2051,12 @@ contDom:
     };
     let bindEvent_OkBtn = () => {
         // 点击确定按钮
-        M(dateboxDom).find('.date-btn-ok')[0].onclick = (event) => {
+        $(dateboxDom).find('.date-btn-ok')[0].onclick = (event) => {
             event.stopPropagation();
             let thisobj = event.currentTarget;
             //
             // 找到选中的日 设置到Input框 如果没有选中的日,使用当前设置日期
-            let seledDay = M(dateboxDom).find('.date-item-day.selected');
+            let seledDay = $(dateboxDom).find('.date-item-day.selected');
             let dateStr = datefmt(new Date(cfg.year, cfg.month, cfg.day, cfg.hour, cfg.minute, cfg.second), cfg.dateFmt);
             if (seledDay.length > 0) {
                 let d = new Date(seledDay.prop('year'), seledDay.prop('month'), seledDay.prop('day'), cfg.hour, cfg.minute, cfg.second);
@@ -1856,7 +2074,7 @@ contDom:
         dateboxDom = null;
         inputDOM = null;
         cfg = null;
-        M(document.body).find('.' + dateboxCls).remove();
+        $(document.body).find('.' + dateboxCls).remove();
     };
 
     // 点击日期控件以外区域,关闭控件. 
@@ -1864,217 +2082,304 @@ contDom:
         mydate.close();
     };
     // 日期函数名
-    win.MyDatePick = mydate;
+    win.ns.myDatePick = mydate;
 })(window);
-/*
-必须参数:{
-    domId:'容器DOM的id',
-    totalData:'总数',
-    pageIndex:'当前页码',
-    pageSize:'每页数量',
-    pageClickE:'页码点击方法'
-    }
-当总数大于0时,才需要调用分页条
-*/
+// ====================================================================================
+// m-pagenum 自定义标记
+// ====================================================================================
 ((win) => {
-    // 帮助函数
-    const M = win.$ui;
-    //------------------------------------------------------------------------------------------------//
-    // 总页数(由数量总数和分页大小算出)
-    let getTotalPage = (dataCount, pageSize, pageIndex) => {
-        if (dataCount >= 0 && pageSize >= 5 &&
-            pageIndex >= 1) {
-            let pagecount = parseInt(dataCount / pageSize);
-            let pagecountMod = dataCount % pageSize;
-            return pagecountMod > 0 ? pagecount + 1 : pagecount;
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-pagenum', class extends HTMLElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
+            //
+            this.cfg = {};
+            // =======
+            // event
+            // =======
         }
-        return 0;
-    };
-    // 配置设定检查,返回配置对象
-    let initCfg = (config) => {
-        let cfg = {};
-        // 当前页码
-        cfg.PageIndex = config.pageIndex || 1;
-        // 每页数量[5-50]
-        cfg.PageSize = (config.pageSize > 4 && config.pageSize < 51) ? config.pageSize : 10;
-        // 数据总数
-        cfg.TotalData = config.totalData || 0;
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            let thisobj = $(this);
+            // 添加样式
+            thisobj.addClass('pagenum');
+            // ==================
+            // init set prop
+            // ==================
+        }
+
+        // =======
+        // prop
+        // =======
+        // 配置
+        get config() {
+            return this.cfg;
+        }
         // 总页数
-        cfg.TotalPage = getTotalPage(cfg.TotalData, cfg.PageSize, cfg.PageIndex);
-        // 分页按钮个数[5-10].
-        cfg.TotalBtn = (config.totalBtn > 4 && config.totalBtn < 11) ? config.totalBtn : 5;
-        // 页码点击事件方法
-        cfg.pageClickE = config.pageClickE;
-        return cfg;
-    };
-
-    // 计算起始页码位置:以当前页码为中间位置,根据需要显示的页码按钮个数,计算当前页码之前和之后的页码数.
-    // 当前页码在正中,如果显示按钮个数为偶数,则偏左.例如: "2 3 (4:当前页码在此) 5 6 7"
-    let pagenumRange = (cfg) => {
-        let startIndex = cfg.PageIndex - parseInt(cfg.TotalBtn / 2) +
-            (cfg.TotalBtn % 2 == 0 ? 1 : 0);
-        let endIndex = cfg.PageIndex + parseInt(cfg.TotalBtn / 2);
-
-        // 起始页小于1,说明当前页码位于正中时,前面页码数不够了.应将第1页为起始页码,而结束页码也应该重新计算
-        if (startIndex < 1) {
-            startIndex = 1;
-            // 根据要显示的页码数计算结束页码,如果算出页码数大于总页码,则以总页码数为结束页码
-            endIndex = endIndex > cfg.TotalPage ? cfg.TotalPage : cfg.TotalBtn;
+        set config(cfg) {
+            // 当前页码
+            this.cfg.PageIndex = cfg.pageIndex || 1;
+            // 每页数量[5-50]
+            this.cfg.PageSize = (cfg.pageSize > 4 && cfg.pageSize < 51) ? cfg.pageSize : 10;
+            // 数据总数
+            this.cfg.TotalData = cfg.totalData || 0;
+            // 总页数
+            this.cfg.TotalPage = 0;
+            if (this.cfg.TotalData >= 0 && this.cfg.PageSize >= 5
+                && this.cfg.PageIndex >= 1) {
+                let pagecount = parseInt(this.cfg.TotalData / this.cfg.PageSize);
+                let pagecountMod = this.cfg.TotalData % this.cfg.PageSize;
+                this.cfg.TotalPage = pagecountMod > 0 ? pagecount + 1 : pagecount;
+            }
+            // 分页按钮个数[5-10].
+            this.cfg.TotalBtn = (cfg.totalBtn > 4 && cfg.totalBtn < 11) ? cfg.totalBtn : 5;
+            
+            //console.log(this.cfg);
         }
-        // 结束页码大于总页码,说明当前页码位于正中时,后面的页码数不够.应将总页码数为终止页码,起始页码应重新计算
-        if (endIndex > cfg.TotalPage) {
-            endIndex = cfg.TotalPage;
-            // 根据要显示的页码数计算起始页码,如果算出小于1,则以1为起始页码
-            startIndex = endIndex - cfg.TotalBtn + 1;
-            if (startIndex < 1)
+
+        // =======
+        // method
+        // =======
+        // 计算起始页(这个方法在内部使用)
+        pagenumRange() {
+            let cfg = this.cfg;
+            let startIndex = cfg.PageIndex - parseInt(cfg.TotalBtn / 2) +
+                (cfg.TotalBtn % 2 == 0 ? 1 : 0);
+            let endIndex = cfg.PageIndex + parseInt(cfg.TotalBtn / 2);
+
+            // 起始页小于1,说明当前页码位于正中时,前面页码数不够了.应将第1页为起始页码,而结束页码也应该重新计算
+            if (startIndex < 1) {
                 startIndex = 1;
-        }
-        cfg.StartIndex = startIndex;
-        cfg.EndIndex = endIndex;
-        //console.log(cfg);
-    };
-
-
-    /*====================*
-     * 事件绑定 
-     *====================*/
-    let bindEventForAllBtn = (pnDom, cfg) => {
-        // 页码按钮点击
-        M(pnDom).find('.pagenum-prev,.pagenum-next,.pagenum-first,.pagenum-last,.pagenum-num').each((item) => {
-            item.onclick = () => {
-                // 页码参数范围[1-总页码],范围外不动作
-                let pnnum = parseInt(M(item).prop('pagenum')) || 0;
-                if (pnnum < 1 || pnnum > cfg.TotalPage) return;
-                cfg.pageClickE(pnnum);
-            };
-        });
-
-        // 确定按钮点击
-        M(pnDom).find('.pagenum-ok')[0].onclick = () => {
-            let pnnum = parseInt(M(pnDom).find('.pagenum-input')[0].value || 0);
-            if (pnnum < 1 || pnnum > cfg.TotalPage) return;
-            cfg.pageClickE(pnnum);
+                // 根据要显示的页码数计算结束页码,如果算出页码数大于总页码,则以总页码数为结束页码
+                endIndex = endIndex > cfg.TotalPage ? cfg.TotalPage : cfg.TotalBtn;
+            }
+            // 结束页码大于总页码,说明当前页码位于正中时,后面的页码数不够.应将总页码数为终止页码,起始页码应重新计算
+            if (endIndex > cfg.TotalPage) {
+                endIndex = cfg.TotalPage;
+                // 根据要显示的页码数计算起始页码,如果算出小于1,则以1为起始页码
+                startIndex = endIndex - cfg.TotalBtn + 1;
+                if (startIndex < 1)
+                    startIndex = 1;
+            }
+            this.cfg.StartIndex = startIndex;
+            this.cfg.EndIndex = endIndex;
+            //console.log(this.cfg);
         };
-    };
-    // 生成分页条
-    let pageNum = (config) => {
-        // 分页条容器DOM对象
-        let pnDom = document.getElementById(config.domId);
-        // 1. 配置对象
-        let cfg = initCfg(config);
 
-        // 2. 更新分页条数据,绑定相关事件,生成新的分页条
-        // 清空DOM,重新生成分页组件DOM,绑定事件
-        pnDom.innerHTML = '';
-        pnDom.innerText = '';
-        // 1.页码按钮区域
-        let btnsarea = M('<span>').addClass('pagenum-btns')[0];
-        // 2.跳转按钮区域
-        let btnskip = M('<span>').addClass('pagenum-skip')[0];
-        btnskip.innerHTML = `共<b class="pagenum-total">${cfg.TotalPage}</b>页&nbsp;&nbsp;到第<input class="pagenum-input" />页<a class="pagenum-ok">确定</a>`;
+        // 主要方法: 生成分页条
+        create(config) {
+            // 1.配置设置
+            if (config)
+                this.config = config;
+            let cfg = this.cfg;
+            // 1.2 计算页码起止
+            this.pagenumRange();
 
-        // 计算页码起止
-        pagenumRange(cfg);
-        //console.log(cfg);
-        /*-------------------------------------------------------*
-         * 添加按钮DOM
-         * 页码区固定按钮4个:前一页,第1页和第末页,后一页.
-         *-------------------------------------------------------*/
-        let btndom = M.fragment();
+            // 2. dom生成
+            this.innerHTML = '';
+            this.innerText = '';
+            // 2.1 页码按钮区域
+            let btnsarea = $('<span>').addClass('btn-group', 'pagenum-btns')[0];
+            
+            // 2.1.1 向前按钮
+            btnsarea.append($('<a>').addClass('btn', 'pagenum-num').prop('pagenum', cfg.PageIndex - 1).text('〈')[0]);
+            // 2.1.2 第1页按钮,当起始页码大于1时添加
+            if (cfg.StartIndex > 1) {
+                let isactiveNum = cfg.PageIndex == 1 ? 'active' : 'num';
+                btnsarea.append($('<a>').addClass('btn', 'pagenum-' + isactiveNum).prop('pagenum', 1).text('1')[0]);
+            }
+            // 2.1.3 前省略号,当起始页码大于2时添加
+            if (cfg.StartIndex > 2) {
+                btnsarea.append($('<span>').addClass('btn').text('...')[0]);
+            }
+            // 2.1.4 页码按钮
+            for (let i = cfg.StartIndex; i <= cfg.EndIndex; i++) {
+                let pagenum = i;
+                let isactiveNum = pagenum == cfg.PageIndex ? 'active' : 'num';
+                btnsarea.append($('<a>').addClass('btn', 'pagenum-' + isactiveNum).prop('pagenum', pagenum).text(pagenum)[0]);
+            }
+            // 2.1.4 后省略号,当结束页小于最大页码-1时
+            if (cfg.EndIndex < (cfg.TotalPage - 1)) {
+                btnsarea.append($('<span>').addClass('btn').text('...')[0]);
+            }
+            // 2.1.5 最后页按钮,当结束页小于最大页码时添加
+            if (cfg.EndIndex < cfg.TotalPage) {
+                let isactiveNum = cfg.PageIndex == cfg.TotalPage ? 'active' : 'num';
+                btnsarea.append($('<a>').addClass('btn', 'pagenum-' + isactiveNum).prop('pagenum', cfg.TotalPage).text(cfg.TotalPage)[0]);
+            }
+            // 2.1.6 向后按钮
+            btnsarea.append($('<a>').addClass('btn', 'pagenum-num').prop('pagenum', cfg.PageIndex + 1).text('〉')[0]);
 
-        // 向前按钮
-        btndom.append(M('<a>').addClass('pagenum-prev').prop('pagenum', cfg.PageIndex - 1).text('〈')[0]);
-        // 第1页按钮,当起始页码大于1时添加
-        if (cfg.StartIndex > 1) {
-            let isactiveNum = cfg.PageIndex == 1 ? 'active' : 'num';
-            btndom.append(M('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', 1).text('1')[0]);
+            // 2.2 跳转按钮区域
+            let btnskip = $('<span>').addClass('pagenum-skip')[0];
+            btnskip.innerHTML = `共<b class="pagenum-total">${cfg.TotalPage}</b>页&emsp;跳转<input class="input-text pagenum-input" />页&emsp;<a class="btn pagenum-ok">确定</a>`;
+
+            // 2.3 添加dom到容器
+            this.appendChild(btnsarea);
+            this.appendChild(btnskip);
+
+            // 3. 绑定事件
+            // 3.1 页码按钮点击
+            $(this).find('.pagenum-num').each((item) => {
+                item.onclick = () => {
+                    // 当前页码参数范围[1-总页码],范围外不动作
+                    let pgindex = parseInt($(item).prop('pagenum')) || 0;
+                    if (pgindex < 1 || pgindex > cfg.TotalPage) return;
+                    // 改变当前页面后,重新生成分页条
+                    cfg.PageIndex = pgindex;
+                    this.create();
+                };
+            });
+
+            // 3.2 跳转确定按钮点击
+            $(this).find('.pagenum-ok')[0].onclick = () => {
+                let pgindex = parseInt($(this).find('.pagenum-input')[0].value || 0);
+                if (pgindex < 1 || pgindex > cfg.TotalPage) return;
+                // 改变当前页面后,重新生成分页条
+                cfg.PageIndex = pgindex;
+                this.create();
+            };
         }
-
-        // 前省略号,当起始页码大于2时添加
-        if (cfg.StartIndex > 2) {
-            btndom.append(M('<span>').addClass('pagenum-break').text('...')[0]);
-        }
-        // 页码按钮
-        for (let i = cfg.StartIndex; i <= cfg.EndIndex; i++) {
-            let pagenum = i;
-            let isactiveNum = pagenum == cfg.PageIndex ? 'active' : 'num';
-            btndom.append(M('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', pagenum).text(pagenum)[0]);
-        }
-        // 后省略号,当结束页小于最大页码-1时
-        if (cfg.EndIndex < (cfg.TotalPage - 1)) {
-            btndom.append(M('<span>').addClass('pagenum-break').text('...')[0]);
-        }
-        // 最后页按钮,当结束页小于最大页码时添加
-        if (cfg.EndIndex < cfg.TotalPage) {
-            let isactiveNum = cfg.PageIndex == cfg.TotalPage ? 'active' : 'num';
-            btndom.append(M('<a>').addClass('pagenum-' + isactiveNum).prop('pagenum', cfg.TotalPage).text(cfg.TotalPage)[0]);
-        }
-
-        // 向后按钮
-        btndom.append(M('<a>').addClass('pagenum-next').prop('pagenum', cfg.PageIndex + 1).text('〉')[0]);
-
-        // 将btndom添加到页码按钮区域容器
-        btnsarea.appendChild(btndom);
-        pnDom.appendChild(btnsarea);
-        pnDom.appendChild(btnskip);
-        // 绑定所有按钮事件
-        bindEventForAllBtn(pnDom, cfg);
-    };
-    // window对象名字
-    win.pagenum = pageNum;
+    });
 })(window);
- //侧边菜单
+// ====================================================================================
+// m-sidemenu 自定义标记
+// ====================================================================================
 ((win) => {
-    // 传入菜单nav标记的id,生成菜单 menuItemClickE(menuItemDom):菜单项点击事件
-    let sideMenu = (menuboxId, menuItemClickE) => {
-        // 菜单navDom
-        let self = {};
-        self.menuDom = document.getElementById(menuboxId);
-        bindEvent_menuGroup(self.menuDom);
-        bindEvent_menuItem(self.menuDom, menuItemClickE);
-        // 程序操作点击菜单
-        self.activeItem = (menuIndex) => {
-            let activeMenuItem = self.menuDom.querySelectorAll('.sidemenu-item')[menuIndex];
-            activeMenuItem.click();
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-sidemenu', class extends HTMLElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
+            // =======
+            // event
+            // =======
         }
-        return self;
-    };
-    // 菜单组收起和展开
-    let bindEvent_menuGroup = (menuDom) => {
-        let showClsN = 'sidemenu-arrdown',
-            hideClsN = 'sidemenu-arrleft';
-        menuDom.querySelectorAll('.sidemenu-label').forEach((item) => {
-            item.onclick = () => {
-                let arrowDom = item.parentNode.querySelector(`.${showClsN},.${hideClsN}`);
-                if (arrowDom.classList.contains(showClsN)) {
-                    arrowDom.classList.remove(showClsN);
-                    arrowDom.classList.add(hideClsN);
-                    // 找到ul
-                    item.parentNode.parentNode.classList.add('sidemenu-group-close');
-                } else {
-                    arrowDom.classList.add(showClsN);
-                    arrowDom.classList.remove(hideClsN);
-                    item.parentNode.parentNode.classList.remove('sidemenu-group-close');
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            let thisobj = $(this);
+            // 添加样式
+            thisobj.addClass('sidemenu');
+            // ==================
+            // init set prop
+            // ==================
+
+        }
+
+        // =======
+        // prop
+        // =======
+
+
+        // =======
+        // method
+        // =======
+
+        // 主要方法: 生成侧边菜单
+        // json结构: 一个数组,元素是一个对象,每个对象是一组菜单.props是菜单dom属性键值对.styles是样式数组
+        // [
+        //    {
+        //        title: '组标题',
+        //        props: { k: 'v', k1: 'v1' },
+        //        styles: ['class1', 'class2'],
+        //        menus: [
+        //            {
+        //              title: '菜单标题', props: { k1: v1,k2:v2 }, styles:[class1, class2]
+        //            },
+        //            { title: '-' 加一条分割线 }
+        //        ]
+        //    },
+        //    ...
+        // ]
+        // menuItemClickE(item,index): 菜单点击事件.item: 菜单dom对象,index:菜单索引
+        //
+        create(json, menuItemClickE) {
+            // 菜单项dom生成
+            if (json) {
+                this.innerHTML = '';
+                this.innerText = '';
+                for (let i = 0, len = json.length; i < len; i++) {
+                    let groupItem = json[i];
+                    // 菜单组
+                    let mgroup = $('<ul>').addClass('sidemenu-group');
+                    let menugroupTitle = $('<span>').addClass('sidemenu-label').html(groupItem.title + '<i class="sidemenu-arrdown"></i>');
+                    //menugroupTitle.prop('title', groupItem.title);
+                    groupItem.styles && menugroupTitle.addClass(...groupItem.styles);
+                    groupItem.props && menugroupTitle.prop(groupItem.props);
+                    mgroup.append($('<li>').append(menugroupTitle[0])[0]);
+                    // 菜单项
+                    for (let j = 0, len = groupItem.menus.length; j < len; j++) {
+                        let menuItem = groupItem.menus[j];
+                        // 分割线
+                        if (menuItem.title == '-') {
+                            mgroup.append($('<li>').html('<b class="sidemenu-split"></b>')[0]);
+                            continue;
+                        }
+                        // 属性和样式
+                        let menu = $('<a>').addClass('sidemenu-item').text(menuItem.title);
+                        //menu.prop('title', menuItem.title);
+                        menuItem.styles && menu.addClass(...menuItem.styles);
+                        menuItem.props && menu.prop(menuItem.props);
+                        mgroup.append($('<li>').append(menu[0])[0]);
+                    }
+                    //
+                    this.append(mgroup[0]);
                 }
             }
-        });
-    };
-    // 菜单项点击
-    let bindEvent_menuItem = (menuDom, menuItemClickE) => {
-        let clsN = 'active';
-        menuDom.querySelectorAll('.sidemenu-item').forEach((item,index) => {
-            item.onclick = () => {
-                menuDom.querySelectorAll('.sidemenu-item.active').forEach((item) => {
-                    item.classList.remove(clsN);
-                });
-                item.classList.add(clsN);
-                if (typeof menuItemClickE == 'function')
-                    menuItemClickE(item,index);
-            }
-        });
-    };
-    // window上的引用名字
-    win.sidemenu = sideMenu;
+
+            // 事件绑定
+            // 1. 菜单组收起和展开
+            $(this).find('.sidemenu-label').each((item) => {
+                item.onclick = () => {
+                    let showClsN = 'sidemenu-arrdown', hideClsN = 'sidemenu-arrleft';
+                    let arrowDom = $(item).find(`.${showClsN},.${hideClsN}`);
+                    if (arrowDom.hasClass(showClsN)) {
+                        arrowDom.removeClass(showClsN);
+                        arrowDom.addClass(hideClsN);
+                        // 找到ul,添加收起样式
+                        $(item).parent('.sidemenu-group').addClass('sidemenu-group-close')
+                    } else {
+                        arrowDom.addClass(showClsN);
+                        arrowDom.removeClass(hideClsN);
+                        $(item).parent('.sidemenu-group').removeClass('sidemenu-group-close')
+                    }
+                }
+            })
+            // 2. 菜单项点击
+            $(this).find('.sidemenu-item').each((item, index) => {
+                item.onclick = () => {
+                    // 添加活动状态样式
+                    $(this).find('.sidemenu-item.active').removeClass('active');
+                    $(item).addClass('active');
+                    // 执行点击事件
+                    if (typeof menuItemClickE == 'function')
+                        menuItemClickE(item, index);
+                }
+            })
+        }
+
+        // 程序点击一个菜单项
+        // menuIndex: 菜单索引
+        activeItem(menuIndex) {
+            let activeMenuItem = $(this).find('.sidemenu-item')[menuIndex];
+            activeMenuItem.click();
+        }
+    });
 })(window);
 // 选项卡页插件
 ((win) => {
@@ -2087,7 +2392,7 @@ contDom:
     // 标题与面板关联属性名
     const relkey = 'pid';
     // 帮助函数
-    const M = win.$ui;
+    const $ = win.ns.domHelp;
     /**
      * 生成一个新的pid
      * @param {Array} pids 现有的pid数组,不能与已有的pid重复
@@ -2119,11 +2424,11 @@ contDom:
         // console.log(labelNow);
         // 去掉其它选项卡激活状态,将当前选项卡置为活动
         // 隐藏其它面板,激活对应面板.选项卡与面板由pid属性关联.选项卡标签pid值与面板pid值相等
-        let pidOld = M(self.tabsDom).find('.' + activeCls).removeClass(activeCls).prop(relkey);
-        M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidOld}']`).removeClass(activeCls);
+        let pidOld = $(self.tabsDom).find('.' + activeCls).removeClass(activeCls).prop(relkey);
+        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidOld}']`).removeClass(activeCls);
         //
-        let pidNow = M(labelNow).addClass(activeCls).prop(relkey);
-        M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidNow}']`).addClass(activeCls);
+        let pidNow = $(labelNow).addClass(activeCls).prop(relkey);
+        $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pidNow}']`).addClass(activeCls);
 
         // 执行激活后方法
         if (typeof self.onTabActive === 'function')
@@ -2161,20 +2466,20 @@ contDom:
         let pid = newPid(self.tabsLabelsPids);
         self.tabsLabelsPids.push(pid);
         // 生成选项卡标签和面板.
-        let label = M('<span>').addClass(tabLabelCls).text(title).prop(relkey, pid)[0];
+        let label = $('<span>').addClass(tabLabelCls).text(title).prop(relkey, pid)[0];
         //
-        let panel = M('<div>').addClass(tabPanelCls).prop(relkey, pid)[0];
+        let panel = $('<div>').addClass(tabPanelCls).prop(relkey, pid)[0];
         // 绑定标签的点击事件
         bindEvent_onChange(self, label);
         // 标签加入
         if (addIndex == count) {
-            M(self.tabsLabels[self.tabsLabels.length-1]).after(label);
+            $(self.tabsLabels[self.tabsLabels.length-1]).after(label);
         } else {
             // 如果是插入添加,原有位置的标签后移
-            M(self.tabsLabels[addIndex]).before(label);
+            $(self.tabsLabels[addIndex]).before(label);
         }
         // 面板加入
-        M(self.tabsDom).append(panel);
+        $(self.tabsDom).append(panel);
         return pid;
     };
     /**
@@ -2187,8 +2492,8 @@ contDom:
         if (tagType === 'pid') {
             // pid有效时做删除
             if (self.tabsLabelsPids.contains(index)) {
-                let panel = M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${index}']`).remove();
-                let label = M(self.tabsDom).find(`.${tabLabelCls}[${relkey}='${index}']`).remove();
+                let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${index}']`).remove();
+                let label = $(self.tabsDom).find(`.${tabLabelCls}[${relkey}='${index}']`).remove();
                 // pids列表更新
                 let pidIndex = self.tabsLabelsPids.indexOf(index);
                 self.tabsLabelsPids.splice(pidIndex, 1);
@@ -2198,9 +2503,9 @@ contDom:
             if (!index || index < 0 || index >= self.tabsLabels.length)
                 return;
             let label = self.tabsLabels[index];
-            let pid = M(label).prop(relkey);
-            M(label).remove();
-            let panel = M(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pid}']`).remove();
+            let pid = $(label).prop(relkey);
+            $(label).remove();
+            let panel = $(self.tabsDom).find(`.${tabPanelCls}[${relkey}='${pid}']`).remove();
             // pids列表更新
             let pidIndex = self.tabsLabelsPids.indexOf(parseInt(pid));
             self.tabsLabelsPids.splice(pidIndex, 1);
@@ -2236,7 +2541,7 @@ contDom:
         // 设置每个标签的pid属性
         for (let i = 0; i < self.tabsLabels.length; i++) {
             let pid = newPid(self.tabsLabelsPids);
-            M(self.tabsLabels[i]).prop(relkey, pid);
+            $(self.tabsLabels[i]).prop(relkey, pid);
             self.tabsLabelsPids.push(pid);
         }
         // 设置每个面板的pid属性
@@ -2244,15 +2549,15 @@ contDom:
         for (let i = 0; i < self.tabsLabelsPids.length; i++) {
             let pid = self.tabsLabelsPids[i];
             if (i >= panels.length) break;
-            M(panels[i]).prop(relkey, pid);
+            $(panels[i]).prop(relkey, pid);
         }
         // 给默认激活的选项卡标签,设置活动样式.如果传入的索引超过选项卡个数,忽略
         let _index = activeIndex;
         if (!activeIndex || activeIndex < 0 || activeIndex >= self.tabsLabels.length)
             _index = 0;
-        M(self.tabsLabels[_index]).addClass(activeCls);
+        $(self.tabsLabels[_index]).addClass(activeCls);
         if (_index < panels.length)
-            M(panels[_index]).addClass(activeCls);
+            $(panels[_index]).addClass(activeCls);
 
         /**** Method ****/
         // 切换选项卡方法 index: 要激活的选项卡索引
@@ -2283,127 +2588,218 @@ contDom:
         return self;
     };
     // window引用名
-    win.tabs = tabs;
+    win.ns.tabs = tabs;
 })(window);
-//===========================================
-// 在页面上提示信息.
-// msgshow1=msgshow('id')
-// msgshow1.ok("内容")
-//===========================================
-
+// ====================================================================================
+// m-msgshow 自定义标记
+// ====================================================================================
 ((win) => {
-    // 帮助函数
-    const M = win.$ui;
-    /**
-     * 返回一个msgshow实例.
-     * @param {any} id 容器id
-     */
-    let msgshow = (id) => {
-        let obj = {};
-        obj.dom = document.getElementById(id);
-        //
-        /** 
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-msgshow', class extends HTMLElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
+            // =======
+            // event
+            // =======
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            let thisobj = $(this);
+            // 添加样式
+            $(this).addClass('msgshow');
+            // ==================
+            // init set prop
+            // ==================
+            // title,msg属性
+            let title = thisobj.prop('title') || '';
+            let msg = thisobj.prop('msg') || '';
+            // 如果设置了才生成里面的内容
+            if (title) {
+                let titleDom = $('<span>').addClass('title').text(title);
+                thisobj.append(titleDom[0]);
+            }
+            if (msg) {
+                let msgDom = $('<span>').addClass('msg').text(msg);
+                thisobj.append(msgDom[0]);
+            }
+        }
+
+        // =======
+        // prop
+        // =======
+       
+        // =======
+        // method
+        // =======
+        /**
          * 在页面上提示自定义信息.
          * @param {string} msg 信息内容
          * @param {string} title 标题
-         * @param {string} title 主题类
+         * @param {string} style 主题类
          */
-        obj.show = function (msg, title, clsN) {
-            if (!this.dom) return;
-            let tpl = `<div class="msgshow ${clsN}"><span class="title">${title}</span><span class="text">${msg}</span><b class="close">x</b></div>`;
-            M(this.dom).html(tpl).find('.close')[0].onclick = () => {
+        show(msg, title, ...style) {
+            let thisobj = $(this);
+            let tpl = `<span class="title">${title}</span><span class="msg">${msg}</span><b class="close">x</b>`;
+            thisobj.html(tpl);
+            thisobj.removeClass().addClass('msgshow');
+            style && thisobj.addClass(...style);
+            //
+            thisobj.html(tpl).find('.close')[0].onclick = () => {
                 this.clear();
             }
         }
-        obj.ok = function (msg) {
-            if (!this.dom) return;
-            let tpl = `<div class="msgshow success"><span class="title">\u2714 成功</span><span class="text">${msg}</span><b class="close">x</b></div>`;
-            M(this.dom).html(tpl).find('.close')[0].onclick = () => {
+
+        /**
+         * 显示 "成功" 风格提示框
+         * @param {any} msg
+         */
+        ok(msg) {
+            let thisobj = $(this);
+            let tpl = `<span class="title">\u2714 成功</span><span class="msg">${msg}</span><b class="close">x</b>`;
+            thisobj.html(tpl);
+            thisobj.removeClass().addClass('msgshow', 'success');
+            //
+            thisobj.find('.close')[0].onclick = () => {
                 this.clear();
             }
         }
-        obj.info = function (msg) {
-            if (!this.dom) return;
-            let tpl = `<div class="msgshow info"><span class="title">! 提示</span><span class="text">${msg}</span><b class="close">x</b></div>`;
-            M(this.dom).html(tpl).find('.close')[0].onclick = () => {
+
+        /**
+         * 显示 一般信息 风格提示框
+         * @param {any} msg
+         */
+        info(msg) {
+            let thisobj = $(this);
+            let tpl = `<span class="title">i 提示</span><span class="msg">${msg}</span><b class="close">x</b>`;
+            thisobj.html(tpl);
+            thisobj.removeClass().addClass('msgshow', 'info');
+            //
+            thisobj.find('.close')[0].onclick = () => {
                 this.clear();
             }
         }
-        obj.err = function (msg) {
-            if (!this.dom) return;
-            let tpl = `<div class="msgshow danger"><span class="title">\u2716 错误</span><span class="text">${msg}</span><b class="close">x</b></div>`;
-            M(this.dom).html(tpl).find('.close')[0].onclick = () => {
+
+        /**
+         * 显示 错误信息 风格提示框
+         * @param {any} msg
+         */
+        err(msg) {
+            let thisobj = $(this);
+            let tpl = `<span class="title">\u2716 错误</span><span class="msg">${msg}</span><b class="close">x</b>`;
+            thisobj.html(tpl);
+            thisobj.removeClass().addClass('msgshow', 'danger');
+            //
+            thisobj.find('.close')[0].onclick = () => {
                 this.clear();
             }
         }
-        obj.warn = function (msg) {
-            if (!this.dom) return;
-            let tpl = `<div class="msgshow warning"><span class="title">\u26A0 警示</span><span class="text">${msg}</span><b class="close">x</b></div>`;
-            M(this.dom).html(tpl).find('.close')[0].onclick = () => {
+
+        /**
+         * 显示 警示 风格提示框
+         * @param {any} msg
+         */
+        warn(msg) {
+            let thisobj = $(this);
+            let tpl = `<span class="title">\u26A0 警示</span><span class="msg">${msg}</span><b class="close">x</b>`;
+            thisobj.html(tpl);
+            thisobj.removeClass().addClass('msgshow', 'warning');
+            //
+            thisobj.find('.close')[0].onclick = () => {
                 this.clear();
             }
         }
-        obj.clear = function () {
-            if (!this.dom) return;
-            M(this.dom).empty();
+
+        /**
+         * 清空提示框内容,并且隐藏
+         * */
+        clear() {
+            this.innerHTML = '';
+            this.innerText = '';
+            $(this).addClass('d-none');
         }
-        return obj;
-    }
-    //
-    win.msgshow = msgshow;
+    });
 })(window);
-/*
- * 底部导航菜单,用于手机
- * let menu = mnavmenu(domId,menuItemClickEvent);
- */
+// ====================================================================================
+// m-mnavmenu 自定义标记 
+// 底部导航菜单, 用于手机
+// ====================================================================================
 ((win) => {
-    // 帮助函数
-    const M = win.$ui;
-    // 传入菜单nav标记的id,生成菜单 menuItemClickE(menuItemDom):菜单项点击事件
-    let mnavMenu = (menuboxId, menuItemClickE) => {
-        // 菜单navDom
-        let self = {};
-        self.menuDom = document.getElementById(menuboxId);
-        bindEvent_menuGroup(self.menuDom);
-        bindEvent_menuItem(self.menuDom, menuItemClickE);
-        // 程序操作点击菜单
-        self.activeItem = (menuIndex) => {
-            let activeMenuItem = self.menuDom.querySelectorAll('.mnavmenu-item,.mnavmenu-menu')[menuIndex];
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-mnavmenu', class extends HTMLElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
+            // =======
+            // event
+            // =======
+
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            // 添加样式
+            $(this).addClass('mnavmenu');
+            // ==================
+            // init set prop
+            // ==================
+        }
+
+        // =======
+        // prop
+        // =======
+
+        // =======
+        // method
+        // =======
+        create(menuItemClickE) {
+            // 事件绑定
+            // 1. 菜单组收起和展开
+            $(this).find('.mnavmenu-label').each((item, i) => {
+                item.onclick = () => {
+                    let itemBoxCls = '.mnavmenu-itembox';
+                    let menuItemIsClose = $(item).prev(itemBoxCls).hasClass('close');
+                    $(this).find(itemBoxCls).addClass('close');
+                    if (menuItemIsClose == true) {
+                        $(item).prev(itemBoxCls).removeClass('close');
+                    }
+                }
+            })
+            // 2. 子菜单项点击
+            $(this).find('.mnavmenu-item,.mnavmenu-menu').each((item, index) => {
+                item.onclick = () => {
+                    $(item).parent('.mnavmenu').find('.mnavmenu-itembox').addClass('close');
+                    if (typeof menuItemClickE == 'function')
+                        menuItemClickE(item, index);
+                }
+            });
+
+        }
+
+        // 程序点击一个菜单项
+        // menuIndex: 菜单索引
+        activeItem(menuIndex) {
+            let activeMenuItem = $(this).find('.mnavmenu-item,.mnavmenu-menu')[menuIndex];
             activeMenuItem.click();
         }
-        return self;
-    };
-
-    // 菜单组收起和展开
-    let bindEvent_menuGroup = (menuDom) => {
-        M(menuDom).find('.mnavmenu-label').each((item, i) => {
-            item.onclick = () => {
-                let itemBoxCls = '.mnavmenu-itembox';
-                let menuItemIsClose = M(item).prev(itemBoxCls).hasClass('close');
-                M(menuDom).find(itemBoxCls).addClass('close');
-                if (menuItemIsClose == true) {
-                    M(item).prev(itemBoxCls).removeClass('close');
-                }
-            }
-        })
-    };
-
-    // 子菜单项点击
-    let bindEvent_menuItem = (menuDom, menuItemClickE) => {
-        M(menuDom).find('.mnavmenu-item,.mnavmenu-menu').each((item, index) => {
-            item.onclick = () => {
-                M(item).parent('.mnavmenu').find('.mnavmenu-itembox').addClass('close');
-                if (typeof menuItemClickE == 'function')
-                    menuItemClickE(item, index);
-            }
-        });
-    };
-    // window上的引用名字
-    win.mnavmenu = mnavMenu;
+    });
 })(window);
 ((win) => {
     // 帮助函数
-    const M = win.$ui;
+    const $ = win.ns.domHelp;
     // 生成选项卡和功能区DOM,添加到容器内
     /* html内容:
         <a class="back"></a>
@@ -2411,11 +2807,11 @@ contDom:
         <a class=""></a>
      */
     let createBarDom = (barDom) => {
-        let fragment = M.fragment();
-        fragment.append(M('<a>').addClass('back')[0]);
-        fragment.append(M('<span>').addClass('title', 'text-overflow')[0]);
-        fragment.append(M('<a>')[0]);
-        M(barDom).append(fragment).addClass('mdirbar');
+        let fragment = $.fragment();
+        fragment.append($('<a>').addClass('back')[0]);
+        fragment.append($('<span>').addClass('title', 'text-overflow')[0]);
+        fragment.append($('<a>')[0]);
+        $(barDom).append(fragment).addClass('mdirbar');
     };
 
     // 初始化mdirbar实例(构造)
@@ -2453,7 +2849,7 @@ contDom:
                 cacheActivePage();
                 // 取出pid对应的DOM片段,放入显示容器
                 let pidItem = self.cache[pidIndex];
-                M(contDom).html(pidItem.dom);
+                $(contDom).html(pidItem.dom);
                 barTitle(pidItem.title);
                 // 移动到缓存最后,设置dom为null.(当前页面始终在缓存最后面)
                 self.cache.splice(pidIndex, 1);
@@ -2492,7 +2888,7 @@ contDom:
             for (var i = 0, len = self.cache.length; i < len; i++) {
                 if (self.cache[i].dom == null) {
                     self.cache[i].title = barTitle();
-                    self.cache[i].dom = M.fragment(...self.contDom.childNodes)
+                    self.cache[i].dom = $.fragment(...self.contDom.childNodes)
                     return;
                 }
             }
@@ -2510,8 +2906,8 @@ contDom:
         // 设置获取标题
         let barTitle = (title) => {
             if (!title)
-                return M(barDom).find('.title').text();
-            M(barDom).find('.title').text(title);
+                return $(barDom).find('.title').text();
+            $(barDom).find('.title').text(title);
         }
 
         //==========
@@ -2532,7 +2928,7 @@ contDom:
             // 取出缓存
             let pageitem = self.cache[targetIndex];
             // 载入缓存页面,设置标题
-            M(self.contDom).html(pageitem.dom);
+            $(self.contDom).html(pageitem.dom);
             barTitle(pageitem.title)
             // 设置为当前页面
             pageitem.dom = null;
@@ -2541,7 +2937,7 @@ contDom:
                 onback(0);
             //printlog();
         }
-        M(barDom).find('.back')[0].onclick = self.back;
+        $(barDom).find('.back')[0].onclick = self.back;
 
         //let printlog = (type) => {
         //  if (type)
@@ -2553,85 +2949,110 @@ contDom:
         return self;
     }
     //
-    win.mdirbar = mDirBar;
+    win.ns.mdirbar = mDirBar;
 })(window);
-// 定时检测input输入框的值的变化,检测到变化时执行一个方法
+// ====================================================================================
+// m-inputwatch 自定义标记
+// 扩展原生标记时,例如 HTMLInputElement,define需要有第三个参数 { extends: 'input' }
+// ====================================================================================
 ((win) => {
-    let watch = (self) => {
-        if (self.stopListen == 0) {
-            //console.log('停止监听!');
-            return;
-        }
-        let val = self.dom.value.replace(/^\s*|\s*$/g, '');
-        //console.log(`lastvalue: ${self.lastValue} value: ${val}`);
-        if (self.zhTyping == 0 && val != self.lastValue) {
-            self.lastValue = val;
-            if (typeof self.changeE == 'function')
-                self.changeE(val, self.dom);
-            //console.log('监听到变化');
-        } else {
-            //console.log('监听中...');
-        }
-        setTimeout(function () {
-            watch(self)
-        }, self.timeout);
-    }
-    /**
-     * 检查input的值是否变化-功能方法
-     * @param input input dom
-     * @param fn 监听到变化时执行
-     * @param time 监听频率,默认1秒钟检查一次
-     */
-    let inputvalwatch = (input, fn, time) => {
-        let obj = {};
-        obj.dom = input;
-        // 监听改变时,执行的方法
-        obj.changeE = fn;
-        // 监听时间间隔
-        obj.timeout = time || 1000;
-        // 监听状态值 1=监听中 0=停止监听
-        obj.stopListen = 0;
-        // 中文输入状态值 1=输入中 0=输入结束
-        obj.zhTyping = 0;
+    const $ = win.ns.domHelp;
+    win.customElements.define('m-inputwatch', class extends HTMLInputElement {
+        // =======
+        // 构造函数
+        // =======
+        constructor() {
+            // 必须首先调用 super 方法
+            super();
+            // =======
+            // event
+            // =======
 
-        // ==event function==
-        // 1.input获得焦点时开始监听
-        let watchStartE = () => {
-            obj.stopListen = 1;
-            obj.lastValue = obj.dom.value;
-            watch(obj);
-        }
-        // 2.失去焦点,结束监听
-        let watchEndE = () => {
-            obj.stopListen = 0;
-        }
-        //  输入中文之前,设置标记为正在输入中,更具此标志,不执行input值比较
-        let zhTypingStart = () => {
-            obj.zhTyping = 1;
-        }
-        //  输入中文之后.这时才执行input值的比较
-        let zhTypingEnd = () => {
-            obj.zhTyping = 0;
         }
 
-        // bind event
-        obj.dom.addEventListener('focus', watchStartE);
-        obj.dom.addEventListener('blur', watchEndE);
-        obj.dom.addEventListener('compositionstart', zhTypingStart);
-        obj.dom.addEventListener('compositionend', zhTypingEnd);
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
+            // ==================
+            // init set prop
+            // ==================
 
-        // == fun ==
-        // 删除监听并且解绑所有事件
-        obj.clear = () => {
-            obj.dom.removeEventListener('focus', watchStartE);
-            obj.dom.removeEventListener('blur', watchEndE);
-            obj.dom.removeEventListener('compositionstart', zhTypingStart);
-            obj.dom.removeEventListener('compositionend', zhTypingEnd);
-            obj.stopListen = 0;
         }
-        //
-        return obj;
-    }
-    //
-    win.inputValWatch = inputvalwatch;
+
+        // =======
+        // prop
+        // =======
+
+        // =======
+        // method
+        // =======
+        // 初始化,fn: 监听改变时执行的方法
+        init(fn, time) {
+            // 监听改变时,执行的方法
+            this.changeE = fn;
+            // 监听时间间隔
+            this.timeout = time || 1000;
+            // 监听状态值 1=监听中 0=停止监听
+            this.stopListen = 0;
+            // 中文输入状态值 1=输入中 0=输入结束
+            this.zhTyping = 0;
+
+            // ==event function==
+            // 1.input获得焦点时开始监听
+            let watchStartE = () => {
+                this.stopListen = 1;
+                this.lastValue = this.value;
+                this.watch();
+            }
+            // 2.失去焦点,结束监听
+            let watchEndE = () => {
+                this.stopListen = 0;
+            }
+            //  输入中文之前,设置标记为正在输入中,更具此标志,不执行input值比较
+            let zhTypingStart = () => {
+                this.zhTyping = 1;
+            }
+            //  输入中文之后.这时才执行input值的比较
+            let zhTypingEnd = () => {
+                this.zhTyping = 0;
+            }
+
+            // bind event
+            this.addEventListener('focus', watchStartE);
+            this.addEventListener('blur', watchEndE);
+            this.addEventListener('compositionstart', zhTypingStart);
+            this.addEventListener('compositionend', zhTypingEnd);
+
+            // == fun ==
+            // 删除监听并且解绑所有事件
+            //this.clear = () => {
+            //    this.removeEventListener('focus', watchStartE);
+            //    this.removeEventListener('blur', watchEndE);
+            //    this.removeEventListener('compositionstart', zhTypingStart);
+            //    this.removeEventListener('compositionend', zhTypingEnd);
+            //    this.stopListen = 0;
+            //}
+        }
+        watch() {
+            if (this.stopListen == 0) {
+                //console.log('停止监听!');
+                return;
+            }
+            let val = this.value.replace(/^\s*|\s*$/g, '');
+            //console.log(`lastvalue: ${this.lastValue} value: ${val}`);
+            if (this.zhTyping == 0 && val != this.lastValue) {
+                this.lastValue = val;
+                if (typeof this.changeE == 'function')
+                    this.changeE(val, this);
+                //console.log('监听到变化');
+            } else {
+                //console.log('监听中...');
+            }
+            setTimeout(() => {
+                this.watch()
+            }, this.timeout);
+        }
+    }, { extends: 'input' });
 })(window);

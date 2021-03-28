@@ -1,6 +1,6 @@
 ﻿((win) => {
     // 帮助函数
-    const M = win.$ui;
+    const $ = win.ns.domHelp;
     // 生成选项卡和功能区DOM,添加到容器内
     /* html内容:
         <a class="back"></a>
@@ -8,11 +8,11 @@
         <a class=""></a>
      */
     let createBarDom = (barDom) => {
-        let fragment = M.fragment();
-        fragment.append(M('<a>').addClass('back')[0]);
-        fragment.append(M('<span>').addClass('title', 'text-overflow')[0]);
-        fragment.append(M('<a>')[0]);
-        M(barDom).append(fragment).addClass('mdirbar');
+        let fragment = $.fragment();
+        fragment.append($('<a>').addClass('back')[0]);
+        fragment.append($('<span>').addClass('title', 'text-overflow')[0]);
+        fragment.append($('<a>')[0]);
+        $(barDom).append(fragment).addClass('mdirbar');
     };
 
     // 初始化mdirbar实例(构造)
@@ -50,7 +50,7 @@
                 cacheActivePage();
                 // 取出pid对应的DOM片段,放入显示容器
                 let pidItem = self.cache[pidIndex];
-                M(contDom).html(pidItem.dom);
+                $(contDom).html(pidItem.dom);
                 barTitle(pidItem.title);
                 // 移动到缓存最后,设置dom为null.(当前页面始终在缓存最后面)
                 self.cache.splice(pidIndex, 1);
@@ -89,7 +89,7 @@
             for (var i = 0, len = self.cache.length; i < len; i++) {
                 if (self.cache[i].dom == null) {
                     self.cache[i].title = barTitle();
-                    self.cache[i].dom = M.fragment(...self.contDom.childNodes)
+                    self.cache[i].dom = $.fragment(...self.contDom.childNodes)
                     return;
                 }
             }
@@ -107,8 +107,8 @@
         // 设置获取标题
         let barTitle = (title) => {
             if (!title)
-                return M(barDom).find('.title').text();
-            M(barDom).find('.title').text(title);
+                return $(barDom).find('.title').text();
+            $(barDom).find('.title').text(title);
         }
 
         //==========
@@ -129,7 +129,7 @@
             // 取出缓存
             let pageitem = self.cache[targetIndex];
             // 载入缓存页面,设置标题
-            M(self.contDom).html(pageitem.dom);
+            $(self.contDom).html(pageitem.dom);
             barTitle(pageitem.title)
             // 设置为当前页面
             pageitem.dom = null;
@@ -138,7 +138,7 @@
                 onback(0);
             //printlog();
         }
-        M(barDom).find('.back')[0].onclick = self.back;
+        $(barDom).find('.back')[0].onclick = self.back;
 
         //let printlog = (type) => {
         //  if (type)
@@ -150,5 +150,5 @@
         return self;
     }
     //
-    win.mdirbar = mDirBar;
+    win.ns.mdirbar = mDirBar;
 })(window);

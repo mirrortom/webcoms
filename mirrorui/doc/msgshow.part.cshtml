@@ -1,63 +1,67 @@
-﻿@*
-  1.模板页名字规定: "页面名字.part.cshtml""
-  2.内容容器固定如下:
-<div class="doc-part-box" id="页面名字">
-  <h2>标题</h2>
-  ......
-  ......
-</div>
-*@
-<div class="doc-part-box" id="msgshow">
+﻿<div class="doc-part-box" id="msgshow">
   <h2>信息提示</h2>
-  <p>在页面上显示一个提示信息,可用于操作后返回一个结果说明.</p>
-  <div class="msgshow"><span class="title">提示</span><span class="text">提示内容</span></div>
-  <br />
-  <div class="msgshow success lg"><span class="title">成功</span><span class="text">操作完成</span></div>
-  <br />
-  <pre class="bg-gray">
+  <p>用于在页面上显示一个提示信息,可用于操作后返回一个结果说明.</p>
+  <p># 使用自定义标记 <strong>&lt;m-msgshow&gt;</strong> ,也可以使用div,结合样式类 .msgshow </p>
+  <m-msgshow class="mg-b-15" title="提示" msg="提示内容"></m-msgshow>
+  <m-msgshow class="mg-b-15 danger" title="失败" msg="操作失败"></m-msgshow>
+  <m-msgshow class="mg-b-15 info" title="提示" msg="提示信息"></m-msgshow>
+  <m-msgshow class="mg-b-15 success text-lg" title="成功" msg="操作完成"></m-msgshow>
+  <pre class="bg-gray-lt">
 
-&lt;div class="msgshow"&gt;&lt;span class="title"&gt;提示&lt;/span&gt;&lt;span class="text"&gt;提示内容&lt;/span&gt;&lt;/div&gt;
+  &lt;<strong>m-msgshow</strong> class="mg-b-15" title="提示" msg="提示内容"&gt;&lt;/m-msgshow&gt;
 
-&lt;div class="msgshow success lg"&gt;&lt;span class="title"&gt;成功&lt;/span&gt;&lt;span class="text"&gt;操作完成&lt;/span&gt;&lt;/div&gt;
+  // 结合主题样式类,显示不同风格
+  &lt;m-msgshow class="mg-b-15 success text-lg" title="成功" msg="操作完成"&gt;&lt;/m-msgshow&gt;
+
+  // 用div时,里面的内容也需要写全
+  &lt;div class="<strong>msgshow</strong>"&gt;&lt;span class="title"&gt;提示&lt;/span&gt;&lt;span class="msg"&gt;提示内容&lt;/span&gt;&lt;/div&gt;
+
+  &lt;div class="msgshow success text-lg"&gt;&lt;span class="title"&gt;成功&lt;/span&gt;&lt;span class="msg"&gt;操作完成&lt;/span&gt;&lt;/div&gt;
 
 </pre>
   <br />
-  @foreach (var item in Model.themecolors)
-  {
-  <div class="msgshow @item"><span class="title">提示</span><span class="text"> @item</span></div>
-  <br />
-  }
-  <p>使用js在一个div中生成提示框</p>
+  <p># 标记属性</p>
+  <p class="text-in"><strong>title</strong> 设置标题</p>
+  <p class="text-in"><strong>msg</strong> 设置提示内容</p>
+  <p># 方法</p>
+  <p class="text-in">调用js方法显示4种场景风格提示框,以及自定义标题和内容.</p>
   <div class="mg-tb-10">
     <span class="btn-group">
-      <a class="btn" id="msg1">msgshow.ok()</a>
-      <a class="btn" id="msg11">msgshow.info()</a>
-      <a class="btn" id="msg2">msgshow.err()</a>
-      <a class="btn" id="msg3">msgshow.warn()</a>
-      <a class="btn" id="msg4">msgshow.show()</a>
-      <a class="btn" id="msg5">msgshow.clear()</a>
+      <a class="btn success" id="msg1">ok()</a>
+      <a class="btn info" id="msg11">info()</a>
+      <a class="btn danger" id="msg2">err()</a>
+      <a class="btn warning" id="msg3">warn()</a>
+      <a class="btn text-white bg-black-lt" id="msg4">show()</a>
+      <a class="btn" id="msg5">clear()</a>
     </span>
   </div>
-  <div id="msgbox1"></div>
+  <m-msgshow id="msgshow1"></m-msgshow>
   <br />
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
 
-  let msg1 = msgshow('#msgbox1');
+  // 对象
+  let msg1 = document.getElementById('msgshow1');
+
   // 成功
-  msg1.ok('操作成功.');
+  msg1.<strong>ok</strong>('操作成功.');
+
   // 失败
-  msg1.err('操作失败.');
+  msg1.<strong>err</strong>('操作失败.');
+
   // 警告
-  msg1.warn('非法操作.');
-  // 自定义
-  msg1.show('自定义内容', '自定标题', 'bg-graylt');
-  // 清空
+  msg1.<strong>warn</strong>('非法操作.');
+
+  // 自定义,最后一个参数是样式类,接收1个或者多个
+  msg1.show(msg, title, ...style)
+  msg1.<strong>show</strong>('自定义内容', '自定标题', 'text-white','bg-black-lt');
+
+  // 清空 内容会清空,标记会隐藏
   msg1.clear();
 
 </pre>
   <script>
     (() => {
-      let msg1 = msgshow('msgbox1');
+      let msg1 = document.getElementById('msgshow1');
       document.getElementById('msg1').onclick = () => {
         msg1.ok('操作成功.');
       }
@@ -71,7 +75,7 @@
         msg1.warn('非法操作.');
       }
       document.getElementById('msg4').onclick = () => {
-        msg1.show('自定义内容', '自定标题', 'bg-graylt');
+        msg1.show('自定义内容', '自定标题', 'text-white','bg-black-lt');
       }
       document.getElementById('msg5').onclick = () => {
         msg1.clear();

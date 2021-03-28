@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link href="mirrorui.css" rel="stylesheet" />
   <script src="mirrorui.js"></script>
-  <title>mirrorui-doc</title>
+  <title>mirrorui-doc | mirror space</title>
   <style>
     .page {
       display: grid;
@@ -29,117 +29,128 @@
 <body>
   <div class="page">
     <div class="menu-box">
-      <nav class="sidemenu-box primary" id="main_menubox">
+      <m-sidemenu class="pd-b-30" id="main_menubox">
         <ul class="sidemenu-group">
           <li>
-            <span class="sidemenu-label">About<i class="sidemenu-arrdown"></i></span>
+            <span class="sidemenu-label">概述<i class="sidemenu-arrdown"></i></span>
           </li>
           <li><a class="sidemenu-item" href="#about">关于</a></li>
-          <li><a class="sidemenu-item" href="#theme">主题</a></li>
+          <li><a class="sidemenu-item" href="#cssvar">css变量</a></li>
         </ul>
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">布局<i class="sidemenu-arrdown"></i></span>
           </li>
           <li><a class="sidemenu-item" href="#grid">册格</a></li>
-          <li><a class="sidemenu-item" href="#toolclass">工具样式</a></li>
           <li><a class="sidemenu-item" href="#mediaquery">媒体查询</a></li>
+          <li><a class="sidemenu-item" href="#toolclass">工具样式</a></li>
           <li><a class="sidemenu-item" href="#pagelayout">页面布局</a></li>
         </ul>
         <ul class="sidemenu-group">
           <li>
-            <span class="sidemenu-label">零件<i class="sidemenu-arrdown"></i></span>
+            <span class="sidemenu-label">页面UI组件<i class="sidemenu-arrdown"></i></span>
           </li>
           <li><a class="sidemenu-item" href="#typography">大标题</a></li>
+          <li><a class="sidemenu-item" href="#article">段落标题</a></li>
+          <li><b class="sidemenu-split"></b></li>
           <li><a class="sidemenu-item" href="#btn">按钮</a></li>
+          <li><a class="sidemenu-item" href="#btngroup">按钮组</a></li>
+          <li><a class="sidemenu-item" href="#onoff">开关</a></li>
+          <li><a class="sidemenu-item" href="#label">标签</a></li>
+          <li><a class="sidemenu-item" href="#kvpair">名值标签</a></li>
+          <li><a class="sidemenu-item" href="#imagedemo">图片</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" href="#panel">面板</a></li>
+          <li><a class="sidemenu-item" href="#msgpanel">信息面板</a></li>
+          <li><a class="sidemenu-item" href="#hrline">hr分隔线</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" href="#list">列表</a></li>
           <li><a class="sidemenu-item" href="#table">表格</a></li>
           <li><a class="sidemenu-item" href="#form">表单</a></li>
-          <li><a class="sidemenu-item" href="#imagedemo">图片</a></li>
-          <li><a class="sidemenu-item" href="#list">列表</a></li>
-          <li><a class="sidemenu-item" href="#hrline">hr分隔线</a></li>
+          <li><a class="sidemenu-item" href="#inputvalchange">监听输入</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" href="#pageload">页面等待</a></li>
+          <li><a class="sidemenu-item" href="#menubar">菜单条</a></li>
         </ul>
         <ul class="sidemenu-group">
           <li>
-            <span class="sidemenu-label">组件<i class="sidemenu-arrdown"></i></span>
+            <span class="sidemenu-label">功能组件<i class="sidemenu-arrdown"></i></span>
           </li>
-          <li><a class="sidemenu-item" href="#btngroup">按钮组</a></li>
-          <li><a class="sidemenu-item" href="#label">标签</a></li>
-          <li><a class="sidemenu-item" href="#article">段落标题</a></li>
-          <li><a class="sidemenu-item" href="#onoff">开关</a></li>
-          <li><a class="sidemenu-item" href="#msgpanel">信息面板</a></li>
-          <li><a class="sidemenu-item" href="#pagenum">分页导航</a></li>
-          <li><a class="sidemenu-item" href="#msgshow">提示框</a></li>
           <li><a class="sidemenu-item" href="#msgbox">弹出框</a></li>
+          <li><a class="sidemenu-item" href="#msgshow">提示框</a></li>
           <li><a class="sidemenu-item" href="#datetime">日期时间</a></li>
+          <li><a class="sidemenu-item" href="#pagenum">分页条</a></li>
           <li><b class="sidemenu-split"></b></li>
           <li><a class="sidemenu-item" href="#sidemenu">侧边菜单</a></li>
           <li><a class="sidemenu-item" href="#mnavmenu">底部菜单</a></li>
           <li><a class="sidemenu-item" href="#mdirbar">顶部导航</a></li>
           <li><b class="sidemenu-split"></b></li>
           <li><a class="sidemenu-item" href="#tabs">选项卡</a></li>
-          <li><a class="sidemenu-item" href="#panel">面板</a></li>
           <li><a class="sidemenu-item" href="#cachepage">缓存页</a></li>
-        </ul>
-        <ul class="sidemenu-group">
-          <li>
-            <span class="sidemenu-label">扩展<i class="sidemenu-arrdown"></i></span>
-          </li>
-          <li><a class="sidemenu-item" href="#pageload">页面等待</a></li>
-          <li><a class="sidemenu-item" href="#kvpair">名值标签</a></li>
-          <li><a class="sidemenu-item" href="#inputvalchange">监听输入</a></li>
-          <li><a class="sidemenu-item" href="#menubar">菜单条</a></li>
         </ul>
         <ul class="sidemenu-group">
           <li><span class="sidemenu-label">设计<i class="sidemenu-arrdown"></i></span></li>
           <li><a class="sidemenu-item" href="#design_form">表单设计</a></li>
         </ul>
-      </nav>
+      </m-sidemenu>
     </div>
     <div class="content pd-15">
-      <div id="about">
-        <h1>关于ui</h1>
-        <p>将html,js,css做成组件,使web开发更方便.这种思路在桌面程序中早就有了,比如winfrom.较早些时候,当前后端还没有分离,还是以服务端编程时,惯用的是JQUERY,还有各用基于JQUERY的UI.</p>
-        <p>后来,有了Bootstrap.学习它的scss后,认为这是一种先进的思想.于是模仿练习.它是OOP的,使用scss编写生成css.生成各种组件,布局,工具的css样式.</p>
-        <p>一套webui是一些组件的集合,一个组件就是html模板加css显示加js功能的组合.按bootstrap的思路,编写这种组合就得到了一套UI.</p>
-        <p>看过一些其它的ui框架,都是bootstrap的形式,或者直接基于它开发的.看起来,这更是一种web前端编程思路突破,真正的将web前端工程化了,就像服务端工程化那样.</p>
-        <p>所以,使用造组件的思路,可以造出各种各样的ui来.</p>
-      </div>
-
       @*片段页路径实际上是Key,不能使用变量,否则会找不到页面*@
+      @Include("/doc/about.part.cshtml")
 
-      @Include("/doc/themecolor.part.cshtml")
+      @Include("/doc/cssvar.part.cshtml")
 
+      @*布局*@
       @Include("/doc/grids.part.cshtml")
-
-      @Include("/doc/toolclass.part.cshtml")
 
       @Include("/doc/mediaquery.part.cshtml")
 
+      @Include("/doc/toolclass.part.cshtml")
+
       @Include("/doc/pagelayout.part.cshtml")
 
+      @*页面UI组件*@
       @Include("/doc/h1h6p.part.cshtml")
 
+      @Include("/doc/article.part.cshtml")
+
       @Include("/doc/btn.part.cshtml")
+
+      @Include("/doc/btngroup.part.cshtml")
+
+      @Include("/doc/onoff.part.cshtml")
+
+      @Include("/doc/label.part.cshtml")
+
+      @Include("/doc/kvpair.part.cshtml")
+
+      @Include("/doc/imagedemo.part.cshtml")
+
+      @Include("/doc/panel.part.cshtml")
+
+      @Include("/doc/msgpanel.part.cshtml")
+
+      @Include("/doc/hrline.part.cshtml")
+
+      @Include("/doc/list.part.cshtml")
 
       @Include("/doc/table.part.cshtml")
 
       @Include("/doc/form.part.cshtml")
 
-      @Include("/doc/imagedemo.part.cshtml")
+      @Include("/doc/inputvalchange.part.cshtml")
 
-      @Include("/doc/list.part.cshtml")
+      @Include("/doc/pageload.part.cshtml")
 
-      @Include("/doc/hrline.part.cshtml")
+      @Include("/doc/menubar.part.cshtml")
 
-      @Include("/doc/btngroup.part.cshtml")
+      @*功能组件*@
 
-      @Include("/doc/label.part.cshtml")
+      @Include("/doc/msgbox.part.cshtml")
 
-      @Include("/doc/article.part.cshtml")
+      @Include("/doc/msgshow.part.cshtml")
 
-      @Include("/doc/onoff.part.cshtml")
-
-      @Include("/doc/msgpanel.part.cshtml")
+      @Include("/doc/datetime.part.cshtml")
 
       @Include("/doc/pagenum.part.cshtml")
 
@@ -149,32 +160,17 @@
 
       @Include("/doc/mdirbar.part.cshtml")
 
-      @Include("/doc/msgshow.part.cshtml")
-
-      @Include("/doc/msgbox.part.cshtml")
-
-      @Include("/doc/datetime.part.cshtml")
-
       @Include("/doc/tabs.part.cshtml")
-
-      @Include("/doc/panel.part.cshtml")
 
       @Include("/doc/cachepage.part.cshtml")
 
-      @Include("/doc/pageload.part.cshtml")
-
-      @Include("/doc/kvpair.part.cshtml")
-
-      @Include("/doc/inputvalchange.part.cshtml")
-
-      @Include("/doc/menubar.part.cshtml")
-
+      @*设计*@
       @Include("/doc/design_form.part.cshtml")
     </div>
   </div>
   <script>
     // 主菜单
-    sidemenu('main_menubox');
+    let sidemenu1 = document.getElementById('main_menubox').create();
     // chg theme
     function chgtheme(themeId) {
       let colors = themeColors(themeId);

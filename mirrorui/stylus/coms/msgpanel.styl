@@ -1,18 +1,14 @@
 ﻿// 信息展示面板
 // 标题和一段说明文字
 .msgpanel
-    border-left: 5px solid
-    padding: 1em
-    margin: 1em auto
+    padding-left: 15px
     color: var-font-color
     border-bottom: 1px solid var-gray
     border-top: 1px solid var-gray
     border-right: 1px solid var-gray
-    border-left-color: var-grayse
+    border-left: 5px solid
+    border-left-color: var-gray-dk
 // 颜色
 for key, val in $themeColorsKV
     .msgpanel.{key}
         border-left-color: val[0]
-    .msgpanel.{key}
-	    & h1,& h2,& h3,& h4,& h5,& h6
-            color: val[0]

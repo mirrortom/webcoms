@@ -23,7 +23,7 @@
   <div class="container">
     <div id="mdirbarbox"></div>
     <div id="contentbox"></div>
-    <nav class="mnavmenu" id="mnavmenu1">
+    <m-mnavmenu id="mnavmenu1">
       <div class="mnavmenu-group split">
         <ul class="mnavmenu-itembox close">
           <li><a class="mnavmenu-item">苹果</a></li>
@@ -44,34 +44,38 @@
         </div>
         <span class="mnavmenu-label">&equiv; 酒</span>
       </div>
-    </nav>
+    </m-mnavmenu>
   </div>
   <script>
-    // 导航条
-    let barbox = $ui("#mdirbarbox")[0];
-    let contbox = $ui("#contentbox")[0];
-    let mbar = mdirbar(barbox, contbox);
-    // 底部菜单
-    let mnavm1 = mnavmenu('mnavmenu1', (item, index) => {
-      let pid = '_' + index;
-      let pagetitle = $ui(item).text();
-      mbar.load(pid, pagetitle, (type) => {
-        if (type == 3) {
-          let pageId = `<h3 class="text-center mg-t-30">${pagetitle}</h3>`;
-          pageId += '<p><a class="btn" onclick="mbaronback()">手动回退</a></p>';
-          $ui('#contentbox').html(pageId);
-        }
+    ((win) => {
+      // 导航条
+      let barbox = document.getElementById("mdirbarbox");
+      let contbox = document.getElementById("contentbox");
+      let mbar = win.ns.mdirbar(barbox, contbox);
+      // 底部菜单
+      let mnavm1 = document.getElementById('mnavmenu1');
+      mnavm1.create((item, index) => {
+        let pid = '_' + index;
+        let pagetitle = item.innerText;
+        mbar.load(pid, pagetitle, (type) => {
+          if (type == 3) {
+            let pageId = `<h3 class="text-center mg-t-30">${pagetitle}</h3>`;
+            pageId += '<p><a class="btn">手动回退</a></p>';
+            document.getElementById('contentbox').innerHTML = (pageId);
+            document.getElementById('contentbox').querySelector('a').onclick = mbaronback;
+          }
+        });
       });
-    });
-    // 默认加载第一页
-    mnavm1.activeItem(0);
-    //
-    function mbaronback() {
-      mbar.back((type) => {
-        if (type == -1)
-          msgbox.alert('已经不能退了!');
-      })
-    }
+      // 默认加载第一页
+      mnavm1.activeItem(0);
+      //
+      function mbaronback() {
+        mbar.back((type) => {
+          if (type == -1)
+            win.ns.msgbox.alert('已经不能退了!');
+        })
+      }
+    })(window);
   </script>
 </body>
 </html>

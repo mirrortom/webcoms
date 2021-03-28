@@ -1,5 +1,6 @@
 ﻿@{
-    string tabrows = @"<tr><th>#</th><th>名字</th><th>职位</th></tr>
+    string tabhead = @"<tr><th>#</th><th>名字</th><th>职位</th></tr>";
+    string tabbody = @"
 <tr><td>1</td><td>关羽</td><td>前将军</td></tr>
 <tr><td>2</td><td>张飞</td><td>右将军</td></tr>
 <tr><td>3</td><td>马超</td><td>左将军</td></tr>
@@ -8,56 +9,65 @@
 }
 <div class="doc-part-box" id="table">
   <h2>表格</h2>
-  <p class="lead">一个简单的表格样式,有隔行颜色,鼠标hover,外边框</p>
-  <p class="article-title">简单表格</p>
+  <p># table 简单的表格样式,占据整行.</p>
   <table class="table">
-    @Raw(tabrows)
-  </table>
-  <p class="article-title">鼠标hover</p>
-  <table class="table hover">
-    @Raw(tabrows)
+    @Raw(tabhead)
+    @Raw(tabbody)
   </table>
   <br />
-  <pre class="bg-gray">
-&lt;table class="table"&gt;
-    &lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;名字&lt;/th&gt;&lt;th&gt;职位&lt;/th&gt;&lt;/tr&gt;
+  <p># hover 鼠标效果</p>
+  <table class="table hover">
+    <tr class="bg-primary-dk"><th>#</th><th>名字</th><th>职位</th></tr>
+    @Raw(tabbody)
+  </table>
+  <br />
+  <pre class="bg-gray-lt">
+&lt;table class="<strong>table</strong>"&gt;
+    &lt;tr class="bg-primary-dk"&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;名字&lt;/th&gt;&lt;th&gt;职位&lt;/th&gt;&lt;/tr&gt;
     &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;关羽&lt;/td&gt;&lt;td&gt;前将军&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 
-&lt;table class="table hover"&gt;&lt;/table&gt;
+&lt;table class="<strong>table hover</strong>"&gt;&lt;/table&gt;
+
 </pre>
   <br />
-  <p class="article-title">striped 隔行色</p>
-  <p>最好不和hover同时使用</p>
+  <p># striped 隔行色,不和hover同时使用</p>
   <table class="table striped">
-    @Raw(tabrows)
+    @Raw(tabhead)
+    @Raw(tabbody)
   </table>
   <br />
-  <p>隔行色可加主题色</p>
+  <p>隔行色加主题色</p>
   <table class="table striped primary">
-    @Raw(tabrows)
+    @Raw(tabhead)
+    @Raw(tabbody)
   </table>
   <br />
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
 &lt;table class="table striped"&gt;&lt;/table&gt;
-&lt;table class="table striped primary"&gt;&lt;/table&gt;
-</pre>
+&lt;table class="<strong>table striped primary</strong>"&gt;&lt;/table&gt;
 
-  <p class="article-title">外边框</p>
+</pre>
+  <br />
+  <p># border 外边框</p>
   <table class="table border">
-    @Raw(tabrows)
+    @Raw(tabhead)
+    @Raw(tabbody)
   </table>
   <br />
-  <pre class="bg-gray">
-&lt;table class="table border"&gt;&lt;/table&gt;
-</pre>
+  <pre class="bg-gray-lt">
+&lt;table class="<strong>table border</strong>"&gt;&lt;/table&gt;
 
-  <p class="article-title">内外边框</p>
-  <table class="table border-all">
-    @Raw(tabrows)
+</pre>
+  <br />
+  <p>border-all 内外边框</p>
+  <table class="table border-all bg-black-lt text-gray-lt">
+    @Raw(tabhead)
+    @Raw(tabbody)
   </table>
   <br />
-  <pre class="bg-gray">
-&lt;table class="table <b>border-all</b>"&gt;&lt;/table&gt;
+  <pre class="bg-gray-lt">
+&lt;table class="table <strong>border-all</strong> bg-black-lt text-gray-lt"&gt;&lt;/table&gt;
+
 </pre>
 </div>

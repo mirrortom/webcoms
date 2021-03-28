@@ -1,8 +1,8 @@
-﻿/**
- * 模拟系统的弹出框 alert confirm prompt
- * 显示在上中下三个位置
- * 用于理解弹出框原理
- */
+﻿// ==============================================
+// 模拟系统的弹出框 alert confirm prompt
+// 显示在上中下三个位置
+// 用于理解弹出框原理
+// ==============================================
 ((win) => {
     // 遮罩样式命
     const shadowCls = 'msgbox-shadow';
@@ -11,17 +11,17 @@
     // 弹出层样式名
     const msgboxCls = 'msgbox';
     // 帮助函数
-    const M = win.$ui;
+    const $ = win.ns.domHelp;
     /**
      * 生成遮罩并显示,生成并返回弹出层父级DOM对象
      * @returns {HTMLElement} 弹出层父级DOM对象
      */
     let createMsgBox = () => {
         // 添加遮罩层
-        let shadow = M('<div>').addClass(shadowCls)[0];
+        let shadow = $('<div>').addClass(shadowCls)[0];
         document.body.append(shadow);
         // 生成弹出框
-        let parentDiv = M('<div>').addClass(modalCls)[0];
+        let parentDiv = $('<div>').addClass(modalCls)[0];
         return parentDiv;
     };
     /**
@@ -35,25 +35,24 @@
     /**
      * 生成标准弹出层的外层div元素,并设置风格样式和位置样式
      * @param {string} msg 要显示的信息
-     * @param {string} style 样式风格:primary | danger | success
      * @param {string} position 位置:top | bottom
      * @returns {HTMLElement} 返回外层div元素
      */
-    let createOuterDiv = (msg, style, position) => {
+    let createOuterDiv = (msg, position) => {
         // 样式风格,位置样式
-        let outerDiv = M('<div>').addClass(msgboxCls, 'msgbox-' + (position || 'center'));
-        style && outerDiv.addClass(style);
+        let outerDiv = $('<div>').addClass(msgboxCls, msgboxCls + '-' + (position || 'center'));
         // 内容
         outerDiv.text(msg || '');
         return outerDiv[0];
     };
     /**
      * 生成标准按钮:确定,取消
-     * @param {string} name 按钮风格 ok|cancel
+     * @param {string} name 按钮种类 ok|cancel
+     * * @param {string} theme 按钮风格 primary|success|...
      * @returns {HTMLElement} 返回按钮dom
      */
-    let createBtn = (name) => {
-        let btn = M('<span>').addClass('msgbox-btn', 'msgbox-' + name).text(name === 'ok' ? '确定' : '取消');
+    let createBtn = (name, theme) => {
+        let btn = $('<span>').addClass('btn', msgboxCls + '-' + name, theme).text(name === 'ok' ? '确定' : '取消');
         return btn[0];
     };
     // 弹出框类
@@ -78,7 +77,7 @@
      * alert 弹出框
      * @param {string} msg 要提示的信息
      * @param {Function} onClosed 关闭后执行方法
-     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} style 样式风格:primary | danger | success...
      * @param {string} position 位置:top | bottom
      */
     msgBox.alert = (msg, onClosed, style, position) => {
@@ -87,10 +86,10 @@
         // 生成遮罩层和弹出层父级,并且加入到body直属
         let parentDiv = createMsgBox();
         // 生成alertDom: 
-        // <div class="msgbox 样式? 位置?">内容<span class="msgbox-btn msgbox-ok">OK</span></div>
-        let alertDom = createOuterDiv(msg, style, position);
+        // <div class="msgbox 样式? 位置?">内容<span class="btn msgbox-ok">OK</span></div>
+        let alertDom = createOuterDiv(msg, position);
         // 按钮
-        let okBtn = createBtn('ok');
+        let okBtn = createBtn('ok', style);
         // 按钮事件
         okBtn.onclick = () => {
             // 删除弹出框
@@ -109,7 +108,7 @@
      * confirm 弹出框
      * @param {string} msg 要提示的信息
      * @param {Function} callback 回调函数
-     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} style 样式风格:primary | danger | success...
      * @param {string} position 位置:top | bottom
      */
     msgBox.confirm = (msg, callback, style, position) => {
@@ -120,9 +119,9 @@
         // 生成confirmDom:
         // <div class="msgbox 样式? 位置?">内容<span class="msgbox-btn msgbox-ok">OK</span>
         //                    <span class="msgbox-btn msgbox-cancel">Cancel</span></div >
-        let confirmDom = createOuterDiv(msg, style, position);
+        let confirmDom = createOuterDiv(msg, position);
         // 按钮
-        let okBtn = createBtn('ok');
+        let okBtn = createBtn('ok', style);
         let cancelBtn = createBtn('cancel');
         // 绑定事件
         okBtn.onclick = () => {
@@ -151,7 +150,7 @@
      * prompt 弹出框
      * @param {string} msg 要提示的信息
      * @param {Function} callback 回调函数
-     * @param {string} style 样式风格:primary | danger | success
+     * @param {string} style 样式风格:primary | danger | success...
      * @param {string} position 位置:top | bottom
      */
     msgBox.prompt = (msg, callback, style, position) => {
@@ -162,12 +161,13 @@
         // 生成promptDom:
         // <div class="msgbox 样式? 位置?">内容<input class="msgbox-input" type="text"/>
         // <span class="msgbox-btn msgbox-ok">Ok</span><span class="msgbox-btn msgbox-cancel">Cancel</span></div>
-        let promptDom = createOuterDiv(msg, style, position);
+        let promptDom = createOuterDiv(msg, position);
+        promptDom.classList.add('msgbox-prompt');
         // input框
-        let inputE = M('<input>').addClass('msgbox-input').prop('type', 'text')[0];
+        let inputE = $('<input>').addClass('input-text','mg-tb-10').prop('type', 'text')[0];
         // 按钮
-        let okBtn = createBtn('ok');
-        let cancelBtn = createBtn('cancel');
+        let okBtn = createBtn('ok', style);
+        let cancelBtn = createBtn('cancel', style);
         // 绑定事件
         okBtn.onclick = () => {
             // 删除弹出框
@@ -219,5 +219,5 @@
     };
 
     // 引用名称可在此修改
-    win.msgbox = msgBox;
+    win.ns.msgbox = msgBox;
 })(window);

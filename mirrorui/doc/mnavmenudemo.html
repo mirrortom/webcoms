@@ -16,8 +16,9 @@
       grid-template-rows: 36px auto 44px;
       height: 100%;
     }
-    .content{
-      overflow-y:auto;
+
+    .content {
+      overflow-y: auto;
     }
   </style>
 </head>
@@ -25,7 +26,7 @@
   <div class="container">
     <div></div>
     <div id="contbox" class="content"></div>
-    <nav class="mnavmenu" id="mnavmenu1">
+    <m-mnavmenu id="mnavmenu1">
       <div class="mnavmenu-group split">
         <ul class="mnavmenu-itembox close">
           <li><a class="mnavmenu-item">苹果</a></li>
@@ -53,17 +54,19 @@
         </ul>
         <span class="mnavmenu-label">&equiv; 最后菜单</span>
       </div>
-    </nav>
+    </m-mnavmenu>
   </div>
-    <script>
-      mnavmenu('mnavmenu1', (item, i) => {
-        msgbox.alert(item.innerHTML + '  index: ' + i);
+  <script>
+    (() => {
+      document.getElementById('mnavmenu1').create((item, i) => {
+        window.ns.msgbox.alert(item.innerHTML + '  index: ' + i);
       });
       let html = '';
       for (var i = 0; i < 30; i++) {
         html += '<h4>页面内容</h4>';
       }
       document.getElementById('contbox').innerHTML = html;
-    </script>
+    })();
+  </script>
 </body>
 </html>

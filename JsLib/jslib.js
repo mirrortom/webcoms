@@ -960,11 +960,13 @@ factory.isDate = (str) => {
     if (!str || str.length === 0) return true;
     return !/Invalid|NaN/.test(new Date(str).toString());
 };
-// window上的引用名 "lib",.在此修改
-win.lib = factory;
+// window上的引用名,在此修改
+if (!win.ns)
+    win.ns = {};
+win.ns.jslib = factory;
 // 用$更加简洁方便
 if (!win.$)
-    win.$ = win.lib;
+    win.$ = win.ns.jslib;
 }) (window);
 ((win) => {
     // 验证类型.每个类型对应一个完成验证功能的函数

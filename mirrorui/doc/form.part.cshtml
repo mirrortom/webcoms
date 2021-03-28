@@ -1,155 +1,58 @@
 ﻿<div class="doc-part-box" id="form">
   <h2>表单元素</h2>
-  <p class="lead">几种表单元素的样式.另外做了两种纸质风格的样式.</p>
-  <p class="article-title">input框</p>
-  <label class="input-label">文本框</label>
-  <input class="input-text" type="text" value="123456" />
-  <label class="input-label">密码框</label>
-  <input class="input-text" type="password" value="123456" />
-  <label class="input-label">Email</label>
-  <input class="input-text" type="email" value="xxx@mirror.com" />
-  <br />
-  <pre class="bg-gray">
-&lt;label class="input-label"&gt;文本框&lt;/label&gt;
-&lt;input class="input-text" type="text" value="123456" /&gt;
-
-&lt;label class="input-label"&gt;密码框&lt;/label&gt;
-&lt;input class="input-text" type="password" value="123456" /&gt;
-
-&lt;label class="input-label"&gt;Email&lt;/label&gt;
-&lt;input class="input-text" type="email" value="xxx@mirror.com" /&gt;
-</pre>
-  <br />
-  <p>四种大小,sm md(默认) lg xl</p>
-  <div class="grids">
-    <label class="input-label text-center sm grid-1">sm尺寸</label>
-    <input class="input-text sm grid-3" type="text" value="sm font-size=12px" />
-
-    <label class="input-label text-center lg grid-1">lg尺寸</label>
-    <input class="input-text lg grid-3" type="text" value="lg 14px*1.25" />
-
-    <label class="input-label text-center xl grid-1">xl尺寸</label>
-    <input class="input-text xl grid-3" type="text" value="xl 14px*1.6" />
+  <p class="article-title">input文本框</p>
+  <div class="mg-b-10">
+    <label class="form-label mg-b-5">文本框</label>
+    <input class="input-text" type="text" value="123456abc中文-*=" />
   </div>
-  <pre class="bg-gray">
-&lt;div class="grids"&gt;
-  &lt;label class="input-label sm grid-1"&gt;sm尺寸&lt;/label&gt;
-  &lt;input class="input-text sm grid-3" type="text" value="sm font-size=12px" /&gt;
-&lt;/div&gt;
+  <div class="mg-b-10">
+    <label class="form-label mg-b-5">密码框</label>
+    <input class="input-text" type="password" value="123456" />
+  </div>
+  <div class="mg-b-10">
+    <label class="form-label mg-b-5">Email</label>
+    <input class="input-text" type="email" value="xxx@mirror.com" />
+  </div>
+  <div class="mg-b-10 text-lg">
+    <label class="form-label mg-b-5">文本框</label>
+    <input class="input-text mg-b-5" type="text" value="123456abc中文-*=" />
+    <input class="input-text" disabled type="text" value="disabled" />
+  </div>
+  <pre class="bg-gray-lt">
+  &lt;label class="<strong>form-label</strong> mg-b-5"&gt;文本框&lt;/label&gt;
+  &lt;input class="<strong>input-text</strong>" type="text" value="123456abc中文-*=" /&gt;
+
+  &lt;label class="form-label mg-b-5"&gt;密码框&lt;/label&gt;
+  &lt;input class="input-text" type="password" value="123456" /&gt;
+
+  &lt;label class="form-label mg-b-5"&gt;Email&lt;/label&gt;
+  &lt;input class="input-text" type="email" value="xxx@mirror.com" /&gt;
+
+  &lt;input class="input-text text-lg" type="text" value="123456abc中文-*=" /&gt;
+
+  &lt;input class="input-text" disabled type="text" value="disabled" /&gt;
+
 </pre>
   <p class="article-title">textarea</p>
-  <label class="textarea-label grid-2">多行文本框</label>
-  <textarea class="textarea grid-10">多行文本框的高度为100px,且禁止手动调整大小.文本框没有分大小号</textarea>
-  <pre class="bg-gray">
-&lt;label class="textarea-label grid-2"&gt;多行文本框&lt;/label&gt;
-&lt;textarea class="textarea grid-10"&gt;多行文本框的高度为100px,且禁止手动调整大小.文本框没有分大小号&lt;/textarea&gt;
+  <label class="form-label mg-b-5">多行文本框</label>
+  <textarea class="textarea">多行文本框默认高度为100px,可以调整垂直方向大小.</textarea>
+  <br />
+  <pre class="bg-gray-lt">
+  &lt;label class="form-label mg-b-5"&gt;多行文本框&lt;/label&gt;
+  &lt;textarea class="<strong>textarea</strong>"&gt;多行文本框默认高度为100px,手动调整垂直方向大小.&lt;/textarea&gt;
+
 </pre>
-
-  <p class="article-title">文件选择</p>
-  <p>采用将input控件透明化,覆盖在标题控件之上的办法</p>
-  <p>由一个外层DIV包含input-file控件,和一个说明标题.都使用绝对定位,其中,input-file控件位于标题控件之上,并且是透明的.</p>
-  <p>选择文件后,文件名会显示在标签中,多个文件会用逗号隔开.这个功能需要给控件添加onchange事件,方法是<b>$ui.inputFileChange(this)</b></p>
-  <div class="input-file-box">
-    <input class="input-file" id="forminputfile1" onchange="$ui.inputFileChange(this)" type="file" multiple />
-    <label class="input-file-label">选择文件</label>
-  </div>
-  <br />
-  <p>清空选择的文件: <b>$ui.clsInputFile(forminputfile1)</b></p>
-  <a class="btn blue-b" onclick="$ui.clsInputFile(forminputfile1)">清空文件</a>
-  <pre class="bg-gray">
-&lt;div class="input-file-box"&gt;
-  &lt;input class="input-file" onchange="$ui.inputFileChange(this)" type="file" multiple /&gt;
-  &lt;label class="input-file-label"&gt;选择文件&lt;/label&gt;
-&lt;/div&gt;
-</pre>
-
-  <p class="article-title">单选与复选</p>
-  <p>使用label与input关联,透明化原生input,单选与复选的框是label下的b元素实现,选中的勾和圆点,通过b元素的伪类实现</p>
-  <p>input需要指定ID,label要指定FOR,label内含的b元素是选择框</p>
-  <p>默认的单选与复选框是白底色,选中时勾和点为黑色</p>
-  <br />
-  <div class="grids">
-    @for (int i = 0; i < 3; i++)
-    {
-    <div class="grid">
-      <input class="input-check" type="checkbox" id="testcheck_@i" checked />
-      <label class="input-check-label" for="testcheck_@i"><b class="check"></b>复选框( @i )</label>
-    </div>
-    }
-    @for (int i = 0; i < 3; i++)
-    {
-    <div class="grid">
-      <input class="input-check" name="radiogroup1" type="radio" id="testradio_@i" />
-      <label class="input-check-label" for="testradio_@i"><b class="radio"></b>单选框( @i )</label>
-    </div>
-    }
-  </div>
-  <br />
-
-  <pre class="bg-gray">
-&lt;input class="input-check" type="checkbox" id="testcheck" /&gt;
-&lt;label class="input-check-label" for="testcheck"&gt;&lt;b class="check"&gt;&lt;/b&gt;复选框&lt;/label&gt;
- 
-&lt;input class="input-check" name="radiogroup1" type="radio" id="testradio" /&gt;
-&lt;label class="input-check-label" for="testradio"&gt;&lt;b class="radio"&gt;&lt;/b&gt;单选框&lt;/label&gt;
-</pre>
-  <br />
-  <p class="text-info">四种大小,默认14px.在label上加上样式 <b>sm lg xl</b></p>
-  <div class="grids">
-    @foreach (string item in Model.fontsizes)
-    {
-    <div class="grid">
-      <input class="input-check" type="checkbox" id="sizecheck_@item" checked />
-      <label class="input-check-label @item" for="sizecheck_@item"><b class="check"></b>复选框( @item )</label>
-
-      <input class="input-check" name="sizegroup1" type="radio" id="sizeradio_@item" />
-      <label class="input-check-label @item" for="sizeradio_@item"><b class="radio"></b>单选框( @item )</label>
-    </div>
-    }
-  </div>
-  <br />
-  <p class="text-info">主题颜色.在label上加上主题样式 <b>primary danger success</b></p>
-  <div class="grids">
-    @foreach (string item in Model.themecolors)
-    {
-    <div class="grid">
-      <input class="input-check" type="checkbox" id="colorcheck_@item" checked />
-      <label class="input-check-label @item" for="colorcheck_@item"><b class="check"></b>复选框( @item )</label>
-    </div>
-    }
-  </div>
-  <br />
-  <div class="grids">
-    @foreach (string item in Model.themecolors)
-    {
-    <div class="grid">
-      <input class="input-check" name="colorgroup1" type="radio" id="colorradio_@item" />
-      <label class="input-check-label @item" for="colorradio_@item"><b class="radio"></b>单选框( @item )</label>
-    </div>
-    }
-  </div>
-  <br />
-
-  <pre class="bg-gray">
-&lt;input class="input-check" type="checkbox" id="colorchec" /&gt;
-&lt;label class="input-check-label <b>xl</b>" for="colorcheck"&gt;&lt;b class="check"&gt;&lt;/b&gt;大号复选框&lt;/label&gt;
-
-&lt;input class="input-check" name="colorgroup1" type="radio" id="colorradio" /&gt;
-&lt;label class="input-check-label <b>danger</b>" for="colorradio"&gt;&lt;b class="radio"&gt;&lt;/b&gt;红色单选框&lt;/label&gt;
-</pre>
-  <br />
   <p class="article-title">select</p>
-  <p>下拉框.</p>
   <div class="grids-4">
-    <div>
-      <select class="select sm">
+    <div class="mg-lr-5">
+      <select class="select">
         <option>明月几时有</option>
         <option>把酒问青天</option>
         <option>不知天上宫阙</option>
         <option>今昔是何年</option>
       </select>
     </div>
-    <div>
+    <div class="mg-lr-5">
       <select class="select">
         <option>我欲乘风归去</option>
         <option>又恐琼楼玉宇</option>
@@ -158,15 +61,15 @@
         <option>何似在人间</option>
       </select>
     </div>
-    <div>
-      <select class="select lg">
+    <div class="mg-lr-5">
+      <select class="select">
         <option>转朱阁,低绮户,照无眠</option>
         <option>不应有恨</option>
         <option>何事长向别时圆</option>
       </select>
     </div>
-    <div>
-      <select class="select xl">
+    <div class="mg-lr-5">
+      <select class="select">
         <option>人有悲欢离合</option>
         <option>月有阴晴圆缺</option>
         <option>此事古难全</option>
@@ -175,96 +78,234 @@
       </select>
     </div>
   </div>
-  <pre class="bg-gray">
-&lt;select class="select sm"&gt;
-  &lt;option&gt;明月几时有&lt;/option&gt;
-  &lt;option&gt;把酒问青天&lt;/option&gt;
-  &lt;option&gt;不知天上宫阙&lt;/option&gt;
-  &lt;option&gt;今昔是何年&lt;/option&gt;
-&lt;/select&gt;
+  <br />
+  <pre class="bg-gray-lt">
+  &lt;select class="<strong>select</strong>"&gt;
+    &lt;option&gt;明月几时有&lt;/option&gt;
+    &lt;option&gt;把酒问青天&lt;/option&gt;
+    &lt;option&gt;不知天上宫阙&lt;/option&gt;
+    &lt;option&gt;今昔是何年&lt;/option&gt;
+  &lt;/select&gt;
+
 </pre>
-  <p class="article-title">表单栅格布局</p>
-  <p>可以将表单元素放到栅格里,做横向布局.可以用栅格框分组表单元素</p>
-  <div class="grids mg-b-5 bg-gray">
-    <label class="input-label grid-1 text-center">姓名</label>
-    <input class="input-text grid-5" type="text" name="name1" value="mirror" />
+
+  <br />
+  <p class="article-title">文件选择</p>
+  <p># 使用自定义标记 <strong>&lt;m-file&gt;</strong></p>
+  <p class="text-in">采用将input控件透明化,覆盖在标题控件之上的办法.由一个外层DIV包含input-file控件,和一个说明标题.都使用绝对定位,其中,input-file控件位于标题控件之上,并且是透明的.选择文件后,文件名会显示在标签中,多个文件会用逗号隔开.</p>
+  <m-file></m-file>
+  <br />
+  <m-file disabled></m-file>
+  <br />
+  <p># 属性 <strong>inputFile</strong></p>
+  <pre class="bg-gray-lt">
+  // 返回input file的dom对象.可以获取选择的文件对象.
+  let file1 = document.getElementById('file1');
+  
+  inputFileDom = file1.<strong>inputFile</strong>;
+
+  // 获取选中的第一个文件
+  let files0 = inputFileDom.files[0]
+
+</pre>
+  <br />
+  <p># 方法 <strong>reset()</strong></p>
+  <pre class="bg-gray-lt">
+  // 重置组件,清空选择的文件
+  file1.<strong>reset()</strong>;
+
+</pre>
+  <br />
+  <div class="grids">
+    <div class="grid-10"><m-file tag="选择文件,一次选择不要超过5个." multiple id="fileDemo1" style="max-width:1000px"></m-file></div>
+    <div class="grid-2"><m-btn class="d-block" onclick="document.getElementById('fileDemo1').reset()">重置选择</m-btn></div>
   </div>
-  <div class="grids mg-b-5 bg-gray">
-    <label class="input-label text-center grid-1">国家</label>
+  <br />
+  <p># 标签设置 <strong>tag</strong></p>
+  <p class="text-in">设置选择文件的提示语</p>
+  <p># 标签设置 <strong>multiple</strong></p>
+  <p class="text-in">支持多选文件</p>
+
+  <br />
+  <pre class="bg-gray-lt">
+  &lt;m-file id="fileDemo1"&gt;&lt;/m-file&gt;
+  
+  &lt;m-file <strong>tag</strong>="选择文件,一次选择不要超过5个." <strong>multiple</strong>&gt;&lt;/m-file&gt;
+
+  // 禁用
+  &lt;m-file <strong>disabled</strong>&gt;&lt;/m-file&gt;
+
+</pre>
+  <br />
+
+  <p class="article-title">单选与复选</p>
+  <p># 使用自定义标记,复选 <strong>&lt;m-check&gt;</strong> 单选 <strong>&lt;m-radio&gt;</strong> ,添加样式类 <strong>.input-check</strong></p>
+  <div>
+    <m-check class="checked" tag="复选框1" id="mcheckbox1"></m-check>
+    <m-check class="mg-l-20" tag="复选框2"></m-check>
+    <m-radio class="checked mg-l-20" name="radiogroup1" tag="单选框1"></m-radio>
+    <m-radio class="mg-l-20" name="radiogroup1" tag="单选框2"></m-radio>
+    <m-check class="mg-l-20" tag="复选框4" disabled></m-check>
+    <m-radio class="mg-l-20" name="radiogroup1" tag="单选框3" disabled></m-radio>
+  </div>
+  <br />
+  <div class="grids-10">
+    @foreach (string item in Model.themecolors)
+    {
+      <div><m-check class="@item checked" tag="复选框"></m-check></div>
+      <m-radio class="@item" name="radiogroup1" tag="单选框"></m-radio>
+    }
+  </div>
+  <br />
+  <div class="grids-10">
+    @foreach (string item in Model.themecolors)
+    {
+      <m-radio class="@item text-lg" name="radiogroup1" tag="单选"></m-radio>
+      <m-check class="@item checked text-lg" tag="复选"></m-check>
+    }
+  </div>
+  <br />
+  <p># 属性 <strong>checked</strong></p>
+  <p class="text-in">选中返回true,否则返回false</p>
+
+  <p># 属性 <strong>onClicked(fn)</strong></p>
+  <p class="text-in">点击切换后执行方法</p>
+
+  <p># 标签属性 <strong>tag</strong></p>
+  <p class="text-in">设置一个标题</p>
+
+  <p># 单选</p>
+  <p class="text-in">同一个父级下的多个单选框,设置相同的name属性,实现单选</p>
+
+  <p># 选中状态,大小,颜色</p>
+  <p class="text-in">添加 <strong>.checked</strong>样式,会展现选中状态,添加 primary,text-lg等工具样式调整颜色和大小</p>
+
+  <pre class="bg-gray-lt">
+  // m-check复选,m-radio单选
+  &lt;m-radio tag="单选框2"&gt;&lt;/m-radio&gt;
+  &lt;m-check class="checked" tag="复选框1"&gt;&lt;/m-check&gt;
+
+  // tag:设置标题
+  &lt;m-check class="checked" <strong>tag</strong>="复选框1"&gt;&lt;/m-check&gt;
+
+  // 获取选中状态
+  let check1 = document.getElementById('checkbox1');
+  check1.<strong>checked</strong> // true / false
+
+  // 执行方法
+  check1.<strong>onClicked</strong> = (radio) => {
+    // radio参数就是this对象
+    radio.getAttribute('tag');
+  }
+
+  // 单选
+  &lt;m-radio tag="单选框1" <strong>name</strong>="radiogroup1" &gt;&lt;/m-radio&gt;
+  &lt;m-radio tag="单选框2" <strong>name</strong>="radiogroup1" &gt;&lt;/m-radio&gt;
+
+  // 颜色和大小,选中状态
+  &lt;m-check class="<strong>primary checked</strong> " tag="复选框1"&gt;&lt;/m-check&gt;
+  &lt;m-radio class="<strong>text-lg</strong>" tag="单选框2"&gt;&lt;/m-radio&gt;
+
+  // 禁用
+  &lt;m-radio <strong>disabled</strong> tag="单选框2"&gt;&lt;/m-radio&gt;
+
+</pre>
+  <br />
+
+  <p class="article-title">表单栅格布局</p>
+  <p>可以将表单元素放到栅格里,做横向布局.用栅格框分组表单元素</p>
+  <div class="grids mg-b-5 bg-gray-lt">
+    <label class="form-label grid-1 text-center">姓名</label>
+    <input class="input-text grid-3" type="text" name="name1" value="mirror" />
+    <label class="form-label grid-1 text-center">Title</label>
+    <input class="input-text grid-3" type="text" name="title1" value="搬砖家" />
+    <label class="form-label grid-1 text-center">爱好</label>
+    <m-check class="checked primary grid-1" tag="吃喝"></m-check>
+    <m-check class="checked primary grid-1" tag="玩乐"></m-check>
+    <m-check class="checked primary grid-1" tag="睡觉"></m-check>
+  </div>
+  <div class="grids mg-b-5 bg-gray-lt">
+    <label class="form-label text-center grid-1">国家</label>
     <select class="select grid-2">
       <option>China</option>
       <option>USA</option>
       <option>UK</option>
     </select>
-    <label class="input-label text-center grid-1">WebSite</label>
+    <label class="form-label text-center grid-1">WebSite</label>
     <input class="input-text grid-2" type="text" name="name3" value="mirrortom.date" />
+    <label class="form-label text-center grid-1">资料</label>
+    <m-file class="grid-3 bg-white"></m-file>
   </div>
-  <pre class="bg-gray">
-&lt;div class="grids mg-b-5"&gt;
-  &lt;label class="input-label bg-gray text-center grid-1"&gt;姓名&lt;/label&gt;
-  &lt;input class="input-text grid-5" type="text" name="name1" value="mirror" /&gt;
-&lt;/div&gt;
-&lt;div class="grids mg-b-5"&gt;
-  &lt;label class="input-label bg-gray text-center grid-1"&gt;国家&lt;/label&gt;
-  &lt;input class="input-text grid-2" type="text" name="name2" value="China" /&gt;
-  &lt;label class="input-label bg-gray text-center grid-1"&gt;WebSite&lt;/label&gt;
-  &lt;input class="input-text grid-2" type="text" name="name3" value="mirrortom.date" /&gt;
-&lt;/div&gt;
+  <br />
+  <pre class="bg-gray-lt">
+  &lt;div class="grids mg-b-5 bg-gray-lt"&gt;
+    &lt;label class="form-label grid-1 text-center"&gt;姓名&lt;/label&gt;
+    &lt;input class="input-text grid-3" type="text" name="name1" value="mirror" /&gt;
+    &lt;m-check class="checked primary grid-1" tag="睡觉"&gt;&lt;/m-check&gt;
+  &lt;/div&gt;
+  &lt;div class="grids g-gray-lt"&gt;
+    &lt;label class="form-label text-center grid-1"&gt;国家&lt;/label&gt;
+    &lt;m-file class="grid-3 bg-white"&gt;&lt;/m-file&gt;
+  &lt;/div&gt;
+
 </pre>
-  <p class="article-title">纸质风格表单</p>
+  <br />
+  <p class="article-title">表单表格布局</p>
   <p class="lead">纸质风格表单是模仿的传统表格式的风格,整个表单是一个大表格,里面按表单项合理布局.有外边框和表单项边框.</p>
-  <p>html结构组成:最外层是div.form-table-box 每一行是一个册格行div.grids,里面是表单项,添加册格类占用宽度.不必填满12册格.</p>
+  <p>html结构组成:最外层是div.form-table 每一行是一个册格行div.grids,里面是表单项,添加册格类占用宽度.不必填满12册格.</p>
   <p>这种实现办法,优点是类纸质传统风格,就像填写单据一样,习惯易用.缺点在于布局不够灵活,同一行的表单项必须高度一样,不像表格那样可以使用rowspan或colspan跨行列</p>
   <p>这个例子使用现有的样式实现简易的版本,复杂的表格需要采用传统的table布局,还有新的display:grid布局完成.</p>
-  <div class="form-table-box">
+  <div class="form-table text-center text-md">
     <div class="grids">
-      <div class="grid-1"><label class="input-label">姓名</label></div>
-      <div class="grid-1"><input class="input-text" value="苏轼" /></div>
+      <label class="grid-1 form-label">姓名</label>
+      <input class="grid-1 input-text" value="苏轼" />
 
-      <div class="grid-1"><label class="input-label">称号</label></div>
-      <div class="grid-3"><input class="input-text" value="东坡居士、苏东坡、苏仙" /></div>
+      <label class="grid-1 form-label">字号</label>
+      <input class="grid-3 input-text" value="东坡居士、苏东坡、苏仙" />
 
-      <div class="grid-1"><label class="input-label">生卒</label></div>
-      <div class="grid-3"><input class="input-text" value="1037年1月8日—1101年8月24日" /></div>
-      <div class="grid-1"><label class="input-label">谥号</label></div>
-      <div class="grid-1"><input class="input-text" value="文忠" /></div>
+      <label class="grid-1 form-label">生卒</label>
+      <input class="grid-3 input-text" value="1037年1月8日—1101年8月24日" />
+
+      <label class="grid-1 form-label">谥号</label>
+      <input class="grid-1 input-text" value="文忠" />
     </div>
     <div class="grids">
-      <div class="grid-1"><label class="input-label">成就</label></div>
-      <div class="grid-3"><input class="input-text" value="文学家、书法家、唐宋八大家" /></div>
-      <div class="grid-1"><label class="input-label">官职</label></div>
-      <div class="grid-3"><input class="input-text" value="翰林学士、侍读学士、礼部尚书" /></div>
-      <div class="grid-1"><label class="input-label">时代</label></div>
-      <div class="grid-1"><input class="input-text" value="北宋" /></div>
-      <div class="grid-1"><label class="input-label">民族</label></div>
-      <div class="grid-1"><input class="input-text" value="汉" /></div>
+      <label class="grid-1 form-label">成就</label>
+      <input class="grid-3 input-text" value="文学家、书法家、唐宋八大家" />
+      <label class="grid-1 form-label">官职</label>
+      <input class="grid-3 input-text" value="翰林学士、侍读学士、礼部尚书" />
+      <label class="grid-1 form-label">时代</label>
+      <input class="grid-1 input-text" value="北宋" />
+      <label class="grid-1 form-label">民族</label>
+      <input class="grid-1 input-text" value="汉" />
     </div>
     <div class="grids">
-      <div class="grid-1"><label class="input-label">作品</label></div>
-      <div class="grid-4"><input class="input-text" value="《东坡七集》《东坡易传》《东坡乐府》" /></div>
-      <div class="grid-1"><label class="input-label">官职</label></div>
-      <div class="grid-3"><input class="input-text" value="翰林学士、侍读学士、礼部尚书" /></div>
+      <label class="grid-1 form-label">作品</label>
+      <input class="grid-4 input-text" value="《东坡七集》《东坡易传》《东坡乐府》" />
+      <label class="grid-1 form-label">名作</label>
+      <input class="input-text grid-4" value="《水调歌头·明月几时有》" />
     </div>
     <div class="grids">
-      <div class="grid-1"><label class="input-label">名作</label></div>
-      <div class="grid-7"><input class="input-text" value="水调歌头·明月几时有" /></div>
-    </div>
-    <div class="grids">
-      <div class="grid-2">
-        <h3>苏东坡</h3>
-      </div>
-      <div class="grid-10">
-        <textarea class="textarea">明月几时有？把酒问青天。不知天上宫阙、今夕是何年？我欲乘风归去,又恐琼楼玉宇,高处不胜寒．起舞弄清影,何似在人间？ 转朱阁,低绮户,照无眠。不应有恨、何事长向别时圆？人有悲欢离合,月有阴晴圆缺,此事古难全。但愿人长久,千里共婵娟。</textarea>
-      </div>
+      <label class="grid-1 form-label">苏东坡</label>
+      <textarea class="grid-11 textarea">明月几时有？把酒问青天。不知天上宫阙、今夕是何年？我欲乘风归去,又恐琼楼玉宇,高处不胜寒．起舞弄清影,何似在人间？ 转朱阁,低绮户,照无眠。不应有恨、何事长向别时圆？人有悲欢离合,月有阴晴圆缺,此事古难全。但愿人长久,千里共婵娟。</textarea>
     </div>
   </div>
   <br />
-  <pre class="bg-gray">
-&lt;div class="<b>form-table-box</b>"&gt;
-  &lt;div class="grids"&gt;
-    &lt;label class="input-label grid-1"&gt;姓名&lt;/label&gt;
-    &lt;input class="input-text grid-1" value="苏东坡" /&gt;
+  <pre class="bg-gray-lt">
+  &lt;div class="<strong>form-table</strong> text-center"&gt;
+    &lt;div class="grids"&gt;
+      &lt;label class="grid-1 form-label"&gt;姓名&lt;/label&gt;
+      &lt;input class="grid-1 input-text" value="苏轼" /&gt;
+
+      &lt;label class="grid-1 form-label"&gt;谥号&lt;/label&gt;
+      &lt;input class="grid-1 input-text" value="文忠" /&gt;
+    &lt;/div&gt;
+
+    &lt;div class="grids"&gt;
+      &lt;label class="grid-1 form-label"&gt;苏东坡&lt;/label&gt;
+      &lt;textarea class="grid-11 textarea"&gt;明月几时有？把酒问青天。...但愿人长久,千里共婵娟。&lt;/textarea&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;
+
 </pre>
 </div>

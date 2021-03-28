@@ -1,4 +1,4 @@
-﻿// 菜单栏.用于手机版
+﻿// 菜单栏.用于手机
 // 容器 flex布局,里面内容两端对齐.内容子集元素最多2个,如有多个用div包起
 .menubar
     display: flex
@@ -10,7 +10,7 @@
     border-left: none
     border-right: none
     user-select: none
-    box-shadow: 0 2px 5px var-graylt
+    box-shadow: 0 2px 5px var-gray-lt
 
     // 第一个子元素是左边容器,让左边有点距离
     & > :first-child
@@ -28,4 +28,4 @@
       transform: rotate(45deg)
 
     &:active .arr
-        border-color: orangered
+        border-color: var-danger

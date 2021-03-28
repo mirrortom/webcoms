@@ -1,9 +1,8 @@
 ﻿<div class="doc-part-box" id="btngroup">
   <h2>按钮组</h2>
-  <p>按钮组包含多个按钮,一般用于一组性质相近的功能.</p>
-  <p>按钮组容器使用<b>inline-flex</b>布局,注意是个行内flex布局,元素会变为行为元素.里面按钮flex:auto(1 1 auto)</p>
-  <p>同一组的按钮大小要相同</p>
-  <p class="article-title">横向按钮组</p>
+  <p>按钮组包含多个按钮,一般用于一组性质相近的功能.同一组的按钮大小要相同.</p>
+  <p>按钮组容器使用<b>inline-flex</b>布局,是个行内flex布局,元素会变为行为元素.里面按钮flex:auto(1 1 auto)</p>
+  <p># 横排按钮组</p>
   <span class="btn-group">
     <a class="btn">加粗</a>
     <a class="btn">下划线</a>
@@ -21,32 +20,28 @@
     <a class="btn">复制</a>
     <a class="btn bg-danger">剪切</a>
   </div>
-  <br /><br />
-  <div class="btn-group cir">
-    @for (int i = 1; i <= 10; i++)
-    {
-      <a class="btn lg">@i</a>
-    }
-  </div>
-  <pre class="bg-gray">
-&lt;span class="btn-group"&gt;
-  &lt;a class="btn"&gt;加粗&lt;/a&gt;
-  &lt;a class="btn"&gt;下划线&lt;/a&gt;
-  &lt;a class="btn"&gt;倾斜&lt;/a&gt;
-  &lt;a class="btn"&gt;字体&lt;/a&gt;
-  &lt;a class="btn"&gt;复制&lt;/a&gt;
-  &lt;a class="btn"&gt;剪切&lt;/a&gt;
-&lt;/span&gt;
+  <br />
+  <br />
+  <pre class="bg-gray-lt">
+  &lt;span class="<strong>btn-group</strong>"&gt;
+    &lt;a class="btn"&gt;加粗&lt;/a&gt;
+    &lt;a class="btn"&gt;下划线&lt;/a&gt;
+    &lt;a class="btn"&gt;倾斜&lt;/a&gt;
+    &lt;a class="btn"&gt;字体&lt;/a&gt;
+    &lt;a class="btn"&gt;复制&lt;/a&gt;
+    &lt;a class="btn"&gt;剪切&lt;/a&gt;
+  &lt;/span&gt;
 
-&lt;div class="btn-group <b>cir</b>"&gt;&lt;/div&gt;
+  // 首末按钮圆角
+  &lt;div class="btn-group <strong>cir</strong>"&gt;&lt;/div&gt;
+
 </pre>
   <br />
-  <p class="article-title">下拉式按钮组</p>
-  <p>第1个按钮用于下拉框标题,用伪类加三角符号.当鼠标hover下拉框时<b>btn-list-group</b>,显示下拉按钮组<b>btn-list-area</b></p>
-  <p><b>btn-list-group</b>绝对定位于<b>btn-list-group</b>,里面包含下拉按钮列表.</p>
-  <p class="text-red">注意:下拉式按钮组使用行内元素</p>
+  <p># 下拉式按钮组</p>
+  <p>第1个按钮用于下拉框标题,用伪类加三角符号.当鼠标hover容器时,显示下拉按钮组.下拉框容器使用span行内块.</p>
+  <p>按钮组<b>btn-list-area</b>绝对定位于容器<b>btn-list-group</b>,里面包含下拉按钮列表.</p>
   <span class="btn-list-group">
-    <a class="btn">悬停</a>
+    <a class="btn">鼠标hover</a>
     <span class="btn-list-area">
       <a class="btn primary">新建</a>
       <a class="btn">编辑</a>
@@ -56,7 +51,8 @@
       <a class="btn success">退出</a>
     </span>
   </span>
-  <pre class="bg-gray">
+  <br /><br />
+  <pre class="bg-gray-lt">
 &lt;<b>span</b> class="<b>btn-list-group</b>"&gt;
   &lt;a class="btn"&gt;悬停&lt;/a&gt;
   &lt;span class="<b>btn-list-area</b>"&gt;
@@ -70,7 +66,6 @@
 &lt;/span&gt;
 </pre>
   <br />
-  <p class="article-title">混合按钮组</p>
   <p>将下拉式按钮组放在横向按钮组里</p>
   <div class="btn-group">
     <a class="btn">默认选项</a>

@@ -3,38 +3,33 @@
     padding-left: 0
     list-style: none
 .list > li
-    padding: .1em 0
-.list > li > *
-    vertical-align: middle
+    padding: 6px 0 6px 1em
 // 嵌套时加padding-left
 .list .list
-    padding-left: 2em
-// 方块~圆 样式
+    padding-left: 12px
+// 方块~圆 风格
 .list
     &.square > li::before, &.cir > li::before
         content: ''
         display: inline-block
-        width: .5em
-        height: .5em
+        width: .6em
+        height: .6em
         background-color: #000
-        margin-right: .5em
-        vertical-align: middle
+        margin-right: 6px
     &.cir > li::before
         border-radius: 50%
 // 方块,圆的主题色
-listColors = { primary: var-primary, danger: var-danger, success: var-success }
-for key, val in listColors
+for key, val in $themeColorsKV
     .list.square.{key} > li::before
-        background-color: val
+        background-color: val[0]
     .list.cir.{key} > li::before
-        background-color: val
+        background-color: val[0]
 // 数值列样式,abc列样式
 .list
     &.num,&.abc
         counter-reset: li-item
     &.num > li::before,&.abc > li::before
         counter-increment: li-item;
-        vertical-align: middle
     &.num > li::before
         content: counters(li-item,'.') '. ';
     &.abc > li::before
