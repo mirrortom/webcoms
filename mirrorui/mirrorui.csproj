@@ -44,7 +44,7 @@
     <Content Include="img\imgdemo.gif" />
     <Content Include="img\msgboxlayer.png" />
     <Content Include="js\cachepage.js" />
-    <Content Include="js\exts\inputvalchange.js" />
+    <Content Include="js\exts\m-inputwatch.js" />
     <Content Include="js\m-file.js" />
     <Content Include="js\m-radio.js" />
     <Content Include="js\m-check.js" />
@@ -53,11 +53,11 @@
     <Content Include="js\mdirbar.js" />
     <Content Include="js\help.js" />
     <Content Include="js\msgbox.js" />
-    <Content Include="js\msgshow.js" />
+    <Content Include="js\m-msgshow.js" />
     <Content Include="js\mydate.js" />
-    <Content Include="js\pagenum.js" />
-    <Content Include="js\mnavmenu.js" />
-    <Content Include="js\sidemenu.js" />
+    <Content Include="js\m-pagenum.js" />
+    <Content Include="js\m-mnavmenu.js" />
+    <Content Include="js\m-sidemenu.js" />
     <Content Include="js\tabs.js" />
     <Content Include="mirrorui.css" />
     <Content Include="mirrorui.js" />

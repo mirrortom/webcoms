@@ -25,8 +25,9 @@
                     thisobj.addClass('checked');
                     thisobj.text(this.onTag);
                 }
-                //
-                //console.log(this.checked);
+                // 点击切换后执行方法
+                if (typeof this._onClick == 'function')
+                    this._onClick(this);
             }
         }
 
@@ -39,6 +40,8 @@
             // ==================
             // init set prop
             // ==================
+            // 样式
+            thisobj.addClass('switch');
             // 开关属性标题可以设置,默认是ON/OFF
             this.onoff = thisobj.hasClass('checked') ? true : false;
             this.onTag = thisobj.prop('on') || 'ON';
@@ -53,7 +56,10 @@
         get checked() {
             return this.onoff;
         }
-
+        // 点击切换后执行方法
+        set onClicked(fn) {
+            this._onClick = fn;
+        }
         // =======
         // method
         // =======

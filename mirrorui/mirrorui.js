@@ -179,9 +179,48 @@
             framgSource = document.createDocumentFragment();
             framgSource.append(val);
         }
-        onReady(framgSource);
+        // 放入fragment.(解析放入)
+        let fragment = document.createDocumentFragment();
+        _parseHtmlNodeLoad(fragment, framgSource, onReady);
     };
-
+    /**
+     * 递归将fromFragm里的node节点移动到fragment,完成后执行onReady.(这个方法用于_parseHtml()方法辅助)
+     * @param {DocumentFragment} toFragm fragment容器对象
+     * @param {DocumentFragment} fromFragm 源dom容器
+     * @param {Function} onReady 完成后执行
+     */
+    let _parseHtmlNodeLoad = (toFragm, fromFragm, onReady) => {
+        if (fromFragm.firstChild === null) {
+            onReady(toFragm);
+            return;
+        }
+        // script元素.设置到innerhtml时不会执行,要新建一个script对象,再添加
+        if (fromFragm.firstChild.nodeName === 'SCRIPT') {
+            let newScript = document.createElement('script');
+            let src = fromFragm.firstChild.src;
+            if (src) {
+                // 外联的script,要加载下来,否则有执行顺序问题.外联的没有加载完,内联的就执行了.如果内联js依赖外联则出错.
+                // 这个办法是获取js脚本,是设置到生成的script标签中.(变成内联的了)
+                fetch(src).then(res => res.text())
+                    .then((js) => {
+                        newScript.innerHTML = js;
+                        toFragm.append(newScript);
+                        fromFragm.removeChild(fromFragm.firstChild);
+                        _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
+                    });
+            } else {
+                // 内联的直接设置innerHtml
+                newScript.innerHTML = fromFragm.firstChild.innerHTML;
+                toFragm.append(newScript);
+                fromFragm.removeChild(fromFragm.firstChild);
+                _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
+            }
+        } else {
+            // 其它元素
+            toFragm.append(fromFragm.firstChild);
+            _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
+        }
+    };
     // ==================================================
     // jslib实例方法 选择器
     // ==================================================
@@ -638,8 +677,9 @@
                     thisobj.addClass('checked');
                     thisobj.text(this.onTag);
                 }
-                //
-                //console.log(this.checked);
+                // 点击切换后执行方法
+                if (typeof this._onClick == 'function')
+                    this._onClick(this);
             }
         }
 
@@ -652,6 +692,8 @@
             // ==================
             // init set prop
             // ==================
+            // 样式
+            thisobj.addClass('switch');
             // 开关属性标题可以设置,默认是ON/OFF
             this.onoff = thisobj.hasClass('checked') ? true : false;
             this.onTag = thisobj.prop('on') || 'ON';
@@ -666,7 +708,10 @@
         get checked() {
             return this.onoff;
         }
-
+        // 点击切换后执行方法
+        set onClicked(fn) {
+            this._onClick = fn;
+        }
         // =======
         // method
         // =======
@@ -935,7 +980,7 @@ contDom:
         // 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态.在菜单的点击事件上执行次方法.
         // 该方法第3个参数onload(loadType)是一个方法,可以根据loadType参数值判断是否要载入新的页面
         // loadType=1: 菜单是当前页面
-        // loadType=2: 菜单之前载入过
+        // loadType=2: 菜单之前载入过(在缓存里)
         // loadType=3: 是新载入菜单,其对应的页面没有载入过,需要做载入新页面的操作
         //====================================================================================
         // {pid:菜单唯一标识,title:选项卡标题},点击左侧菜单时,调用此方法
