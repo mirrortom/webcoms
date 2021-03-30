@@ -2412,8 +2412,9 @@ contDom:
                     $(this).find('.sidemenu-item.active').removeClass('active');
                     $(item).addClass('active');
                     // 执行点击事件
+                    let menuIndex = index;
                     if (typeof menuItemClickE == 'function')
-                        menuItemClickE(item, index);
+                        menuItemClickE(item, menuIndex);
                 }
             })
         }

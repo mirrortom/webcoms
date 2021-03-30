@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="404.html" />
+    <Content Include="doc\cachepagedemo1.html" />
     <Content Include="doc\mdirbardemo.html" />
     <Content Include="doc\mnavmenudemo1.html" />
     <Content Include="img\imgdemo.gif" />

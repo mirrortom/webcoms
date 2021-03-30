@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="../mirrorui.css" rel="stylesheet" />
+  <script src="../mirrorui.js"></script>
+  <title></title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: 200px auto;
+    }
+
+    .menu-box {
+      position: sticky;
+      top: 0;
+      width: 94%;
+      max-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .tabsmenu-box {
+      position: sticky;
+      top: 0;
+      width: 99%;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="menu-box">
+      <m-sidemenu id="sidemenu1"></m-sidemenu>
+    </div>
+    <div>
+      <div class="tabsmenu-box">
+        <div id="cachepage_nav"></div>
+      </div>
+      <div class="pd-15" id="cachepage_cont">
+      </div>
+    </div>
+  </div>
+  <script>
+    ((win) => {
+      // help
+      let cachepage = win.ns.cachepage;
+      // menudata
+      let menuJson =
+        [
+          {
+            title: '首页',
+            menus: [{ title: '概览' }, {title:'新闻'}]
+          }, {
+            title: '统计',
+            menus: [{ title: '物品统计' }, { title: '人员统计' }, { title: '年报' }, {title:'每月清点'}]
+          }, {
+            title: '管理',
+            menus: [{ title: '人员管理' }, { title: '部门管理' }, { title: '订单管理' }
+              , { title: '资料管理' }, { title: '报表管理' }]
+          }, {
+            title: '查询',
+            menus: [{ title: '日志' }, { title: '信息检索' }, { title: '财务信息' }]
+          }, {
+            title: '系统',
+            menus: [{ title: '权限设置' }, { title: '系统设置' }, { title: '账户设置' }]
+          }
+        ];
+      let contdom = document.getElementById('cachepage_cont');
+      // 初始化cachepage
+      const cpg = cachepage(document.getElementById('cachepage_nav'),
+        contdom);
+
+
+      // 初始化sidemenu
+      let sm1 = document.getElementById('sidemenu1');
+      sm1.create(menuJson, (menuItem, index) => {
+        let menuId = '_' + index;
+        cpg.load(menuId, menuItem.innerText, (loadType) => {
+          if (loadType == 3) {
+            contdom.innerHTML = '';
+            contdom.innerHTML = `<h1 class="text-primary mg-t-50 mg-l-50">${menuItem.innerText}</h1>`;
+          }
+        });
+      });
+
+    })(window);
+  </script>
+</body>
+</html>
