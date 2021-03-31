@@ -10,7 +10,8 @@
 <div class="doc-part-box" id="selectdom">
   <h2>dom选择</h2>
   <p>$(<b>selector</b>),支持字符串和dom对象</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
+
     // 1.字符串css选择器,里面实现是 <b>document.querySelectorAll()</b> 方法,支持css选择器
     $('#id') , $('.class') , $('div') , $('.class .xx') , ...
 
@@ -28,7 +29,7 @@
 <div class="doc-part-box" id="find">
   <h2>find(selector)</h2>
   <p>以已经匹配的元素为根,查找子元素.(内部使用 dom.querySelectorAll())</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div id="id1"&gt;&lt;span class="ss"&gt;&lt;/span&gt;&lt;p&gt;aa&lt;/p&gt;&lt;/div&gt;
     // 匹配 span
     $('#id1').find('.ss')
@@ -38,7 +39,8 @@
 <div class="doc-part-box" id="eq">
   <h2>eq(index)</h2>
   <p>筛选取匹配元素的第n个元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
+
     &lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;span&gt;2&lt;/span&gt;&lt;/div&gt;
     // 匹配 span1
     $('span').eq(0)
@@ -48,7 +50,7 @@
 <div class="doc-part-box" id="index">
   <h2>index()</h2>
   <p>返回第一个匹配元素在父元素中的索引</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;p&gt;&lt;/p&gt;&lt;span&gt;1&lt;/span&gt;&lt;span&gt;2&lt;/span&gt;&lt;/div&gt;
     // 返回 1
     $('span').index()
@@ -58,7 +60,8 @@
 <div class="doc-part-box" id="siblings">
   <h2>siblings(selector)</h2>
   <p>查找所有匹配元素的同级元素,不包含匹配元素自己. selector: 可以筛选</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
+
     &lt;div&gt;&lt;p&gt;&lt;/p&gt;&lt;span&gt;1&lt;/span&gt;&lt;span&gt;2&lt;/span&gt;&lt;/div&gt;
     // 匹配 p
     $('span').siblings()
@@ -68,7 +71,7 @@
 <div class="doc-part-box" id="next">
   <h2>next(selector)</h2>
   <p>查找所有匹配元素的后面一个同辈元素,不指定筛选时返回紧邻的后一个元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;p&gt;&lt;/p&gt;&lt;span&gt;1&lt;/span&gt;&lt;span&gt;2&lt;/span&gt;&lt;label&gt;&lt;/label&gt;&lt;/div&gt;
     // 匹配 span1
     $('p').next()
@@ -80,7 +83,8 @@
 <div class="doc-part-box" id="nextAll">
   <h2>nextAll(selector)</h2>
   <p>查找所有匹配元素之后所有的同辈元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
+
     &lt;div&gt;&lt;p&gt;&lt;/p&gt;&lt;span&gt;1&lt;/span&gt;&lt;span&gt;2&lt;/span&gt;&lt;label&gt;&lt;/label&gt;&lt;/div&gt;
     // 匹配 span1 span2 label
     $('p').nextAll()
@@ -90,7 +94,7 @@
 <div class="doc-part-box" id="prev">
   <h2>prev(selector)</h2>
   <p>查找所有匹配元素的紧邻的前面那一个同辈元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;p&gt;&lt;/p&gt;&lt;span&gt;1&lt;/span&gt;&lt;span&gt;2&lt;/span&gt;&lt;label&gt;&lt;/label&gt;&lt;/div&gt;
     // 匹配 span2
     $('label').prev()
@@ -100,7 +104,7 @@
 <div class="doc-part-box" id="prevAll">
   <h2>prevAll(selector)</h2>
   <p>查找所有匹配元素之后所有的同辈元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;p&gt;&lt;/p&gt;&lt;span&gt;1&lt;/span&gt;&lt;span&gt;2&lt;/span&gt;&lt;label&gt;&lt;/label&gt;&lt;/div&gt;
     // 匹配 span2 span1 p
     $('label').prevAll()
@@ -110,7 +114,7 @@
 <div class="doc-part-box" id="parent">
   <h2>parent(selector)</h2>
   <p>返回每个匹配元素的一个父元素或者祖先元素.不传参数时,返回父元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;p&gt;&lt;/p&gt;&lt;span&gt;1&lt;/span&gt;&lt;span&gt;2&lt;/span&gt;&lt;label&gt;&lt;/label&gt;&lt;/div&gt;
     // 匹配 div
     $('label').parent()
@@ -120,7 +124,7 @@
 <div class="doc-part-box" id="prop">
   <h2>prop(key, val)</h2>
   <p>设置每个匹配元素的属性或返回第一个元素的属性值.</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;p p1="aa"&gt;&lt;/p&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;
     // 返回 aa
     $('p').prop('p1')
@@ -132,7 +136,7 @@
 <div class="doc-part-box" id="val">
   <h2>val(val)</h2>
   <p>设置每个匹配元素的value属性或返回第一个元素的value属性值.主要用于input,textarea,select等表单元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
   &lt;input type="text" value="mirror" /&gt;
   // 返回 mirror
   $('input').val()
@@ -144,7 +148,7 @@
 <div class="doc-part-box" id="removeProp">
   <h2>removeProp(...key)</h2>
   <p>删除每个匹配的元素指定的属性.属性名一个或者多个.</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;span p1="aa" p2="bb" title="cc"&gt;&lt;/span&gt;
     // 删除属性 p1 p2
     $('span').removeProp("p1","p2");
@@ -154,7 +158,7 @@
 <div class="doc-part-box" id="addClass">
   <h2>addClass(...val)</h2>
   <p>为每个匹配的元素添加指定的类名</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;span p1="aa" p2="bb" title="cc"&gt;&lt;/span&gt;
     // 为span添加 primary btn 样式类
     $('span').addClass("primary","btn");
@@ -164,7 +168,7 @@
 <div class="doc-part-box" id="removeClass">
   <h2>removeClass(...val)</h2>
   <p>从所有匹配的元素中删除全部或者指定的类</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;span class="primary btn cc" p2="dd"&gt;&lt;/span&gt;
     // 删除样式primary btn
     $('span').removeClass("primary","btn");
@@ -174,7 +178,7 @@
 <div class="doc-part-box" id="hasClass">
   <h2>hasClass(val)</h2>
   <p>检查第一个匹配的元素是否含有指定的类</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;span class="primary btn cc" p2="dd"&gt;&lt;/span&gt;
     // 返回 true
     $('span').hasClass("primary");
@@ -184,7 +188,7 @@
 <div class="doc-part-box" id="text">
   <h2>text(val)</h2>
   <p>设置所有匹配的元素的innerText.无参数时,返回第一个元素的innerText内容</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;span class="primary btn cc" p2="dd"&gt;&lt;/span&gt;
     // 设置文本mirror space
     $('span').text("mirror space");
@@ -195,7 +199,7 @@
   <h2>html(val)</h2>
   <p>设置所有匹配的元素的innerHTML属性.如果html中,含有script时,会重新生成script标签再加入文档中.</p>
   <p>如果有外联的script,会ajax下载变成内联的.如此操作,当html加入到文档时,其中包含的script脚本会执行.</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;/div&gt;
     let html='&lt;p&gt;&lt;/p&gt;'
     // 给div设置html文本标签
@@ -206,7 +210,7 @@
 <div class="doc-part-box" id="append">
   <h2>append(...content)</h2>
   <p>向每个匹配元素内部追加内容.content是一个或者多个dom对象,或者DocumentFragment对象.</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;
     let p=document.createElement('p');
     // 给div里追加p元素,在span1后面
@@ -217,7 +221,7 @@
 <div class="doc-part-box" id="prepend">
   <h2>prepend(...content)</h2>
   <p>向每个匹配元素内部第一子节点前面加入内容.</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;
     let p=document.createElement('p');
     // 给div里前面插入p元素,在span1前面
@@ -228,7 +232,7 @@
 <div class="doc-part-box" id="before">
   <h2>before(...content)</h2>
   <p>向每个匹配元素的前面加元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;
     let p=document.createElement('p');
     // 在span前面插入p元素
@@ -239,7 +243,7 @@
 <div class="doc-part-box" id="after">
   <h2>after(...content)</h2>
   <p>向每个匹配元素的后面加元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;
     let p=document.createElement('p');
     // 在span后面插入p元素
@@ -250,7 +254,7 @@
 <div class="doc-part-box" id="remove">
   <h2>remove()</h2>
   <p>删除所有匹配的元素.被删除的元素要有个父元素.</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;
     // 删除span
     $('span').remove()
@@ -260,7 +264,7 @@
 <div class="doc-part-box" id="empty">
   <h2>empty()</h2>
   <p>清空所有匹配的元素的全部子元素</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     &lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;
     // 删除div的所有子元素
     $('div').empty()
@@ -271,7 +275,7 @@
   <h2>fragment(...content)</h2>
   <p>建立一个DocumentFragment文档片段对象,将传入的node或DocumentFragment对象添加到其中.</p>
   <p>$ 的静态方法, 这个就是调用document.createDocumentFragment()方法.</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     // 参数是node节点 或者 DocumentFragment对象,返回 DocumentFragment实例
     $.fragment(...content)
 
@@ -284,7 +288,7 @@
   <p>$ 的实例方法,类似于jquery.load()的功能.这里是使用XMLHttpRequest对象的get方法实现.不能跨域.</p>
   <p>如果返回失败了,丢出异常.如果成功:xhr.readyState === 4 && xhr.status === 200 则设置返回的html到容器元素里.</p>
   <p>这个主要用于,ajax请求html片段页面.不使用fetch的原因是,为了兼容打包APP.使用xhr时,可以从包本地取得html片段.</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     // 参数是url地址
     $('#div1').load('test.html');
     // 也支持js,扩展名js

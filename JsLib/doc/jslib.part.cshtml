@@ -10,7 +10,8 @@
 <div class="doc-part-box" id="jslib">
   <h2>全局对象</h2>
   <p>jslib,是一个类数组对象.也是模仿jQuery的,里面包含dom引用和操作方法.有length属性,表示回当前选中的dom个数.</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
+
     // 类数组对象,存放选择器选中的dom元素,还有操作方法,模仿jQuery对象
     function jslib(selector){}
 
@@ -26,7 +27,7 @@
 
 </pre>
   <p class="article-title">jslib对象实例方法</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     // 向jslib类数组添加元素
     $().push(dom)
 
@@ -41,7 +42,7 @@
     $().each(fn)
 </pre>
   <p class="article-title">获取dom对象</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     // 从匹配的dom元素中获取dom对象,使用索引
     // 取出第二个div
     let div = $('div')[1]
@@ -49,7 +50,7 @@
 </pre>
   <br />
   <p class="article-title">扩展jslib对象实例方法</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     // 为jslib对象添加实例方法 prototype上的方法.
     // json 一个方法名和函数值的json对像.方法名要用""号包起来.
     $.extend(json)

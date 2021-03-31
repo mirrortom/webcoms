@@ -30,7 +30,7 @@
   <script src="/mirrorui/mirrorui.js"></script>
   <div class="page">
     <div class="menu-box">
-      <nav class="sidemenu-box" id="main_menubox">
+      <m-sidemenu class="sidemenu-box" id="main_menubox">
 
         <ul class="sidemenu-group">
           <li>
@@ -83,7 +83,7 @@
           <li><a class="sidemenu-item" href="#string">string</a></li>
           <li><a class="sidemenu-item" href="#domstring">domString</a></li>
         </ul>
-      </nav>
+      </m-sidemenu>
     </div>
     <div class="content pd-15">
       <div id="about">
@@ -113,7 +113,7 @@
 
   <script>
     // 为主菜单绑定点击事件 点击后加上sidemenu-active类,标识为活动菜单
-    sidemenu('main_menubox');
+    document.getElementById('main_menubox').create();
 
     // chg font-size
     function chgfontsize(size) {

@@ -14,7 +14,8 @@
       <p>提交表单前,验证值的有效性.返回 true / false</p>
       <p>需要设置表单元素的vtype属性,一个或者多个,用逗号隔开.verrmsg是自定义提示语,和vtype对应,可以不设置.</p>
       <p>如果验证不通过,那么表单上会变色提示.</p>
-      <pre class="bg-gray">    
+      <pre class="bg-gray-lt">
+
     &lt;input class="input-text" name="title" type="text" value="" placeholder="请输入名字" <b>vtype="notnull" verrmsg="必填项"</b>&gt;
     let isCheck = $.formCheck(input);
     // true / false

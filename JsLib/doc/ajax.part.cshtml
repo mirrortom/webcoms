@@ -20,7 +20,7 @@
   <p><b class="bg-gray">initCfg</b><span class="mg-l-20">RequestInit ,fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证</span></p>
   <p><b class="bg-gray">string</b><span class="mg-l-20">string ,返回值类型 默认"json",可选"html"</span></p>
   <p><b class="bg-gray">返回</b><span class="mg-l-20">Promise ,fetch().then()返回的Promise对象</span></p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
   let para = { p1:'',p2:'' };
   $.post('https://www.api.io/test/post', para)
     // 这个data默认服务器返回的是json对象
@@ -42,7 +42,7 @@
   <p><b class="bg-gray">initCfg</b><span class="mg-l-20">RequestInit ,fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证</span></p>
   <p><b class="bg-gray">string</b><span class="mg-l-20">string ,resType 返回值类型 默认"html",可选"json"</span></p>
   <p><b class="bg-gray">返回</b><span class="mg-l-20">Promise ,fetch().then()返回的Promise对象</span></p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
   let para = { p1:'',p2:'' };
   $.get('https://www.api.io/test/get', para)
     // 这个html默认服务器返回的是html字符串
@@ -59,7 +59,7 @@
   <p class="article-title">$.postAsync(url, para, initCfg = null, resType = 'json')</p>
   <p>post请求,使用await方式.当res.ok==true时,默认返回fetch结果的json对象.</p>
   <p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.要获取异常,可以在try catch中使用本方法</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     try {
       let para = { p1:'',p2:'' };
       let json = await $.postAsync('https://www.api.io/test/get',para);
@@ -72,7 +72,7 @@
   <p class="article-title">$.getAsync(url, para, initCfg = null, resType = 'html')</p>
   <p>get请求,使用await方式.当res.ok==true时,默认返回fetch结果的text对象.</p>
   <p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.要获取异常,可以在try catch中使用本方法</p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     try {
       let html = await $.postAsync('https://www.api.io/test/get');
       console.log(html);

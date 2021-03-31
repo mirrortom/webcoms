@@ -27,7 +27,7 @@
   <p><b class="bg-gray">str</b><span class="mg-l-20">string ,要格式化的字符串,包含占位符{d}</span></p>
   <p><b class="bg-gray">...any</b><span class="mg-l-20">repstrs ,替换占位符的字符串数组</span></p>
   <p><b class="bg-gray">返回</b><span class="mg-l-20">string ,返回替换后字符串</span></p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     let str = 'my name is {0} from {1}';
     let nstr=$.format(str,'mirror','china');
     console.log(nstr);
@@ -42,7 +42,7 @@
   <p><b class="bg-gray">str</b><span class="mg-l-20">string ,要格式化的字符串,包含占位符${key}</span></p>
   <p><b class="bg-gray">json</b><span class="mg-l-20">any ,json对象,键为key</span></p>
   <p><b class="bg-gray">返回</b><span class="mg-l-20">string ,返回替换后字符串</span></p>
-  <pre class="bg-gray">
+  <pre class="bg-gray-lt">
     let json={name:'mirror',from:'china'};
     let str='my name is ${name} from ${from}';
     let nstr=$.dataBind(str,json);

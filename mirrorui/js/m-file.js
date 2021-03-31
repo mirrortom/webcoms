@@ -39,7 +39,10 @@
         get inputFile() {
             return this.querySelector('input[type=file]');
         }
-
+        // 获取files文件数组
+        get files() {
+            return this.querySelector('input[type=file]').files;
+        }
         // =======
         // method
         // =======
