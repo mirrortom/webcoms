@@ -101,18 +101,32 @@
   // pid不能重复,每个菜单一个pid,可以在绑定菜单点击方法时,统一分配.
   let cacheDoms = cpg.load(pid, title);
 
-  // 事件: <b>cachepage.onNewPageLoad</b>
-  // 载入新页面后执行 (pid:新页面的id,title:新页面标题,contDom:页面容器)=>{}
-  cachepage.onNewPageLoad = (pid,title,contDom)=>{
+  // 事件: <b>cachepage.onNewPageLoad(handler)</b>
+  // 载入新页面后执行 (pid:新页面的id, title:新页面标题, contDom:页面容器)=>{}
+  cachepage.onNewPageLoad((pid, title, contDom)=>{
     // 在这个事件里实现加载新页面的功能
     contDom.innerHTML = pageHtml;
-  }
+  });
 
-  // 事件: <b>self.onPageChanged</b>
+  // 事件: <b>cachepage.onPageBeforeChange(handler)</b>
+  // 页面切换前执行 (pid:切换页面的id)=>{}
+  cachepage.onPageBeforeChange((pid) => {
+      // 点击选项卡切换页面时执行,这时将要切换的页面还没有显示
+      console.log('即将切换到的页面id是: ' + pid);
+  });
+
+  // 事件: <b>cachepage.onPageChanged(handler)</b>
   // 切换页面后执行 (pid:切换页面的id)=>{}
-  self.onPageChanged = (pid) => {
+  cachepage.onPageChanged = ((pid) => {
     console.log('切换到的页面id是: ' + pid);
-  }
+  });
+
+  // 事件: <b>cachepage.onPageClosed(handler)</b>
+  // 页面关闭后执行 (pid:关闭页面的id)=>{}
+  cachepage.onPageChanged = ((pid) => {
+    console.log('关闭的页面id是: ' + pid);
+  });
+
 </pre>
   <br />
   <p># 经典布局结构</p>
@@ -142,14 +156,14 @@
       // cachepage
       let cpg = window.ns.cachepage(tabsDom, contDom);
       // 载入新页面后执行 (pid:新页面的id)=>{}
-      cpg.onNewPageLoad = (pid, title,_contDom) => {
+      cpg.onNewPageLoad((pid, title, _contDom) => {
         _contDom.innerHTML = '';
-        _contDom.innerHTML = `<h1>${title}</h1>`;
-      };
+        _contDom.innerHTML = `<h1 class="mg-30">${title}</h1>`;
+      });
       // 页面切换后执行 (pid:切换页面的id)=>{}
-      cpg.onPageChanged = (pid) => {
+      cpg.onPageChanged((pid) => {
         console.log('切换到的页面id是: ' + pid);
-      };
+      });
 
       // 左侧菜单绑定事件
       let menus = ['MainPage', '人员管理', '部门管理', '订单管理', '资料管理', '报表管理', '信息查询', '日志查询', '财务会计', '权限设置', '系统设置'];

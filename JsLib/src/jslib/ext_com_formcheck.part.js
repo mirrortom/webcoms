@@ -37,18 +37,18 @@
     const inputCls = 'formcheck-err',
         errmsgCls = 'formcheck-errmsg';
     //
-    let _$ = win.lib;
+    const $ = win.ns.jslib;
     /**
      * 清除表单元素的错误样式和提示语.
      * @param {HTMLElement|any} elem input,textarea元素
      */
-    _$.formClear = (elem) => {
-        if (_$(elem).hasClass(inputCls)) {
-            _$(elem).next('.' + errmsgCls).remove();
+    $.formClear = (elem) => {
+        if ($(elem).hasClass(inputCls)) {
+            $(elem).next('.' + errmsgCls).remove();
             elem.style.backgroundColor = null;
             elem.parentNode.style.position = null;
         }
-        elem.removeEventListener('focus', _$.formClear);
+        elem.removeEventListener('focus', $.formClear);
     };
     // 
     /**
@@ -56,33 +56,33 @@
      * @param {HTMLElement|any} elem input,textarea元素
      * @param {string} msg 提示语
      */
-    _$.formAlert = (elem, msg) => {
+    $.formAlert = (elem, msg) => {
         let bgColor = '#ffebec', fgColor = '#e6393d';
         // input加背景色
-        _$(elem).addClass(inputCls);
+        $(elem).addClass(inputCls);
         elem.style.backgroundColor = bgColor;
         // input父级相对定位
         elem.parentNode.style.position = 'relative';
         // 显示提示语的span.其长度,背景色与input相同.显示在input正下方,对齐input左边
-        let errmsg = _$('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
-        errmsg.style.cssText = _$.format(
+        let errmsg = $('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
+        errmsg.style.cssText = $.format(
             'position:absolute;top:{0}px;left:{1}px;padding:3px;background-color:{2};color:{3};width:{4}px',
             elem.offsetTop + elem.offsetHeight, elem.offsetLeft, bgColor, fgColor, elem.offsetWidth);
-        _$(elem).after(errmsg);
+        $(elem).after(errmsg);
         // 焦点事件
-        elem.addEventListener('focus', () => { _$.formClear(elem) });
+        elem.addEventListener('focus', () => { $.formClear(elem) });
     };
     /**
      * 验证表单元素的值
      * @param {HTMLElement|any} elem input,textarea元素
      * @returns {boolean} t/f 
      */
-    _$.formCheck = (elem) => {
+    $.formCheck = (elem) => {
         // 1.验证准备
         // 获取验证类型和错误提示语.元素上的vtype属性值(多个验证用|隔开).未找到或者类型错误则退出
         let vtypeStr = elem.getAttribute('vtype');
         // 没有在要验证的元素上设置vtype属性,忽略并通过
-        if (_$.isNullOrWhiteSpace(vtypeStr))
+        if ($.isNullOrWhiteSpace(vtypeStr))
             return true;
 
         //
@@ -96,10 +96,10 @@
         // 自定义的错误提示信息,多个也是|号分开.与vtype索引对应
         let validerrmsg = [],
             verrmsgStr = elem.getAttribute('verrmsg');
-        if (!_$.isNullOrWhiteSpace(verrmsgStr))
+        if (!$.isNullOrWhiteSpace(verrmsgStr))
             validerrmsg = verrmsgStr.split("|");
         // 验证前清除旧的提示语span(如果有)
-        _$.formClear(elem);
+        $.formClear(elem);
         // 2.开始验证
         for (var n = 0, nlen = validtype.length; n < nlen; n++) {
             // 执行验证的函数名字
@@ -109,25 +109,25 @@
             // 长度验证参数来自input上的maxlength,minlength属性值
             if (validtype[n] === 'minlen') {
                 let minlen = elem.getAttribute('minlength');
-                isValid = !_$[vfunname](elem.value, minlen);
+                isValid = !$[vfunname](elem.value, minlen);
             }
             else if (validtype[n] === 'maxlen') {
                 let maxlen = elem.getAttribute('maxlength');
-                isValid = !_$[vfunname](elem.value, maxlen);
+                isValid = !$[vfunname](elem.value, maxlen);
             }
             else if (validtype[n] === 'minnum') {
                 let minnum = elem.getAttribute('minnum');
-                isValid = !_$[vfunname](elem.value, minnum);
+                isValid = !$[vfunname](elem.value, minnum);
             }
             else if (validtype[n] === 'maxnum') {
                 let maxnum = elem.getAttribute('maxnum');
-                isValid = !_$[vfunname](elem.value, maxnum);
+                isValid = !$[vfunname](elem.value, maxnum);
             }
             else {
-                isValid = _$[vfunname](elem.value);
+                isValid = $[vfunname](elem.value);
             }
             if (isValid != true) {
-                _$.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
+                $.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
                 return false;
             }
         }
@@ -140,7 +140,7 @@
      * @param {bool} notEmptyVal 设为true时,input的值长度为空时,不加入json
      * @returns {any} json对象
      */
-    _$.formJson = (parent, notEmptyVal) => {
+    $.formJson = (parent, notEmptyVal) => {
         let nodelist = parent.querySelectorAll("input[name],select[name],textarea[name]");
         let json = {};
         for (var i = 0, len = nodelist.length; i < len; i++) {

@@ -1795,7 +1795,8 @@ p {
 }
 .sidemenu-item.active {
   font-weight: 600;
-  background-color: var(--color-black-opa50);
+  background-color: var(--color-black-lt);
+  color: var(--color-white);
 }
 .sidemenu-label {
   display: block;

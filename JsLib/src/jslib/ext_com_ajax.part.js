@@ -6,7 +6,8 @@
 //          https://www.cnblogs.com/libin-1/p/6853677.html
 // ====================================================================
 ((win) => {
-    let _$ = win.lib;
+    // help
+    const $ = win.ns.jslib;
     // 初始化post请求
     let initPost = (para, initCfg) => {
         let formData = new FormData();
@@ -26,7 +27,7 @@
         return cfg;
     }
     // 初始化get请求
-    let initGet = (url,para) => {
+    let initGet = (url, para) => {
         let urlpara = [];
         if (para) {
             if (para instanceof FormData) {
@@ -56,7 +57,7 @@
      * @param {string} resType 返回值类型 默认"json",可选"html"
      * @returns {any} 返回fetch的res.json()函数返回的json结果
      */
-    _$.postAsync = async (url, para, initCfg = null, resType = 'json') => {
+    $.postAsync = async (url, para, initCfg = null, resType = 'json') => {
         let cfg = initPost(para, initCfg);
         //
         let res = await fetch(url, cfg);
@@ -77,7 +78,7 @@
      * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {any} 返回fetch的res.text()函数返回的文本内容结果
      */
-    _$.getAsync = async (url, para, initCfg = null, resType = 'html') => {
+    $.getAsync = async (url, para, initCfg = null, resType = 'html') => {
         let eurl = initGet(url, para);
         //
         let res = await fetch(eurl, initCfg);
@@ -99,7 +100,7 @@
      * @param {string} resType 返回值类型 默认"json",可选"html"
      * @returns {Promise} fetch().then()返回的Promise对象
      */
-    _$.post = (url, para, initCfg = null, resType = 'json') => {
+    $.post = (url, para, initCfg = null, resType = 'json') => {
         let cfg = initPost(para, initCfg);
         //
         return fetch(url, cfg)
@@ -120,8 +121,8 @@
      * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {Promise} fetch()方法返回的Promise对象
      */
-    _$.get = (url, para, initCfg = null, resType = 'html') => {
-        let eurl = initGet(url,para);
+    $.get = (url, para, initCfg = null, resType = 'html') => {
+        let eurl = initGet(url, para);
         return fetch(eurl, initCfg)
             .then(res => {
                 if (res.ok)

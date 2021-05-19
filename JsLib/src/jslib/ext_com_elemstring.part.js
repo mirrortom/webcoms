@@ -2,7 +2,8 @@
 // 生成dom元素字符串,主要用于拼接html字符串的情况
 // ====================================================================
 ((win) => {
-
+    // help
+    const $ = win.ns.jslib;
     let elems = ['div', 'span', 'a', 'p', 'table', 'tr', 'th', 'td', 'select', 'option', 'ul', 'li', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     let domStr = {};
     for (var i = 0, len = elems.length; i < len; i++) {
@@ -34,5 +35,5 @@
         return `<${elemN}${cls}${attrs}>${text}</${elemN}>`;
     }
     //
-    win.lib.dom = domStr;
+    $.dom = domStr;
 })(window);

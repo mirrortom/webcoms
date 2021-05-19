@@ -995,36 +995,49 @@ contDom:
     };
 
     // 按钮事件: 点击选项卡x按钮,关闭它
-    let closeTab = (cache, tabDom, tabsDom, contDom) => {
+    let closeTab = (cache, tabDom, tabsDom, contDom, events) => {
         $(tabDom).find('.tabsbox-tabclose')[0].onclick = (event) => {
             event.stopPropagation();
+            let cacheId = $(tabDom).prop('val');
             // (情形1)关闭的是最后一个tab页,删除tab,清空缓存
             if (Object.getOwnPropertyNames(cache).length == 1) {
                 // 删除选项卡,删除缓存,清空显示容器
-                contDom.innerHTML = '';
-                cache = {};
                 $(tabDom).remove();
+                $(contDom).empty();
+                for (let k in cache) {
+                    delete cache[k];
+                }
+                if (typeof events.pageClosed == 'function')
+                    events.pageClosed(cacheId);
                 return;
             }
             // (情形2)关闭时,多于1个tab页时
             // 清除对应缓存,
-            let cacheId = $(tabDom).prop('val');
             delete cache[cacheId];
             // 如果关闭的是活动页,将cache中最后一个id,对应的选项卡激活,对应DOM载入显示容器
+            // 这种情况下要触发切换选项卡事件
             if ($(tabDom).hasClass('active')) {
                 let cacheId = Object.getOwnPropertyNames(cache).pop();
+                // 切换前事件发生
+                if (typeof events.pageBeforeChange == 'function')
+                    events.pageBeforeChange(cacheId);
                 let atab = activeTab(tabsDom, cacheId);
                 adjustPositionTab(tabsDom, atab)
                 $(contDom).html(cache[cacheId]);
                 cache[cacheId] = null;
+                // 切换后事件发生
+                if (typeof events.pageChanged == 'function')
+                    events.pageChanged(cacheId);
             }
             // 删除tab,
             $(tabDom).remove();
+            if (typeof events.pageClosed == 'function')
+                events.pageClosed(cacheId);
         };
     };
 
     // 按钮事件: 选项卡点击
-    let selectedTab = (cache, tabDom, tabsDom, contDom, onPageChanged,pid) => {
+    let selectedTab = (cache, tabDom, tabsDom, contDom, events) => {
         tabDom.onclick = () => {
             // 点击选项卡时,位置会相应调整,确保点击的选项卡完全显示在父级的可见区域.
             adjustPositionTab(tabsDom, tabDom);
@@ -1034,24 +1047,28 @@ contDom:
                 return;
 
             // (情形2)非活动页面,即切换行为
+            let cacheId = $(tabDom).prop('val');
+            // 执行切换前方法
+            if (typeof events.pageBeforeChange === 'function') {
+                events.pageBeforeChange(cacheId);
+            }
             // 缓存当前DOM
             cacheActiveTab(cache, contDom);
-            // 去掉当前活动的选项卡活动状态
+            // 去掉切换前的活动的选项卡活动状态
             clearActivedTab(tabsDom);
+            $(tabDom).addClass('active');
             // 激活点击的选项卡,获取其缓存页加载到显示容器
-            let cacheId = $(tabDom).addClass('active').prop('val');
             $(contDom).html(cache[cacheId]);
             cache[cacheId] = null;
-            // 执行切换方法
-            if (typeof onPageChanged === 'function') {
-                onPageChanged(pid);
-            }
-            //console.log(cache);
+            // 执行切换后方法
+            if (typeof events.pageChanged == 'function')
+                events.pageChanged(cacheId);
         };
+        //console.log(cache);
     };
 
     // 选项卡条功能事件:
-    let tabsBtnEventBind = (cache, tabsDom, contDom) => {
+    let tabsBtnEventBind = (cache, tabsDom, contDom, events) => {
         // 向左滚动按钮
         $(tabsDom).find('.tabsbox-left')[0].onclick = () => {
             scrollerTabs('left', tabsDom);
@@ -1074,6 +1091,8 @@ contDom:
             $(contDom).empty();
             for (let k in cache) {
                 delete cache[k];
+                if (typeof events.pageClosed == 'function')
+                    events.pageClosed(k);
             }
         };
         // 关闭除当前外所有选项卡
@@ -1086,21 +1105,23 @@ contDom:
                     if (cache[prop] === null)
                         continue;
                     delete cache[prop];
+                    if (typeof events.pageClosed == 'function')
+                        events.pageClosed(k);
                 }
             }
         };
     };
 
     // 新增选项卡
-    let addTab = (cache, pid, title, tabsDom, contDom, onPageChanged) => {
+    let addTab = (cache, pid, title, tabsDom, contDom, events) => {
         // 去掉当前活动的选项卡
         clearActivedTab(tabsDom);
         let tabdom = $('<label>').addClass('tabsbox-tab', 'active').prop({ 'title': title, 'val': pid })
             .html(title).append($('<a>').addClass('tabsbox-tabclose').prop('title', '关闭').text('×')[0])[0];
         // 绑定X关闭事件
-        closeTab(cache, tabdom, tabsDom, contDom);
+        closeTab(cache, tabdom, tabsDom, contDom, events);
         // 绑定点击事件
-        selectedTab(cache, tabdom, tabsDom, contDom, onPageChanged,pid);
+        selectedTab(cache, tabdom, tabsDom, contDom, events);
         // 添加到选项卡容器
         $(tabsDom).find('.tabsbox-nav').append(tabdom);
     };
@@ -1163,9 +1184,9 @@ contDom:
     };
 
     // 加载新的页面
-    let newPageToShow = (cache, pid, title, tabsDom, contDom, onPageChanged) => {
+    let newPageToShow = (cache, pid, title, tabsDom, contDom, events) => {
         // 增加选项卡
-        addTab(cache, pid, title, tabsDom, contDom, onPageChanged);
+        addTab(cache, pid, title, tabsDom, contDom, events);
         // 选项卡框滚动条移动到最后
         scrollerTabs(1, tabsDom);
         // 当增加的是第1个选项卡时,没有活动页面,不需要缓存
@@ -1175,7 +1196,6 @@ contDom:
         // 添加到缓存.当前活动页缓存约定为null,不缓存
         cache[pid] = null;
     };
-
 
     // ------------------------------------------------------
     // 初始化cachepage实例(工厂函数)
@@ -1194,14 +1214,27 @@ contDom:
         let _contDom = contDom;
         // 缓存器,{id1:createDocumentFragment片断,id2:null},值为null的表示当前活动页,只能有一个
         let cache = {};
-
+        // 事件
+        let events = {}
         // ------------
         // Event
         // ------------
-        // 载入新页面后执行 (pid:新页面的id,title:新页面标题)=>{}
-        self.onNewPageLoad = null;
+        // 载入新页面后执行 (pid:新页面的id,title:新页面标题,contDom:页面容器)=>{}
+        self.onNewPageLoad = (handler) => {
+            events.newPageLoad = handler;
+        }
+        // 页面切换前执行 (pid:切换页面的id)=>{}
+        self.onPageBeforeChange = (handler) => {
+            events.pageBeforeChange = handler;
+        }
         // 页面切换后执行 (pid:切换页面的id)=>{}
-        self.onPageChanged = null;
+        self.onPageChanged = (handler) => {
+            events.pageChanged = handler;
+        }
+        // 页面关闭后执行(pid:关闭页面的id)=>{}
+        self.onPageClosed = (handler) => {
+            events.pageClosed = handler;
+        }
 
         // 生成选项卡工具dom
         createTabDom(_tabsDom);
@@ -1209,17 +1242,14 @@ contDom:
         // ------------
         // bind Event
         // ------------
-        tabsBtnEventBind(cache, _tabsDom, _contDom);
+        tabsBtnEventBind(cache, _tabsDom, _contDom, events);
 
         // ------------
         // Mehtod
         // ------------
         //====================================================================================
-        // 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态.在菜单的点击事件上执行此方法.
-        // 该方法第3个参数onload(loadType)是一个方法,可以根据loadType参数值判断是否要载入新的页面
-        // loadType=1: 菜单是当前页面
-        // loadType=2: 菜单之前载入过(在缓存里)
-        // loadType=3: 是新载入菜单,其对应的页面没有载入过,需要做载入新页面的操作
+        // 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态.
+        // 在菜单的点击事件上执行此方法.
         //====================================================================================
         // {pid:菜单唯一标识,title:选项卡标题},点击左侧菜单时,调用此方法
         self.load = (pid, title) => {
@@ -1232,16 +1262,18 @@ contDom:
             }
             // (情形2)激活选项卡.pid已添加过,到缓存中取出页面显示在contDom中,激活对应选项卡.
             if (cache[pid]) {
+                if (typeof events.pageBeforeChange === 'function')
+                    events.pageBeforeChange(pid);
                 cachePageToShow(cache, pid, _tabsDom, _contDom);
-                if (typeof self.onPageChanged === 'function')
-                    self.onPageChanged(pid);
+                if (typeof events.pageChanged === 'function')
+                    events.pageChanged(pid);
                 return;
             }
             // (情形3)新增加页面选项卡并且激活.(添加新的pid)
-            newPageToShow(cache, pid, title, _tabsDom, _contDom, self.onPageChanged);
+            newPageToShow(cache, pid, title, _tabsDom, _contDom, events);
             // 执行新增事件
-            if (typeof self.onNewPageLoad === 'function')
-                self.onNewPageLoad(pid, title, _contDom);
+            if (typeof events.newPageLoad === 'function')
+                events.newPageLoad(pid, title, _contDom);
         };
 
         //

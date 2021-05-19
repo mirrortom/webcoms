@@ -72,18 +72,16 @@
       // 初始化cachepage
       const cpg = cachepage(document.getElementById('cachepage_nav'),
         contdom);
-
+      cpg.onNewPageLoad((pid, title, contDom) => {
+        contDom.innerHTML = '';
+        contDom.innerHTML = `<div class="mg-t-50 mg-l-50"><h1 class="text-primary">${title}</h1><p>pid: ${pid}</p></div>`;
+      });
 
       // 初始化sidemenu
       let sm1 = document.getElementById('sidemenu1');
       sm1.create(menuJson, (menuItem, index) => {
         let menuId = '_' + index;
-        cpg.load(menuId, menuItem.innerText, (loadType) => {
-          if (loadType == 3) {
-            contdom.innerHTML = '';
-            contdom.innerHTML = `<h1 class="text-primary mg-t-50 mg-l-50">${menuItem.innerText}</h1>`;
-          }
-        });
+        cpg.load(menuId, menuItem.innerText);
       });
 
     })(window);

@@ -177,8 +177,8 @@ let _siblings = (elem, dir) => {
  * 解析html字符串,变成DOM元素后,装入fragment对象.可以在onReady方法上使用这个fragment对象.
  * 由于innerhtml中包含的script不能执行,分析html字符串时,对script标签会重新生成.外联的script会发请求取js,然后变成内联的.
  * 最后生成一个包含解析后的html元素的DocumentFragment对象.
- * @param {string|any} val html字符串,DocumentFragment对象或者node对象,nodelist对象
  * @param {any} onReady 解析完成后执行
+ * @param {string|any} val html字符串,DocumentFragment对象或者node对象,nodelist对象
  */
 let _parseHtml = (val, onReady) => {
     let framgSource;
@@ -541,12 +541,12 @@ factory.extend({
     },
     /**
      * 向每个匹配元素内部追加内容(原生: append())
-     * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+     * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    'append': function (...content) {
+    'append': function (val) {
         this.each((dom) => {
-            _parseHtml(content, (fragment) => {
+            _parseHtml(val, (fragment) => {
                 dom.append(fragment);
             });
         });
@@ -554,12 +554,12 @@ factory.extend({
     },
     /**
      * 向每个匹配元素内部第一子节点前面加入内容(原生: prepend())
-     * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+     * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    'prepend': function (...content) {
+    'prepend': function (val) {
         this.each((dom) => {
-            _parseHtml(content, (fragment) => {
+            _parseHtml(val, (fragment) => {
                 dom.prepend(fragment);
             });
         });
@@ -567,12 +567,12 @@ factory.extend({
     },
     /**
      * 向每个匹配元素的前面加元素(原生: insertBefore())
-     * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+     * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    'before': function (...content) {
+    'before': function (val) {
         this.each((dom) => {
-            _parseHtml(content, (fragment) => {
+            _parseHtml(val, (fragment) => {
                 dom.parentNode.insertBefore(fragment, dom);
             });
         });
@@ -580,12 +580,12 @@ factory.extend({
     },
     /**
      * 向每个匹配元素的后面加元素(原生: insertBefore())
-     * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+     * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    'after': function (...content) {
+    'after': function (...val) {
         this.each((dom) => {
-            _parseHtml(content, (fragment) => {
+            _parseHtml(val, (fragment) => {
                 dom.parentNode.insertBefore(fragment, dom.nextSibling);
             });
         });
@@ -1007,18 +1007,18 @@ if (!win.$)
     const inputCls = 'formcheck-err',
         errmsgCls = 'formcheck-errmsg';
     //
-    let _$ = win.lib;
+    const $ = win.ns.jslib;
     /**
      * 清除表单元素的错误样式和提示语.
      * @param {HTMLElement|any} elem input,textarea元素
      */
-    _$.formClear = (elem) => {
-        if (_$(elem).hasClass(inputCls)) {
-            _$(elem).next('.' + errmsgCls).remove();
+    $.formClear = (elem) => {
+        if ($(elem).hasClass(inputCls)) {
+            $(elem).next('.' + errmsgCls).remove();
             elem.style.backgroundColor = null;
             elem.parentNode.style.position = null;
         }
-        elem.removeEventListener('focus', _$.formClear);
+        elem.removeEventListener('focus', $.formClear);
     };
     // 
     /**
@@ -1026,33 +1026,33 @@ if (!win.$)
      * @param {HTMLElement|any} elem input,textarea元素
      * @param {string} msg 提示语
      */
-    _$.formAlert = (elem, msg) => {
+    $.formAlert = (elem, msg) => {
         let bgColor = '#ffebec', fgColor = '#e6393d';
         // input加背景色
-        _$(elem).addClass(inputCls);
+        $(elem).addClass(inputCls);
         elem.style.backgroundColor = bgColor;
         // input父级相对定位
         elem.parentNode.style.position = 'relative';
         // 显示提示语的span.其长度,背景色与input相同.显示在input正下方,对齐input左边
-        let errmsg = _$('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
-        errmsg.style.cssText = _$.format(
+        let errmsg = $('<span>').addClass(errmsgCls).text('⛔ ' + msg)[0];
+        errmsg.style.cssText = $.format(
             'position:absolute;top:{0}px;left:{1}px;padding:3px;background-color:{2};color:{3};width:{4}px',
             elem.offsetTop + elem.offsetHeight, elem.offsetLeft, bgColor, fgColor, elem.offsetWidth);
-        _$(elem).after(errmsg);
+        $(elem).after(errmsg);
         // 焦点事件
-        elem.addEventListener('focus', () => { _$.formClear(elem) });
+        elem.addEventListener('focus', () => { $.formClear(elem) });
     };
     /**
      * 验证表单元素的值
      * @param {HTMLElement|any} elem input,textarea元素
      * @returns {boolean} t/f 
      */
-    _$.formCheck = (elem) => {
+    $.formCheck = (elem) => {
         // 1.验证准备
         // 获取验证类型和错误提示语.元素上的vtype属性值(多个验证用|隔开).未找到或者类型错误则退出
         let vtypeStr = elem.getAttribute('vtype');
         // 没有在要验证的元素上设置vtype属性,忽略并通过
-        if (_$.isNullOrWhiteSpace(vtypeStr))
+        if ($.isNullOrWhiteSpace(vtypeStr))
             return true;
 
         //
@@ -1066,10 +1066,10 @@ if (!win.$)
         // 自定义的错误提示信息,多个也是|号分开.与vtype索引对应
         let validerrmsg = [],
             verrmsgStr = elem.getAttribute('verrmsg');
-        if (!_$.isNullOrWhiteSpace(verrmsgStr))
+        if (!$.isNullOrWhiteSpace(verrmsgStr))
             validerrmsg = verrmsgStr.split("|");
         // 验证前清除旧的提示语span(如果有)
-        _$.formClear(elem);
+        $.formClear(elem);
         // 2.开始验证
         for (var n = 0, nlen = validtype.length; n < nlen; n++) {
             // 执行验证的函数名字
@@ -1079,25 +1079,25 @@ if (!win.$)
             // 长度验证参数来自input上的maxlength,minlength属性值
             if (validtype[n] === 'minlen') {
                 let minlen = elem.getAttribute('minlength');
-                isValid = !_$[vfunname](elem.value, minlen);
+                isValid = !$[vfunname](elem.value, minlen);
             }
             else if (validtype[n] === 'maxlen') {
                 let maxlen = elem.getAttribute('maxlength');
-                isValid = !_$[vfunname](elem.value, maxlen);
+                isValid = !$[vfunname](elem.value, maxlen);
             }
             else if (validtype[n] === 'minnum') {
                 let minnum = elem.getAttribute('minnum');
-                isValid = !_$[vfunname](elem.value, minnum);
+                isValid = !$[vfunname](elem.value, minnum);
             }
             else if (validtype[n] === 'maxnum') {
                 let maxnum = elem.getAttribute('maxnum');
-                isValid = !_$[vfunname](elem.value, maxnum);
+                isValid = !$[vfunname](elem.value, maxnum);
             }
             else {
-                isValid = _$[vfunname](elem.value);
+                isValid = $[vfunname](elem.value);
             }
             if (isValid != true) {
-                _$.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
+                $.formAlert(elem, validerrmsg[n] || 'validation failed: ' + validtype[n]);
                 return false;
             }
         }
@@ -1110,7 +1110,7 @@ if (!win.$)
      * @param {bool} notEmptyVal 设为true时,input的值长度为空时,不加入json
      * @returns {any} json对象
      */
-    _$.formJson = (parent, notEmptyVal) => {
+    $.formJson = (parent, notEmptyVal) => {
         let nodelist = parent.querySelectorAll("input[name],select[name],textarea[name]");
         let json = {};
         for (var i = 0, len = nodelist.length; i < len; i++) {
@@ -1143,7 +1143,8 @@ if (!win.$)
 //          https://www.cnblogs.com/libin-1/p/6853677.html
 // ====================================================================
 ((win) => {
-    let _$ = win.lib;
+    // help
+    const $ = win.ns.jslib;
     // 初始化post请求
     let initPost = (para, initCfg) => {
         let formData = new FormData();
@@ -1163,7 +1164,7 @@ if (!win.$)
         return cfg;
     }
     // 初始化get请求
-    let initGet = (url,para) => {
+    let initGet = (url, para) => {
         let urlpara = [];
         if (para) {
             if (para instanceof FormData) {
@@ -1193,7 +1194,7 @@ if (!win.$)
      * @param {string} resType 返回值类型 默认"json",可选"html"
      * @returns {any} 返回fetch的res.json()函数返回的json结果
      */
-    _$.postAsync = async (url, para, initCfg = null, resType = 'json') => {
+    $.postAsync = async (url, para, initCfg = null, resType = 'json') => {
         let cfg = initPost(para, initCfg);
         //
         let res = await fetch(url, cfg);
@@ -1214,7 +1215,7 @@ if (!win.$)
      * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {any} 返回fetch的res.text()函数返回的文本内容结果
      */
-    _$.getAsync = async (url, para, initCfg = null, resType = 'html') => {
+    $.getAsync = async (url, para, initCfg = null, resType = 'html') => {
         let eurl = initGet(url, para);
         //
         let res = await fetch(eurl, initCfg);
@@ -1236,7 +1237,7 @@ if (!win.$)
      * @param {string} resType 返回值类型 默认"json",可选"html"
      * @returns {Promise} fetch().then()返回的Promise对象
      */
-    _$.post = (url, para, initCfg = null, resType = 'json') => {
+    $.post = (url, para, initCfg = null, resType = 'json') => {
         let cfg = initPost(para, initCfg);
         //
         return fetch(url, cfg)
@@ -1257,8 +1258,8 @@ if (!win.$)
      * @param {string} resType 返回值类型 默认"html",可选"json"
      * @returns {Promise} fetch()方法返回的Promise对象
      */
-    _$.get = (url, para, initCfg = null, resType = 'html') => {
-        let eurl = initGet(url,para);
+    $.get = (url, para, initCfg = null, resType = 'html') => {
+        let eurl = initGet(url, para);
         return fetch(eurl, initCfg)
             .then(res => {
                 if (res.ok)
@@ -1272,7 +1273,8 @@ if (!win.$)
 // 生成dom元素字符串,主要用于拼接html字符串的情况
 // ====================================================================
 ((win) => {
-
+    // help
+    const $ = win.ns.jslib;
     let elems = ['div', 'span', 'a', 'p', 'table', 'tr', 'th', 'td', 'select', 'option', 'ul', 'li', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     let domStr = {};
     for (var i = 0, len = elems.length; i < len; i++) {
@@ -1304,5 +1306,5 @@ if (!win.$)
         return `<${elemN}${cls}${attrs}>${text}</${elemN}>`;
     }
     //
-    win.lib.dom = domStr;
+    $.dom = domStr;
 })(window);

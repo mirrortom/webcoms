@@ -56,8 +56,8 @@ let _siblings = (elem, dir) => {
  * 解析html字符串,变成DOM元素后,装入fragment对象.可以在onReady方法上使用这个fragment对象.
  * 由于innerhtml中包含的script不能执行,分析html字符串时,对script标签会重新生成.外联的script会发请求取js,然后变成内联的.
  * 最后生成一个包含解析后的html元素的DocumentFragment对象.
- * @param {string|any} val html字符串,DocumentFragment对象或者node对象,nodelist对象
  * @param {any} onReady 解析完成后执行
+ * @param {string|any} val html字符串,DocumentFragment对象或者node对象,nodelist对象
  */
 let _parseHtml = (val, onReady) => {
     let framgSource;
@@ -420,12 +420,12 @@ factory.extend({
     },
     /**
      * 向每个匹配元素内部追加内容(原生: append())
-     * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+     * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    'append': function (...content) {
+    'append': function (val) {
         this.each((dom) => {
-            _parseHtml(content, (fragment) => {
+            _parseHtml(val, (fragment) => {
                 dom.append(fragment);
             });
         });
@@ -433,12 +433,12 @@ factory.extend({
     },
     /**
      * 向每个匹配元素内部第一子节点前面加入内容(原生: prepend())
-     * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+     * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    'prepend': function (...content) {
+    'prepend': function (val) {
         this.each((dom) => {
-            _parseHtml(content, (fragment) => {
+            _parseHtml(val, (fragment) => {
                 dom.prepend(fragment);
             });
         });
@@ -446,12 +446,12 @@ factory.extend({
     },
     /**
      * 向每个匹配元素的前面加元素(原生: insertBefore())
-     * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+     * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    'before': function (...content) {
+    'before': function (val) {
         this.each((dom) => {
-            _parseHtml(content, (fragment) => {
+            _parseHtml(val, (fragment) => {
                 dom.parentNode.insertBefore(fragment, dom);
             });
         });
@@ -459,12 +459,12 @@ factory.extend({
     },
     /**
      * 向每个匹配元素的后面加元素(原生: insertBefore())
-     * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+     * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    'after': function (...content) {
+    'after': function (...val) {
         this.each((dom) => {
-            _parseHtml(content, (fragment) => {
+            _parseHtml(val, (fragment) => {
                 dom.parentNode.insertBefore(fragment, dom.nextSibling);
             });
         });
