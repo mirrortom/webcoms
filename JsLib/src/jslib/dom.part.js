@@ -462,7 +462,7 @@ factory.extend({
      * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
      * @returns {jslib} 返回this
      */
-    'after': function (...val) {
+    'after': function (val) {
         this.each((dom) => {
             _parseHtml(val, (fragment) => {
                 dom.parentNode.insertBefore(fragment, dom.nextSibling);

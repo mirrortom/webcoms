@@ -525,13 +525,13 @@
             return this;
         },
         /**
-         * 向每个匹配元素内部追加内容(原生: append())
-         * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
-         * @returns {jslib} 返回this
-         */
-        'append': function (...content) {
+     * 向每个匹配元素内部追加内容(原生: append())
+     * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
+     * @returns {jslib} 返回this
+     */
+        'append': function (val) {
             this.each((dom) => {
-                _parseHtml(content, (fragment) => {
+                _parseHtml(val, (fragment) => {
                     dom.append(fragment);
                 });
             });
@@ -539,12 +539,12 @@
         },
         /**
          * 向每个匹配元素内部第一子节点前面加入内容(原生: prepend())
-         * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+         * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
          * @returns {jslib} 返回this
          */
-        'prepend': function (...content) {
+        'prepend': function (val) {
             this.each((dom) => {
-                _parseHtml(content, (fragment) => {
+                _parseHtml(val, (fragment) => {
                     dom.prepend(fragment);
                 });
             });
@@ -552,12 +552,12 @@
         },
         /**
          * 向每个匹配元素的前面加元素(原生: insertBefore())
-         * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+         * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
          * @returns {jslib} 返回this
          */
-        'before': function (...content) {
+        'before': function (val) {
             this.each((dom) => {
-                _parseHtml(content, (fragment) => {
+                _parseHtml(val, (fragment) => {
                     dom.parentNode.insertBefore(fragment, dom);
                 });
             });
@@ -565,12 +565,12 @@
         },
         /**
          * 向每个匹配元素的后面加元素(原生: insertBefore())
-         * @param {any[]} content node节点 | DOMString对象 | DocumentFragment对象
+         * @param {any[]} val node节点 | DOMString对象 | DocumentFragment对象
          * @returns {jslib} 返回this
          */
-        'after': function (...content) {
+        'after': function (val) {
             this.each((dom) => {
-                _parseHtml(content, (fragment) => {
+                _parseHtml(val, (fragment) => {
                     dom.parentNode.insertBefore(fragment, dom.nextSibling);
                 });
             });

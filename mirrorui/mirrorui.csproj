@@ -46,6 +46,7 @@
     <Content Include="img\msgboxlayer.png" />
     <Content Include="js\cachepage.js" />
     <Content Include="js\exts\m-inputwatch.js" />
+    <Content Include="js\m-range.js" />
     <Content Include="js\m-file.js" />
     <Content Include="js\m-radio.js" />
     <Content Include="js\m-check.js" />
@@ -77,6 +78,7 @@
     </None>
     <None Include="compilerconfig.json" />
     <Content Include="doc\mnavmenudemo.html" />
+    <None Include="doc\range.part.cshtml" />
     <None Include="doc\about.part.cshtml" />
     <None Include="doc\cssvar.part.cshtml" />
     <None Include="doc\pagelayout.part.cshtml" />
@@ -114,6 +116,7 @@
     <None Include="index.cshtml" />
     <None Include="publish.json" />
     <None Include="stylus\base.styl" />
+    <None Include="stylus\coms\range.styl" />
     <None Include="stylus\coms\article.styl" />
     <None Include="stylus\coms\btn.styl" />
     <None Include="stylus\coms\cachepage.styl" />

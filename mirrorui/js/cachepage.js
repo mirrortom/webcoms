@@ -33,12 +33,11 @@ contDom:
         fragment.append($('<nav>').addClass('tabsbox-navbox').append($('<div>').addClass('tabsbox-nav')[0])[0]);
         fragment.append($('<a>').addClass('tabsbox-right')[0]);
         fragment.append($('<span>').addClass('tabsbox-menutitle').text('功能')[0]);
-        let menugroup = $('<div>').addClass('tabsbox-menugroup').append(
-            $('<span>').addClass('tabsbox-goto-active').text('定位当前页')[0],
-            $('<span>').addClass('tabsbox-close-all').text('关闭全部')[0],
-            $('<span>').addClass('tabsbox-close-other').text('关闭其它')[0]
-        )[0];
-        fragment.append(menugroup);
+        let menugroup = $('<div>').addClass('tabsbox-menugroup')
+            .append($('<span>').addClass('tabsbox-goto-active').text('定位当前页')[0])
+            .append($('<span>').addClass('tabsbox-close-all').text('关闭全部')[0])
+            .append($('<span>').addClass('tabsbox-close-other').text('关闭其它')[0]);
+        fragment.append(menugroup[0]);
         $(tabsDom).append(fragment).addClass('tabsbox');
     };
 
