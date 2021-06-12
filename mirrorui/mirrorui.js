@@ -1643,19 +1643,25 @@ contDom:
      *=======================================================*/
     // 生成整个日期框的DOM.并返回
     let createDom = () => {
-        let ymtarea = $('<div>').addClass('date-area-ymt').append(createDom_Year()
-            , createDom_Month(), createDom_Today())[0];
+        let ymtarea = $('<div>').addClass('date-area-ymt')
+            .append(createDom_Year())
+            .append(createDom_Month())
+            .append(createDom_Today())[0];
 
         let weekarea = $('<div>').addClass('date-area-week').append(createDom_Week())[0];
 
         let dayarea = $('<div>').addClass('date-area-day').append(createDom_Day())[0];
 
         let datedom = $('<div>').addClass('date-box').prop('tabIndex', -1)
-            .append(ymtarea, weekarea, dayarea);
+            .append(ymtarea)
+            .append(weekarea)
+            .append(dayarea);
         // 时间区域,日期+时间格式类型时
         if (cfg.fmtType == 2) {
-            let tcarea = $('<div>').addClass('date-area-tc').append(createDom_Time(), createDom_Clear(),
-                createDom_Ok())[0];
+            let tcarea = $('<div>').addClass('date-area-tc')
+                .append(createDom_Time())
+                .append(createDom_Clear())
+                .append(createDom_Ok())[0];
             datedom.append(tcarea);
         }
         return datedom[0];
@@ -1666,7 +1672,10 @@ contDom:
         let prevbtn = $('<a>').addClass('date-btn-prev').text('＜')[0];
         let yearbtn = $('<b>').addClass('date-btn-year').prop('val', cfg.year).text(cfg.year + '年')[0];
         let nextbtn = $('<a>').addClass('date-btn-next').text('＞')[0];
-        return $('<div>').addClass('date-area-year').append(prevbtn, yearbtn, nextbtn)[0];
+        return $('<div>').addClass('date-area-year')
+            .append(prevbtn)
+            .append(yearbtn)
+            .append(nextbtn)[0];
     };
 
     // 1.1生成年份下拉选择框. selectedYear:可指定一个年份为已选定
@@ -1691,7 +1700,10 @@ contDom:
         let prevbtn = $('<a>').addClass('date-btn-prev').text('＜')[0];
         let monthbtn = $('<b>').addClass('date-btn-month').prop('val', cfg.month).text(cfg.month + 1 + '月')[0];
         let nextbtn = $('<a>').addClass('date-btn-next').text('＞')[0];
-        return $('<div>').addClass('date-area-month').append(prevbtn, monthbtn, nextbtn)[0];
+        return $('<div>').addClass('date-area-month')
+            .append(prevbtn)
+            .append(monthbtn)
+            .append(nextbtn)[0];
     };
 
     // 2.1生成月份下拉选择框. selectedMonth:可指定一个月份为已选定
@@ -1739,7 +1751,10 @@ contDom:
         let hour = $('<b>').addClass('date-btn-time', 'date-btn-hour').text(cfg.hour)[0];
         let minute = $('<b>').addClass('date-btn-time', 'date-btn-minute').text(cfg.minute)[0];
         let second = $('<b>').addClass('date-btn-time', 'date-btn-second').text(cfg.second)[0];
-        return $('<div>').addClass('date-area-time').append(hour, minute, second)[0];
+        return $('<div>').addClass('date-area-time')
+            .append(hour)
+            .append(minute)
+            .append(second)[0];
     };
     // 5.1生成小时选择框
     let createDom_HourSelect = () => {

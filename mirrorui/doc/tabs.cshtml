@@ -1,0 +1,207 @@
+﻿<div class="doc-page">
+  <h2>选项卡</h2>
+  <p>切换选项卡,显示相应页面.是容器组件</p>
+  <p>单击或者鼠标移入选项卡,激活该选项页.选项卡与页由索引顺序相关联,例如:激活第2个选项卡时,则激活第2个面板.</p>
+  <p>当前活动的选项卡和对应页面有类名<b>active</b>,class="tabs-label active" class="tabs-panel active" 默认第1个是激活的</p>
+  <div id="mytabs1" class="tabs-box">
+    <div class="tabs-header">
+      <span class="tabs-label">苏轼</span>
+      <span class="tabs-label">陆游</span>
+      <span class="tabs-label">李清照</span>
+    </div>
+    <div class="tabs-panel">
+      <h5>饮湖上初晴后雨二首·其二</h5>
+      <p>水光潋滟晴方好</p><p>山色空蒙雨亦奇</p><p>欲把西湖比西子</p><p>淡妆浓抹总相宜</p>
+    </div>
+    <div class="tabs-panel">
+      <h5>卜算子 咏梅</h5>
+      <p>驿外断桥边,寂寞开无主</p><p>已是黄昏独自愁,更著风和雨</p>
+      <p>无意苦争春,一任群芳妒</p><p>零落成泥碾作尘,只有香如故</p>
+    </div>
+    <div class="tabs-panel">
+      <h5>一剪梅 红藕香残玉蕈秋</h5>
+      <p>红藕香残玉蕈秋,轻解罗裳,独上兰舟</p>
+      <p>云中谁寄锦书来,雁字回时,月满西楼</p>
+      <p>花自飘零水自流,一种相思,两处闲愁</p>
+      <p>此情无计可消除,才下眉头,却上心头</p>
+    </div>
+  </div>
+  <br />
+  <p># 鼠标划入切换</p>
+  <div id="mytabs3" class="tabs-box">
+    <div class="tabs-header">
+      <span class="tabs-label">选项1</span>
+      <span class="tabs-label">选项2</span>
+      <span class="tabs-label">选项3</span>
+    </div>
+    <div class="tabs-panel">鼠标划入切换onmouseenter</div>
+    <div class="tabs-panel">选项2-内容</div>
+    <div class="tabs-panel">选项3-内容</div>
+  </div>
+  <br />
+  <p># 选项卡标签均分</p>
+  <p class="text-in">选项卡平均整行,加上full类. <strong>class="tabs-box full"</strong></p>
+  <div id="mytabs2" class="tabs-box full">
+    <div class="tabs-header">
+      <span class="tabs-label">卓文君</span>
+      <span class="tabs-label">上官婉儿</span>
+      <span class="tabs-label">秦观</span>
+    </div>
+    <div class="tabs-panel">
+      <h5>白头吟</h5>
+      <p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝,今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流</p>
+      <p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离,竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</p>
+    </div>
+    <div class="tabs-panel">
+      <h5>彩书怨</h5>
+      <p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚</p>
+      <p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</p>
+    </div>
+    <div class="tabs-panel">
+      <h5>鹊桥仙 纤云弄巧</h5>
+      <p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数</p>
+      <p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</p>
+    </div>
+  </div>
+  <br />
+  <p># 主题颜色</p>
+  @foreach (var item in Model.themecolors)
+  {
+    <div id="mytabs_@item" class="tabs-box @item">
+      <div class="tabs-header">
+        <span class="tabs-label">选项1</span>
+        <span class="tabs-label">选项2</span>
+        <span class="tabs-label">区别</span>
+      </div>
+      <div class="tabs-panel">添加样式 <b>class="tabs-box @item"</b></div>
+      <div class="tabs-panel">选项2-内容</div>
+      <div class="tabs-panel">区别在于选项卡标签的颜色,还有标签和面板分界线的颜色</div>
+    </div>
+    <br />
+  }
+  <br />
+  <p># 列表形式</p>
+  <p class="text-in">加上list类 class="tabs-box list"</p>
+  <div id="mytabs_list" class="tabs-box list">
+    <div class="tabs-header">
+      <span class="tabs-label">选项1</span>
+      <span class="tabs-label">选项2</span>
+      <span class="tabs-label">选项3</span>
+    </div>
+    <div class="tabs-panel">选项1-竖直排列的选项卡标签</div>
+    <div class="tabs-panel">选项2-内容</div>
+    <div class="tabs-panel">选项3-内容</div>
+  </div>
+  <br />
+  <pre class="bg-gray-lt">
+
+    &lt;div id="mytabs1" class="tabs-box"&gt;
+        &lt;div class="tabs-header"&gt;
+            &lt;span class="tabs-label"&gt;苏轼&lt;/span&gt;
+            &lt;span class="tabs-label"&gt;陆游&lt;/span&gt;
+            &lt;span class="tabs-label"&gt;李清照&lt;/span&gt;
+        &lt;/div &gt;
+        &lt;div class="tabs-panel"&gt;...&lt;/div&gt;
+        &lt;div class="tabs-panel"&gt;...&lt;/div &gt;
+        &lt;div class="tabs-panel"&gt;...&lt;/div &gt;
+    &lt;/div&gt;
+
+    // js调用,传入tabs的id.默认激活0位置面板
+    window.ns.<strong>tabs</strong>('mytabs1');
+
+    // 切换方式(参数3) 1=点击 2=鼠标移入
+    window.ns.tabs('mytabs1',0,2);
+
+    // 指定第2个面板激活,索引从0开始
+    window.ns.tabs('mytabs1',1);
+
+</pre>
+  <br />
+  <p># 事件</p>
+  <p>tab1.<b>onTabActive(tabLabel)</b></p>
+  <p>选项卡激活后执行事件,tabLabel是选项卡标签的dom对象</p>
+  <pre class="bg-gray-lt">
+
+  let tabs1 = tabs('mytabs1');
+  tabs1.onTabActive = (tabLabel) => {
+    msgbox.alert('激活面板标题是: ' + tabLabel.innerTEXT);
+  }
+
+</pre>
+  <br />
+  <div id="mytabs_onevent" class="tabs-box">
+    <div class="tabs-header">
+      <span class="tabs-label">选项1</span>
+      <span class="tabs-label">选项2</span>
+      <span class="tabs-label">选项3</span>
+    </div>
+    <div class="tabs-panel">选项1-内容</div>
+    <div class="tabs-panel">选项2-内容</div>
+    <div class="tabs-panel">选项3-内容</div>
+  </div>
+  <br />
+  <p># 方法</p>
+  <div id="mytabs_method" class="tabs-box success">
+    <div class="tabs-header">
+      <span class="tabs-label">选项1</span>
+      <span class="tabs-label">选项2</span>
+      <span class="tabs-label">选项3</span>
+    </div>
+    <div class="tabs-panel">选项1-内容</div>
+    <div class="tabs-panel">选项2-内容</div>
+    <div class="tabs-panel">选项3-内容</div>
+  </div>
+  <table class="table">
+    <tr>
+      <td>tab1.<b>activeTab(index)</b></td>
+      <td><a class="btn" id="tab2activeTab">激活选项2</a></td>
+      <td>激活选项卡,index是选项卡索引</td>
+    </tr>
+    <tr>
+      <td>tab1.<b>addTab(title, index)</b></td>
+      <td><a class="btn" id="tab2addTab">添加选项卡到第2位置</a></td>
+      <td>添加一个选项卡. title:选项卡标题, index:添加到这个索引位置,默认加到最后</td>
+    </tr>
+    <tr>
+      <td>tab1.<b>delTab(index, tagType)</b></td>
+      <td><a class="btn" id="tab2delTab">删除第2位置的选项卡</a></td>
+      <td>删除一个选项卡. index:要删除的选项卡索引或pid.tagType:'index'(默认) | 'pid'(表示index指的是pid值)</td>
+    </tr>
+    <tr>
+      <td>tab1.<b>getCount()</b></td>
+      <td><a class="btn" id="tab2getCount">选项卡个数</a></td>
+      <td>返回选项卡个数</td>
+    </tr>
+  </table>
+  <script>
+    (() => {
+      let tabsNew = window.ns.tabs;
+      tabsNew('mytabs1');
+      tabsNew('mytabs2', 1, 1);
+      tabsNew('mytabs3', 0, 2);
+      let colors = ["primary", "danger", "success", "info", "warning"];
+      for (var i = 0; i < colors.length; i++) {
+        let id = 'mytabs_' + colors[i];
+        tabsNew(id, i);
+      }
+      tabsNew('mytabs_list');
+      let tabs1 = tabsNew('mytabs_onevent');
+      tabs1.onTabActive = (tabLabel) => {
+        window.ns.msgbox.alert('激活面板标题:' + tabLabel.innerText);
+      }
+      let tab2 = tabsNew('mytabs_method');
+      document.getElementById('tab2activeTab').onclick = () => {
+        tab2.activeTab(1);
+      }
+      document.getElementById('tab2addTab').onclick = () => {
+        tab2.addTab('添加到第二个位置'+tab2.getCount(), 1);
+      }
+      document.getElementById('tab2delTab').onclick = () => {
+        tab2.delTab(1);
+      }
+      document.getElementById('tab2getCount').onclick = () => {
+        window.ns.msgbox.alert('选项卡总数: ' + tab2.getCount());
+      }
+    })();
+  </script>
+</div>

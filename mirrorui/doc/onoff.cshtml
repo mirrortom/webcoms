@@ -1,0 +1,62 @@
+﻿<div class="doc-page">
+  <h2>开关</h2>
+  <p>switch使用自定义标记 &lt;m-switch class="switch"&gt;主要用于事项的停用/启用状态.</p>
+  <div class="mg-b-10">
+    <m-switch class="mg-r-10"></m-switch>
+    <m-switch class="checked mg-r-10"></m-switch>
+    <m-switch class="mg-r-10" on="开" off="关"></m-switch>
+    <m-switch class="checked mg-r-10" on="开" off="关"></m-switch>
+    <m-switch class="mg-r-10" on="启用" off="停用"></m-switch>
+    <m-switch class="checked" on="启用" off="停用"></m-switch>
+  </div>
+  <div class="mg-b-10">
+    @foreach (var item in Model.themecolors)
+    {
+      <m-switch class="checked @item mg-r-10"></m-switch>
+    }
+  </div>
+  <div class="mg-b-10">
+    @foreach (var item in Model.fontsizes)
+    {
+      <m-switch class="checked text-@item mg-r-10"></m-switch>
+    }
+  </div>
+  <p># 不使用自定义标记实现的方式是: </p>
+  <p class="text-in">使用input(type=checkbox)和label两个标记,利用label的for属性和checkbox的id属性关联的特点,再用CSS选择器check判断checkbox选中时和未选中时,分别显示label的on/off状态.chekcbox放在label的前面,便于css选择器操作.</p>
+  <div class="mg-b-10 mg-l-10">
+    <input type="checkbox" id="onoff1" /> <label for="onoff1">点击label,for属性关联checkbox</label>
+  </div>
+
+  <p class="text-in">这种办法不用写js就能实现.使用自定义标记后,由于可以使用js了,所以很简单了</p>
+  <p># dom属性 <strong>on off</strong></p>
+  <p class="text-in">默认值是 'ON','OFF',用于显示标题.可以自定义成'开''关'</p>
+  <p># 初始状态</p>
+  <p class="text-in">状态为OFF,如果要为ON,需要添加样式 ".checked"</p>
+  <p># 属性 <strong>checked</strong> 获取开关状态</p>
+  <p># 属性 <strong>onClicked</strong> 设置点击后执行事件</p>
+  <pre class="bg-gray-lt">
+
+  let switch1 = document.getElementById('switch1');
+
+  // m-switchd的checked属性,checked属性.开返回true,关返回false
+  let isonoff = switch1<strong>.checked</strong> // true | false
+
+  // 点击后执行一个方法 self 就是 m-swtich 对象
+  switch1<strong>.onClicked</strong> = (self)=>{
+    if(self.checked)
+        msgbox.alert('状态是: 开');
+  }
+
+</pre>
+  <br />
+
+  <pre class="bg-gray-lt">
+  // class="switch"
+  &lt;m-switch <strong>on="开" off="关"</strong> class="<strong>switch checked</strong>"&gt;&lt;/m-switch&gt;
+
+  // 主题色与大小
+  &lt;m-switch class="<strong>primary</strong>"&gt;&lt;/m-switch&gt;
+  &lt;m-switch class="<strong>text-lg</strong>"&gt;&lt;/m-switch&gt;
+
+</pre>
+</div>

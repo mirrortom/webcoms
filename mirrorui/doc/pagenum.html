@@ -1,0 +1,69 @@
+﻿<div class="doc-page">
+  <h2>分页导航</h2>
+  <p># 使用自定义标记 <strong>&lt;m-pagenum&gt;</strong></p>
+  <p class="text-in">参考了天猫京东的分页条,最后设计成包含如下按钮.上一页,1页,当前页前几页,当前页,当前页后几页,最后页,下一页,总页数,跳转页输入框,确定按钮.</p>
+  <m-pagenum class="d-block" id="pagenum1"></m-pagenum>
+  <br />
+  <m-pagenum class="d-block primary text-lg" id="pagenum2"></m-pagenum>
+  <br />
+  <pre class="bg-gray-lt">
+
+  &lt;<strong>m-pagenum</strong> id="pagenum1"&gt;&lt;/m-pagenum&gt;
+
+  // 使用主题样式和字体大小工具样式
+  &lt;m-pagenum class="<strong>primary text-lg</strong>" id="pagenum2"&gt;&lt;/m-pagenum&gt;
+
+ </pre>
+  <br />
+  <p># 分页条特点:</p>
+  <p class="text-in">当前页码pageIndex,数据总数dataTotal,每页数据数量pageSize.总页数根据dataTotal和pageSize计算出来.</p>
+  <p class="text-in">分页条是一个状态机,当前页码改变时,状态就改变了,这时会重新生成分页条.</p>
+  <p class="text-in">可设置显示几个按钮,当前页码会位于中间,如果当前页码离首页和末页太远,显示省略号.</p>
+  <p># 方法</p>
+  <p class="text-in">create()</p>
+  <pre class="bg-gray-lt">
+ 
+    let pgn1 = document.getElementById('pagenum1');
+
+    // 配置
+    let cfg = {
+      // (必须) 当前页码 >0 由后端返回当前页码,或者页面记住当前请求页面 默认 1
+      <strong>pageIndex</strong>: 1,
+
+      // (必须) 总数 >0 由后端返回新的总数
+      <strong>totalData</strong>: 96,
+
+      // 每页数量 [5-50] 默认 10
+      <strong>pageSize</strong>: 10,
+
+      // 显示几个按钮[5-10] 默认 5
+      <strong>totalBtn</strong>: 5
+    }
+
+    // 生成分页条
+    // 分页条在请求数据后调用,从后端获得当前页码和数据总数.
+    pgn1.<strong>create</strong>(cfg);
+
+</pre>
+  <script>
+    ((win) => {
+      let pgn1 = document.getElementById('pagenum1');
+      let pgn2 = document.getElementById('pagenum2');
+      let cfg = {
+        // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
+        pageIndex: 1,
+        // 总数(必须) >0 由后端返回新的总数
+        totalData: 96,
+        // 每页数量 [5-50]
+        pageSize: 10,
+        // 显示几个按钮[5-10]
+        totalBtn: 5
+      }
+      pgn1.create(cfg);
+      cfg.pageIndex = 4;
+      cfg.totalData = 169;
+      cfg.pageSize = 8;
+      pgn2.create(cfg);
+    })(window);
+  </script>
+</div>

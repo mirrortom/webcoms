@@ -1,0 +1,16 @@
+﻿<div class="doc-page">
+  <h2>hr分隔线</h2>
+  <p>简单的分割线.跨度1px,margin:20px auto</p>
+  <hr class="line" />
+  @foreach (var item in Model.themecolors)
+  {
+    <p>class="line bg-@item"</p>
+    <hr class="line bg-@item" />
+  }
+<pre class="bg-gray-lt">
+  &lt;hr class="<strong>line</strong>" /&gt;
+  // 
+  &lt;hr class="line bg-primary" /&gt;
+
+</pre>
+</div>

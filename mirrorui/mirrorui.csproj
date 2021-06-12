@@ -67,9 +67,6 @@
       <DependentUpon>test.styl</DependentUpon>
     </Content>
     <Content Include="test.html" />
-    <Content Include="zcustom\lxwsui\js\mydate.js" />
-    <Content Include="zcustom\lxwsui\lxwsdate.css" />
-    <Content Include="zcustom\lxwsui\lxwsdate.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -78,41 +75,42 @@
     </None>
     <None Include="compilerconfig.json" />
     <Content Include="doc\mnavmenudemo.html" />
-    <None Include="doc\range.part.cshtml" />
-    <None Include="doc\about.part.cshtml" />
-    <None Include="doc\cssvar.part.cshtml" />
-    <None Include="doc\pagelayout.part.cshtml" />
-    <None Include="doc\menubar.part.cshtml" />
-    <None Include="doc\mdirbar.part.cshtml" />
-    <None Include="doc\inputvalchange.part.cshtml" />
-    <None Include="doc\mnavmenu.part.cshtml" />
-    <None Include="doc\msgshow.part.cshtml" />
-    <None Include="doc\kvpair.part.cshtml" />
-    <None Include="doc\pageload.part.cshtml" />
-    <None Include="doc\onoff.part.cshtml" />
-    <None Include="doc\-------.part.cshtml" />
-    <None Include="doc\article.part.cshtml" />
-    <None Include="doc\btn.part.cshtml" />
-    <None Include="doc\btngroup.part.cshtml" />
-    <None Include="doc\cachepage.part.cshtml" />
-    <None Include="doc\datetime.part.cshtml" />
-    <None Include="doc\design_form.part.cshtml" />
-    <None Include="doc\form.part.cshtml" />
-    <None Include="doc\grids.part.cshtml" />
-    <None Include="doc\h1h6p.part.cshtml" />
-    <None Include="doc\hrline.part.cshtml" />
-    <None Include="doc\imagedemo.part.cshtml" />
-    <None Include="doc\label.part.cshtml" />
-    <None Include="doc\list.part.cshtml" />
-    <None Include="doc\mediaquery.part.cshtml" />
-    <None Include="doc\msgbox.part.cshtml" />
-    <None Include="doc\msgpanel.part.cshtml" />
-    <None Include="doc\pagenum.part.cshtml" />
-    <None Include="doc\panel.part.cshtml" />
-    <None Include="doc\sidemenu.part.cshtml" />
-    <None Include="doc\table.part.cshtml" />
-    <None Include="doc\tabs.part.cshtml" />
-    <None Include="doc\toolclass.part.cshtml" />
+    <Content Include="doc\about.html" />
+    <Content Include="doc\cssvar.html" />
+    <Content Include="doc\article.html" />
+    <None Include="doc\btn.cshtml" />
+    <Content Include="doc\btngroup.html" />
+    <Content Include="doc\datetime.html" />
+    <Content Include="doc\cachepage.html" />
+    <Content Include="doc\design_form.html" />
+    <None Include="doc\form.cshtml" />
+    <None Include="doc\grids.cshtml" />
+    <Content Include="doc\mediaquery.html" />
+    <Content Include="doc\pagelayout.html" />
+    <None Include="doc\h1h6p.cshtml" />
+    <Content Include="doc\imagedemo.html" />
+    <None Include="doc\hrline.cshtml" />
+    <Content Include="doc\inputvalchange.html" />
+    <None Include="doc\kvpair.cshtml" />
+    <None Include="doc\label.cshtml" />
+    <Content Include="doc\msgpanel.html" />
+    <Content Include="doc\list.html" />
+    <Content Include="doc\menubar.html" />
+    <Content Include="doc\msgbox.html" />
+    <Content Include="doc\msgshow.html" />
+    <Content Include="doc\mnavmenu.html" />
+    <Content Include="doc\mdirbar.html" />
+    <None Include="doc\onoff.cshtml" />
+    <Content Include="doc\panel.html" />
+    <Content Include="doc\pageload.html" />
+    <Content Include="doc\pagenum.html" />
+    <Content Include="doc\range.html" />
+    <Content Include="doc\-模板.part.html" />
+    <Content Include="doc\sidemenu.html" />
+    <None Include="doc\table.cshtml" />
+    <None Include="doc\tabs.cshtml" />
+    <None Include="doc\toolclass.cshtml" />
+    <Content Include="index.html" />
     <None Include="index.cshtml" />
     <None Include="publish.json" />
     <None Include="stylus\base.styl" />
@@ -150,21 +148,10 @@
     <None Include="stylus\variables\cirangle.styl" />
     <None Include="stylus\variables\transition.styl" />
     <None Include="test.styl" />
-    <None Include="zcustom\lxwsui\bundleconfig.json" />
-    <None Include="zcustom\lxwsui\bundleconfig.json.bindings">
-      <DependentUpon>bundleconfig.json</DependentUpon>
-    </None>
-    <None Include="zcustom\lxwsui\compilerconfig.json" />
-    <None Include="zcustom\lxwsui\stylus\base.styl" />
-    <None Include="zcustom\lxwsui\stylus\coms\datepick.styl" />
-    <None Include="zcustom\lxwsui\stylus\index.styl" />
-    <None Include="zcustom\lxwsui\stylus\variables\color.styl" />
-    <None Include="zcustom\lxwsui\stylus\variables\font.styl" />
-    <None Include="zcustom\lxwsui\stylus\variables\transition.styl" />
     <None Include="如何自定义ui.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="zcustom\lxwsui\stylus\function\" />
+    <Folder Include="zcustom\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

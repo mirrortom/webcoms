@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link href="mirrorui.css" rel="stylesheet" />
+  <title>mirrorui-doc | mirror space</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: 200px auto;
+    }
+
+    .menu-box {
+      position: sticky;
+      top: 0;
+      width: 94%;
+      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .tabsmenu-box {
+      position: sticky;
+      top: 0;
+      width: 99%;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="menu-box">
+      <m-sidemenu class="pd-b-30" id="main_menubox">
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">概述<i class="sidemenu-arrdown"></i></span>
+          </li>
+          <li><a class="sidemenu-item" urlid="about">关于</a></li>
+          <li><a class="sidemenu-item" urlid="cssvar">css变量</a></li>
+        </ul>
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">布局<i class="sidemenu-arrdown"></i></span>
+          </li>
+          <li><a class="sidemenu-item" urlid="grids">册格</a></li>
+          <li><a class="sidemenu-item" urlid="mediaquery">媒体查询</a></li>
+          <li><a class="sidemenu-item" urlid="toolclass">工具样式</a></li>
+          <li><a class="sidemenu-item" urlid="pagelayout">页面布局</a></li>
+        </ul>
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">页面UI组件<i class="sidemenu-arrdown"></i></span>
+          </li>
+          <li><a class="sidemenu-item" urlid="h1h6p">大标题</a></li>
+          <li><a class="sidemenu-item" urlid="article">段落标题</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" urlid="btn">按钮</a></li>
+          <li><a class="sidemenu-item" urlid="btngroup">按钮组</a></li>
+          <li><a class="sidemenu-item" urlid="onoff">开关</a></li>
+          <li><a class="sidemenu-item" urlid="label">标签</a></li>
+          <li><a class="sidemenu-item" urlid="kvpair">名值标签</a></li>
+          <li><a class="sidemenu-item" urlid="imagedemo">图片</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" urlid="panel">面板</a></li>
+          <li><a class="sidemenu-item" urlid="msgpanel">信息面板</a></li>
+          <li><a class="sidemenu-item" urlid="hrline">hr分隔线</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" urlid="list">列表</a></li>
+          <li><a class="sidemenu-item" urlid="table">表格</a></li>
+          <li><a class="sidemenu-item" urlid="form">表单</a></li>
+          <li><a class="sidemenu-item" urlid="inputvalchange">监听输入</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" urlid="pageload">页面等待</a></li>
+          <li><a class="sidemenu-item" urlid="menubar">菜单条</a></li>
+        </ul>
+        <ul class="sidemenu-group">
+          <li>
+            <span class="sidemenu-label">功能组件<i class="sidemenu-arrdown"></i></span>
+          </li>
+          <li><a class="sidemenu-item" urlid="msgbox">弹出框</a></li>
+          <li><a class="sidemenu-item" urlid="msgshow">提示框</a></li>
+          <li><a class="sidemenu-item" urlid="datetime">日期时间</a></li>
+          <li><a class="sidemenu-item" urlid="pagenum">分页条</a></li>
+          <li><a class="sidemenu-item" urlid="range">范围滑块</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" urlid="sidemenu">侧边菜单</a></li>
+          <li><a class="sidemenu-item" urlid="mnavmenu">底部菜单</a></li>
+          <li><a class="sidemenu-item" urlid="mdirbar">顶部导航</a></li>
+          <li><b class="sidemenu-split"></b></li>
+          <li><a class="sidemenu-item" urlid="tabs">选项卡</a></li>
+          <li><a class="sidemenu-item" urlid="cachepage">缓存页</a></li>
+        </ul>
+        <ul class="sidemenu-group">
+          <li><span class="sidemenu-label">设计<i class="sidemenu-arrdown"></i></span></li>
+          <li><a class="sidemenu-item" urlid="design_form">表单设计</a></li>
+        </ul>
+      </m-sidemenu>
+    </div>
+    <div class="content-box">
+      <div class="tabsmenu-box">
+        <div class="" id="cachepage_nav"></div>
+      </div>
+      <div class="pd-15 pd-b-50" id="cachepage_cont"></div>
+    </div>
+  </div>
+  <script src="mirrorui.js"></script>
+  <script src="../jslib/jslib.js"></script>
+  <script>
+    ((win) => {
+      // 新建cachePage实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
+      let cpg = win.ns.cachepage($('#cachepage_nav')[0], $('#cachepage_cont')[0]);
+      cpg.onNewPageLoad((pid, title, contDom) => {
+        let url = 'doc/' + pid+'.html';
+        $(contDom).load(url);
+      });
+
+      // 主菜单
+      let sidemenu1 = $('#main_menubox')[0];
+      sidemenu1.create(null,
+        (item, i) => {
+          let urlid = $(item).prop('urlid');
+          let title = $(item).text();
+          cpg.load(urlid, title);
+        });
+
+      // 默认打开"关于"
+      sidemenu1.activeItem(0);
+
+    })(window);
+  </script>
+</body>
+</html>
