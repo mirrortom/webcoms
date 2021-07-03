@@ -1227,6 +1227,7 @@ h6 {
 }
 p {
   margin: 0 0 16px;
+  line-height: 2em;
 }
 .line {
   height: 1px;
