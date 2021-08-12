@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link href="../../mirrorui.css" rel="stylesheet" />
+  <title>mirrorui-doc | mirror space</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: 200px auto;
+    }
+
+    .menu-box {
+      position: sticky;
+      top: 0;
+      width: 94%;
+      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .tabsmenu-box {
+      position: sticky;
+      top: 0;
+      width: 99%;
+      z-index: 1;
+    }
+
+    .iconitem {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 64px;
+      height: 64px;
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="menu-box">
+      <a class="text-center pd-15 d-block" id="main_about">css图标</a>
+      <div class="grids-3" id="main_menubox">
+        <div class="iconitem" urlid="moon" title="月牙"><i class="ico ico-moon text-xl"></i></div>
+      </div>
+    </div>
+    <div class="content-box">
+      <div class="tabsmenu-box">
+        <div class="" id="cachepage_nav"></div>
+      </div>
+      <div class="pd-15 pd-b-50" id="cachepage_cont"></div>
+    </div>
+  </div>
+  <script src="../../mirrorui.js"></script>
+  <script src="../../../jslib/jslib.js"></script>
+  <script>
+    ((win) => {
+      // 新建cachePage实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
+      let cpg = win.ns.cachepage($('#cachepage_nav')[0], $('#cachepage_cont')[0]);
+      cpg.onNewPageLoad((pid, title, contDom) => {
+        let url = pid + '.html';
+        $(contDom).load(url);
+      });
+
+      // 主菜单
+      let sidemenu1 = $('#main_menubox .iconitem').each((item, index) => {
+        item.onclick = () => {
+          let urlid = $(item).prop('urlid');
+          if (!urlid) return;
+          let title = $(item).prop('title');
+          cpg.load(urlid, title);
+        };
+      });
+
+      //  (item, i) => {
+
+      // 默认打开"关于"
+      $('#main_about')[0].onclick = () => {
+        cpg.load('about', 'css图标');
+      };
+
+      //$('#main_about')[0].click();
+      $('#main_menubox .iconitem')[0].click();
+
+    })(window);
+  </script>
+</body>
+</html>

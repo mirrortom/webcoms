@@ -1,0 +1,81 @@
+﻿<div class="doc-page">
+  <h2>月亮</h2>
+  <p>月牙图标,月牙部分是boxshadow实现.</p>
+  <div class="mg-20">
+    <i class="ico ico-moon text-md"></i>
+    <i class="ico ico-moon text-xl"></i>
+    <i class="ico ico-moon text-xxl"></i>
+    <i class="ico ico-moon text-xxl text-primary"></i>
+    <i class="ico ico-moon text-xxl text-danger"></i>
+  </div>
+
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico ico-moon"&gt;&lt;/i&gt;
+
+  // 颜色和大小添加工具样式实现
+  &lt;i class="ico ico-moon text-xl"&gt;&lt;/i&gt;
+
+  &lt;i class="ico ico-moon text-danger"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <style scoped>
+    .moondemo {
+      display: inline-block;
+      border-radius: 50%;
+      width: 1em;
+      height: 1em;
+    }
+  </style>
+  <p>实现过程<p>
+  <p>月牙可以看成是一个圆的一部分,所以先做一个圆.这个用border-radius:50%实现.就是圆角边框.</p>
+  <p>
+    <i class="moondemo text-xxl bg-gray"></i>
+  </p>
+  <pre class="bg-gray-lt">
+
+  display:inline-block;
+  border-radius :50%;
+  width:1em;
+  height:1em;
+
+</pre>
+  <br />
+  <p>边框阴影也会跟随圆角是一个圆形.调整阴影的x,y值改变月牙的大小和位子.</p>
+  <p>x值增大时,阴影再右侧增大,月牙变大.y值增大时,阴影向下倾斜,月牙呈现顺时针旋转</p>
+  <p>
+    <i style="box-shadow: 0 0 0 0;" class="moondemo text-xxl bg-gray"></i>
+    <i style="box-shadow: 10px 0 0 0;" class="moondemo text-xxl bg-gray"></i>
+    <i style="box-shadow: 15px 0 0 0;" class="moondemo text-xxl bg-gray mg-l-20"></i>
+    <i style="box-shadow: 10px 5px 0 0;" class="moondemo text-xxl bg-gray mg-l-20"></i>
+    <i style="box-shadow: 10px 10px 0 0;" class="moondemo text-xxl bg-gray mg-l-20"></i>
+  </p>
+  <pre class="bg-gray-lt">
+
+  box-shadow: 0 0 0 0;
+  box-shadow: 10px 0 0 0;
+  box-shadow: 15px 0 0 0;
+  box-shadow: 10px 5px 0 0;
+  box-shadow: 10px 10px 0 0
+
+</pre>
+  <br />
+  <p>由于阴影不占用元素面积,月牙部分可能会盖到其它元素,可以设置margin-right抵消.</p>
+  <p>阴影的颜色跟随color属性,大小可以用em单位.这样便于支持大小和颜色,完整css规则.</p>
+  <p><i class="ico ico-moon text-xxxl"></i></p>
+  <pre class="bg-gray-lt">
+
+   &lt;i class="ico ico-moon"&gt;&lt;/i&gt;
+
+  .ico-moon
+      display: inline-block
+      width: 1em
+      height: 1em
+      margin: 0 .9em .1em 0
+      border-radius: 50%
+      background-color: transparent
+      box-shadow: .4em .1em 0 0
+
+</pre>
+</div>

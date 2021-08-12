@@ -94,6 +94,7 @@
         <ul class="sidemenu-group">
           <li><span class="sidemenu-label">设计<i class="sidemenu-arrdown"></i></span></li>
           <li><a class="sidemenu-item" urlid="design_form">表单设计</a></li>
+          <li><a class="sidemenu-item" href="doc/cssicon/index.html" target="_blank">CSS图标</a></li>
         </ul>
       </m-sidemenu>
     </div>
@@ -120,6 +121,7 @@
       sidemenu1.create(null,
         (item, i) => {
           let urlid = $(item).prop('urlid');
+          if (!urlid) return;
           let title = $(item).text();
           cpg.load(urlid, title);
         });

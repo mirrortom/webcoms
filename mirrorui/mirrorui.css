@@ -2897,3 +2897,16 @@ p {
 .menubar:active .arr {
   border-color: var(--color-danger);
 }
+.ico {
+  pointer-events: none;
+  vertical-align: middle;
+}
+.ico-moon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.9em 0.1em 0;
+  border-radius: 50%;
+  background-color: transparent;
+  box-shadow: 0.4em 0.1em 0 0;
+}

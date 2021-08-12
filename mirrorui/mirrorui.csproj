@@ -40,6 +40,9 @@
   <ItemGroup>
     <Content Include="404.html" />
     <Content Include="doc\cachepagedemo1.html" />
+    <Content Include="doc\cssicon\about.html" />
+    <Content Include="doc\cssicon\moon.html" />
+    <Content Include="doc\cssicon\index.html" />
     <Content Include="doc\mdirbardemo.html" />
     <Content Include="doc\mnavmenudemo1.html" />
     <Content Include="img\imgdemo.gif" />
@@ -111,7 +114,6 @@
     <None Include="doc\tabs.cshtml" />
     <None Include="doc\toolclass.cshtml" />
     <Content Include="index.html" />
-    <None Include="index.cshtml" />
     <None Include="publish.json" />
     <None Include="stylus\base.styl" />
     <None Include="stylus\coms\range.styl" />
@@ -131,6 +133,9 @@
     <None Include="stylus\coms\msgbox.styl" />
     <None Include="stylus\coms\msgpanel.styl" />
     <None Include="stylus\coms\mnavmenu.styl" />
+    <None Include="stylus\cssicon\icons\moon.styl" />
+    <None Include="stylus\cssicon\index.styl" />
+    <None Include="stylus\cssicon\base.styl" />
     <None Include="stylus\exts\menubar.styl" />
     <None Include="stylus\exts\kvpair.styl" />
     <None Include="stylus\exts\pageload.styl" />
