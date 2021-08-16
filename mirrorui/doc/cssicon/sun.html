@@ -1,0 +1,135 @@
+﻿<div class="doc-page">
+  <h2>太阳</h2>
+  <p>太阳图标,由太阳和8个方向的光线组成.</p>
+  <div class="mg-20">
+    <i class="ico ico-sun text-md"></i>
+    <i class="ico ico-sun text-xl"></i>
+    <i class="ico ico-sun text-xxl"></i>
+    <i class="ico ico-sun text-xxl bg-danger"></i>
+    <i class="ico ico-sun text-xxl text-danger bg-info"></i>
+  </div>
+
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico ico-sun"&gt;&lt;/i&gt;
+
+  &lt;i class="ico ico-sun text-xl"&gt;&lt;/i&gt;
+
+  // 添加文字颜色样式改变光线颜色,添加背景颜色样式改变太阳颜色
+  &lt;i class="ico ico-sun text-danger bg-info"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <style scoped>
+    .sundemo {
+      display: inline-block;
+      position: relative;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      box-shadow: inset 0 0 4px orangered;
+    }
+
+    .sundemo-light {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 4px;
+      height: 4px;
+      color: red;
+      background-color: red;
+    }
+  </style>
+  <p>实现过程<p>
+  <p>太阳是一个圆,这个容易实现.太阳的8个方向的光线抄袭了参考项目的做法,当时想了半天没想到如何实现长方形的光线,直到找到了参考项目才找到办法.</p>
+  <p>
+    <i class="sundemo text-xxl bg-warning"></i>
+  </p>
+  <br />
+  <p>先看上下左右4个方向的光线,可以看成是圆心上的一点,以这点为原点的坐标系,在X,Y轴上取了长度相等的4个点.这个用到的css规则当然是boxshadow了,元素使用伪类:before.</p>
+  <p>
+    <i class="sundemo text-xxl "><i class="sundemo-light"></i></i>
+    <i class="sundemo text-xxl  mg-l-20"><i style="box-shadow:24px 0" class="sundemo-light"></i></i>
+    <i class="sundemo text-xxl  mg-l-20"><i style="box-shadow:24px 0,0 24px" class="sundemo-light"></i></i>
+    <i class="sundemo text-xxl  mg-l-20"><i style="box-shadow:24px 0,0 24px,-24px 0,0 -24px" class="sundemo-light"></i></i>
+    <i class="sundemo text-xxl  mg-l-20"><i style="width:8px;box-shadow:24px 0,0 24px,-24px 0,0 -24px" class="sundemo-light"></i></i>
+  </p>
+  <pre class="bg-gray-lt">
+
+  box-shadow:24px 0,0 24px,-24px 0,0 -24px
+
+</pre>
+  <br />
+  <p>这是4个方向的,正好是和坐标轴平行的方向.另外4个方向也不难,就是旋转一下坐标系45度就可以了.这个用到css2D变换规则,transform: rotate(45deg).</p>
+  <p>
+    <i class="sundemo text-xxl mg-l-20"><i style="transform: rotate(45deg); box-shadow: 24px 0,0 24px,-24px 0,0 -24px" class="sundemo-light"></i></i>
+    <i class="sundemo text-xxl mg-l-20"><i style="transform: rotate(45deg); width: 8px; box-shadow: 24px 0,0 24px,-24px 0,0 -24px" class="sundemo-light"></i></i>
+  </p>
+  <pre class="bg-gray-lt">
+
+  transform: rotate(45deg)
+  box-shadow: 24px 0,0 24px,-24px 0,0 -24px
+
+</pre>
+  <br />
+  <p>这里有个问题,光线要与太阳圆面垂直,这个在光线点是正方形时,没有这个问题.但是长方形时,就不行了.有2个方向的光线与太阳平行.当时想了半天没解决的就是这个问题,试过矩阵变化没成功.最后找到了参考项目看了作者的代码才明白.</p>
+  <p>既然长方形的光线不行,那么就使用正方形的光线.可以再加一层阴影的,因为两个正方形叠起来,就成长方形了.如果需要更长光线,那就叠2个以上.这...,竟然如此很简单啊.无奈是人太笨啊...</p>
+  <p>
+    <i class="sundemo text-xxl mg-l-20">
+      <i style="box-shadow: 24px 0,0 24px,-24px 0,0 -24px,28px 0,0 28px,-28px 0,0 -28px" class="sundemo-light"></i>
+    </i>
+    <i class="sundemo text-xxl mg-l-30">
+      <i style="transform:rotate(45deg); box-shadow: 24px 0,0 24px,-24px 0,0 -24px,28px 0,0 28px,-28px 0,0 -28px,32px 0,0 32px,-32px 0,0 -32px" class="sundemo-light"></i>
+    </i>
+  </p>
+
+  <pre class="bg-gray-lt">
+
+  // 多个正方形的阴影叠在一起,就是长方形了
+  box-shadow: 24px 0,0 24px,-24px 0,0 -24px,
+              28px 0,0 28px,-28px 0,0 -28px  
+
+</pre>
+  <br />
+  <p>这8个方向的光线其实是两组阴影,所以用到两个伪类:before和:after.使用绝对定位并且垂直居中,让2个伪类置于太阳的中心,并且是叠起的.然后设置它们的box-shadow,4个阴影一组,设置2层.光线实现了.</p>
+  <pre class="bg-gray-lt">
+
+   &lt;i class="ico ico-sun"&gt;&lt;/i&gt;
+
+  .ico-sun
+      display: inline-block
+      position: relative
+      width: .6em
+      height: .6em
+      color: gold
+      border-radius: 50%
+      background-color: gold
+      box-shadow:inset 0 0 .15em 0
+      margin: .2em
+
+  .ico-sun:before, .ico-sun:after
+      content: ''
+      display: inline-block
+      position: absolute
+      width: .1em
+      height: .1em
+      background-color: transparent
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+      margin: auto
+
+  .ico-sun:before
+      box-shadow: .45em 0, 0 .45em, -.45em 0, 0 -.45em, .38em 0, 0 .38em, -.38em 0, 0 -.38em
+  
+  .ico-sun:after
+      transform: rotate(45deg)
+      box-shadow: .45em 0, 0 .45em, -.45em 0, 0 -.45em, .38em 0, 0 .38em, -.38em 0, 0 -.38em
+
+</pre>
+</div>

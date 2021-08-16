@@ -41,6 +41,7 @@
     <Content Include="404.html" />
     <Content Include="doc\cachepagedemo1.html" />
     <Content Include="doc\cssicon\about.html" />
+    <Content Include="doc\cssicon\sun.html" />
     <Content Include="doc\cssicon\moon.html" />
     <Content Include="doc\cssicon\index.html" />
     <Content Include="doc\mdirbardemo.html" />
@@ -133,6 +134,7 @@
     <None Include="stylus\coms\msgbox.styl" />
     <None Include="stylus\coms\msgpanel.styl" />
     <None Include="stylus\coms\mnavmenu.styl" />
+    <None Include="stylus\cssicon\icons\sun.styl" />
     <None Include="stylus\cssicon\icons\moon.styl" />
     <None Include="stylus\cssicon\index.styl" />
     <None Include="stylus\cssicon\base.styl" />

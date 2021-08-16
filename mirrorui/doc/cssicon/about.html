@@ -3,6 +3,7 @@
   <p>不用图片,使用css3功能实现一些简易的常用的图标.</p>
   <p>html标签用 &lt;i&gt; 标记,加上css的:after :before伪类.原则上一个图标只用一个&lt;i&gt;</p>
   <p>所有元素的box-sizing:border-box</p>
+  <p>一个质量很高的项目,参考搬运. <a href="https://viglino.github.io/iconicss" target="_blank">https://viglino.github.io/iconicss</a>&emsp;(github) <a href="https://github.com/Viglino/iconicss" target="_blank">https://github.com/Viglino/iconicss</a></p>
   <pre class="bg-gray-lt">
 
   .ico
@@ -10,4 +11,163 @@
       vertical-align: middle
 
 </pre>
+  <br />
+  <p>制作css图标常用的一些样式规则</p>
+  <style scoped>
+    .borderdemo {
+      display: inline-block;
+      width: 60px;
+      height: 45px;
+      border-width: 15px;
+      border-color: #f35325 #81bc06 #05a6f0 #ffba08;
+      border-style: solid;
+      background-color: #eee;
+    }
+
+    .borderdemo1 {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+    }
+  </style>
+  <p class="article-title text-sm">border</p>
+  <p>设置了4条边,为每一条边设置了颜色.</p>
+  <i class="borderdemo"></i>
+  <pre class="bg-gray-lt">
+
+      width: 60px;
+      height: 45px;
+      border-width:10px;
+      border-color:#f35325 #81bc06 #05a6f0 #ffba08;
+      border-style:solid;
+
+</pre>
+  <br />
+  <p>如果把盒子高度宽度设置为0,border不变,那么看起来就像4个三角形拼接成一个正方形.</p>
+  <p>可以将其它3边的颜色设置为透明,那么看起来就成了一个三角形.相邻的两个小三角形可以组合成一个大的.</p>
+  <i class="borderdemo" style="width:0;height:0"></i>
+  <i class="borderdemo1 mg-l-10" style="border-top-color:#f35325"></i>
+  <i class="borderdemo1 mg-l-10" style="border-top:30px solid #f35325;border-bottom:none"></i>
+  <i class="borderdemo1 mg-l-10" style="border-right-color:#81bc06"></i>
+  <i class="borderdemo1 mg-l-10" style="border-right:30px solid #81bc06;border-left:none"></i>
+  <i class="borderdemo1 mg-l-10" style="border-bottom-color:#05a6f0"></i>
+  <i class="borderdemo1 mg-l-10" style="border-left-color:#ffba08"></i>
+  <i class="borderdemo1 mg-l-10" style="border-right-color: #81bc06;border-left-color:#ffba08"></i>
+  <i class="borderdemo1 mg-l-10" style="border-top-color: #f35325;border-bottom-color:#05a6f0"></i>
+  <i class="borderdemo1 mg-l-10" style="border-color: #f35325 #f35325 transparent transparent"></i>
+  <i class="borderdemo1 mg-l-10" style="border-color: transparent #81bc06 #81bc06 transparent"></i>
+  <i class="borderdemo1 mg-l-10" style="border-color: transparent transparent #05a6f0 #05a6f0"></i>
+  <i class="borderdemo1 mg-l-10" style="border-color: #ffba08 transparent transparent #ffba08"></i>
+  <pre class="bg-gray-lt">
+
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-top-color:#f35325
+      border-top:30px solid #f35325;border-bottom:none;
+
+</pre>
+  <br />
+  <p>调整border的width值,为4边设置不同的width.那么三角形看起来是任意的,不再是等腰三角形.</p>
+  <p>width值是边框的厚度,对应的是三角形的高,这个高是以三角形在图案中间那个点为顶点,到对应底边的高.</p>
+  <p>用这个特点结合透明其它边可以做出一些图案</p>
+  <i class="borderdemo1" style="border-width: 10px 20px 30px 40px;
+    border-color: #f35325 #81bc06 #05a6f0 #ffba08;"></i>
+  <i class="borderdemo1 mg-l-10" style="border-width: 40px 10px 10px 10px;
+    border-color: #f35325 #81bc06 #05a6f0 #ffba08;"></i>
+  <i class="borderdemo1 mg-l-10" style="border-width: 10px 40px 10px 10px;
+    border-color: #f35325 #81bc06 #05a6f0 #ffba08;"></i>
+  <i class="borderdemo1 mg-l-10" style="border-width: 10px 10px 40px 10px;
+    border-color: #f35325 #81bc06 #05a6f0 #ffba08;"></i>
+  <i class="borderdemo1 mg-l-10" style="border-width: 10px 10px 10px 40px;
+    border-color: #f35325 #81bc06 #05a6f0 #ffba08;"></i>
+  <i class="borderdemo1" style="border-width: 10px 10px 25px 25px;
+    border-color: #f35325 #81bc06 transparent transparent;"></i>
+  <pre class="bg-gray-lt">
+
+      border-width: 10px 20px 30px 40px
+      border-width: 40px 10px 10px 10px
+      border-width: 10px 40px 10px 10px
+      border-width: 10px 10px 40px 10px
+      border-width: 10px 10px 10px 40px
+      //
+      border-width: 10px 10px 25px 25px;
+      border-color: #f35325 #81bc06 transparent transparent;
+
+</pre>
+  <br />
+  <p class="article-title sm">border-radius</p>
+  <p>边框圆角效果,设置圆角border-radius:50% 50%,图案像一个游泳圈.三角形成了扇形.</p>
+  <i class="borderdemo" style="border-radius: 20% 20% 20% 20%"></i>
+  <i class="borderdemo mg-l-10" style="border-radius: 50% 50%"></i>
+  <i class="borderdemo1 mg-l-10" style="border-radius: 50% 50%;border-color:#f35325 #81bc06 #05a6f0 #ffba08;"></i>
+  <i class="borderdemo1 mg-l-10" style="border-radius: 50% 50%;border-color:#f35325 transparent #05a6f0 transparent;"></i>
+  <i class="borderdemo1 mg-l-10" style="border-radius: 50% 50%;border-color:transparent #81bc06 transparent #ffba08;"></i>
+
+  <p class="article-title sm">transform</p>
+  <p>旋转角度,作为一个搭配规则非常有用.比如要做一个黑白半球,把边框图案旋转45度看下效果.</p>
+  <i class="borderdemo1" style="border-color:#ccc #ccc #333 #333;border-radius:50%;"></i>
+  <i class="borderdemo1 mg-l-10" style="border-color: #ccc #ccc #333 #333; border-radius: 50%; transform: rotate(45deg)"></i>
+  <pre class="bg-gray-lt">
+
+      border-color: #ccc #ccc #333 #333;
+      border-radius: 50%;
+      transform: rotate(45deg)
+
+</pre>
+  <br />
+  <p class="article-title sm">box-shadow</p>
+  <p>盒子阴影,图标实现利器啊.</p>
+  <p>例如这个微软图标.这个图案有4个部分,每个部分颜色不同,从左上红色块开始,这是盒子实体,设置了width,heigh都是1em,是一个正方形盒子.</p>
+  <p>其它3块都是box-shadow实现.这个css有5个参数,依次是: x-offset阴影偏离X正方向是值 y-offset 阴影模糊半斤 阴影大小 阴影颜色.</p>
+  <p>默认情况下,阴影大小和实体一样大.那么要实现第2个绿色块,需要将x-offset设置为一个实体的宽度值,也就是让阴影完全显示出来,由于阴影大小默认为实体大小,所以只要修改阴影颜色为绿色即可.</p>
+  <p>那么第3个和第4个是怎么来的.因为阴影可以设置多个的.还是那5个参数,但可以设置多条,每一条规则间用逗号隔开.</p>
+  <p>利用这个规则,继续设置黄块和蓝块,调整它们的位子和颜色.最后得到微软图标.</p>
+  <i style="display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: #f35325;
+  "></i>
+  <i style="display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: #f35325;
+    box-shadow: 1em 0 0 0 #81bc06;
+  "></i>
+  <i class="mg-l-20" style="display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: #f35325;
+    box-shadow: 1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08;
+  "></i>
+  <i class="mg-l-20" style="display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: #f35325;
+    box-shadow: 1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08,0 1em 0 0 #05a6f0;
+  "></i>
+  <pre class="bg-gray-lt">
+
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      background-color: #f35325;
+      box-shadow: 1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08,0 1em 0 0 #05a6f0;
+
+</pre>
+  <br />
+  <p>可以认为,无限多条的box-shadow可以增加图案内容,虽然box-shadow的形状跟随实体的形状,但可以通过调整位子和颜色还有大小做出比较丰富的图案.</p>
+  <i class="mg-l-20 mg-b-20" style="display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: black;
+    box-shadow: 1em 0 0 0 #f35325,1em 1em 0 0 #ffba08,0 1em 0 0 #05a6f0,
+    -1em 1em 0 0 pink,-1em 0 0 0 #81bc06,0 1em 0 0 #05a6f0,
+    -1em -1em 0 0 brown,0 -1em 0 0 deeppink,1em -1em 0 0 gray;
+  "></i>
+  <p>无限多的box-shadow也可以用于堆码像素方法作图.</p>
+  <p>在计算机中,由于任何图案都是由像素组成的,每个像素就是一个点,这些点的颜色不同,位子不同,它们排列成一个矩阵,这个矩阵呈现的就是图案.</p>
+  <p>再回想这个box-shadow,如果把一个盒子实体作为一个"像素"单位,那么基于这个实体设置的无数box-shadow阴影,就可以得到无数的"像素",它们的大小/颜色和位子可设置,将这些"像素"按矩阵排列,那么自然也就是一幅图案.</p>
+  <p>用这个原理,做一些简易的像素画图标是可行的.</p>
 </div>
