@@ -2940,3 +2940,36 @@ p {
   transform: rotate(45deg);
   box-shadow: 0.45em 0, 0 0.45em, -0.45em 0, 0 -0.45em, 0.38em 0, 0 0.38em, -0.38em 0, 0 -0.38em;
 }
+.ico-star5 {
+  position: relative;
+  margin-top: calc(0.726 * calc(0.951 * 0.53em));
+  margin-bottom: calc(2 * 0.53em * 0.951 * calc(0.951 - 0.726));
+}
+.ico-star5,
+.ico-star5:before,
+.ico-star5:after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-width: calc(0.726 * calc(0.951 * 0.53em)) calc(0.951 * 0.53em);
+  border-style: solid;
+  border-color: transparent;
+  border-bottom: 0;
+  border-top-color: initial;
+  transform-origin: calc(0.951 * 0.53em) calc(0.31 * 0.53em);
+}
+.ico-star5:before,
+.ico-star5:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  top: calc(-0.726 * calc(0.951 * 0.53em));
+  left: calc(-0.951 * 0.53em);
+}
+.ico-star5:before {
+  transform: rotate(72deg);
+}
+.ico-star5:after {
+  transform: rotate(144deg);
+}

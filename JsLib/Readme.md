@@ -16,4 +16,4 @@ jslib是一个类数组对象,选择器匹配的元素会保留在其中以供�
 ```let val = $('#box').prop('val')```  
 // 新建div元素,加上active样式类  
 ```$('<div>').addClass('active')```  
-文档 [Document](https://mirrortom.date/jslib/index.html)  
+文档 [Document](https://mirrortom.github.io/jslib/index.html)  

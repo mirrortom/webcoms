@@ -1,0 +1,295 @@
+﻿<div class="doc-page">
+  <style>
+    .demofivestart {
+      position: relative;
+    }
+
+      .demofivestart, .demofivestart:before, .demofivestart:after {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-width: calc(0.726 * calc(0.95 * 100px)) calc(0.95 * 100px);
+        border-style: solid;
+        border-color: transparent;
+        border-bottom: 0;
+        border-top-color: initial;
+        transform-origin: calc(0.95 * 100px) calc(0.31 * 100px);
+      }
+
+        .demofivestart:before, .demofivestart:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+
+        .demofivestart:before {
+          transform: rotate(72deg);
+        }
+
+        .demofivestart:after {
+          transform: rotate(144deg);
+        }
+
+    .demofivestart-topleft.demofivestart:before,
+    .demofivestart-topleft.demofivestart:after {
+      top: calc(-0.726 * calc(0.95 * 100px));
+      left: calc(-0.95 * 100px);
+    }
+
+    .demotri1 {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-width: 69px 95px;
+      border-style: solid;
+      border-color: transparent;
+      border-top-color: rgba(128,8,64,.7);
+      border-bottom: none;
+    }
+  </style>
+  <h2>五角星</h2>
+  <p>
+    <i class="ico ico-star5"></i>
+    <i class="ico ico-star5 text-lg"></i>
+    <i class="ico ico-star5 text-xl text-info"></i>
+    <i class="ico ico-star5 text-xxl text-success"></i>
+    <i class="ico ico-star5 text-xxxl text-danger"></i>
+  </p>
+  <pre class="bg-gray-lt">
+
+    &lt;i class="ico ico-star5"&gt;&lt;/i&gt;
+    &lt;i class="ico ico-star5 text-xl text-info"&gt;&lt;/i&gt;
+    &lt;i class="ico ico-star5 text-xxl text-danger"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>开始做这个感觉比较复杂,研究后发现,正五角星可以由3个同样的等腰三角形叠在一起得到.而且这3个三角形的摆放位子,可以由其中任何一个三角形旋转得到.</p>
+  <p>如图所示,由红绿蓝色的3个三角形可以组成一个正五角星.观察发现,底边水平的红色三角形旋转72度后,就是绿色三角形的位子.旋转144度就是蓝色三角形的位子.</p>
+  <canvas id="canva1"></canvas>
+  <br />
+  <p>那么用css画这个五角星其实就是画3个同样的三角形,旋转角度后叠在一起形成了五角星.</p>
+  <p>css画三角形用border办法.这个三角形的特点和要计算的数据,看图中心的五角星说明:</p>
+  <ul class="list num">
+    <li>等腰三角形,ABR是等腰三角,A是顶点</li>
+    <li>底角ARH是36度,底角其实就是五角星的2个顶角,五角星内角和是180</li>
+    <li>旋转圆心O,三角形的旋转中心点是五角星的中心,为了方便,中心设置在坐标轴的原点.</li>
+    <li>半径OR,用五角星的半径表示其大小,它是一个常数,这个半径是指五角星中心到顶点的距离.</li>
+    <li>底边RB长度,可证明是RH的两倍,RH在直角三角形ORH中,所以 RH = cosORH * OR . OR为常数,角ORH可证明是18度.</li>
+    <li>高AH长度,AH = tanARH * RH ,RH已经计算出.</li>
+    <li>圆心O到顶点A距离OA,OA = AH - OH,而 OH = sinORH * OR.</li>
+  </ul>
+  <br />
+  <p>先画出底边水平的那个三角形,设定五角星的半径:OR为100px</p>
+  <p>then,三角形底边长度的一半(RH)是 cos18 * 100 = 95px , 高(AH)是 tan36 * RH = 69px</p>
+  <p><i class="demotri1"></i></p>
+  <pre class="bg-gray-lt">
+
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-width: 69px 95px;
+      border-style: solid;
+      border-color: transparent;
+      border-top-color: rgba(128,8,64,.7);
+      border-bottom: none;
+
+</pre>
+  <br />
+  <p>根据前面的观察,将这个三角形旋转72度和144度,就得到了剩下的2个三角形.这个自然是用css的 transform: rotate(0deg) 实现.</p>
+  <p>由于旋转点是基于五角星的中心点的,那么就要确认css的transform:rotate是基于哪个坐标系旋转的.需要计算出五角星中心点在这个坐标系中的坐标.</p>
+  <p>到MDN上查询了transform:rotate的用法,它是基于要旋转的dom的中心点旋转的,它的坐标系是以dom的左上角顶点为(0,0)原点的,这个与canvas一样.transform-origin:x y 这个规则可以设定旋转点位子.默认值是center center,也就是dom盒模型的中心点.</p>
+  <p>再看图示,css画出的这个三角形就是ARB.它的坐标系原点(0,0)是R点.那么求出O点在这个坐标系的位子,就得到了旋转点,即transform-origin需要的参数值.</p>
+  <p>从图示上得出,在以R为原点的坐标系中,O点坐标y就是OH的长度,x坐标就是RH的长度.OH = sin18 * 100 = 0.31 * 100px , RH = 95px.</p>
+  <p>
+    <i class="demotri1" style="margin:50px 0 20px;border-top-color:rgba(8,128,64,.7);transform-origin:95px calc(0.31 * 100px);transform:rotate(72deg)"></i>
+    <i class="demotri1" style="border-top-color:rgba(8,64,128,.7);transform-origin:95px calc(0.31 * 100px);transform:rotate(144deg)"></i>
+  </p>
+  <pre class="bg-gray-lt">
+
+    transform-origin:95px calc(0.31 * 100px)
+    transform:rotate(72deg)
+    transform:rotate(144deg)
+
+</pre>
+  <br />
+  <p>到此,画五角星的数据都计算出来了.3个三角形使用一个&lt;i&gt;标记和它的:before,:after2个伪类实现.</p>
+  <p>底边水平的那个三角形使用i标记,其它两个使用伪类.要用绝对定位将伪类叠在一起,再旋角度.但是i标记的三角形不会叠起,因为那个三角形是i的边框.left:0,top:0的起点是从盒模型的内容区域开始的.为了将3个三角形叠一起,定位为,top : -AH , left : -RH</p>
+  <div style="margin:60px 0 120px">
+    <i class="demofivestart mg-r-50"></i>
+    <i class="demofivestart mg-l-50 demofivestart-topleft"></i>
+  </div>
+  <p>五角星的占用面积不是i标记盒模型的实际面积(下图红色区域和底边水平三角形组成的矩形),需要设置margin来包含实际占用面积.依然以底边水平的这个三角形为参考,它的底边长度就是标记的宽度,而且五角星的其它顶角没有在水平方向上超出这个底边的长度范围,所以,可以不设置左右的margin.</p>
+  <p>离上边超出了正上方顶角到底边的距离,经过计算这个距离就是AH.所以可以设定margin-top : AHpx</p>
+  <p>离下边的距离可以认为是三角形顶角A点,到五角星的两个底角连线的距离.经过计算距离是: margin-bottom: 2 * OR * cos18(cos18 - tg36)</p>
+
+  <div style="display:inline-block;border:1px dashed black;background-color:#080d3dd9">
+    <i class="demofivestart demofivestart-topleft text-success" style="border-left-color:red;border-right-color:red;margin-top:69px;margin-bottom:43px"></i>
+  </div>
+  <p>这个例子的半径为100px,它画出的五角星占地面积(包含margin)是190px * 181px</p>
+  <p>要实现设定font-size : Xpx的字体大小,产生Xpx * Xpx大小的图标,那么css里的半径值要设置为 100/190em = 0.53em</p>
+
+  <pre class="bg-gray-lt">
+
+  // 底边水平三角形的margin
+  margin-top:calc(0.726 * calc(0.95 * .53em))
+  margin-bottom:calc(2 * .53em * 0.951 * calc(0.951 - 0.726))
+
+  // 三角形边长计算,.53em是五角星半径
+  border-width: calc(0.726 * calc(0.95 * .53em)) calc(0.95 * .53em);
+
+</pre>
+  <br />
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-star5
+        position: relative
+        margin-top:calc(0.726 * calc(0.951 * .53em))
+        margin-bottom:calc(2 * .53em * 0.951 * calc(0.951 - 0.726))
+
+    .ico-star5, .ico-star5:before, .ico-star5:after
+        display: inline-block
+        width: 0
+        height: 0
+        border-width: calc(0.726 * calc(0.951 * .53em)) calc(0.951 * .53em);
+        border-style: solid;
+        border-color: transparent;
+        border-bottom: 0;
+        border-top-color: initial;
+        transform-origin: calc(0.951 * .53em) calc(0.31 * .53em);
+
+    .ico-star5:before, .ico-star5:after
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        top: calc(-0.726 * calc(0.951 * .53em));
+        left: calc(-0.951 * .53em);
+    .ico-star5:before
+        transform: rotate(72deg)
+    .ico-star5:after
+        transform: rotate(144deg)
+
+</pre>
+  <br />
+  <script>
+    ((win) => {
+      let cav = win.cavlib('canva1').style();
+      let ctx = cav.ctx;
+      let w = 400, h = 200;
+      ctx.canvas.width = w;
+      ctx.canvas.height = h;
+      ctx.font = '18px serif';
+      // 中央五角星,圆
+      let rd = 50;
+      let rdcenter = rd * 1.3;
+      fiveStar(ctx, w / 2, h / 2, rdcenter, 'gray');
+      ctx.beginPath();
+      ctx.arc(w / 2, h / 2, rdcenter, 0, Math.PI * 2);
+      ctx.stroke();
+      // 中央五角星标注
+      ctx.save();
+      ctx.translate(w / 2, h / 2);
+      let cos18 = Math.cos(Math.PI / 10);
+      let sin18 = Math.sin(Math.PI / 10);
+      let dx = cos18 * rdcenter;// 底边长度的一半
+      let dy = sin18 * rdcenter;// 中心点到底边高度
+      let ty = (Math.tan(Math.PI / 5) * cos18 - sin18) * rdcenter;// 中心点到顶点高度
+      // 中心点
+      ctx.beginPath();
+      ctx.fillText('O', 2, -2);
+      // 左右底边点,
+      ctx.beginPath();
+      ctx.fillText('R', -dx - 15, -dy - 5);
+      ctx.fillText('B', dx + 10, -dy - 5);
+      // 顶点
+      ctx.beginPath();
+      ctx.fillText('A', 0, ty + 20);
+      // 底边中点
+      ctx.beginPath();
+      ctx.fillText('H', 2, -dy - 2);
+      // 中心点和左顶点连线
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(-dx, -dy);
+      ctx.setLineDash([3]);
+      ctx.stroke();
+      // 中央五角星中的底边水平的那个三角形ABR,边框着色
+      ctx.beginPath();
+      ctx.moveTo(-dx, -dy);
+      ctx.lineTo(dx, -dy);
+      ctx.lineTo(0, ty);
+      ctx.closePath();
+      ctx.setLineDash([]);
+      //ctx.strokeStyle=''
+      ctx.stroke();
+      ctx.restore();
+
+      // 五角星1,2,3,三角形阴影1,2,3
+      fiveStar(ctx, w / 5, 55, rd);
+      fiveStarTriShadow(ctx, w / 5, 55, rd, 1, '#ff000070');
+      fiveStar(ctx, w * 5 / 6, 55, rd);
+      fiveStarTriShadow(ctx, w * 5 / 6, 55, rd, 2, '#00ff0070');
+      fiveStar(ctx, w / 5, 155, rd);
+      fiveStarTriShadow(ctx, w / 5, 155, rd, 3, '#0000ff70');
+      // 阴影重合
+      fiveStar(ctx, w * 5 / 6, 155, rd);
+      fiveStarTriShadow(ctx, w * 5 / 6, 155, rd, 1, '#ff000070');
+      fiveStarTriShadow(ctx, w * 5 / 6, 155, rd, 2, '#00ff0070');
+      fiveStarTriShadow(ctx, w * 5 / 6, 155, rd, 3, '#0000ff70');
+      // x,y轴 原始
+      ctx.save();
+      ctx.beginPath();
+      ctx.setLineDash([3]);
+      ctx.strokeStyle = 'gray';
+      cav.lineArrow([0, h / 2, w - 10, h / 2]);
+      cav.lineArrow([h, w / 2, h, 10]);
+      ctx.restore();
+
+      // 画正五角星,oxoy:中心点坐标.rd:中心点到顶点距离
+      function fiveStar(ctx, ox, oy, rd, color = 'orangered') {
+        ctx.save();
+        ctx.beginPath();
+        ctx.translate(ox, oy);
+        ctx.moveTo(0, -rd);
+
+        for (var i = 0; i < 4; i++) {
+          ctx.rotate(-Math.PI * 4 / 5);
+          ctx.lineTo(0, -rd);
+        }
+        ctx.closePath();
+        ctx.strokeStyle = color;
+        ctx.stroke();
+        ctx.restore();
+      }
+      // 画正五角星其中一个三角形阴影 dir:1=底边平行于x轴的三角形,2,3=倾斜3角形
+      function fiveStarTriShadow(ctx, ox, oy, rd, dir = 1, color = '#22222260') {
+        // 底边平行X轴的等腰三角形顶点坐标为:
+        // 底边2个点(+-cos18 * rd, -sin18 * rd) 顶点(0, (tan36 * cos18 - sin18) * rd)
+        ctx.save();
+        ctx.beginPath();
+        ctx.translate(ox, oy);
+        let cos18 = Math.cos(Math.PI / 10);
+        let sin18 = Math.sin(Math.PI / 10);
+        let dx = cos18 * rd;// 底边长度的一半
+        let dy = sin18 * rd;// 中心点到底边高度
+        let ty = (Math.tan(Math.PI / 5) * cos18 - sin18) * rd;// 中心点到顶点高度
+        //
+        if (dir == 2) {
+          ctx.rotate(Math.PI * 2 / 5);
+        } else if (dir == 3) {
+          ctx.rotate(Math.PI * 4 / 5);
+        }
+        // 画阴影
+        ctx.moveTo(-dx, -dy);
+        ctx.lineTo(dx, -dy);
+        ctx.lineTo(0, ty);
+        ctx.fillStyle = color;
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+    })(window);
+  </script>
+</div>

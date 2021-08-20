@@ -1,0 +1,29 @@
+﻿// 五角星 star5
+
+.ico-star5
+    position: relative
+    margin-top:calc(0.726 * calc(0.951 * .53em))
+    margin-bottom:calc(2 * .53em * 0.951 * calc(0.951 - 0.726))
+
+.ico-star5, .ico-star5:before, .ico-star5:after
+    display: inline-block
+    width: 0
+    height: 0
+    border-width: calc(0.726 * calc(0.951 * .53em)) calc(0.951 * .53em);
+    border-style: solid;
+    border-color: transparent;
+    border-bottom: 0;
+    border-top-color: initial;
+    transform-origin: calc(0.951 * .53em) calc(0.31 * .53em);
+
+.ico-star5:before, .ico-star5:after
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    top: calc(-0.726 * calc(0.951 * .53em));
+    left: calc(-0.951 * .53em);
+.ico-star5:before
+    transform: rotate(72deg)
+.ico-star5:after
+    transform: rotate(144deg)
