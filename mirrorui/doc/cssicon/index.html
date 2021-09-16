@@ -36,17 +36,19 @@
       border-right: 1px solid #eee;
       border-bottom: 1px solid #eee;
     }
-
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="menu-box">
-      <a class="text-center pd-15 d-block" id="main_about">css图标</a>
-      <div class="grids-3" id="main_menubox">
+    <div class="menu-box" id="main_menubox">
+      <a class="btn link d-block bg-gray-lt" id="main_about">css 图标 icon</a>
+      <div class="grids-3">
         <div class="iconitem" urlid="moon" title="月牙"><i class="ico ico-moon text-xxl"></i></div>
-        <div class="iconitem" urlid="sun" title="太阳"><i class="ico ico-sun text-xxl"></i></div>
+        <div class="iconitem" urlid="sun" title="太阳"><i class="ico ico-sun text-xxl" style="color:gold"></i></div>
         <div class="iconitem" urlid="star5" title="星星"><i class="ico ico-star5 text-xxl"></i></div>
+      </div>
+      <div class="grids-3">
+        <div class="iconitem" urlid="triarr" title="三角箭头"><i class="ico ico-triarr up text-xxl"></i></div>
       </div>
     </div>
     <div class="content-box">
@@ -85,8 +87,8 @@
         cpg.load('about', 'css图标');
       };
 
-      //$('#main_about')[0].click();
-      $('#main_menubox .iconitem')[2].click();
+      $('#main_about')[0].click();
+      $('#main_menubox .iconitem')[3].click();
 
     })(window);
   </script>

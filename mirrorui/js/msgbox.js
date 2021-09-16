@@ -215,7 +215,7 @@
         showMsgBox(parentDiv);
         //
         if (typeof onShow === 'function')
-            onBefore();
+            onShow();
     };
 
     // 引用名称可在此修改

@@ -41,6 +41,7 @@
     <Content Include="404.html" />
     <Content Include="doc\cachepagedemo1.html" />
     <Content Include="doc\cssicon\about.html" />
+    <Content Include="doc\cssicon\triarr.html" />
     <Content Include="doc\cssicon\star5.html" />
     <Content Include="doc\cssicon\sun.html" />
     <Content Include="doc\cssicon\moon.html" />
@@ -135,6 +136,7 @@
     <None Include="stylus\coms\msgbox.styl" />
     <None Include="stylus\coms\msgpanel.styl" />
     <None Include="stylus\coms\mnavmenu.styl" />
+    <None Include="stylus\cssicon\icons\triarr.styl" />
     <None Include="stylus\cssicon\icons\star5.styl" />
     <None Include="stylus\cssicon\icons\sun.styl" />
     <None Include="stylus\cssicon\icons\moon.styl" />

@@ -5,8 +5,8 @@
     <i class="ico ico-sun text-md"></i>
     <i class="ico ico-sun text-xl"></i>
     <i class="ico ico-sun text-xxl"></i>
-    <i class="ico ico-sun text-xxl bg-danger"></i>
-    <i class="ico ico-sun text-xxl text-danger bg-info"></i>
+    <i class="ico ico-sun text-xxl text-danger"></i>
+    <i class="ico ico-sun text-xxl text-warning"></i>
   </div>
 
   <pre class="bg-gray-lt">
@@ -15,8 +15,8 @@
 
   &lt;i class="ico ico-sun text-xl"&gt;&lt;/i&gt;
 
-  // 添加文字颜色样式改变光线颜色,添加背景颜色样式改变太阳颜色
-  &lt;i class="ico ico-sun text-danger bg-info"&gt;&lt;/i&gt;
+  // 添加文字颜色样式改变太阳颜色
+  &lt;i class="ico ico-sun text-danger"&gt;&lt;/i&gt;
 
 </pre>
   <br />
@@ -96,6 +96,7 @@
 </pre>
   <br />
   <p>这8个方向的光线其实是两组阴影,所以用到两个伪类:before和:after.使用绝对定位并且垂直居中,让2个伪类置于太阳的中心,并且是叠起的.然后设置它们的box-shadow,4个阴影一组,设置2层.光线实现了.</p>
+  <p>太阳圈圈设置了内阴影填充了整个太阳内部,便于通过设置字体颜色改变太阳颜色.</p>
   <pre class="bg-gray-lt">
 
    &lt;i class="ico ico-sun"&gt;&lt;/i&gt;
@@ -105,10 +106,8 @@
       position: relative
       width: .6em
       height: .6em
-      color: gold
       border-radius: 50%
-      background-color: gold
-      box-shadow:inset 0 0 .15em 0
+      box-shadow:inset 0 0 .5em
       margin: .2em
 
   .ico-sun:before, .ico-sun:after
