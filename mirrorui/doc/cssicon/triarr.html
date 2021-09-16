@@ -1,0 +1,128 @@
+﻿<p class="doc-page">
+  <h2>三角箭头</h2>
+<p>三角形箭头图标,是等边三角形,箭头分上下左右.</p>
+<div class="mg-20">
+  <i class="ico ico-triarr up text-xl"></i>
+  <i class="ico ico-triarr down text-danger text-xl"></i>
+  <i class="ico ico-triarr left text-warning text-xl"></i>
+  <i class="ico ico-triarr right text-info text-xl"></i>
+</div>
+
+<pre class="bg-gray-lt">
+
+  &lt;i class="ico ico-triarr up"&gt;&lt;/i&gt;
+  &lt;i class="ico ico-triarr down"&gt;&lt;/i&gt;
+  &lt;i class="ico ico-triarr left"&gt;&lt;/i&gt;
+  &lt;i class="ico ico-triarr right text-info"&gt;&lt;/i&gt;
+
+</pre>
+<br />
+<style scoped>
+  .triarrdemo {
+    display: inline-block;
+    width: 0;
+    height: 0px;
+    border: 50px solid transparent;
+  }
+
+    .triarrdemo.bottom {
+      border-top: calc(0.866 * 100px) solid;
+      border-bottom: none;
+      border-left-color: #00ff90;
+      border-right-color: #00ff90;
+    }
+
+    .triarrdemo.top {
+      border-bottom: calc(0.866 * 100px) solid;
+      border-top: none;
+      border-left-color: #00ff90;
+      border-right-color: #00ff90;
+    }
+
+    .triarrdemo.left {
+      border-right: calc(0.866 * 100px) solid;
+      border-left: none;
+      border-top-color: #00ff90;
+      border-bottom-color: #00ff90;
+    }
+
+    .triarrdemo.right {
+      border-left: calc(0.866 * 100px) solid;
+      border-right: none;
+      border-top-color: #00ff90;
+      border-bottom-color: #00ff90;
+    }
+
+    .triarrdemo.margin-lr {
+      margin: 0 calc((100px - 0.866 * 100px) / 2);
+    }
+
+    .triarrdemo.margin-tb {
+      margin: calc((100px - 0.866 * 100px) / 2) 0;
+    }
+</style>
+<p>实现过程<p>
+<p>自然是边框法做三角形,要求是等边三角形,需要计算下边框长度.假设边长是 L,先做一个底边水平,且底边对应顶角朝下的三角形.</p>
+<p>根据边框特点,left,right厚度之和就是水平底边长度,那么border-left就是 L/2.该边上的高就是border-top的厚度,sin60 * L .下边框则不需要了.</p>
+<p>
+  <i class="triarrdemo bottom text-black-lt"></i>
+</p>
+<pre class="bg-gray-lt">
+
+      display: inline-block;
+      width: 0;
+      height: 0px;
+      border: 50px solid transparent;
+      // 上边框就是三角形的高,下边框去掉
+      border-top: calc(0.866 * 100px) solid;
+      border-bottom: none;
+
+</pre>
+<br />
+<p>方向向下(bottom)的三角形箭头,需要的是top边框,并且要去掉bottom边框,这是个规律.据此画出其它3个方向的.</p>
+<p>
+  <i class="triarrdemo top text-black-lt"></i>
+  <i class="triarrdemo left text-black-lt"></i>
+  <i class="triarrdemo right text-black-lt"></i>
+</p>
+<p>由于边长是 L,高是 sin60 * L,所以图标是一个长方形,上下方向与左右方向不能通过旋转90度得到,不是旋转对称的.</p>
+<p>为此,通过设置margin值,让盒模型占地面积成一个正方形.对于上下方向的箭头,height小于width,所以设置上下的margin.这个值显然是 (L - sin60 * L) / 2.同理,左右方向的设置左右margin.</p>
+<div class="grids" style="font-size:0">
+  <div class="bg-warning-lt"><i class="triarrdemo top margin-tb text-black-lt"></i></div>
+  <i class="mg-lr-20"></i>
+  <div class="bg-warning-lt"><i class="triarrdemo left margin-lr text-black-lt"></i></div>
+</div>
+<br />
+<p>完整样式</p>
+<pre class="bg-gray-lt">
+  
+  .ico-triarr
+      display: inline-block
+      width: 0
+      height: 0
+      border: .5em solid transparent
+
+
+    &.down
+        border-top: .866em solid
+        border-bottom: none
+        margin: .067em 0
+
+
+    &.up
+        border-bottom: .866em solid
+        border-top: none
+        margin: .067em 0
+
+    &.left
+        border-right: .866em solid
+        border-left: none
+        margin: 0 .067em
+
+
+    &.right
+        border-left: .866em solid
+        border-right: none
+        margin: 0 .067em
+
+</pre>
