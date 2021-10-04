@@ -2996,3 +2996,29 @@ p {
   border-right: none;
   margin: 0 0.067em;
 }
+.ico-plus {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+}
+.ico-plus:before,
+.ico-plus:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  box-shadow: inset 4px 4px;
+}
+.ico-plus:before {
+  width: 1em;
+  height: 4px;
+}
+.ico-plus:after {
+  width: 4px;
+  height: 1em;
+}
