@@ -3050,3 +3050,6 @@ p {
   height: 0.16em;
   box-shadow: inset 0.16em 0.16em, 0 0.32em, 0 -0.32em;
 }
+.ico-menu.dot:before {
+  width: 0.16em;
+}
