@@ -2897,18 +2897,17 @@ p {
   border-color: var(--color-danger);
 }
 .ico {
+  display: inline-block;
   pointer-events: none;
   vertical-align: middle;
 }
 .ico-moon {
-  display: inline-block;
   width: 1em;
   height: 1em;
   border-radius: 50%;
   box-shadow: inset -0.4em -0.1em;
 }
 .ico-sun {
-  display: inline-block;
   position: relative;
   width: 0.6em;
   height: 0.6em;
@@ -2971,7 +2970,6 @@ p {
   transform: rotate(144deg);
 }
 .ico-triarr {
-  display: inline-block;
   width: 0;
   height: 0;
   border: 0.5em solid transparent;
@@ -2997,7 +2995,6 @@ p {
   margin: 0 0.067em;
 }
 .ico-plus {
-  display: inline-block;
   position: relative;
   width: 1em;
   height: 1em;
