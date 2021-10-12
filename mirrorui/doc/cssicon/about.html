@@ -117,6 +117,28 @@
 
 </pre>
   <br />
+  <p class="article-title sm">currentColor</p>
+  <p>来自MDN: currentColor 关键字代表原始的 color 属性的计算值.它允许让继承自属性或子元素的属性颜色属性以默认值不再继承</p>
+  <p>这个属性值可以设置, background-color: currentColor .如果图标的颜色是使用背景色的,那么这样设置后,也可以通过设置文字颜色color来改变图标颜色了.</p>
+  <i style="display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+  "></i>
+  <i style="display: inline-block;
+    width: 1em;
+    height: 1em;
+    color:red;
+    background-color: currentColor;
+  "></i>
+  <pre class="bg-gray-lt">
+
+    // 背景颜色是红色,通过设置字体颜色
+    color:red;
+    background-color: currentColor;
+
+</pre>
+  <br />
   <p class="article-title sm">box-shadow</p>
   <p>盒子阴影,图标实现利器啊.</p>
   <p>例如这个微软图标.这个图案有4个部分,每个部分颜色不同,从左上红色块开始,这是盒子实体,设置了width,heigh都是1em,是一个正方形盒子.</p>
