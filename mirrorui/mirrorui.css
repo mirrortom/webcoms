@@ -3050,3 +3050,39 @@ p {
 .ico-menu.dot:before {
   width: 0.16em;
 }
+.ico-anglearr {
+  position: relative;
+  width: 1em;
+  height: 1em;
+}
+.ico-anglearr:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: calc(0.7 * 1em);
+  height: calc(0.7 * 1em);
+  border: 0.07em solid currentColor;
+  border-right: none;
+  border-bottom: none;
+}
+.ico-anglearr.down:before {
+  transform: rotate(-135deg);
+  bottom: calc(1em / 4 / 0.7);
+}
+.ico-anglearr.up:before {
+  transform: rotate(45deg);
+  top: calc(1em / 4 / 0.7);
+}
+.ico-anglearr.left:before {
+  transform: rotate(-45deg);
+  left: calc(1em / 4 / 0.7);
+}
+.ico-anglearr.right:before {
+  transform: rotate(135deg);
+  right: calc(1em / 4 / 0.7);
+}

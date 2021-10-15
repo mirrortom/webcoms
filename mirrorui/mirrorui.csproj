@@ -44,6 +44,7 @@
     <Content Include="doc\cssicon\minus.html" />
     <Content Include="doc\cssicon\menu.html" />
     <Content Include="doc\cssicon\plus.html" />
+    <Content Include="doc\cssicon\anglearr.html" />
     <Content Include="doc\cssicon\triarr.html" />
     <Content Include="doc\cssicon\star5.html" />
     <Content Include="doc\cssicon\sun.html" />
@@ -142,6 +143,7 @@
     <None Include="stylus\cssicon\icons\menu.styl" />
     <None Include="stylus\cssicon\icons\minus.styl" />
     <None Include="stylus\cssicon\icons\plus.styl" />
+    <None Include="stylus\cssicon\icons\anglearr.styl" />
     <None Include="stylus\cssicon\icons\triarr.styl" />
     <None Include="stylus\cssicon\icons\star5.styl" />
     <None Include="stylus\cssicon\icons\sun.styl" />

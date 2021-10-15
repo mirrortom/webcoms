@@ -1,0 +1,158 @@
+﻿<div class="doc-page">
+  <h2>直角箭头</h2>
+  <p>直角箭头图标,箭头分上下左右.</p>
+  <div class="mg-20">
+    <i class="ico ico-anglearr up text-xl"></i>
+    <i class="ico ico-anglearr down text-danger text-xl"></i>
+    <i class="ico ico-anglearr left text-warning text-xl"></i>
+    <i class="ico ico-anglearr right text-info text-xxl"></i>
+  </div>
+
+<pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-anglearr up</b>"&gt;&lt;/i&gt;
+  &lt;i class="ico ico-anglearr down"&gt;&lt;/i&gt;
+  &lt;i class="ico ico-anglearr left"&gt;&lt;/i&gt;
+  &lt;i class="ico ico-anglearr right text-info"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <style scoped>
+    .anglearrdemo {
+      display: inline-block;
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background-color: #eee;
+    }
+
+      .anglearrdemo:before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100px;
+        height: 100px;
+        border: 2px solid red;
+      }
+
+      .anglearrdemo.rotate45:before {
+        transform: rotate(45deg);
+      }
+
+      .anglearrdemo.resize:before {
+        width: calc(.7 * 100px);
+        height: calc(.7 * 100px);
+      }
+
+      .anglearrdemo.arr:before {
+        border-right: none;
+        border-bottom: none;
+      }
+
+      .anglearrdemo.up:before {
+        transform: rotate(45deg);
+      }
+
+      .anglearrdemo.up.up35:before {
+        border-left-color: blue;
+        top: 35px;
+      }
+
+      .anglearrdemo.up.up25:before {
+        border-left-color: blue;
+        top: 25px;
+      }
+
+      .anglearrdemo.right:before {
+        transform: rotate(135deg);
+      }
+
+      .anglearrdemo.down:before {
+        transform: rotate(-135deg);
+      }
+
+      .anglearrdemo.left:before {
+        transform: rotate(-45deg);
+      }
+  </style>
+  <p>实现过程<p>
+  <p>直角箭头图标,是一个边框,去掉两条边.边框使用:before伪元素.旋转了45度.</p>
+  <p>
+    <i class="anglearrdemo text-black-lt"></i>
+    <i class="anglearrdemo rotate45 text-black-lt"></i>
+  </p>
+  <p>旋转后的边框突破了i标记的范围,需要让它的4个顶点在i标记内部.i标记是图标大小,边长为L的正方形.那么,它内接正方形的边长就是 sin45 * L.可以观察到,由两个相邻边和这两边连线的对角线组成的三角形,是一个等腰直角三角形,而对角线长度就是L,所以得出内接正方形边长.</p>
+  <p>向左边的箭头是旋转45度,去掉了右边框和下边框.同理,通过旋转角度或者去掉对应的边,得到4个方向的箭头.</p>
+  <p>
+    <i class="anglearrdemo rotate45 resize text-black-lt"></i>
+    <i class="anglearrdemo resize arr left text-black-lt"></i>
+    <i class="anglearrdemo resize arr right text-black-lt"></i>
+    <i class="anglearrdemo resize arr up text-black-lt"></i>
+    <i class="anglearrdemo resize arr down text-black-lt"></i>
+  </p>
+  <p>箭头要处于i标记的中间,对于整个正方形,它本来就是居中的,采用的是绝对定位居中办法.但是由于只用了两条边,这是将正方形从对角线切开,用了一半.但另外一半还是占了位子的.所以看起来不居中了.例如,向上的箭头,要居中需要设置top值,那么top值的计算办法是.</p>
+  <p>直观看来,向上方向箭头(下图1直等腰角三角形)要垂直居中,需要将它的top值设置为 (L - 三角形高度)/2,由于三角形底边是L,那么高是L/2.top值是 L/4 (下图2).但效果是不对的.</p>
+  <p>上方向三角形的top值,是从i标记的上边到三角形左边框(下图3蓝色)的距离,但旋转后,预想的top值是三角形顶点到i标记上边的距离,现在设置为top1.显然,top1和top是由关系的.top和top1组成了一个三角形,而且是直角等腰的(旋转角度为45),而top是斜边,top1是直角边.现在是希望top1的值为 L/4,那么top值就要设为: L/4 / sin45</p>
+  <p>上方向设置top值.同理,left方向设置left值.</p>
+  <p>
+    <i class="anglearrdemo resize arr up text-black-lt"></i>
+    <i class="anglearrdemo resize arr up up25 text-black-lt"></i>
+    <i class="anglearrdemo resize arr up up35 text-black-lt"></i>
+  </p>
+  <p></p>
+  <pre class="bg-gray-lt">
+
+        width: calc(.7 * 100px);
+        height: calc(.7 * 100px);
+        // up
+        transform: rotate(45deg);
+        top:calc(100px / 4 / .7);
+
+</pre>
+  <br />
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+  
+.ico-anglearr
+    position: relative
+    width: 1em
+    height: 1em
+
+    &:before
+        content: ''
+        display: inline-block
+        position: absolute
+        margin: auto
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        width: calc(0.7 * 1em)
+        height: calc(0.7 * 1em)
+        border: .07em solid currentColor
+        border-right: none
+        border-bottom: none
+
+    &.down:before
+        transform: rotate(-135deg)
+        bottom: calc(1em / 4 / .7)
+
+    &.up:before
+        transform: rotate(45deg)
+        top: calc(1em / 4 / .7)
+
+    &.left:before
+        transform: rotate(-45deg)
+        left: calc(1em / 4 / .7)
+
+    &.right:before
+        transform: rotate(135deg)
+        right: calc(1em / 4 / .7)
+
+</pre>
+</div>
