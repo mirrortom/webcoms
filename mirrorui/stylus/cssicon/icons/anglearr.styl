@@ -22,16 +22,17 @@
 
     &.down:before
         transform: rotate(-135deg)
-        bottom: calc(1em / 4 / .7)
+        // L/4 + L/2 - L/2 * sin45,下同
+        bottom: calc(1em * 0.396)
 
     &.up:before
         transform: rotate(45deg)
-        top: calc(1em / 4 / .7)
+        top: calc(1em * 0.396)
 
     &.left:before
         transform: rotate(-45deg)
-        left: calc(1em / 4 / .7)
+        left: calc(1em * 0.396)
 
     &.right:before
         transform: rotate(135deg)
-        right: calc(1em / 4 / .7)
+        right: calc(1em * 0.396)
