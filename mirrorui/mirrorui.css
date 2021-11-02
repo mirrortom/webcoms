@@ -3072,17 +3072,46 @@ p {
 }
 .ico-anglearr.down:before {
   transform: rotate(-135deg);
-  bottom: calc(1em / 4 / 0.7);
+  bottom: calc(1em * 0.396);
 }
 .ico-anglearr.up:before {
   transform: rotate(45deg);
-  top: calc(1em / 4 / 0.7);
+  top: calc(1em * 0.396);
 }
 .ico-anglearr.left:before {
   transform: rotate(-45deg);
-  left: calc(1em / 4 / 0.7);
+  left: calc(1em * 0.396);
 }
 .ico-anglearr.right:before {
   transform: rotate(135deg);
-  right: calc(1em / 4 / 0.7);
+  right: calc(1em * 0.396);
+}
+.ico-search {
+  position: relative;
+  width: 1em;
+  height: 1em;
+}
+.ico-search:before,
+.ico-search:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+}
+.ico-search:before {
+  left: 5%;
+  top: 5%;
+  width: calc(0.6 * 1em);
+  height: calc(0.6 * 1em);
+  border: 0.07em solid currentColor;
+  border-radius: 50%;
+}
+.ico-search:after {
+  top: 55%;
+  left: 55%;
+  width: 0.5em;
+  height: 0.07em;
+  background-color: currentColor;
+  border-radius: 50% 0 0 50%/50% 0 0 50%;
+  transform-origin: 0 0;
+  transform: rotate(45deg);
 }
