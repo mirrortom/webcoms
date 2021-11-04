@@ -1,0 +1,28 @@
+﻿// info 信息 information
+
+.ico-info
+    position: relative
+    width: 1em
+    height: 1em
+    border: .08em solid currentColor
+    border-radius: 50%
+    
+    &:before, &:after
+        content: ''
+        display: inline-block
+        position: absolute
+        background-color: currentColor
+        left: 0
+        right: 0
+        margin: auto
+
+    &:before
+        top: 10%
+        width: .18em
+        height: .18em
+        border-radius: 50%
+
+    &:after
+        bottom: 15%
+        width: .14em
+        height: .4em

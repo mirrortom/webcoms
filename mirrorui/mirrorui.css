@@ -3132,3 +3132,31 @@ p {
   background-color: currentColor;
   transform: rotate(45deg);
 }
+.ico-info {
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 0.08em solid currentColor;
+  border-radius: 50%;
+}
+.ico-info:before,
+.ico-info:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  background-color: currentColor;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.ico-info:before {
+  top: 10%;
+  width: 0.18em;
+  height: 0.18em;
+  border-radius: 50%;
+}
+.ico-info:after {
+  bottom: 15%;
+  width: 0.14em;
+  height: 0.4em;
+}
