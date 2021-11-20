@@ -6,6 +6,8 @@
   <br />
   <m-pagenum class="d-block primary text-lg" id="pagenum2"></m-pagenum>
   <br />
+  <m-msgshow id="pgmsgshow1"></m-msgshow>
+  <br />
   <pre class="bg-gray-lt">
 
   &lt;<strong>m-pagenum</strong> id="pagenum1"&gt;&lt;/m-pagenum&gt;
@@ -28,22 +30,53 @@
     // 配置
     let cfg = {
       // (必须) 当前页码 >0 由后端返回当前页码,或者页面记住当前请求页面 默认 1
-      <strong>pageIndex</strong>: 1,
+        <strong>pageIndex</strong>: 1,
 
-      // (必须) 总数 >0 由后端返回新的总数
-      <strong>totalData</strong>: 96,
+                // (必须) 总数 >0 由后端返回新的总数
+        <strong>totalData</strong>: 96,
 
-      // 每页数量 [5-50] 默认 10
-      <strong>pageSize</strong>: 10,
+                // 每页数量 [5-50] 默认 10
+        <strong>pageSize</strong>: 10,
 
-      // 显示几个按钮[5-10] 默认 5
-      <strong>totalBtn</strong>: 5
+                // 显示几个按钮[5-10] 默认 5
+        <strong>totalBtn</strong>: 5
+
+            // 页码改变时执行 pageIndex:改变时页码
+        <strong>onPageChg</strong>: (pageIndex)
     }
 
     // 生成分页条
     // 分页条在请求数据后调用,从后端获得当前页码和数据总数.
     pgn1.<strong>create</strong>(cfg);
 
+</pre>
+  <br />
+  <p>获取数据后,生成分页条示例</p>
+  <pre class="bg-gray-lt">
+
+    function <strong>getData</strong>(pageIndex){
+        // 从接口获取数据
+        let json = getApi(para);
+
+        // 生成分页条,pageindex当前页码,listcount数据总数,从服务的返回
+        <strong>pageBar</strong>(json.PageIndex, json.ListCount);
+    }
+
+    // 分页条生成做成一个方法
+    function <strong>pageBar</strong>(pageIndex, rowCount){
+        let cfg={
+            pageIndex : pageIndex,
+            totalData : rowCount,
+
+            // 页码改变时执行 pageIndex:改变时页码
+            onPageChg: (pageIndex) => {
+            // 这里再调用取数据方法
+             <strong>getData</strong>(pageIndex);
+            }
+        };
+      
+        pgn1.create(cfg);
+    }
 </pre>
   <script>
     ((win) => {
@@ -57,7 +90,12 @@
         // 每页数量 [5-50]
         pageSize: 10,
         // 显示几个按钮[5-10]
-        totalBtn: 5
+        totalBtn: 5,
+        //
+        onPageChg: (pageIndex) => {
+          let msg1 = document.getElementById('pgmsgshow1');
+          msg1.info('页码: ' + pageIndex);
+        }
       }
       pgn1.create(cfg);
       cfg.pageIndex = 4;

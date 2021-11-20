@@ -39,23 +39,21 @@
         }
         // 总页数
         set config(cfg) {
-            // 当前页码
+            // 当前页码(必须)
             this.cfg.PageIndex = cfg.pageIndex || 1;
             // 每页数量[5-50]
             this.cfg.PageSize = (cfg.pageSize > 4 && cfg.pageSize < 51) ? cfg.pageSize : 10;
-            // 数据总数
+            // 数据总数(必须)
             this.cfg.TotalData = cfg.totalData || 0;
             // 总页数
-            this.cfg.TotalPage = 0;
-            if (this.cfg.TotalData >= 0 && this.cfg.PageSize >= 5
-                && this.cfg.PageIndex >= 1) {
-                let pagecount = parseInt(this.cfg.TotalData / this.cfg.PageSize);
-                let pagecountMod = this.cfg.TotalData % this.cfg.PageSize;
-                this.cfg.TotalPage = pagecountMod > 0 ? pagecount + 1 : pagecount;
-            }
+            let pagecount = parseInt(this.cfg.TotalData / this.cfg.PageSize);
+            let pagecountMod = this.cfg.TotalData % this.cfg.PageSize;
+            this.cfg.TotalPage = pagecountMod > 0 ? pagecount + 1 : pagecount;
             // 分页按钮个数[5-10].
             this.cfg.TotalBtn = (cfg.totalBtn > 4 && cfg.totalBtn < 11) ? cfg.totalBtn : 5;
-            
+
+            // 页码改变后执行(pageIndex:改变后的页码)
+            this.cfg.OnPageChg = cfg.onPageChg;
             //console.log(this.cfg);
         }
 
@@ -102,7 +100,7 @@
             this.innerText = '';
             // 2.1 页码按钮区域
             let btnsarea = $('<span>').addClass('btn-group', 'pagenum-btns')[0];
-            
+
             // 2.1.1 向前按钮
             btnsarea.append($('<a>').addClass('btn', 'pagenum-num').prop('pagenum', cfg.PageIndex - 1).text('〈')[0]);
             // 2.1.2 第1页按钮,当起始页码大于1时添加
@@ -150,16 +148,22 @@
                     // 改变当前页面后,重新生成分页条
                     cfg.PageIndex = pgindex;
                     this.create();
+                    //
+                    if (typeof this.cfg.OnPageChg == 'function')
+                        this.cfg.OnPageChg(pgindex);
                 };
             });
 
             // 3.2 跳转确定按钮点击
             $(this).find('.pagenum-ok')[0].onclick = () => {
-                let pgindex = parseInt($(this).find('.pagenum-input')[0].value || 0);
+                let pgindex = parseInt($(this).find('.pagenum-input')[0].value) || 0;
                 if (pgindex < 1 || pgindex > cfg.TotalPage) return;
                 // 改变当前页面后,重新生成分页条
                 cfg.PageIndex = pgindex;
                 this.create();
+                //
+                if (typeof this.cfg.OnPageChg == 'function')
+                    this.cfg.OnPageChg(pgindex);
             };
         }
     });
