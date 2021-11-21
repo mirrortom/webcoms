@@ -7,13 +7,13 @@
     border: 1px solid var-gray-dk
     padding: 10px 5px
     text-align: center
-    box-shadow: 1px 1px 10px var-gray-dk
     background-color: var-white
     outline: none
     -webkit-user-select: none
     -moz-user-select: none
     -ms-user-select: none
     user-select: none
+    z-index: 10001
 // 年月今天(第一行)
 .date-area
     // 年,月,今天容器
@@ -88,6 +88,7 @@
     // 当前选中的年份,月份
     &-year.selected, &-month.selected
         background-color: var-primary
+        border-radius: 3px
     &-hour
         flex: 0 1 14.66666666%
         line-height: 60px
@@ -159,7 +160,7 @@
         position: fixed
         width: calc(100vw - 2px)
         height: 372px
-        border-color: #007bff
+        border-color: var-gray-dk
         right: 0
         margin: auto
     .date-select

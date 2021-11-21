@@ -2063,13 +2063,13 @@ p {
   border: 1px solid var(--color-gray-dk);
   padding: 10px 5px;
   text-align: center;
-  box-shadow: 1px 1px 10px var(--color-gray-dk);
   background-color: var(--color-white);
   outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  z-index: 10001;
 }
 .date-area-ymt {
   display: flex;
@@ -2170,6 +2170,7 @@ p {
 .date-option-year.selected,
 .date-option-month.selected {
   background-color: var(--color-primary);
+  border-radius: 3px;
 }
 .date-option-hour {
   flex: 0 1 14.66666666%;
@@ -2271,7 +2272,7 @@ p {
     position: fixed;
     width: calc(100vw - 2px);
     height: 372px;
-    border-color: #007bff;
+    border-color: var(--color-gray-dk);
     right: 0;
     margin: auto;
   }
