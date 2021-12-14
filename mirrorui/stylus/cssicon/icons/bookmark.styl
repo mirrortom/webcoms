@@ -1,0 +1,23 @@
+﻿// bookmark书签
+
+.ico-bookmark
+    display: inline-flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    width: 1em
+    height: 1em
+    
+    &:before, &:after
+        content: ''
+        display: inline-block
+
+    &:before
+        width: .6em
+        height: .4em
+        background-color: currentColor
+
+    &:after
+        border-style: solid
+        border-width: 0 .3em .4em
+        border-color: transparent currentColor
