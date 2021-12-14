@@ -1238,12 +1238,13 @@ p {
   padding: 0;
 }
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   padding: 6px 8px;
   font-weight: 400;
   font-size: inherit;
   color: var(--font-color);
-  text-align: center;
   text-decoration: none;
   background-color: var(--color-white);
   border: 1px solid var(--color-gray);
@@ -1251,6 +1252,9 @@ p {
   outline: none;
   user-select: none;
   transition: background-color 0.3s;
+}
+.btn.d-block {
+  display: flex !important;
 }
 .btn:active {
   -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
@@ -1278,7 +1282,6 @@ p {
   border-top: none;
   border-bottom: none;
   margin-left: 0.8em;
-  vertical-align: middle;
   animation: btnloading 1.5s linear infinite;
 }
 .btn.loading {

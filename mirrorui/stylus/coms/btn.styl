@@ -1,11 +1,12 @@
-﻿// 默认按钮
+﻿// 默认按钮 flex布局为了加图标
 .btn
-    display: inline-block
+    display: inline-flex
+    justify-content: center
+    align-items: center
     padding: 6px 8px
     font-weight: 400
     font-size: inherit
     color: var-font-color
-    text-align: center
     text-decoration: none
     background-color: var-white
     border: 1px solid var-gray
@@ -13,6 +14,9 @@
     outline: none
     user-select: none
     transition: background-color $duration
+// 块级
+.btn.d-block
+    display:flex !important
 // 点击时阴影
 .btn:active
     -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
@@ -40,7 +44,6 @@
     border-top: none
     border-bottom: none
     margin-left: .8em
-    vertical-align: middle
     animation: btnloading 1.5s linear infinite
 @keyframes btnloading
     100%
