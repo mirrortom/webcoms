@@ -1,0 +1,118 @@
+﻿<div class="doc-page">
+  <h2>邮件</h2>
+  <p>mail</p>
+  <div class="mg-20">
+    <i class="ico ico-mail text-md"></i>
+    <i class="ico ico-mail text-xl"></i>
+    <i class="ico ico-mail text-xxl"></i>
+    <i class="ico ico-mail text-xxl text-primary"></i>
+  </div>
+
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-mail</b>"&gt;&lt;/i&gt;
+
+  // 颜色和大小添加工具样式实现
+  &lt;i class="ico ico-mail text-xxl"&gt;&lt;/i&gt;
+
+  &lt;i class="ico ico-mail text-primary text-xxl"&gt;&lt;/i&gt;
+
+</pre>
+  <style>
+    .maildemo {
+      display: inline-block;
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background-color: #eee;
+    }
+
+      .maildemo:before, .maildemo:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 80px;
+        height: 50px;
+        border-style: solid;
+      }
+
+      .maildemo:before {
+        border-width: 20px 30px 30px;
+        border-color: transparent green;
+      }
+
+      .maildemo:after {
+        height: 56px;
+        border-width: 22px 32px 32px;
+        border-color: red transparent blue;
+      }
+
+    .maildemo-lr {
+      display: inline-block;
+      width: 80px;
+      height: 50px;
+      border-style:solid;
+      border-width: 20px 30px 30px;
+      border-color: #00000030 green;
+    }
+
+    .maildemo-tb {
+      display: inline-block;
+      width: 80px;
+      height: 56px;
+      border-style: solid;
+      border-width: 22px 32px 32px;
+      border-color: red #00000030 blue;
+    }
+
+  </style>
+  <br />
+  <p>观察纸质邮件的特征,有一个开口,4条对角线在开口处相交.邮件图标宽度设计成图标容器的80%,宽高比例是0.618.即: width:.8em,height:.5em.</p>
+  <p>希望将邮件的4个对角线都展示出来,经过研究,将图标分为2部分,左右和上下.这个自然是用边框法画出三角形,而对角线正是4个三角形叠加的效果.</p>
+  <p>左右和上下部分,分别使用:before和:after.宽度和高度为0.8em,0.5em.绝对定位垂直居中于容器.开口的位置设置为高度的0.618处,这个调整上下边框厚度实现,大致是:top:.2em,bottom:.3em</p>
+  <p><i class="maildemo"></i></p>
+  <p>左右部分:before,上下边框设为透明.同理上下部分:after的左右边框透明.</p>
+  <p>
+    <i class="maildemo-lr"></i>
+    <i class="maildemo-tb"></i>
+  </p>
+  <p>为了显示对角线,上下部分:after伪类的高度重新设置为0.56em,即比初始高度多出了0.06em.它的上下边框之和小于0.56em,多出的就是开口处的横线.它的左右边框略大于上下部分:before的左右边框,即, :after的左右边框(透明)面积大于:befter的左右边框(绿色)面积,那么重合后会显现4条对角线(就是透明部分).</p>
+  <br />
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-mail
+        display: inline-block
+        position: relative
+        width: 1em
+        height: 1em
+    
+        &:before, &:after
+            content: ''
+            display: inline-block
+            position: absolute
+            left: 0
+            right: 0
+            top: 0
+            bottom: 0
+            margin: auto
+            width: .8em
+            height: .5em
+            border-style: solid
+
+        &:before
+            border-width: .2em .3em .3em
+            border-color: transparent currentColor
+
+        &:after
+            height:.56em
+            border-width: .22em .32em .32em
+            border-color: currentColor transparent
+
+</pre>
+</div>

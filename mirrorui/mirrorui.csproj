@@ -40,6 +40,7 @@
   <ItemGroup>
     <Content Include="404.html" />
     <Content Include="doc\cachepagedemo1.html" />
+    <Content Include="doc\cssicon\mail.html" />
     <Content Include="doc\cssicon\bookmark.html" />
     <Content Include="doc\cssicon\info.html" />
     <Content Include="doc\cssicon\disabled.html" />
@@ -144,6 +145,7 @@
     <None Include="stylus\coms\msgbox.styl" />
     <None Include="stylus\coms\msgpanel.styl" />
     <None Include="stylus\coms\mnavmenu.styl" />
+    <None Include="stylus\cssicon\icons\mail.styl" />
     <None Include="stylus\cssicon\icons\disabled.styl" />
     <None Include="stylus\cssicon\icons\bookmark.styl" />
     <None Include="stylus\cssicon\icons\info.styl" />

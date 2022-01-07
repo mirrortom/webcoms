@@ -3188,3 +3188,32 @@ p {
   border-width: 0 0.25em 0.4em;
   border-color: transparent currentColor;
 }
+.ico-mail {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+}
+.ico-mail:before,
+.ico-mail:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 0.8em;
+  height: 0.5em;
+  border-style: solid;
+}
+.ico-mail:before {
+  border-width: 0.2em 0.3em 0.3em;
+  border-color: transparent currentColor;
+}
+.ico-mail:after {
+  height: 0.56em;
+  border-width: 0.22em 0.32em 0.32em;
+  border-color: currentColor transparent;
+}

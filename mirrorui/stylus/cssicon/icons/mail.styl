@@ -1,0 +1,29 @@
+﻿// mail邮件
+
+.ico-mail
+    display: inline-block
+    position: relative
+    width: 1em
+    height: 1em
+    
+    &:before, &:after
+        content: ''
+        display: inline-block
+        position: absolute
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+        margin: auto
+        width: .8em
+        height: .5em
+        border-style: solid
+
+    &:before
+        border-width: .2em .3em .3em
+        border-color: transparent currentColor
+
+    &:after
+        height:.56em
+        border-width: .22em .32em .32em
+        border-color: currentColor transparent
