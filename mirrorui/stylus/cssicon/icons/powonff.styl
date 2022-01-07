@@ -1,0 +1,30 @@
+﻿// powonff电源开关
+
+.ico-powonff
+    display: inline-block
+    position: relative
+    width: 1em
+    height: 1em
+    
+    &:before, &:after
+        content: ''
+        display: inline-block
+        position: absolute
+        left: 0
+        right: 0
+        margin: auto
+
+    &:before
+        top: 0
+        bottom: 0
+        width: .8em
+        height: .8em
+        border: .06em solid currentColor
+        border-radius: 50%
+        border-top-color: transparent
+
+    &:after
+        top: .1em
+        width: .06em
+        height: .5em
+        background-color: currentColor

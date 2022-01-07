@@ -1,0 +1,108 @@
+﻿<div class="doc-page">
+  <h2>电源开关</h2>
+  <p>powonff</p>
+  <div class="mg-20">
+    <i class="ico ico-powonff text-md"></i>
+    <i class="ico ico-powonff text-xl"></i>
+    <i class="ico ico-powonff text-xxl"></i>
+    <i class="ico ico-powonff text-xxl text-danger"></i>
+  </div>
+
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-powonff</b>"&gt;&lt;/i&gt;
+
+  // 颜色和大小添加工具样式实现
+  &lt;i class="ico ico-powonff text-xxl"&gt;&lt;/i&gt;
+
+  &lt;i class="ico ico-powonff text-danger text-xxl"&gt;&lt;/i&gt;
+
+</pre>
+  <style>
+    .powonffdemo {
+      display: inline-block;
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background-color: #eee;
+    }
+
+      .powonffdemo:before, .powonffdemo:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+
+      .powonffdemo:before {
+        top: 0;
+        bottom: 0;
+        width: 80px;
+        height: 80px;
+        border: 6px solid green;
+        border-radius: 50%;
+        border-top-color: transparent;
+      }
+
+      .powonffdemo:after {
+        top: 10px;
+        width: 6px;
+        height: 50px;
+        background-color: red;
+      }
+
+    .powonffdemo-1 {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      border: 6px solid green;
+      border-radius: 50%;
+      border-top-color: #00000030;
+    }
+  </style>
+  <br />
+  <p>笔记本电脑上的开关电源图标比较简洁,可以看成是一个3/4圆圈和一条竖线.</p>
+  <p>设计比例:圆圈大小设计为图标大小的80%,边框厚度为6%.竖线宽度6%,长度50%.</p>
+  <p><i class="powonffdemo"></i></p>
+  <p>3/4圆圈,通过将top边框设为透明而实现.</p>
+  <p>
+    <i class="powonffdemo-1"></i>
+  </p>
+  <p>为了显示对角线,上下部分:after伪类的高度重新设置为0.56em,即比初始高度多出了06px.它的上下边框之和小于0.56em,多出的就是开口处的横线.它的左右边框略大于上下部分:before的左右边框,即, :after的左右边框(透明)面积大于:befter的左右边框(绿色)面积,那么重合后会显现4条对角线(就是透明部分).</p>
+  <br />
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-powonff
+        display: inline-block
+        position: relative
+        width: 1em
+        height: 1em
+    
+        &:before, &:after
+            content: ''
+            display: inline-block
+            position: absolute
+            left: 0
+            right: 0
+            margin: auto
+
+        &:before
+            top: 0
+            bottom: 0
+            width: .8em
+            height: .8em
+            border: .06em solid currentColor
+            border-radius: 50%
+            border-top-color: transparent
+
+        &:after
+            top: .1em
+            width: .06em
+            height: .5em
+            background-color: currentColor
+
+</pre>
+</div>

@@ -3217,3 +3217,33 @@ p {
   border-width: 0.22em 0.32em 0.32em;
   border-color: currentColor transparent;
 }
+.ico-powonff {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+}
+.ico-powonff:before,
+.ico-powonff:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.ico-powonff:before {
+  top: 0;
+  bottom: 0;
+  width: 0.8em;
+  height: 0.8em;
+  border: 0.06em solid currentColor;
+  border-radius: 50%;
+  border-top-color: transparent;
+}
+.ico-powonff:after {
+  top: 0.1em;
+  width: 0.06em;
+  height: 0.5em;
+  background-color: currentColor;
+}
