@@ -3247,3 +3247,60 @@ p {
   height: 0.5em;
   background-color: currentColor;
 }
+.ico-pc {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1em;
+  height: 1em;
+}
+.ico-pc:before,
+.ico-pc:after {
+  content: '';
+  display: inline-block;
+}
+.ico-pc:before {
+  width: 0.7em;
+  height: calc(0.7em * 3 / 4);
+  border: 0.06em solid currentColor;
+}
+.ico-pc:after {
+  width: 0.6em;
+  height: 0.2em;
+  border-style: solid;
+  border-width: 0 0.1em 0.15em;
+  border-color: currentColor transparent;
+}
+.ico-phone {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+}
+.ico-phone:before,
+.ico-phone:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.ico-phone:before {
+  top: 0;
+  bottom: 0;
+  width: calc(0.8em * 0.618);
+  height: 0.8em;
+  border: 0.02em solid currentColor;
+  border-radius: 0.03em;
+  box-shadow: 0 0.04em, inset 0 0.01em;
+}
+.ico-phone:after {
+  bottom: 0.15em;
+  width: 0.06em;
+  height: 0.06em;
+  border: 0.01em solid currentColor;
+  border-radius: 0.02em;
+  box-shadow: 0.12em -0.24em, 0 -0.24em, -0.12em -0.24em, 0.12em -0.36em, 0 -0.36em, -0.12em -0.36em, 0.12em -0.48em, 0 -0.48em, -0.12em -0.48em;
+}
