@@ -1,0 +1,24 @@
+﻿// 用户
+
+.ico-user
+    display: inline-flex
+    flex-direction: column
+    justify-content: space-evenly
+    align-items: center
+    width: 1em
+    height: 1em
+    
+    &:before, &:after
+        content: ''
+        display: inline-block
+        background-color: currentColor
+
+    &:before
+        width: .4em
+        height: .4em
+        border-radius: 50%
+
+    &:after
+        width: .8em
+        height: .4em
+        border-radius: 50% 50% 0 0/70% 70% 0 0

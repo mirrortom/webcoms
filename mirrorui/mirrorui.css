@@ -3304,3 +3304,27 @@ p {
   border-radius: 0.02em;
   box-shadow: 0.12em -0.24em, 0 -0.24em, -0.12em -0.24em, 0.12em -0.36em, 0 -0.36em, -0.12em -0.36em, 0.12em -0.48em, 0 -0.48em, -0.12em -0.48em;
 }
+.ico-user {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 1em;
+  height: 1em;
+}
+.ico-user:before,
+.ico-user:after {
+  content: '';
+  display: inline-block;
+  background-color: currentColor;
+}
+.ico-user:before {
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 50%;
+}
+.ico-user:after {
+  width: 0.8em;
+  height: 0.4em;
+  border-radius: 50% 50% 0 0/70% 70% 0 0;
+}
