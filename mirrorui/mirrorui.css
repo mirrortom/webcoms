@@ -3361,3 +3361,33 @@ p {
   background-color: currentColor;
   transform: rotate(-30deg);
 }
+.ico-eye {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+}
+.ico-eye:before,
+.ico-eye:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+}
+.ico-eye:before {
+  width: 0.8em;
+  height: 0.5em;
+  border: 1px solid currentColor;
+  border-radius: 0 100% 0 100%/0 100% 0 100%;
+  transform: rotate(-28deg);
+}
+.ico-eye:after {
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  background-color: currentColor;
+}

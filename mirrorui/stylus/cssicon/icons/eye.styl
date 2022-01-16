@@ -1,0 +1,30 @@
+﻿// 眼睛
+
+.ico-eye
+    display: inline-block
+    position: relative
+    width: 1em
+    height: 1em
+
+    &:before,&:after
+        content: ''
+        display: inline-block
+        position: absolute
+        left: 0
+        right: 0
+        bottom:0
+        top:0
+        margin: auto
+
+    &:before
+        width: .8em
+        height: .5em
+        border: 1px solid currentColor
+        border-radius:0 100% 0 100%/0 100% 0 100%
+        transform:rotate(-28deg)
+ 
+    &:after
+        width: .3em
+        height:.3em
+        border-radius:50%
+        background-color:currentColor
