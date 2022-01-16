@@ -3328,3 +3328,36 @@ p {
   height: 0.4em;
   border-radius: 50% 50% 0 0/70% 70% 0 0;
 }
+.ico-chart {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 0.02em solid currentColor;
+  border-top: none;
+  border-right: none;
+  overflow: hidden;
+}
+.ico-chart:before,
+.ico-chart:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.ico-chart:before {
+  bottom: 0;
+  width: 0.1em;
+  height: 0.6em;
+  border: 1px solid currentColor;
+  box-shadow: -0.32em 0.4em, -0.16em 0.2em, 0.16em 0.1em, 0.32em 0.3em;
+}
+.ico-chart:after {
+  top: 0.3em;
+  width: 0.8em;
+  height: 1px;
+  background-color: currentColor;
+  transform: rotate(-30deg);
+}
