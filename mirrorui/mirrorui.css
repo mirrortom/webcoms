@@ -2905,10 +2905,15 @@ p {
   display: inline-block;
   pointer-events: none;
   vertical-align: middle;
-}
-.ico-moon {
   width: 1em;
   height: 1em;
+}
+.ico:before,
+.ico:after {
+  content: '';
+  display: inline-block;
+}
+.ico-moon {
   border-radius: 50%;
   box-shadow: inset -0.4em -0.1em;
 }
@@ -2922,8 +2927,6 @@ p {
 }
 .ico-sun:before,
 .ico-sun:after {
-  content: '';
-  display: inline-block;
   position: absolute;
   width: 0.1em;
   height: 0.1em;
@@ -2949,7 +2952,6 @@ p {
 .ico-star5,
 .ico-star5:before,
 .ico-star5:after {
-  display: inline-block;
   width: 0;
   height: 0;
   border-width: calc(0.726 * calc(0.951 * 0.53em)) calc(0.951 * 0.53em);
@@ -2961,7 +2963,6 @@ p {
 }
 .ico-star5:before,
 .ico-star5:after {
-  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -3001,13 +3002,9 @@ p {
 }
 .ico-plus {
   position: relative;
-  width: 1em;
-  height: 1em;
 }
 .ico-plus:before,
 .ico-plus:after {
-  content: '';
-  display: inline-block;
   position: absolute;
   left: 0;
   right: 0;
@@ -3028,12 +3025,8 @@ p {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 1em;
-  height: 1em;
 }
 .ico-minus:before {
-  content: '';
-  display: inline-block;
   width: 1em;
   height: 4px;
   background-color: currentColor;
@@ -3042,12 +3035,8 @@ p {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 1em;
-  height: 1em;
 }
 .ico-menu:before {
-  content: '';
-  display: inline-block;
   width: 1em;
   height: 0.16em;
   box-shadow: inset 0.16em 0.16em, 0 0.32em, 0 -0.32em;
@@ -3057,12 +3046,8 @@ p {
 }
 .ico-anglearr {
   position: relative;
-  width: 1em;
-  height: 1em;
 }
 .ico-anglearr:before {
-  content: '';
-  display: inline-block;
   position: absolute;
   margin: auto;
   top: 0;
@@ -3093,13 +3078,9 @@ p {
 }
 .ico-search {
   position: relative;
-  width: 1em;
-  height: 1em;
 }
 .ico-search:before,
 .ico-search:after {
-  content: '';
-  display: inline-block;
   position: absolute;
 }
 .ico-search:before {
@@ -3124,14 +3105,10 @@ p {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 1em;
-  height: 1em;
   border: 0.08em solid currentColor;
   border-radius: 50%;
 }
 .ico-disabled:before {
-  content: '';
-  display: inline-block;
   width: 1em;
   height: 0.08em;
   background-color: currentColor;
@@ -3139,15 +3116,11 @@ p {
 }
 .ico-info {
   position: relative;
-  width: 1em;
-  height: 1em;
   border: 0.08em solid currentColor;
   border-radius: 50%;
 }
 .ico-info:before,
 .ico-info:after {
-  content: '';
-  display: inline-block;
   position: absolute;
   background-color: currentColor;
   left: 0;
@@ -3170,13 +3143,6 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1em;
-  height: 1em;
-}
-.ico-bookmark:before,
-.ico-bookmark:after {
-  content: '';
-  display: inline-block;
 }
 .ico-bookmark:before {
   width: 0.5em;
@@ -3189,15 +3155,10 @@ p {
   border-color: transparent currentColor;
 }
 .ico-mail {
-  display: inline-block;
   position: relative;
-  width: 1em;
-  height: 1em;
 }
 .ico-mail:before,
 .ico-mail:after {
-  content: '';
-  display: inline-block;
   position: absolute;
   left: 0;
   right: 0;
@@ -3218,15 +3179,10 @@ p {
   border-color: currentColor transparent;
 }
 .ico-powonff {
-  display: inline-block;
   position: relative;
-  width: 1em;
-  height: 1em;
 }
 .ico-powonff:before,
 .ico-powonff:after {
-  content: '';
-  display: inline-block;
   position: absolute;
   left: 0;
   right: 0;
@@ -3252,13 +3208,6 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1em;
-  height: 1em;
-}
-.ico-pc:before,
-.ico-pc:after {
-  content: '';
-  display: inline-block;
 }
 .ico-pc:before {
   width: 0.7em;
@@ -3273,15 +3222,10 @@ p {
   border-color: currentColor transparent;
 }
 .ico-phone {
-  display: inline-block;
   position: relative;
-  width: 1em;
-  height: 1em;
 }
 .ico-phone:before,
 .ico-phone:after {
-  content: '';
-  display: inline-block;
   position: absolute;
   left: 0;
   right: 0;
@@ -3309,13 +3253,9 @@ p {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  width: 1em;
-  height: 1em;
 }
 .ico-user:before,
 .ico-user:after {
-  content: '';
-  display: inline-block;
   background-color: currentColor;
 }
 .ico-user:before {
@@ -3329,10 +3269,7 @@ p {
   border-radius: 50% 50% 0 0/70% 70% 0 0;
 }
 .ico-chart {
-  display: inline-block;
   position: relative;
-  width: 1em;
-  height: 1em;
   border: 0.02em solid currentColor;
   border-top: none;
   border-right: none;
@@ -3340,8 +3277,6 @@ p {
 }
 .ico-chart:before,
 .ico-chart:after {
-  content: '';
-  display: inline-block;
   position: absolute;
   left: 0;
   right: 0;
@@ -3362,15 +3297,10 @@ p {
   transform: rotate(-30deg);
 }
 .ico-eye {
-  display: inline-block;
   position: relative;
-  width: 1em;
-  height: 1em;
 }
 .ico-eye:before,
 .ico-eye:after {
-  content: '';
-  display: inline-block;
   position: absolute;
   left: 0;
   right: 0;

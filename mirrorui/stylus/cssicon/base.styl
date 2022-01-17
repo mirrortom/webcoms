@@ -4,6 +4,14 @@
 
 .ico
     // 图片默认都是块级行内元素
-    display: inline-block
-    pointer-events: none
-    vertical-align: middle
+    display:inline-block
+    pointer-events:none
+    // 垂直居中,面积1emX1em
+    vertical-align:middle
+    width:1em
+    height:1em
+
+    // 
+    &:before,&:after
+        content: ''
+        display: inline-block
