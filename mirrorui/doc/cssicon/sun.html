@@ -99,32 +99,29 @@
   <p>完整样式</p>
   <pre class="bg-gray-lt">
 
-   &lt;i class="ico ico-sun"&gt;&lt;/i&gt;
+    .ico-sun
+        position: relative
+        width: .6em
+        height: .6em
+        border-radius: 50%
+        margin: .2em
+        background-color: currentColor
 
-  .ico-sun
-    position: relative
-    width: .6em
-    height: .6em
-    border-radius: 50%
-    margin: .2em
-    background-color: currentColor
-    &:before, &:after
-        content: ''
-        display: inline-block
-        position: absolute
-        width: .1em
-        height: .1em
-        background-color: transparent
-        top: 0
-        bottom: 0
-        left: 0
-        right: 0
-        margin: auto
-    &:before
-        box-shadow: .45em 0, 0 .45em, -.45em 0, 0 -.45em, .38em 0, 0 .38em, -.38em 0, 0 -.38em
-    &:after
-        transform: rotate(45deg)
-        box-shadow: .45em 0, 0 .45em, -.45em 0, 0 -.45em, .38em 0, 0 .38em, -.38em 0, 0 -.38em
+        &:before, &:after
+            position: absolute
+            width: .1em
+            height: .1em
+            background-color: transparent
+            top: 0
+            bottom: 0
+            left: 0
+            right: 0
+            margin: auto
+        &:before
+            box-shadow: .45em 0, 0 .45em, -.45em 0, 0 -.45em, .38em 0, 0 .38em, -.38em 0, 0 -.38em
+        &:after
+            transform: rotate(45deg)
+            box-shadow: .45em 0, 0 .45em, -.45em 0, 0 -.45em, .38em 0, 0 .38em, -.38em 0, 0 -.38em
 
 </pre>
 </div>

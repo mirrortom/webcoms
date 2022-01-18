@@ -72,30 +72,25 @@
   <p>完整样式</p>
   <pre class="bg-gray-lt">
   
-.ico-plus
-    display: inline-block
-    position: relative
-    width: 1em
-    height: 1em
+    .ico-plus
+        position: relative
     
-    &:before, &:after
-        content: ''
-        display: inline-block
-        position: absolute
-        left: 0
-        right: 0
-        top: 0
-        bottom: 0
-        margin: auto
-        box-shadow: inset 4px 4px
+        &:before, &:after
+            position: absolute
+            left: 0
+            right: 0
+            top: 0
+            bottom: 0
+            margin: auto
+            background-color: currentColor
 
-    &:before
-        width: 1em
-        height: 4px
+        &:before
+            width: 1em
+            height: 4px
 
-    &:after
-        width: 4px
-        height: 1em
+        &:after
+            width: 4px
+            height: 1em
 
 </pre>
 </div>

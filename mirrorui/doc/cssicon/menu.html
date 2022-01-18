@@ -72,21 +72,18 @@
   <p>完整样式</p>
   <pre class="bg-gray-lt">
   
-.ico-menu
-    display: inline-flex
-    justify-content:center
-    align-items:center
-    width: 1em
-    height: 1em
+    .ico-menu
+        display: inline-flex
+        justify-content:center
+        align-items:center
 
-    &:before
-        content: ''
-        display: inline-block
-        width: 1em
-        height: .16em
-        box-shadow: inset .16em .16em,0 .32em,0 -.32em
-    &.dot
-        width: .16em
+        &:before
+            width: 1em
+            height: .16em
+            box-shadow: inset .16em .16em,0 .32em,0 -.32em
+        // 3个点菜单,就是改width就可
+        &.dot:before
+            width: .16em
 
 </pre>
 </div>

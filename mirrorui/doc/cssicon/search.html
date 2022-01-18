@@ -25,33 +25,29 @@
   <p>完整样式</p>
   <pre class="bg-gray-lt">
 
-  .ico-search
-      position: relative
-      width: 1em
-      height: 1em
+    .ico-search
+        position: relative
 
-      &:before,&:after
-          content: ''
-          display: inline-block
-          position: absolute
-      // 放大镜圈圈
-      &:before
-          left: 5%
-          top: 5%
-          width: calc(0.6 * 1em)
-          height: calc(0.6 * 1em)
-          border: .07em solid currentColor
-          border-radius: 50%
-      // 放大镜支架
-      &:after
-          top: 55%
-          left: 55%
-          width: .5em
-          height: .07em
-          background-color: currentColor
-          border-radius: 50% 0 0 50%/50% 0 0 50%
-          transform-origin: 0 0
-          transform: rotate(45deg)
+        &:before,&:after
+            position: absolute
+        // 放大镜圈圈
+        &:before
+            left: 5%
+            top: 5%
+            width: calc(0.6 * 1em)
+            height: calc(0.6 * 1em)
+            border: .07em solid currentColor
+            border-radius: 50%
+        // 放大镜支架
+        &:after
+            top: 55%
+            left: 55%
+            width: .5em
+            height: .07em
+            background-color: currentColor
+            border-radius: 50% 0 0 50%/50% 0 0 50%
+            transform-origin: 0 0
+            transform: rotate(45deg)
 
 </pre>
   <script>

@@ -6,9 +6,19 @@
   <p>一个质量很高的项目,参考搬运. <a href="https://viglino.github.io/iconicss" target="_blank">https://viglino.github.io/iconicss</a>&emsp;(github) <a href="https://github.com/Viglino/iconicss" target="_blank">https://github.com/Viglino/iconicss</a></p>
   <pre class="bg-gray-lt">
 
-  .ico
-      pointer-events: none
-      vertical-align: middle
+    .ico
+        // 图片默认都是块级行内元素
+        display:inline-block
+        pointer-events:none
+        // 垂直居中,面积 1em X 1em
+        vertical-align:middle
+        width:1em
+        height:1em
+
+        // 
+        &:before,&:after
+            content: ''
+            display: inline-block
 
 </pre>
   <br />
