@@ -3,19 +3,12 @@
   <p>mail</p>
   <div class="mg-20">
     <i class="ico ico-mail text-md"></i>
-    <i class="ico ico-mail text-xl"></i>
-    <i class="ico ico-mail text-xxl"></i>
     <i class="ico ico-mail text-xxl text-primary"></i>
   </div>
 
   <pre class="bg-gray-lt">
 
   &lt;i class="ico <b>ico-mail</b>"&gt;&lt;/i&gt;
-
-  // 颜色和大小添加工具样式实现
-  &lt;i class="ico ico-mail text-xxl"&gt;&lt;/i&gt;
-
-  &lt;i class="ico ico-mail text-primary text-xxl"&gt;&lt;/i&gt;
 
 </pre>
   <style>
@@ -56,7 +49,7 @@
       display: inline-block;
       width: 80px;
       height: 50px;
-      border-style:solid;
+      border-style: solid;
       border-width: 20px 30px 30px;
       border-color: #00000030 green;
     }
@@ -69,7 +62,6 @@
       border-width: 22px 32px 32px;
       border-color: red #00000030 blue;
     }
-
   </style>
   <br />
   <p>观察纸质邮件的特征,有一个开口,4条对角线在开口处相交.邮件图标宽度设计成图标容器的80%,宽高比例是0.618.即: width:.8em,height:.5em.</p>
@@ -83,6 +75,7 @@
   </p>
   <p>为了显示对角线,上下部分:after伪类的高度重新设置为0.56em,即比初始高度多出了0.06em.它的上下边框之和小于0.56em,多出的就是开口处的横线.它的左右边框略大于上下部分:before的左右边框,即, :after的左右边框(透明)面积大于:befter的左右边框(绿色)面积,那么重合后会显现4条对角线(就是透明部分).</p>
   <br />
+  <p><i class="ico ico-mail fs100"></i></p>
   <p>完整样式</p>
   <pre class="bg-gray-lt">
 

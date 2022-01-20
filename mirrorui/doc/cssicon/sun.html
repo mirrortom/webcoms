@@ -3,8 +3,6 @@
   <p>太阳图标,由太阳和8个方向的光线组成.</p>
   <div class="mg-20">
     <i class="ico ico-sun text-md"></i>
-    <i class="ico ico-sun text-xl"></i>
-    <i class="ico ico-sun text-xxl"></i>
     <i class="ico ico-sun text-xxl text-danger"></i>
     <i class="ico ico-sun text-xxl text-warning"></i>
   </div>
@@ -12,11 +10,6 @@
   <pre class="bg-gray-lt">
 
   &lt;i class="ico <b>ico-sun</b>"&gt;&lt;/i&gt;
-
-  &lt;i class="ico ico-sun text-xl"&gt;&lt;/i&gt;
-
-  // 添加文字颜色样式改变太阳颜色
-  &lt;i class="ico ico-sun text-danger"&gt;&lt;/i&gt;
 
 </pre>
   <br />
@@ -96,6 +89,8 @@
   <br />
   <p>这8个方向的光线其实是两组阴影,所以用到两个伪类:before和:after.使用绝对定位并且垂直居中,让2个伪类置于太阳的中心,并且是叠起的.然后设置它们的box-shadow,4个阴影一组,设置2层.光线实现了.</p>
   <p>太阳圈圈背景 background-color: currentColor ,便于通过设置字体颜色改变太阳颜色.</p>
+  <br />
+  <p><i class="ico ico-sun fs100"></i></p>
   <p>完整样式</p>
   <pre class="bg-gray-lt">
 
