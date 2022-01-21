@@ -1,0 +1,47 @@
+﻿<div class="doc-page">
+  <h2>旗帜</h2>
+  <p>飘扬旗帜,常用于标识显目文字.</p>
+  <div class="mg-20">
+    <i class="ico ico-flag text-md"></i>
+    <i class="ico ico-flag text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-flag</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>旗帜飘扬图标分为旗杆和旗帜两部分,整体在效果上水平居中于容器.旗杆用:before,旗帜:after,使用绝对定位.</p>
+  <p>设计旗杆长度为容器的90%,对齐容器底部,离容器上有10%的距离.头部圆角,旗杆宽度为容器的8%.</p>
+  <p>旗帜是一个正方形,边长为容器的40%,叠加box-shadow实现飘扬.经过调整,旗帜旋转5度,阴影水平和垂直位置设计为边长的0.6倍和0.3倍.</p>
+  <br />
+  <p><i class="ico ico-flag fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-flag
+        position: relative;
+    
+        &:before,&:after
+            position: absolute;
+
+        &:before
+            left: .15em;
+            top: .1em;
+            width: .08em;
+            height: .9em;
+            background-color: currentColor;
+            border-radius: .04em .04em 0 0/.04em .04em 0 0;
+
+        &:after
+            left: .2em;
+            top: .2em;
+            width: .4em;
+            height: .4em;
+            border-radius: 0 .05em;
+            background-color: currentColor;
+            box-shadow: .24em .12em;
+            transform: rotate(5deg);
+
+</pre>
+</div>
