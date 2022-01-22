@@ -2958,14 +2958,12 @@ p {
   border-style: solid;
   border-color: transparent;
   border-bottom: 0;
-  border-top-color: initial;
+  border-top-color: currentColor;
   transform-origin: calc(0.951 * 0.53em) calc(0.31 * 0.53em);
 }
 .ico-star5:before,
 .ico-star5:after {
   position: absolute;
-  top: 0;
-  left: 0;
   top: calc(-0.726 * calc(0.951 * 0.53em));
   left: calc(-0.951 * 0.53em);
 }
