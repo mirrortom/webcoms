@@ -3364,3 +3364,31 @@ p {
   box-shadow: 0.24em 0.12em;
   transform: rotate(5deg);
 }
+.ico-home {
+  position: relative;
+  width: 0.707em;
+  height: 0.707em;
+  box-shadow: inset 0.05em 0.05em;
+  transform: rotate(45deg);
+}
+.ico-home:before,
+.ico-home:after {
+  position: absolute;
+  left: 0.1em;
+}
+.ico-home:before {
+  top: 0.1em;
+  border-width: 0.263em;
+  border-style: solid;
+  border-color: currentColor transparent transparent currentColor;
+}
+.ico-home:after {
+  top: calc(0.707em - 0.1em);
+  width: 0.717em;
+  height: 0.4em;
+  border-width: 0.1em 0.25em 0;
+  border-style: solid;
+  border-color: currentColor;
+  transform-origin: 0 0;
+  transform: rotate(-45deg);
+}

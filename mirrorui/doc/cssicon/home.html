@@ -1,0 +1,155 @@
+﻿<div class="doc-page">
+  <h2>首页</h2>
+  <p>家,首页,狗窝图标</p>
+  <div class="mg-20">
+    <i class="ico ico-home text-md"></i>
+    <i class="ico ico-home text-xxxl text-primary mg-l-10"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-home</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <style>
+    .homedemo-1 {
+      position: relative;
+      border: 5px solid red;
+      border-color: green;
+    }
+
+      .homedemo-1:before {
+        position: absolute;
+        left: .1em;
+        top: .1em;
+        width: .707em;
+        height: .707em;
+        border: 5px solid red;
+        border-color: red black black red;
+        transform: rotate(45deg);
+      }
+
+      .homedemo-1.step1 {
+        border-color: transparent;
+      }
+
+        .homedemo-1.step1:before {
+          border-color: red transparent transparent red;
+        }
+
+    .homedemo-2 {
+      position: relative;
+      width: .707em;
+      height: .707em;
+      box-shadow: inset .05em .05em red,inset -.05em -.05em red;
+    }
+
+      .homedemo-2.step1 {
+        transform: rotate(45deg);
+      }
+
+      .homedemo-2.step2 {
+        box-shadow: inset .05em .05em red;
+      }
+
+      .homedemo-2:before {
+        position: absolute;
+        top: .1em;
+        left: .1em;
+        border-width: calc(.253em + .01em);
+        border-style: solid;
+        border-color: green blue blue green;
+      }
+
+      .homedemo-2.step2:before {
+        border-color: green transparent transparent green;
+      }
+
+      .homedemo-2.step3:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: .717em;
+        height: .4em;
+        border-width: .1em .25em 0;
+        border-style: solid;
+        border-color: currentColor;
+      }
+
+      .homedemo-2.step3-1:after {
+        transform: rotate(-45deg);
+      }
+
+      .homedemo-2.step3-2:after {
+        top: calc(.707em - .1em);
+        left: .1em;
+      }
+
+    .homedemo-2.step3-3:after {
+      transform-origin:0 0;
+      transform: rotate(-45deg);
+    }
+  </style>
+  <br />
+  <p>参考过常见的狗窝图标后,设计房屋图标体现屋顶和门框两部分,这两部分在容器中绝对定位.</p>
+  <p>屋顶有个边框,实际上是两部分.设图标容器i的边长为 L,设计使用i标记实现屋顶边框,:before实现屋顶.屋顶是一个等腰直角三角形,边框也是.用旋转盒模型实现,设计边框厚度为 5%L.边框边长为 L * sin45,这是由于旋转的原因,实际上屋顶边框是容器的内接正方形,旋转45度后的上半部分.观察发现,边长 L*sin45 的i标记旋转后,占地面积是 1L X 1L.因此图标大小依然是1em.</p>
+  <p>
+    <i class="ico homedemo-1 bg-gray fs100"></i>
+    <i class="ico homedemo-1 step1 bg-gray fs100"></i>
+  </p>
+  <p>屋顶边框和屋顶之间的距离(下图红边框和绿蓝正方形之间的距离)设置为一个屋顶边框厚度:5%L. 屋顶盒模型(绿蓝正方形)的边长为: L*sin45 - 2 * 2 * 5%L.这个计算由下图左1得出,绿蓝正方形的边长,是红边框长度减去4倍的红边框厚度(屋顶边框厚度加上与屋顶间距厚度,再成以2).旋转后就成了屋顶的样子.</p>
+  <p>
+    <i class="ico homedemo-2 bg-gray fs100"></i>
+    <i class="ico homedemo-2 step1 bg-gray fs100 mg-l-20"></i>
+    <i class="ico homedemo-2 step1 step2 bg-gray fs100 mg-l-30"></i>
+  </p>
+  <p>门框用:after.它的宽度与屋顶(绿色三角形)的底边长度相等, 即: (L*sin45 - 2 * 2 * 5%L) / sin45, 就是绿色三角形的底边长度,化简后: L - 2 * 2 * 5%L / sin45.门框的3个边框,左右边框厚度设计为宽度的1/3,体现为门洞和左右边框平分宽度.上边框设计为屋顶边框厚度的2倍,即 2 * 5%L. 门框的上边要与绿色三角形的底边重合,这个比较难搞,因为旋转了.</p>
+  <p>由于容器i标记旋转45度,容器的子元素也会跟着旋转,(下图左1).门框需要水平放置,所以需要反向旋转45度(下图左2).那么问题是,需要计算出一对top,left值,让门框的位置在旋转后与屋顶重合.</p>
+  <p>
+    <i class="ico homedemo-2 step1 step2 step3 bg-gray fs100"></i>
+    <i class="ico homedemo-2 step1 step2 step3 step3-1 bg-gray fs100 mg-l-30"></i>
+  </p>
+  <p>旋转问题本质上是坐标系旋转变化,旋转前后的点坐标变化了.为避免计算太复杂,发现如果将盒模型的旋转中心置于盒模型的左上角顶点,比较容易计算.先将门框的左上角顶点,定位到绿色三角形的左下脚顶点处.这对top-left容易计算,即 top: L*sin45 - 2 * 5%L , left: 2 * 5%L (下图左1).</p>
+  <p>图标旋转45度后(下图左2),再将门框反转45度摆正(下图左3).发现重合了.门框盒模型反转时设置旋转中心为门框左上角: transform-origin:0 0;</p>
+  <p>
+    <i class="ico homedemo-2 step2 step3 step3-2 bg-gray fs100"></i>
+    <i class="ico homedemo-2 step1 step2 step3 step3-2 bg-gray fs100 mg-l-40"></i>
+    <i class="ico homedemo-2 step1 step2 step3 step3-2 step3-3 bg-gray fs100 mg-l-40"></i>
+  </p>
+  <br /><br />
+  <br />
+  <p><i class="ico ico-home fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-home
+        position: relative;
+        // 屋顶边长 L*sin45
+        width: .707em;
+        height: .707em;
+        // 5%的阴影,实现屋顶厚度
+        box-shadow: inset .05em .05em;
+        transform: rotate(45deg);
+    
+        &:before,&:after
+            position: absolute;
+            left: .1em;
+
+        &:before
+            top: .1em;
+            // (L*sin45 - 2 * 2 * 0.05L)[屋顶盒模型宽度] / 2 + 0.01L[填补空隙]
+            border-width: .263em;
+            border-style: solid;
+            border-color: currentColor transparent transparent currentColor;
+        &:after
+            top: calc(.707em - .1em);
+            // (L*sin45 - 2 * 2 * 0.05L) / sin45 => L - 2 * 2 * 0.05L / sin45
+            width: .717em;
+            height: .4em;
+            border-width: .1em .25em 0;
+            border-style: solid;
+            border-color: currentColor;
+            transform-origin: 0 0;
+            transform: rotate(-45deg);
+
+</pre>
+</div>
