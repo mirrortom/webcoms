@@ -1,0 +1,28 @@
+﻿// 脸表情
+
+.ico-face
+    position: relative
+    border-radius: 50%
+    border: .04em solid currentColor
+    
+    &:before,&:after
+        position: absolute
+        border-radius: 50%
+
+    &:before
+        top: .3em
+        left: .18em
+        width: .1em
+        height: .15em
+        background-color: currentColor
+        box-shadow: .46em 0
+
+    &:after
+        top: 0
+        left: 0
+        right: 0
+        margin: auto
+        width: .8em
+        height: .8em
+        border: .04em solid transparent
+        border-bottom-color: currentColor

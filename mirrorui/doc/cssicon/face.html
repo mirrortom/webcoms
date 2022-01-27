@@ -1,0 +1,142 @@
+﻿<div class="doc-page">
+  <h2>脸</h2>
+  <p>脸表情图标</p>
+  <div class="mg-20">
+    <i class="ico ico-face text-md"></i>
+    <i class="ico ico-face text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-face</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>face图标外层圆是i标记.眼睛:before,嘴吧:after.使用绝对定位,位置计算如下.</p>
+  <p>设计眼睛离容器上边30%,眼球是偏卡通的椭圆形,盒模型长宽比为 1:1.5 ,长度为容器10%. 两个眼睛的位置位于AE和BE的中点上.</p>
+  <p>设脸的半径为 R,那么 OE = OC - EC = R - EC = R - 2R * 30%. OA就是R,OE求出,那么AE就得出了,AE0是直角三角形.弦AB与半径OC垂直所以, AE = EB .这样得出左右眼的位置.</p>
+  <p>嘴是圆的一部分(1/4),圆半径为容器的40%.脸轮廓和嘴轮廓的厚度为容器的4%.嘴所在的圆与脸内相切,嘴部扇形(红色圆弧)的起点和终点位置,所对应的弦长度,大约与眼距相等.</p>
+  <canvas id="canva1"></canvas>
+  <br />
+  <p><i class="ico ico-face fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-face
+        position: relative
+        border-radius: 50%
+        border: .04em solid currentColor
+    
+        &:before,&:after
+            position: absolute
+            border-radius: 50%
+
+        &:before
+            top: .3em
+            left: .18em
+            width: .1em
+            height: .15em
+            background-color: currentColor
+            box-shadow: .46em 0
+
+        &:after
+            top: 0
+            left: 0
+            right: 0
+            margin: auto
+            width: .8em
+            height: .8em
+            border: .04em solid transparent
+            border-bottom-color: currentColor
+
+</pre>
+  <script>
+    ((win) => {
+      let cav = win.cavlib('canva1').style();
+      let ctx = cav.ctx;
+      let w = 200, h = 200;
+      ctx.canvas.width = w;
+      ctx.canvas.height = h;
+      ctx.font = '18px serif';
+      // x,y轴
+      ctx.save();
+      ctx.beginPath();
+      ctx.setLineDash([3]);
+      ctx.strokeStyle = 'gray';
+      cav.lineArrow([0, h / 2, w - 10, h / 2]);
+      cav.lineArrow([w / 2, h, w / 2, 10]);
+      // 原点
+      ctx.beginPath();
+      ctx.arc(w / 2, h / 2, 3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillText('O', w / 2 + 5, h / 2 + 15);
+      ctx.restore();
+      // 脸
+      ctx.save();
+      ctx.translate(w / 2, h / 2);
+      // 脸轮廓
+      let faceCir = w / 4;
+      ctx.beginPath();
+      ctx.arc(0, 0, faceCir, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillText('C', 5, -faceCir - 5);
+      // 眼睛线
+      let eyeLeftY = -(faceCir - 2 * faceCir * 30 / 100);
+      let eyeLeftX = -(Math.sqrt(faceCir * faceCir - eyeLeftY * eyeLeftY));
+      ctx.beginPath();
+      ctx.moveTo(eyeLeftX, eyeLeftY);
+      ctx.lineTo(-eyeLeftX, eyeLeftY);
+      ctx.strokeStyle = 'blue';
+      ctx.stroke();
+      ctx.fillText('A', eyeLeftX - 15, eyeLeftY);
+      ctx.fillText('B', -eyeLeftX + 10, eyeLeftY);
+      ctx.fillText('E', 5, eyeLeftY - 5);
+      // AO连线
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(eyeLeftX, eyeLeftY);
+      ctx.strokeStyle = 'blue';
+      ctx.stroke();
+
+      // 左眼
+      let eyeCirW = faceCir * 10 / 100;
+      let eyeCirH = eyeCirW * 1.5;
+      ctx.beginPath();
+      ctx.ellipse(eyeLeftX / 2, eyeLeftY, eyeCirW, eyeCirH, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'orange';
+      ctx.fill();
+      // 右眼
+      ctx.beginPath();
+      ctx.ellipse(-eyeLeftX / 2, eyeLeftY, eyeCirW, eyeCirH, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // 嘴
+      let mouthCir = faceCir * 80 / 100;
+      // 嘴圆心
+      ctx.beginPath();
+      ctx.arc(0, mouthCir - faceCir, 3, 0, Math.PI * 2);
+      ctx.fillStyle = 'red';
+      ctx.fill();
+      // 嘴红色部分与嘴圆心连线
+      ctx.beginPath();
+      ctx.moveTo(0, mouthCir - faceCir);
+      ctx.arc(0, mouthCir - faceCir, mouthCir, Math.PI / 4, Math.PI * 3 / 4);
+      ctx.closePath();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'gray';
+      ctx.stroke();
+      // 嘴红色部分
+      ctx.beginPath();
+      ctx.arc(0, mouthCir - faceCir, mouthCir, Math.PI / 4, Math.PI * 3 / 4);
+      ctx.lineWidth = faceCir * 4 / 100;
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+      // 嘴圆
+      ctx.beginPath();
+      ctx.arc(0, mouthCir - faceCir, mouthCir, Math.PI / 4, Math.PI * 3 / 4, true);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'green';
+      ctx.stroke();
+      //
+      ctx.restore();
+    })(window);
+  </script>
+</div>

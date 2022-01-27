@@ -3392,3 +3392,31 @@ p {
   transform-origin: 0 0;
   transform: rotate(-45deg);
 }
+.ico-face {
+  position: relative;
+  border-radius: 50%;
+  border: 0.04em solid currentColor;
+}
+.ico-face:before,
+.ico-face:after {
+  position: absolute;
+  border-radius: 50%;
+}
+.ico-face:before {
+  top: 0.3em;
+  left: 0.18em;
+  width: 0.1em;
+  height: 0.15em;
+  background-color: currentColor;
+  box-shadow: 0.46em 0;
+}
+.ico-face:after {
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0.8em;
+  height: 0.8em;
+  border: 0.04em solid transparent;
+  border-bottom-color: currentColor;
+}
