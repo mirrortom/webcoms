@@ -122,34 +122,34 @@
   <pre class="bg-gray-lt">
 
     .ico-home
-        position: relative;
+        position: relative
         // 屋顶边长 L*sin45
-        width: .707em;
-        height: .707em;
+        width: .707em
+        height: .707em
         // 5%的阴影,实现屋顶厚度
-        box-shadow: inset .05em .05em;
-        transform: rotate(45deg);
+        box-shadow: inset .05em .05em
+        transform: rotate(45deg)
     
         &:before,&:after
-            position: absolute;
-            left: .1em;
+            position: absolute
+            left: .1em
 
         &:before
-            top: .1em;
+            top: .1em
             // (L*sin45 - 2 * 2 * 0.05L)[屋顶盒模型宽度] / 2 + 0.01L[填补空隙]
-            border-width: .263em;
-            border-style: solid;
-            border-color: currentColor transparent transparent currentColor;
+            border-width: .263em
+            border-style: solid
+            border-color: currentColor transparent transparent currentColor
         &:after
-            top: calc(.707em - .1em);
+            top: calc(.707em - .1em)
             // (L*sin45 - 2 * 2 * 0.05L) / sin45 => L - 2 * 2 * 0.05L / sin45
-            width: .717em;
-            height: .4em;
-            border-width: .1em .25em 0;
-            border-style: solid;
-            border-color: currentColor;
-            transform-origin: 0 0;
-            transform: rotate(-45deg);
+            width: .717em
+            height: .4em
+            border-width: .1em .25em 0
+            border-style: solid
+            border-color: currentColor
+            transform-origin: 0 0
+            transform: rotate(-45deg)
 
 </pre>
 </div>
