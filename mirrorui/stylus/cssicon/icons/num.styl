@@ -1,0 +1,31 @@
+﻿// 数字
+
+.ico-num
+    display: inline-flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    
+    &:before,&:after
+        width: .4em
+        height: .4em
+        border: .1em solid currentColor
+
+    &:before
+        border-bottom-width: .05em
+
+    &:after
+        border-top-width: .05em
+
+    &.n0:after, &.n1:before, &.n1:after, &.n4:before, &.n7:after
+        border-top-color: transparent
+
+    &.n0:before, &.n1:before, &.n1:after, &.n4:after, &.n7:before, &.n7:after, &.n9:after
+        border-bottom-color: transparent
+
+    &.n1:before, &.n1:after, &.n2:before, &.n3:before, &.n3:after, &.n4:after, &.n5:after, &.n7:before, &.n7:after, &.n9:after
+        border-left-color: transparent
+
+    &.n2:after, &.n5:before, &.n6:before
+        border-right-color: transparent
+      

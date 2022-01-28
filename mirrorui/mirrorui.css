@@ -3420,3 +3420,54 @@ p {
   border: 0.04em solid transparent;
   border-bottom-color: currentColor;
 }
+.ico-num {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.ico-num:before,
+.ico-num:after {
+  width: 0.4em;
+  height: 0.4em;
+  border: 0.1em solid currentColor;
+}
+.ico-num:before {
+  border-bottom-width: 0.05em;
+}
+.ico-num:after {
+  border-top-width: 0.05em;
+}
+.ico-num.n0:after,
+.ico-num.n1:before,
+.ico-num.n1:after,
+.ico-num.n4:before,
+.ico-num.n7:after {
+  border-top-color: transparent;
+}
+.ico-num.n0:before,
+.ico-num.n1:before,
+.ico-num.n1:after,
+.ico-num.n4:after,
+.ico-num.n7:before,
+.ico-num.n7:after,
+.ico-num.n9:after {
+  border-bottom-color: transparent;
+}
+.ico-num.n1:before,
+.ico-num.n1:after,
+.ico-num.n2:before,
+.ico-num.n3:before,
+.ico-num.n3:after,
+.ico-num.n4:after,
+.ico-num.n5:after,
+.ico-num.n7:before,
+.ico-num.n7:after,
+.ico-num.n9:after {
+  border-left-color: transparent;
+}
+.ico-num.n2:after,
+.ico-num.n5:before,
+.ico-num.n6:before {
+  border-right-color: transparent;
+}

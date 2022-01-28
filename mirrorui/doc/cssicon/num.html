@@ -1,0 +1,152 @@
+﻿<div class="doc-page">
+  <h2>LCD数字</h2>
+  <p>模仿LCD数字显示</p>
+  <div class="mg-20 text-xxxl text-primary">
+    <i class="ico ico-num n0"></i>
+    <i class="ico ico-num n1"></i>
+    <i class="ico ico-num n2"></i>
+    <i class="ico ico-num n3"></i>
+    <i class="ico ico-num n4"></i>
+    <i class="ico ico-num n5"></i>
+    <i class="ico ico-num n6"></i>
+    <i class="ico ico-num n7"></i>
+    <i class="ico ico-num"></i>
+    <i class="ico ico-num n9"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  // n0 - n9 没有n8
+  &lt;i class="ico <b>ico-num n0</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <style>
+    .demonum {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 100px;
+    }
+
+      .demonum:before, .demonum:after {
+        width: .4em;
+        height: .4em;
+        border: .1em solid;
+      }
+
+      .demonum:before {
+        border-color: orange yellow red;
+        border-bottom-width: .05em;
+      }
+
+      .demonum:after {
+        border-color: blue gray pink;
+        border-top-width: .05em;
+      }
+
+    .demonum2 {
+      position: relative;
+      height: 120px;
+    }
+
+      .demonum2 i {
+        position: absolute;
+        display: inline-block;
+        height: 40px;
+        border-style: solid;
+      }
+
+    .demonum2-1, .demonum2-2 {
+      top: 0;
+      left: 0;
+      width: 50px;
+      border-width: 10px;
+      border-color: transparent currentColor;
+    }
+
+    .demonum2-1 {
+      border-bottom-width: 5px;
+    }
+
+    .demonum2-2 {
+      top: 40px;
+      left: 0;
+      border-top-width: 5px;
+    }
+
+    .demonum2-3, .demonum2-4 {
+      top: 0;
+      left: 2px;
+      width: 46px;
+      border-width: 10px;
+      border-color: currentColor transparent;
+    }
+
+    .demonum2-3 {
+      border-bottom-width: 5px;
+    }
+
+    .demonum2-4 {
+      top: 40px;
+      border-top-width: 5px;
+    }
+  </style>
+  <br />
+  <p>数字图标模仿了LCD数字,观察LCD数字显示电路,它是7个发光二极管,排列成数字8的形状,通过点亮组合这7个LCD,可以显示10个数字.如果要显示8,那么就点亮全部7个LCD,如果要显示0,就将中间的LCD熄灭.其它数字都可以用这个办法显示.</p>
+  <p>用:before和:after的边框模拟LCD.设计边框厚度为容器的10%,盒模型为正方形,边长为容器的40%.容器采用flex,列排布,水平垂直居中.这样:before和:after形成一个1:2的长方形,就是数字的轮廓.</p>
+  <p>中间的边是:before的底边(红色)和:after的上边(蓝色)叠在一起的,这两个边框的厚度加起来要与其它边框厚度相同.也就是说这2个边框的厚度要是其它边厚度的一半.</p>
+  <p><i class="ico demonum"></i></p>
+  <p>没有能完全模仿LCD数字,它的转角有分界线,不是连在一起的,这没有实现.</p>
+  <div class="demonum2">
+    <i class="demonum2-1"></i><i class="demonum2-2"></i>
+    <i class="demonum2-3"></i><i class="demonum2-4"></i>
+  </div>
+  <br />
+  <p>
+    <i class="ico ico-num n0 fs100"></i>
+    <i class="ico ico-num n1 fs100"></i>
+    <i class="ico ico-num n2 fs100"></i>
+    <i class="ico ico-num n3 fs100"></i>
+    <i class="ico ico-num n4 fs100"></i>
+    <i class="ico ico-num n5 fs100"></i>
+    <i class="ico ico-num n6 fs100"></i>
+    <i class="ico ico-num n7 fs100"></i>
+    <i class="ico ico-num fs100"></i>
+    <i class="ico ico-num n9 fs100"></i>
+  </p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-num
+        display: inline-flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+    
+        &:before,&:after
+            width: .4em
+            height: .4em
+            border: .1em solid currentColor
+
+        &:before
+            border-bottom-width: .05em
+
+        &:after
+            border-top-width: .05em
+
+        &.n0:after, &.n1:before, &.n1:after, &.n4:before, &.n7:after
+            border-top-color: transparent
+
+        &.n0:before, &.n1:before, &.n1:after, &.n4:after, &.n7:before, &.n7:after,
+        &.n9:after
+            border-bottom-color: transparent
+
+        &.n1:before, &.n1:after, &.n2:before, &.n3:before, &.n3:after, &.n4:after,
+        &.n5:after, &.n7:before, &.n7:after, &.n9:after
+            border-left-color: transparent
+
+        &.n2:after, &.n5:before, &.n6:before
+            border-right-color: transparent
+
+</pre>
+</div>

@@ -40,6 +40,7 @@
   <ItemGroup>
     <Content Include="404.html" />
     <Content Include="doc\cachepagedemo1.html" />
+    <Content Include="doc\cssicon\num.html" />
     <Content Include="doc\cssicon\face.html" />
     <Content Include="doc\cssicon\home.html" />
     <Content Include="doc\cssicon\flag.html" />
@@ -157,6 +158,7 @@
     <None Include="stylus\coms\mnavmenu.styl" />
     <None Include="stylus\cssicon\icons\chart.styl" />
     <None Include="stylus\cssicon\icons\face.styl" />
+    <None Include="stylus\cssicon\icons\num.styl" />
     <None Include="stylus\cssicon\icons\home.styl" />
     <None Include="stylus\cssicon\icons\flag.styl" />
     <None Include="stylus\cssicon\icons\lock.styl" />
