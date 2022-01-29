@@ -3471,3 +3471,28 @@ p {
 .ico-num.n6:before {
   border-right-color: transparent;
 }
+.ico-lang {
+  position: relative;
+  border: 0.04em solid currentColor;
+  border-radius: 50%;
+}
+.ico-lang:before,
+.ico-lang:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 0.04em solid currentColor;
+}
+.ico-lang:before {
+  height: 0.4em;
+  width: 0.916em;
+  border-color: currentColor transparent;
+}
+.ico-lang:after {
+  height: 1em;
+  width: 0.5em;
+  border-radius: 50%;
+}

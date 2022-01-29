@@ -1,0 +1,94 @@
+﻿<div class="doc-page">
+  <h2>网络</h2>
+  <p>用于语种或网络的图标</p>
+  <div class="mg-20">
+    <i class="ico ico-lang text-md"></i>
+    <i class="ico ico-lang text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-lang</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <style>
+    .demolang {
+      position: relative;
+      font-size: 100px;
+      border: 1px solid;
+      border-radius: 50%;
+    }
+
+      .demolang:before, .demolang:after {
+        position: absolute;
+      }
+
+    .demolang-1:before {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      height: .4em;
+      width: .916em;
+      border: .05em solid red;
+    }
+
+    .demolang-1:after {
+      top: .3em;
+      left: .02em;
+      height: .2em;
+      width: .458em;
+      border-style: solid;
+      border-width: .1em .229em;
+      border-color: blue blue transparent transparent;
+    }
+
+    .demolang-2:before {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      height: 1em;
+      width: .5em;
+      border-radius: 50%;
+      border: 1px solid red;
+    }
+  </style>
+  <br />
+  <p>图标分3部分,外层圆圈表示地球.横线表示纬线,竖直弧线表示经线.容器i标记实现地球,:before和:after分别实现经纬线.经纬线使用绝对定位垂直居中即可达到效果,不必再计算top,left值.</p>
+  <p>设计纬线画在容器的上边30%处,有两条,下面的也是位于容器下边的30%处,其实这就是垂直居中的情况.可以用一个内接长方形(红色长方形)实现,它的上下两边就是纬线.</p>
+  <p>设容器(地球)半径为R,已知内接长方形上边离容器上边为 2R*0.3 .那么长方形的宽就是 2*(R - 2R*0.3) = 0.8R. 由圆心和长方形左上角顶点以及上边中点,围成的直角三角形(蓝色),可以求出长. 2*sqrt(R^2 - (0.8R/2)^2).长方形的左右两边不需要,设为透明.</p>
+  <p><i class="ico demolang demolang-1"></i></p>
+  <p>经线的盒模型是长宽比为1:2的竖直长方形,长度(高)等于容器高度,边框设置圆角.经纬线的宽度为容器的4%.</p>
+  <p><i class="ico demolang demolang-2"></i></p>
+  <br />
+  <p><i class="ico ico-lang fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-lang
+        position: relative
+        border: .04em solid currentColor
+        border-radius: 50%
+
+        &:before, &:after
+            position: absolute
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+            margin: auto
+            border: .04em solid currentColor
+         
+        &:before
+            height: .4em
+            width: .916em
+            border-color: currentColor transparent
+        &:after
+            height: 1em
+            width: .5em
+            border-radius: 50%
+
+</pre>
+</div>
