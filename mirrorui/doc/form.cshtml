@@ -149,30 +149,30 @@
 </pre>
   <br />
 
-  <p class="article-title">单选与复选</p>
-  <p># 使用自定义标记,复选 <strong>&lt;m-check&gt;</strong> 单选 <strong>&lt;m-radio&gt;</strong> ,添加样式类 <strong>.input-check</strong></p>
+  <p class="article-title">单选与多选</p>
+  <p># 使用自定义标记,多选 <strong>&lt;m-check&gt;</strong> , 单选 <strong>&lt;m-radio&gt;</strong></p>
   <div>
-    <m-check class="checked" tag="复选框1" id="mcheckbox1"></m-check>
-    <m-check class="mg-l-20" tag="复选框2"></m-check>
-    <m-radio class="checked mg-l-20" name="radiogroup1" tag="单选框1"></m-radio>
-    <m-radio class="mg-l-20" name="radiogroup1" tag="单选框2"></m-radio>
-    <m-check class="mg-l-20" tag="复选框4" disabled></m-check>
-    <m-radio class="mg-l-20" name="radiogroup1" tag="单选框3" disabled></m-radio>
+    <m-check class="checked" tag="多选组-1" id="mcheckbox1"></m-check>
+    <m-check class="mg-l-20" tag="多选组-2"></m-check>
+    <m-radio class="checked mg-l-20" name="radiogroup1" tag="单选组-1"></m-radio>
+    <m-radio class="mg-l-20" name="radiogroup1" tag="单选组-2"></m-radio>
+    <m-check class="mg-l-20" tag="多选(disabled)" disabled></m-check>
+    <m-radio class="mg-l-20" name="radiogroup1" tag="单选(disabled)" disabled></m-radio>
   </div>
   <br />
   <div class="grids-10">
-    @foreach (string item in Model.themecolors)
-    {
-      <div><m-check class="@item checked" tag="复选框"></m-check></div>
-      <m-radio class="@item" name="radiogroup1" tag="单选框"></m-radio>
+    @{
+      int i = 0, j = 0;
     }
-  </div>
-  <br />
-  <div class="grids-10">
     @foreach (string item in Model.themecolors)
     {
-      <m-radio class="@item text-lg" name="radiogroup1" tag="单选"></m-radio>
-      <m-check class="@item checked text-lg" tag="复选"></m-check>
+      i++;
+      <div><m-check class="@item text-md checked" tag="多选组-@i"></m-check></div>
+    }
+    @foreach (string item in Model.themecolors)
+    {
+      j++;
+        <m-radio class="@item text-md" name="radiogroup1" tag="单选组-@j"></m-radio>
     }
   </div>
   <br />
@@ -192,12 +192,12 @@
   <p class="text-in">添加 <strong>.checked</strong>样式,会展现选中状态,添加 primary,text-lg等工具样式调整颜色和大小</p>
 
   <pre class="bg-gray-lt">
-  // m-check复选,m-radio单选
+  // m-check多选,m-radio单选
   &lt;m-radio tag="单选框2"&gt;&lt;/m-radio&gt;
-  &lt;m-check class="checked" tag="复选框1"&gt;&lt;/m-check&gt;
+  &lt;m-check class="checked" tag="多选框1"&gt;&lt;/m-check&gt;
 
   // tag:设置标题
-  &lt;m-check class="checked" <strong>tag</strong>="复选框1"&gt;&lt;/m-check&gt;
+  &lt;m-check class="checked" <strong>tag</strong>="多选框1"&gt;&lt;/m-check&gt;
 
   // 获取选中状态
   let check1 = document.getElementById('checkbox1');
@@ -214,7 +214,7 @@
   &lt;m-radio tag="单选框2" <strong>name</strong>="radiogroup1" &gt;&lt;/m-radio&gt;
 
   // 颜色和大小,选中状态
-  &lt;m-check class="<strong>primary checked</strong> " tag="复选框1"&gt;&lt;/m-check&gt;
+  &lt;m-check class="<strong>primary checked</strong> " tag="多选框1"&gt;&lt;/m-check&gt;
   &lt;m-radio class="<strong>text-lg</strong>" tag="单选框2"&gt;&lt;/m-radio&gt;
 
   // 禁用
@@ -243,7 +243,7 @@
       <option>UK</option>
     </select>
     <label class="form-label text-center grid-1">WebSite</label>
-    <input class="input-text grid-2" type="text" name="name3" value="mirrortom.date" />
+    <input class="input-text grid-2" type="text" name="name3" value="mirrortom.github.io" />
     <label class="form-label text-center grid-1">资料</label>
     <m-file class="grid-3 bg-white"></m-file>
   </div>
