@@ -8,13 +8,14 @@
   <style>
     .container {
       display: grid;
-      grid-template-columns: 200px auto;
+      grid-template-columns: 200px calc(100% - 200px);
     }
+
 
     .menu-box {
       position: sticky;
       top: 0;
-      width: 94%;
+      width: 98%;
       height: 100vh;
       overflow-x: hidden;
       overflow-y: auto;
@@ -25,6 +26,21 @@
       top: 0;
       width: 99%;
       z-index: 1;
+    }
+
+    pre {
+      overflow-x: auto;
+    }
+    /*手机端*/
+    @media only screen and (max-width: 768px) {
+      /*侧边菜单占比*/
+      .container {
+        grid-template-columns: 22% 78%;
+      }
+      /*cachepage组件不需要显示*/
+      .tabsmenu-box {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -112,7 +128,7 @@
       // 新建cachePage实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
       let cpg = win.ns.cachepage($('#cachepage_nav')[0], $('#cachepage_cont')[0]);
       cpg.onNewPageLoad((pid, title, contDom) => {
-        let url = 'doc/' + pid+'.html';
+        let url = 'doc/' + pid + '.html';
         $(contDom).load(url);
       });
 

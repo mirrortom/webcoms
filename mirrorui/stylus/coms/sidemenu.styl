@@ -7,17 +7,16 @@
     // 每个菜单组是一个ul
     &-group
         margin: 0
-        padding: 10px 0
+        padding: .7em 0
         list-style: none
     // 菜单项
     &-item
         display: block
-        color: var-font-color
-        cursor: pointer
         text-decoration: none
-        padding: 0.4em 0 0.4em 2.4em
+        padding: .4em 0 .4em 2.4em
         font-weight: 400
         @extend .text-overflow
+        cursor: pointer
     // 菜单项hover,菜单项的下划线去掉
     &-item:not(.active):hover
         text-decoration: none
@@ -33,20 +32,24 @@
         display: block
         position: relative
         width: 100%
-        font-weight: 600
-        padding: 0.4em
+        font-weight: 700
+        padding: .4em
         border-bottom: 1px solid var-gray
+        @extend .text-overflow
         cursor: pointer
 
-    // 菜单组标题右侧三角型 向左(收起时) 向下(展开时)
+    // 菜单组标题 收起/展开
     &-arrleft, &-arrdown
+        display:inline-block
         position: absolute
-        top: 10px
-        right: 8px
+        width:1em
+        height:1px
+        top: 50%
+        right: .4em
+        background-color: currentColor
     &-arrleft
-        triangle(8px, left, var-font-color)
-    &-arrdown
-        triangle(8px, bottom, var-font-color)
+        box-shadow:0 -.3em,0 .3em; 
+         
     // 菜单组关闭
     &-group-close li:not(:first-child)
         display: none
@@ -57,5 +60,14 @@
     &-split
         display: block
         height: 1px
-        margin: 6px 8px 6px 2.4em
+        margin: .4em 0 .4em 2.4em
         border-bottom: 1px dashed var-gray
+// 手机端:
+@media only screen and (max-width: $screen-tablet)
+    .sidemenu
+        // 菜单组标题变小点 收起/展开
+        &-arrleft, &-arrdown
+            width:.6em
+        // 菜单项左对齐
+        &-item
+            padding: .4em 0 .4em .4em

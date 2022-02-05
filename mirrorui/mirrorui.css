@@ -75,11 +75,6 @@ body {
   color: var(--font-color);
   background-color: var(--bg-color);
 }
-@media only screen and (max-width: 768px) {
-  :root {
-    --font-size: var(--font-size-md);
-  }
-}
 img {
   vertical-align: middle;
 }
@@ -98,7 +93,8 @@ a {
   color: var(--font-color);
 }
 .text-overflow,
-.sidemenu-item {
+.sidemenu-item,
+.sidemenu-label {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1782,16 +1778,15 @@ p {
 }
 .sidemenu-group {
   margin: 0;
-  padding: 10px 0;
+  padding: 0.7em 0;
   list-style: none;
 }
 .sidemenu-item {
   display: block;
-  color: var(--font-color);
-  cursor: pointer;
   text-decoration: none;
   padding: 0.4em 0 0.4em 2.4em;
   font-weight: 400;
+  cursor: pointer;
 }
 .sidemenu-item:not(.active):hover {
   text-decoration: none;
@@ -1807,30 +1802,23 @@ p {
   display: block;
   position: relative;
   width: 100%;
-  font-weight: 600;
+  font-weight: 700;
   padding: 0.4em;
   border-bottom: 1px solid var(--color-gray);
   cursor: pointer;
 }
 .sidemenu-arrleft,
 .sidemenu-arrdown {
+  display: inline-block;
   position: absolute;
-  top: 10px;
-  right: 8px;
+  width: 1em;
+  height: 1px;
+  top: 50%;
+  right: 0.4em;
+  background-color: currentColor;
 }
 .sidemenu-arrleft {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border: 8px solid transparent;
-  border-right-color: var(--font-color);
-}
-.sidemenu-arrdown {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border: 8px solid transparent;
-  border-top-color: var(--font-color);
+  box-shadow: 0 -0.3em, 0 0.3em;
 }
 .sidemenu-group-close li:not(:first-child) {
   display: none;
@@ -1841,8 +1829,17 @@ p {
 .sidemenu-split {
   display: block;
   height: 1px;
-  margin: 6px 8px 6px 2.4em;
+  margin: 0.4em 0 0.4em 2.4em;
   border-bottom: 1px dashed var(--color-gray);
+}
+@media only screen and (max-width: 768px) {
+  .sidemenu-arrleft,
+  .sidemenu-arrdown {
+    width: 0.6em;
+  }
+  .sidemenu-item {
+    padding: 0.4em 0 0.4em 0.4em;
+  }
 }
 .panel {
   border: 1px solid var(--color-gray-lt);
