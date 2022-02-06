@@ -2311,134 +2311,59 @@ p {
   }
 }
 .tabsbox {
-  display: flex;
-  position: relative;
-  height: 44px;
+  display: grid;
+  grid-template-columns: 36px auto 36px 72px;
+  align-items: center;
   border: 1px solid var(--color-gray);
-  border-bottom: 2px solid var(--color-gray);
-  background-color: var(--color-gray-dk);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  background-color: var(--color-white);
   user-select: none;
 }
 .tabsbox-left,
 .tabsbox-right {
-  flex: 0 1 36px;
+  align-self: center;
   cursor: pointer;
-  padding: 8px 0;
-  background-color: var(--color-white);
 }
-.tabsbox-right {
-  text-align: right;
-}
-.tabsbox-left:before,
-.tabsbox-right:before {
-  content: '';
-  vertical-align: middle;
-}
-.tabsbox-left:before {
-  content: '';
+.tabsbox-left {
   display: inline-block;
   width: 0;
   height: 0;
-  border: 12px solid transparent;
+  border: 18px solid transparent;
   border-right-color: var(--color-gray-dk);
 }
-.tabsbox-right:before {
-  content: '';
+.tabsbox-right {
   display: inline-block;
   width: 0;
   height: 0;
-  border: 12px solid transparent;
+  border: 18px solid transparent;
   border-left-color: var(--color-gray-dk);
 }
-.tabsbox-left:hover,
+.tabsbox-left:hover {
+  border-right-color: var(--color-black-lt);
+}
 .tabsbox-right:hover {
-  background-color: var(--color-gray);
-}
-.tabsbox-left:active,
-.tabsbox-right:active {
-  background-color: var(--color-gray-lt);
-}
-.tabsbox-menutitle {
-  width: 80px;
-  text-align: center;
-  padding: 10px;
-  background-color: var(--color-white);
-}
-.tabsbox-menutitle:after {
-  content: '';
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border: 5px solid transparent;
-  border-top-color: var(--color-gray-dk);
-  margin-left: 4px;
-  vertical-align: middle;
-}
-.tabsbox-menutitle:hover {
-  background-color: var(--color-gray);
-}
-.tabsbox-menutitle:hover ~ .tabsbox-menugroup {
-  display: block;
-}
-.tabsbox-menugroup {
-  display: none;
-  position: absolute;
-  top: 39px;
-  right: 0;
-  width: 100px;
-  color: var(--color-gray-dk);
-  text-align: center;
-  background-color: var(--color-white);
-  border: 2px solid var(--color-gray-dk);
-  border-top: none;
-  cursor: pointer;
-}
-.tabsbox-menugroup:hover {
-  display: block;
-}
-.tabsbox-close-all,
-.tabsbox-close-other,
-.tabsbox-goto-active {
-  padding: 10px;
-  display: block;
-}
-.tabsbox-goto-active {
-  border-bottom: 1px solid var(--color-gray);
-}
-.tabsbox-close-all:hover,
-.tabsbox-close-other:hover,
-.tabsbox-goto-active:hover {
-  color: var(--font-color);
-  background-color: var(--color-gray-dk);
+  border-left-color: var(--color-black-lt);
 }
 .tabsbox-navbox {
-  flex: 1 1 0;
-  width: 0;
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  height: 36px;
   overflow: hidden;
 }
 .tabsbox-nav {
-  position: relative;
-  margin-right: 100px;
+  padding-right: 26px;
   white-space: nowrap;
-  overflow-x: auto;
-  background-color: var(--color-gray-lt);
+  overflow-y: hidden;
+  overflow-x: scroll;
 }
 .tabsbox-tab {
   display: inline-block;
   position: relative;
-  padding: 10px 15px;
-  height: 40px;
-  margin: 0 2px;
-  background-color: var(--color-gray-dk);
+  height: 36px;
+  line-height: 36px;
+  padding: 0 8px;
+  margin: 0 3px;
+  background-color: var(--color-gray);
   cursor: pointer;
-}
-.tabsbox-tab:hover {
-  color: var(--color-gray-lt);
-  padding-right: 24px;
-  transition: padding-right 0.3s;
 }
 .tabsbox-tab.active {
   color: var(--color-white);
@@ -2447,98 +2372,135 @@ p {
 .tabsbox-tabclose {
   display: none;
   position: absolute;
-  width: 16px;
-  height: 16px;
-  line-height: 16px;
-  text-align: center;
-  color: var(--color-white);
   top: 0;
   right: 0;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--color-white);
   background-color: #c00;
   text-decoration: none;
+}
+.tabsbox-tab:hover {
+  padding-right: calc(18px + 8px);
+  transition: padding-right 0.3s;
 }
 .tabsbox-tab:hover .tabsbox-tabclose {
   display: inline-block;
 }
-.tabsbox.primary {
-  border-color: var(--color-primary);
+.tabsbox-menugroup {
+  position: relative;
+  height: 36px;
+  border-left: 1px solid var(--color-gray);
+  cursor: pointer;
+}
+.tabsbox-menutitle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: 0.6em solid transparent;
+  border-top-color: var(--color-gray-dk);
+  border-bottom: none;
+}
+.tabsbox-menugroup:hover .tabsbox-menutitle {
+  border-top-color: var(--color-black-lt);
+}
+.tabsbox-menulist {
+  display: none;
+  position: absolute;
+  right: -1px;
+  top: calc(100% + 1px);
+  width: calc(3 * 36px);
+  border: 1px solid var(--color-gray);
+  background-color: var(--color-white);
+  border-top: none;
+}
+.tabsbox-menugroup:hover .tabsbox-menulist {
+  display: block;
+}
+.tabsbox-close-all,
+.tabsbox-close-other,
+.tabsbox-goto-active {
+  display: block;
+  padding: 0.4em;
+}
+.tabsbox-close-all:hover,
+.tabsbox-close-other:hover,
+.tabsbox-goto-active:hover {
+  color: var(--font-color);
+  background-color: var(--color-gray-dk);
+}
+.tabsbox-close-all:active,
+.tabsbox-close-other:active,
+.tabsbox-goto-active:active {
+  padding-left: 0.6em;
 }
 .tabsbox.primary .tabsbox-tab.active {
   background-color: var(--color-primary);
 }
-.tabsbox.primary .tabsbox-menugroup {
-  border-color: var(--color-primary);
-  border-top: none;
-}
-.tabsbox.primary .tabsbox-left:before {
+.tabsbox.primary .tabsbox-left:hover {
   border-right-color: var(--color-primary);
 }
-.tabsbox.primary .tabsbox-right:before {
+.tabsbox.primary .tabsbox-right:hover {
   border-left-color: var(--color-primary);
 }
-.tabsbox.danger {
-  border-color: var(--color-danger);
+.tabsbox.primary .tabsbox-menugroup:hover .tabsbox-menutitle {
+  border-top-color: var(--color-primary);
 }
 .tabsbox.danger .tabsbox-tab.active {
   background-color: var(--color-danger);
 }
-.tabsbox.danger .tabsbox-menugroup {
-  border-color: var(--color-danger);
-  border-top: none;
-}
-.tabsbox.danger .tabsbox-left:before {
+.tabsbox.danger .tabsbox-left:hover {
   border-right-color: var(--color-danger);
 }
-.tabsbox.danger .tabsbox-right:before {
+.tabsbox.danger .tabsbox-right:hover {
   border-left-color: var(--color-danger);
 }
-.tabsbox.success {
-  border-color: var(--color-success);
+.tabsbox.danger .tabsbox-menugroup:hover .tabsbox-menutitle {
+  border-top-color: var(--color-danger);
 }
 .tabsbox.success .tabsbox-tab.active {
   background-color: var(--color-success);
 }
-.tabsbox.success .tabsbox-menugroup {
-  border-color: var(--color-success);
-  border-top: none;
-}
-.tabsbox.success .tabsbox-left:before {
+.tabsbox.success .tabsbox-left:hover {
   border-right-color: var(--color-success);
 }
-.tabsbox.success .tabsbox-right:before {
+.tabsbox.success .tabsbox-right:hover {
   border-left-color: var(--color-success);
 }
-.tabsbox.info {
-  border-color: var(--color-info);
+.tabsbox.success .tabsbox-menugroup:hover .tabsbox-menutitle {
+  border-top-color: var(--color-success);
 }
 .tabsbox.info .tabsbox-tab.active {
   background-color: var(--color-info);
 }
-.tabsbox.info .tabsbox-menugroup {
-  border-color: var(--color-info);
-  border-top: none;
-}
-.tabsbox.info .tabsbox-left:before {
+.tabsbox.info .tabsbox-left:hover {
   border-right-color: var(--color-info);
 }
-.tabsbox.info .tabsbox-right:before {
+.tabsbox.info .tabsbox-right:hover {
   border-left-color: var(--color-info);
 }
-.tabsbox.warning {
-  border-color: var(--color-warning);
+.tabsbox.info .tabsbox-menugroup:hover .tabsbox-menutitle {
+  border-top-color: var(--color-info);
 }
 .tabsbox.warning .tabsbox-tab.active {
   background-color: var(--color-warning);
 }
-.tabsbox.warning .tabsbox-menugroup {
-  border-color: var(--color-warning);
-  border-top: none;
-}
-.tabsbox.warning .tabsbox-left:before {
+.tabsbox.warning .tabsbox-left:hover {
   border-right-color: var(--color-warning);
 }
-.tabsbox.warning .tabsbox-right:before {
+.tabsbox.warning .tabsbox-right:hover {
   border-left-color: var(--color-warning);
+}
+.tabsbox.warning .tabsbox-menugroup:hover .tabsbox-menutitle {
+  border-top-color: var(--color-warning);
 }
 .list {
   padding-left: 0;
