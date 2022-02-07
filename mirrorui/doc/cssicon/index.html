@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -8,13 +8,13 @@
   <style>
     .container {
       display: grid;
-      grid-template-columns: 200px auto;
+      grid-template-columns: 200px calc(100% - 200px);
     }
 
     .menu-box {
       position: sticky;
       top: 0;
-      width: 94%;
+      width: 98%;
       height: 100vh;
       overflow-x: hidden;
       overflow-y: auto;
@@ -39,7 +39,23 @@
 
     .fs100 {
       font-size: 100px;
-      background-color:#dedede;
+      background-color: #dedede;
+    }
+
+    pre {
+      overflow-x: auto;
+    }
+    /*手机端*/
+    @media only screen and (max-width: 768px) {
+      /*侧边菜单占比*/
+      .container {
+        grid-template-columns: 22% 78%;
+      }
+
+      /*cachepage组件不需要显示*/
+      .tabsmenu-box {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -47,47 +63,39 @@
   <div class="container">
     <div class="menu-box" id="main_menubox">
       <a class="btn link d-block bg-gray-lt" id="main_about"><i class="ico ico-star5"></i>&nbsp;About Css Icon</a>
-      <div class="grids-3">
+      <div class="grids-1 grids-md-3">
         <div class="iconitem" urlid="moon" title="月牙"><i class="ico ico-moon text-xxl"></i></div>
         <div class="iconitem" urlid="sun" title="太阳"><i class="ico ico-sun text-xxl" style="color:gold"></i></div>
         <div class="iconitem" urlid="star5" title="星星"><i class="ico ico-star5 text-xxl"></i></div>
-      </div>
-      <div class="grids-3">
+
         <div class="iconitem" urlid="triarr" title="三角箭头"><i class="ico ico-triarr up text-xxl"></i></div>
         <div class="iconitem" urlid="plus" title="加号"><i class="ico ico-plus text-xxl"></i></div>
         <div class="iconitem" urlid="minus" title="减号"><i class="ico ico-minus text-xxl"></i></div>
-      </div>
-      <div class="grids-3">
+
         <div class="iconitem" urlid="menu" title="菜单"><i class="ico ico-menu text-xxl"></i></div>
         <div class="iconitem" urlid="menu" title="菜单"><i class="ico ico-menu dot text-xxl"></i></div>
         <div class="iconitem" urlid="anglearr" title="直角箭头"><i class="ico ico-anglearr up text-xxl"></i></div>
-      </div>
-      <div class="grids-3">
+
         <div class="iconitem" urlid="search" title="搜索"><i class="ico ico-search text-xxl"></i></div>
         <div class="iconitem" urlid="disabled" title="禁用"><i class="ico ico-disabled text-xxl"></i></div>
         <div class="iconitem" urlid="info" title="信息"><i class="ico ico-info text-xxl"></i></div>
-      </div>
-      <div class="grids-3">
+
         <div class="iconitem" urlid="bookmark" title="书签"><i class="ico ico-bookmark text-xxl"></i></div>
         <div class="iconitem" urlid="mail" title="邮件"><i class="ico ico-mail text-xxl"></i></div>
         <div class="iconitem" urlid="powonff" title="电源开关"><i class="ico ico-powonff text-xxl"></i></div>
-      </div>
-      <div class="grids-3">
+
         <div class="iconitem" urlid="pc" title="PC"><i class="ico ico-pc text-xxl"></i></div>
         <div class="iconitem" urlid="phone" title="phone"><i class="ico ico-phone text-xxl"></i></div>
         <div class="iconitem" urlid="user" title="用户"><i class="ico ico-user text-xxl"></i></div>
-      </div>
-      <div class="grids-3">
+
         <div class="iconitem" urlid="chart" title="图表"><i class="ico ico-chart text-xxl"></i></div>
         <div class="iconitem" urlid="eye" title="眼睛"><i class="ico ico-eye text-xxl"></i></div>
         <div class="iconitem" urlid="lock" title="锁"><i class="ico ico-lock text-xxl"></i></div>
-      </div>
-      <div class="grids-3">
+
         <div class="iconitem" urlid="flag" title="旗帜"><i class="ico ico-flag text-xxl"></i></div>
         <div class="iconitem" urlid="home" title="房子"><i class="ico ico-home text-xxl"></i></div>
         <div class="iconitem" urlid="face" title="脸"><i class="ico ico-face text-xxl"></i></div>
-      </div>
-      <div class="grids-3">
+
         <div class="iconitem" urlid="num" title="数字"><i class="ico ico-num text-xxl"></i></div>
         <div class="iconitem" urlid="lang" title="语言"><i class="ico ico-lang text-xxl"></i></div>
       </div>
@@ -128,7 +136,7 @@
         cpg.load('about', 'css图标');
       };
 
-     $('#main_about')[0].click();
+      $('#main_about')[0].click();
       // $('#main_menubox .iconitem')[25].click();
 
     })(window);
