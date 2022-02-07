@@ -613,6 +613,8 @@
         constructor() {
             // 必须首先调用 super 方法
             super();
+            // 样式
+            $(this).addClass('btn');
         }
         // ========
         // 钩子函数
@@ -622,8 +624,6 @@
             // ==================
             // init set prop
             // ==================
-            // 样式
-            $(this).addClass('btn');
         }
 
         // =======
@@ -944,11 +944,13 @@ contDom:
           <div class="tabsbox-nav"></div>
         </nav>
         <a class="tabsbox-right"></a>
-        <span class="tabsbox-menutitle">功能</span>
         <div class="tabsbox-menugroup">
-          <span class="tabsbox-goto-active">定位当前页</span>
-          <span class="tabsbox-close-all">关闭全部</span>
-          <span class="tabsbox-close-other">关闭其它</span>
+          <span class="tabsbox-menutitle">功能</span>
+          <div class="tabsbox-menulist">
+            <span class="tabsbox-goto-active">定位当前页</span>
+            <span class="tabsbox-close-all">关闭全部</span>
+            <span class="tabsbox-close-other">关闭其它</span>
+          </div>
         </div>
      */
     let createTabDom = (tabsDom) => {
@@ -1127,16 +1129,26 @@ contDom:
         $(tabsDom).find('.tabsbox-nav').append(tabdom);
     };
 
-    // 将活动页内容DOM添加到缓存.(缓存当前页面)
-    let cacheActiveTab = (cache, contDom) => {
-        // 找到cache中null值的键,将显示容器div中的所有元素添加到DOM片段后,赋值
+    // 获取当前活动页的pid,(cache中null值的键).没找到返回null
+    let getActiveTabPid = (cache) => {
         for (let prop in cache) {
             if (cache.hasOwnProperty(prop)) {
                 if (cache[prop] === null) {
-                    cache[prop] = $.fragment(...contDom.childNodes);
-                    return;
+                    return prop;
                 }
             }
+        }
+        return null;
+    }
+
+    // 将活动页内容DOM添加到缓存.(缓存当前页面)
+    let cacheActiveTab = (cache, contDom) => {
+        // 找到cache中null值的键,将显示容器div中的所有元素添加到DOM片段后,赋值
+        let pid = getActiveTabPid(cache);
+        if (pid && cache[pid] === null) {
+            // 当前页面加入缓存
+            cache[pid] = $.fragment(...contDom.childNodes);
+            return;
         }
     };
 
@@ -1179,7 +1191,9 @@ contDom:
         // 添加当前DOM到缓存
         cacheActiveTab(cache, contDom);
         // 取出pid对应的DOM片段,放入显示容器
-        $(contDom).html(cache[pid]);
+        $(contDom).html(cache[pid].docFrag);
+        // 恢复页面当时的scrollY值
+        window.scrollTo()
         // 标识为null,表示pid成为新的活动页
         cache[pid] = null;
     };
@@ -1190,7 +1204,7 @@ contDom:
         addTab(cache, pid, title, tabsDom, contDom, events);
         // 选项卡框滚动条移动到最后
         scrollerTabs(1, tabsDom);
-        // 当增加的是第1个选项卡时,没有活动页面,不需要缓存
+        // 缓存当前活动页面:当增加的是首个选项卡时,没有活动页面,不需要缓存
         if (Object.getOwnPropertyNames(cache).length > 0) {
             cacheActiveTab(cache, contDom);
         }
@@ -1213,10 +1227,13 @@ contDom:
         // dom对象
         let _tabsDom = tabsDom;
         let _contDom = contDom;
-        // 缓存器,{id1:createDocumentFragment片断,id2:null},值为null的表示当前活动页,只能有一个
+        // 缓存器,{id1:DocFragment片断,id2:null},值为null的表示当前活动页,只能有一个
         let cache = {};
         // 事件
         let events = {}
+        // 自定义数据
+        self.data = {}
+
         // ------------
         // Event
         // ------------
@@ -1248,11 +1265,13 @@ contDom:
         // ------------
         // Mehtod
         // ------------
-        //====================================================================================
-        // 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态.
-        // 在菜单的点击事件上执行此方法.
-        //====================================================================================
-        // {pid:菜单唯一标识,title:选项卡标题},点击左侧菜单时,调用此方法
+
+        /**
+         * 主要方法 载入新页面需要调用的方法,做了更新选项卡状态和DOM缓存状态.
+         * 点击左侧菜单时,调用此方法
+         * @param {any} pid 菜单唯一标识
+         * @param {any} title 选项卡标题
+         */
         self.load = (pid, title) => {
             if (!title) {
                 title = pid;
@@ -1275,6 +1294,11 @@ contDom:
             // 执行新增事件
             if (typeof events.newPageLoad === 'function')
                 events.newPageLoad(pid, title, _contDom);
+        };
+
+        // 获取当前活动选项卡的pid.没找到返回null
+        self.getActiveTabPid = () => {
+            return getActiveTabPid(cache);
         };
 
         //

@@ -68,11 +68,13 @@
       &lt;a class="tabsbox-right"&gt;&lt;/a&gt;
 
       // 功能按钮组
-      &lt;span class="tabsbox-menutitle"&gt;功能&lt;/span&gt;
       &lt;div class="tabsbox-menugroup"&gt;
-          &lt;span class="tabsbox-goto-active"&gt;定位当前页&lt;/span&gt;
-          &lt;span class="tabsbox-close-all"&gt;关闭全部&lt;/span&gt;
-          &lt;span class="tabsbox-close-other"&gt;关闭其它&lt;/span&gt;
+          &lt;span class="tabsbox-menutitle"&gt;功能&lt;/span&gt;
+          &lt;div class="tabsbox-menulist"&gt;
+              &lt;span class="tabsbox-goto-active"&gt;定位当前页&lt;/span&gt;
+              &lt;span class="tabsbox-close-all"&gt;关闭全部&lt;/span&gt;
+              &lt;span class="tabsbox-close-other"&gt;关闭其它&lt;/span&gt;
+          &lt;/div&gt;
       &lt;/div&gt;
   &lt;/div&gt;
 
@@ -96,16 +98,31 @@
   // 新建实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
   let cpg = window.ns.cachepage(tabsDom, contDom);
 
-  // load方法,{pid:菜单唯一标识,title:选项卡标题}, 
-  // <strong>点击左侧菜单时,调用此方法</strong>
+  // 属性: <b>data</b>
+  // 一个对象{},可以存放一些自定义数据
+
+  // 方法: <b>load(pid:菜单唯一标识,title:选项卡标题)</b>
+  // 点击左侧菜单时,调用此方法
   // pid不能重复,每个菜单一个pid,可以在绑定菜单点击方法时,统一分配.
   let cacheDoms = cpg.load(pid, title);
+
+</pre>
+  <br />
+  <p class="text-in">运用属性(data)方法(getActiveTabPid)与事件(onNewPageLoad,onPageBeforeChange,onPageChanged),实现切换页面后,滚动条恢复到切换时的位置.单页应用所有页面是共用window的滚动条,每个页面滚动位置不一样,在切换时记录这个位置,切换后恢复.</p>
+  <pre class="bg-gray-lt">
+
+  // 方法: <b>getActiveTabPid()</b>
+  // 获取当前活动选项卡的pid.没找到返回null
+  let pid = cpg.getActiveTabPid()
 
   // 事件: <b>cachepage.onNewPageLoad(handler)</b>
   // 载入新页面后执行 (pid:新页面的id, title:新页面标题, contDom:页面容器)=>{}
   cachepage.onNewPageLoad((pid, title, contDom)=>{
-    // 在这个事件里实现加载新页面的功能
-    contDom.innerHTML = pageHtml;
+      // 在这个事件里实现加载新页面的功能
+      contDom.innerHTML = pageHtml;
+
+      // 1.新增页面的滚动条位置
+      cpg.data[pid] = { scrollX: 0, scrollY: 0 };
   });
 
   // 事件: <b>cachepage.onPageBeforeChange(handler)</b>
@@ -113,18 +130,26 @@
   cachepage.onPageBeforeChange((pid) => {
       // 点击选项卡切换页面时执行,这时将要切换的页面还没有显示
       console.log('即将切换到的页面id是: ' + pid);
+
+      // 2.记录当前页面的滚动条位置
+      cpg.data[pid] = { scrollX: window.scrollX, scrollY: window.scrollY };
+
   });
 
   // 事件: <b>cachepage.onPageChanged(handler)</b>
   // 切换页面后执行 (pid:切换页面的id)=>{}
   cachepage.onPageChanged = ((pid) => {
-    console.log('切换到的页面id是: ' + pid);
+      console.log('切换到的页面id是: ' + pid);
+
+      // 3.切换后,恢复页面当时的滚动条位置
+      window.scrollTo(cpg.data[pid].scrollX, cpg.data[pid].scrollY);
+      
   });
 
   // 事件: <b>cachepage.onPageClosed(handler)</b>
   // 页面关闭后执行 (pid:关闭页面的id)=>{}
   cachepage.onPageChanged = ((pid) => {
-    console.log('关闭的页面id是: ' + pid);
+      console.log('关闭的页面id是: ' + pid);
   });
 
 </pre>

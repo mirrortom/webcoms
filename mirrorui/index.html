@@ -130,7 +130,22 @@
       cpg.onNewPageLoad((pid, title, contDom) => {
         let url = 'doc/' + pid + '.html';
         $(contDom).load(url);
+        // 新增页面的滚动条位置
+        cpg.data[pid] = { scrollX: 0, scrollY: 0 };
       });
+      cpg.onPageBeforeChange(() => {
+        let pid = cpg.getActiveTabPid();
+        if (pid) {
+          // 记住当前页面的滚动条位置
+          cpg.data[pid] = { scrollX: window.scrollX, scrollY: window.scrollY };
+        }
+      })
+      cpg.onPageChanged((pid) => {
+        // 恢复滚动条位置
+        if (cpg.data[pid]) {
+          window.scrollTo(cpg.data[pid].scrollX, cpg.data[pid].scrollY);
+        }
+      })
 
       // 主菜单
       let sidemenu1 = $('#main_menubox')[0];
