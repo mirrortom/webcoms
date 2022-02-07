@@ -25,17 +25,11 @@
                 if (typeof this._onClick == 'function')
                     this._onClick(this);
             }
-        }
 
-        // ========
-        // 钩子函数
-        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
-        // ========
-        connectedCallback() {
-            let thisobj = $(this);
             // ==================
             // init set prop
             // ==================
+            let thisobj = $(this);
             // 样式
             thisobj.addClass('input-check');
             // 单选框
@@ -43,6 +37,13 @@
             // 标题
             let tag = thisobj.prop('tag') || '';
             thisobj.append($('<label>').addClass('form-label').text(tag)[0]);
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
         }
 
         // =======

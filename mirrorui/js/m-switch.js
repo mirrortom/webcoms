@@ -29,17 +29,11 @@
                 if (typeof this._onClick == 'function')
                     this._onClick(this);
             }
-        }
 
-        // ========
-        // 钩子函数
-        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
-        // ========
-        connectedCallback() {
-            let thisobj = $(this);
             // ==================
             // init set prop
             // ==================
+            let thisobj = $(this);
             // 样式
             thisobj.addClass('switch');
             // 开关属性标题可以设置,默认是ON/OFF
@@ -47,6 +41,13 @@
             this.onTag = thisobj.prop('on') || 'ON';
             this.offTag = thisobj.prop('off') || 'OFF';
             thisobj.text(this.onoff ? this.onTag : this.offTag);
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
         }
 
         // =======

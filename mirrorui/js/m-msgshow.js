@@ -13,22 +13,18 @@
             // =======
             // event
             // =======
-        }
 
-        // ========
-        // 钩子函数
-        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
-        // ========
-        connectedCallback() {
-            let thisobj = $(this);
-            // 添加样式
-            $(this).addClass('msgshow');
             // ==================
             // init set prop
             // ==================
+            let thisobj = $(this);
+            // 添加样式
+            $(this).addClass('msgshow');
+            
             // title,msg属性
             let title = thisobj.prop('title') || '';
             let msg = thisobj.prop('msg') || '';
+
             // 如果设置了才生成里面的内容
             if (title) {
                 let titleDom = $('<span>').addClass('title').text(title);
@@ -38,6 +34,13 @@
                 let msgDom = $('<span>').addClass('msg').text(msg);
                 thisobj.append(msgDom[0]);
             }
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
         }
 
         // =======

@@ -3124,7 +3124,7 @@ contDom:
         // fields
         // =======
         // NUglify在压缩js时,js类的成员变量无法识别,暂时不用.
-        
+
         // =======
         // 构造函数
         // =======
@@ -3162,6 +3162,12 @@ contDom:
         // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
         // ========
         connectedCallback() {
+            // 滑条长度, 在constructor()里,offsetwidth属性值为0,无法使用
+            // 自定义标记放入documentFragment后再取出.也会触发connectedCallback()方法
+            // 所以,此方法里最好不用
+            // 宜: 元素初始化后不再改变的量,可以读取使用.每次加入dom时,都要呈现新状态,丢弃旧状态的.
+            // 不可: 添加子元素,修改变量,其它会导致元素状态改变的行为.
+            this._barLen = this.offsetWidth - this._rBtn.offsetWidth;
         }
 
 
@@ -3216,7 +3222,7 @@ contDom:
                 this._min = 0;
                 this._max = 100;
             }
-            this._barLen = this.offsetWidth - this._rBtn.offsetWidth;
+        
             // 滑块设置值
             this.Value = parseInt(this.getAttribute('val'));
             // 事件绑定

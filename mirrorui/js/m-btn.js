@@ -10,6 +10,8 @@
         constructor() {
             // 必须首先调用 super 方法
             super();
+            // 样式
+            $(this).addClass('btn');
         }
         // ========
         // 钩子函数
@@ -19,8 +21,6 @@
             // ==================
             // init set prop
             // ==================
-            // 样式
-            $(this).addClass('btn');
         }
 
         // =======

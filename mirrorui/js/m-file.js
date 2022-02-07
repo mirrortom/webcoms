@@ -13,6 +13,17 @@
             // =======
             // event
             // =======
+
+            // ==================
+            // init set prop
+            // ==================
+            let thisobj = $(this);
+            // tag属性设置初始标题
+            this.tag = thisobj.prop('tag') || '请选择文件...';
+            // 样式
+            thisobj.addClass('input-file');
+            //
+            this.reset();
         }
 
         // ========
@@ -20,16 +31,6 @@
         // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
         // ========
         connectedCallback() {
-            let thisobj = $(this);
-            // ==================
-            // init set prop
-            // ==================
-            // tag属性设置初始标题
-            this.tag = thisobj.prop('tag') || '请选择文件...';
-            // 样式
-            thisobj.addClass('input-file');
-            //
-            this.reset();
         }
 
         // =======
