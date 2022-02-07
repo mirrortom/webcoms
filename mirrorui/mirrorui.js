@@ -681,17 +681,11 @@
                 if (typeof this._onClick == 'function')
                     this._onClick(this);
             }
-        }
 
-        // ========
-        // 钩子函数
-        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
-        // ========
-        connectedCallback() {
-            let thisobj = $(this);
             // ==================
             // init set prop
             // ==================
+            let thisobj = $(this);
             // 样式
             thisobj.addClass('switch');
             // 开关属性标题可以设置,默认是ON/OFF
@@ -699,6 +693,13 @@
             this.onTag = thisobj.prop('on') || 'ON';
             this.offTag = thisobj.prop('off') || 'OFF';
             thisobj.text(this.onoff ? this.onTag : this.offTag);
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
         }
 
         // =======
@@ -732,6 +733,17 @@
             // =======
             // event
             // =======
+
+            // ==================
+            // init set prop
+            // ==================
+            let thisobj = $(this);
+            // tag属性设置初始标题
+            this.tag = thisobj.prop('tag') || '请选择文件...';
+            // 样式
+            thisobj.addClass('input-file');
+            //
+            this.reset();
         }
 
         // ========
@@ -739,16 +751,6 @@
         // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
         // ========
         connectedCallback() {
-            let thisobj = $(this);
-            // ==================
-            // init set prop
-            // ==================
-            // tag属性设置初始标题
-            this.tag = thisobj.prop('tag') || '请选择文件...';
-            // 样式
-            thisobj.addClass('input-file');
-            //
-            this.reset();
         }
 
         // =======
@@ -826,17 +828,11 @@
                 //
                 //console.log(this.checked);
             }
-        }
 
-        // ========
-        // 钩子函数
-        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
-        // ========
-        connectedCallback() {
-            let thisobj = $(this);
             // ==================
             // init set prop
             // ==================
+            let thisobj = $(this);
             // 样式
             thisobj.addClass('input-check');
             // 复选框
@@ -844,6 +840,13 @@
             // 标题
             let tag = thisobj.prop('tag') || '';
             thisobj.append($('<label>').addClass('form-label').text(tag)[0]);
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
         }
 
         // =======
@@ -886,17 +889,11 @@
                 if (typeof this._onClick == 'function')
                     this._onClick(this);
             }
-        }
 
-        // ========
-        // 钩子函数
-        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
-        // ========
-        connectedCallback() {
-            let thisobj = $(this);
             // ==================
             // init set prop
             // ==================
+            let thisobj = $(this);
             // 样式
             thisobj.addClass('input-check');
             // 单选框
@@ -904,6 +901,13 @@
             // 标题
             let tag = thisobj.prop('tag') || '';
             thisobj.append($('<label>').addClass('form-label').text(tag)[0]);
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
         }
 
         // =======
@@ -1182,7 +1186,7 @@ contDom:
         // console.log('文档长度: ' + swidth);
     };
 
-    // 缓存当前页面,将要显示的切换缓存中的页面加载到显示区域
+    // 缓存当前页面,将要显示的缓存中的页面加载到显示区域
     let cachePageToShow = (cache, pid, tabsDom, contDom) => {
         // 切换活动选项卡状态
         let atabdom = activeTab(tabsDom, pid);
@@ -1191,9 +1195,7 @@ contDom:
         // 添加当前DOM到缓存
         cacheActiveTab(cache, contDom);
         // 取出pid对应的DOM片段,放入显示容器
-        $(contDom).html(cache[pid].docFrag);
-        // 恢复页面当时的scrollY值
-        window.scrollTo()
+        $(contDom).html(cache[pid]);
         // 标识为null,表示pid成为新的活动页
         cache[pid] = null;
     };
@@ -2253,6 +2255,13 @@ contDom:
             // =======
             // event
             // =======
+
+            // ==================
+            // init set prop
+            // ==================
+            // 添加样式
+            let thisobj = $(this);
+            thisobj.addClass('pagenum');
         }
 
         // ========
@@ -2260,12 +2269,6 @@ contDom:
         // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
         // ========
         connectedCallback() {
-            let thisobj = $(this);
-            // 添加样式
-            thisobj.addClass('pagenum');
-            // ==================
-            // init set prop
-            // ==================
         }
 
         // =======
@@ -2421,6 +2424,12 @@ contDom:
             // =======
             // event
             // =======
+            // ==================
+            // init set prop
+            // ==================
+            // 添加样式
+            let thisobj = $(this);
+            thisobj.addClass('sidemenu');
         }
 
         // ========
@@ -2428,12 +2437,6 @@ contDom:
         // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
         // ========
         connectedCallback() {
-            let thisobj = $(this);
-            // 添加样式
-            thisobj.addClass('sidemenu');
-            // ==================
-            // init set prop
-            // ==================
 
         }
 
@@ -2762,22 +2765,18 @@ contDom:
             // =======
             // event
             // =======
-        }
 
-        // ========
-        // 钩子函数
-        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
-        // ========
-        connectedCallback() {
-            let thisobj = $(this);
-            // 添加样式
-            $(this).addClass('msgshow');
             // ==================
             // init set prop
             // ==================
+            let thisobj = $(this);
+            // 添加样式
+            $(this).addClass('msgshow');
+            
             // title,msg属性
             let title = thisobj.prop('title') || '';
             let msg = thisobj.prop('msg') || '';
+
             // 如果设置了才生成里面的内容
             if (title) {
                 let titleDom = $('<span>').addClass('title').text(title);
@@ -2787,6 +2786,13 @@ contDom:
                 let msgDom = $('<span>').addClass('msg').text(msg);
                 thisobj.append(msgDom[0]);
             }
+        }
+
+        // ========
+        // 钩子函数
+        // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
+        // ========
+        connectedCallback() {
         }
 
         // =======
@@ -2901,6 +2907,11 @@ contDom:
             // event
             // =======
 
+            // ==================
+            // init set prop
+            // ==================
+            // 添加样式
+            $(this).addClass('mnavmenu');
         }
 
         // ========
@@ -2908,11 +2919,6 @@ contDom:
         // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
         // ========
         connectedCallback() {
-            // 添加样式
-            $(this).addClass('mnavmenu');
-            // ==================
-            // init set prop
-            // ==================
         }
 
         // =======
@@ -3145,6 +3151,10 @@ contDom:
             this._rTxt;
             // 滑块滑动事件
             this._changeFun;
+            // ==================
+            // init set prop
+            // ==================
+            this._init();
         }
 
         // ========
@@ -3152,10 +3162,6 @@ contDom:
         // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
         // ========
         connectedCallback() {
-            // ==================
-            // init set prop
-            // ==================
-            this._init();
         }
 
 

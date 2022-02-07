@@ -258,7 +258,7 @@ contDom:
         // console.log('文档长度: ' + swidth);
     };
 
-    // 缓存当前页面,将要显示的切换缓存中的页面加载到显示区域
+    // 缓存当前页面,将要显示的缓存中的页面加载到显示区域
     let cachePageToShow = (cache, pid, tabsDom, contDom) => {
         // 切换活动选项卡状态
         let atabdom = activeTab(tabsDom, pid);
@@ -267,9 +267,7 @@ contDom:
         // 添加当前DOM到缓存
         cacheActiveTab(cache, contDom);
         // 取出pid对应的DOM片段,放入显示容器
-        $(contDom).html(cache[pid].docFrag);
-        // 恢复页面当时的scrollY值
-        window.scrollTo()
+        $(contDom).html(cache[pid]);
         // 标识为null,表示pid成为新的活动页
         cache[pid] = null;
     };
