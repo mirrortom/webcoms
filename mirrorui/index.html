@@ -8,7 +8,7 @@
   <style>
     .container {
       display: grid;
-      grid-template-columns: 200px calc(100% - 200px);
+      grid-template-columns: 200px auto;
     }
 
 
@@ -30,6 +30,7 @@
 
     pre {
       overflow-x: auto;
+      max-width: 100%;
     }
     /*手机端*/
     @media only screen and (max-width: 768px) {
