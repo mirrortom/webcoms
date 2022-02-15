@@ -1858,29 +1858,88 @@ p {
   padding: 15px;
   background-color: inherit;
 }
-.tabs-box {
-  position: relative;
+.tabs {
+  display: grid;
+  grid-template: min-content auto/auto;
+}
+.tabs.left {
+  grid-template: auto/min-content auto;
+}
+.tabs.right {
+  grid-template: auto/auto min-content;
+}
+.tabs.bottom {
+  grid-template: auto min-content/auto;
 }
 .tabs-header {
   display: flex;
-  border-bottom: 1px solid var(--color-gray-dk);
+  grid-row-start: 1;
+  text-align: center;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 1px;
+}
+.tabs.left .tabs-header,
+.tabs.right .tabs-header {
+  flex-direction: column;
+  border-width: 0;
+}
+.tabs.left .tabs-header {
+  border-right-width: 1px;
+}
+.tabs.right .tabs-header {
+  grid-row-start: 1;
+  grid-column-start: 2;
+  border-left-width: 1px;
+}
+.tabs.bottom .tabs-header {
+  grid-row-start: 2;
+  grid-column-start: 1;
+  border-width: 0;
+  border-top-width: 1px;
+}
+.tabs-content {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .tabs-label {
-  flex: 0 1 auto;
-  padding: 0 15px;
-  height: 31px;
-  line-height: 30px;
+  padding: 0.3em 0.5em;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0;
+  border-bottom-width: 3px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  user-select: none;
+}
+.tabs-label:hover {
   background-color: var(--color-gray-lt);
-  color: var(--font-color);
-  cursor: pointer;
 }
-.tabs-box.full .tabs-label {
+.tabs.left .tabs-label,
+.tabs.right .tabs-label {
+  padding: 0.5em 0.3em;
+  text-orientation: upright;
+  writing-mode: vertical-lr;
+  border-width: 0;
+}
+.tabs.left .tabs-label {
+  border-right-width: 3px;
+}
+.tabs.right .tabs-label {
+  border-left-width: 3px;
+}
+.tabs.bottom .tabs-label {
+  border-width: 0;
+  border-top-width: 3px;
+}
+.tabs-label.active {
+  border-color: var(--color-gray-dk);
+  font-weight: 700;
+}
+.tabs.full .tabs-label {
   flex: 1 1 0;
-}
-.tabs-label.active,
-.tabs-box.list .tabs-label.active {
-  background-color: var(--color-gray-dk);
-  color: var(--color-white);
 }
 .tabs-panel {
   display: none;
@@ -1888,74 +1947,20 @@ p {
 .tabs-panel.active {
   display: block;
 }
-.tabs-box.list {
-  display: grid;
-  grid-template-columns: 108px auto;
+.tabs.primary .tabs-label.active {
+  border-color: var(--color-primary);
 }
-.tabs-box.list .tabs-header {
-  display: block;
-  border: none;
-  border-right: 2px solid var(--color-gray-dk);
+.tabs.danger .tabs-label.active {
+  border-color: var(--color-danger);
 }
-.tabs-box.list .tabs-label {
-  height: auto;
-  line-height: normal;
-  display: block;
-  padding: 10px;
-  background-color: var(--color-gray);
-  color: var(--font-color);
-  cursor: pointer;
-  text-align: center;
+.tabs.success .tabs-label.active {
+  border-color: var(--color-success);
 }
-.tabs-box.primary .tabs-header {
-  border-bottom-color: var(--color-primary);
+.tabs.info .tabs-label.active {
+  border-color: var(--color-info);
 }
-.tabs-box.list.primary .tabs-header {
-  border-right-color: var(--color-primary);
-}
-.tabs-box.primary .tabs-label.active,
-.tabs-box.list.primary .tabs-label.active {
-  background-color: var(--color-primary);
-}
-.tabs-box.danger .tabs-header {
-  border-bottom-color: var(--color-danger);
-}
-.tabs-box.list.danger .tabs-header {
-  border-right-color: var(--color-danger);
-}
-.tabs-box.danger .tabs-label.active,
-.tabs-box.list.danger .tabs-label.active {
-  background-color: var(--color-danger);
-}
-.tabs-box.success .tabs-header {
-  border-bottom-color: var(--color-success);
-}
-.tabs-box.list.success .tabs-header {
-  border-right-color: var(--color-success);
-}
-.tabs-box.success .tabs-label.active,
-.tabs-box.list.success .tabs-label.active {
-  background-color: var(--color-success);
-}
-.tabs-box.info .tabs-header {
-  border-bottom-color: var(--color-info);
-}
-.tabs-box.list.info .tabs-header {
-  border-right-color: var(--color-info);
-}
-.tabs-box.info .tabs-label.active,
-.tabs-box.list.info .tabs-label.active {
-  background-color: var(--color-info);
-}
-.tabs-box.warning .tabs-header {
-  border-bottom-color: var(--color-warning);
-}
-.tabs-box.list.warning .tabs-header {
-  border-right-color: var(--color-warning);
-}
-.tabs-box.warning .tabs-label.active,
-.tabs-box.list.warning .tabs-label.active {
-  background-color: var(--color-warning);
+.tabs.warning .tabs-label.active {
+  border-color: var(--color-warning);
 }
 .msgbox-shadow {
   position: fixed;

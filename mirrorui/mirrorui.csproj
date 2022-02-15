@@ -135,7 +135,7 @@
     <Content Include="doc\-模板.part.html" />
     <Content Include="doc\sidemenu.html" />
     <None Include="doc\table.cshtml" />
-    <None Include="doc\tabs.cshtml" />
+    <Content Include="doc\tabs.html" />
     <None Include="doc\toolclass.cshtml" />
     <Content Include="index.html" />
     <None Include="publish.json" />

@@ -1,74 +1,108 @@
 ﻿// 标签页,选项卡页
 
-// <div id="mytabs1" class="tabs-box" >
-// <div class="tabs-header" >
-// <span class="tabs-label" ></span>
-// <span class="tabs-label" ></span>
-// <span class="tabs-label" ></span>
-// </div >
-// <div class="tabs-panel" ></div>
-// <div class="tabs-panel" ></div >
-// <div class="tabs-panel" ></div >
-// </div>
 .tabs
-    // 外层框
-    &-box
-        position: relative
-    // 选项卡框
-    &-header
+    // 容器
+    display: grid
+    grid-template: min-content auto / auto
+    // 方位
+    &.left 
+        grid-template: auto / min-content auto
+
+    &.right 
+        grid-template: auto / auto min-content
+      
+    &.bottom 
+        grid-template: auto min-content / auto
+      
+    // 标签栏
+    &-header 
         display: flex
-        border-bottom: 1px solid var-gray-dk
-    // 选项卡
-    &-label
-        flex: 0 1 auto
-        padding: 0 15px
-        height: 31px
-        line-height: 30px
+        grid-row-start: 1
+        text-align: center
+        border-color: #ddd
+        border-style: solid
+        border-width: 0
+        border-bottom-width: 1px
+    
+    // 标签栏 左右布局时,标签竖排
+    &.left &-header, &.right &-header 
+        flex-direction: column
+        border-width: 0
+
+    &.left &-header 
+        border-right-width: 1px
+    
+    // 标签栏 位置右
+    &.right &-header 
+        grid-row-start: 1
+        grid-column-start: 2
+        border-left-width: 1px
+    
+    // 标签栏 位置下
+    &.bottom &-header 
+        grid-row-start: 2
+        grid-column-start: 1
+        border-width: 0
+        border-top-width: 1px
+    
+    // 内容框
+    &-content 
+        overflow-x: hidden
+        overflow-y: auto
+    
+    // 标签
+    &-label 
+        padding: .3em .5em
+        border-style: solid
+        border-color: transparent
+        border-width: 0
+        border-bottom-width: 3px
+        white-space: nowrap
+        text-overflow: ellipsis
+        overflow: hidden
+        user-select: none
+    
+    &-label:hover 
         background-color: var-gray-lt
-        color: var-font-color
-        cursor: pointer
-    // 选项卡均分整行
-    &-box.full &-label
+      
+    // 标签 左右位置
+    &.left &-label, &.right &-label 
+        padding: .5em .3em
+        text-orientation: upright
+        writing-mode: vertical-lr
+        border-width: 0
+
+    &.left &-label 
+        border-right-width: 3px
+
+    &.right &-label 
+        border-left-width: 3px
+
+    &.bottom &-label 
+        border-width: 0
+        border-top-width: 3px
+    
+
+    // 标签-活动的
+    &-label.active
+        border-color: var-gray-dk
+        font-weight: 700
+
+    // 标签 占满行均分标签栏
+    &.full &-label
         flex: 1 1 0
-    // 选项卡激活时颜色
-    &-label.active, &-box.list &-label.active
-        background-color: var-gray-dk
-        color: var-white
-    // 面板
+    
+    // 内容
     &-panel
         display: none
-    // 活动面板
+    
+    // 内容-活动的
     &-panel.active
         display: block
-// 竖向的
-.tabs
-    // 外层框
-    &-box.list
-        display: grid
-        grid-template-columns: 108px auto
-    // 选项卡框
-    &-box.list &-header
-        display: block
-        border: none
-        border-right: 2px solid var-gray-dk
-    // 选项卡
-    &-box.list &-label
-        height: auto
-        line-height: normal
-        display: block
-        padding: 10px
-        background-color: var-gray
-        color: var-font-color
-        cursor: pointer
-        text-align: center
+      
 // 颜色
 .tabs
     for key, val in $themeColorsKV
         // 选项卡框底边色
-        &-box.{key} &-header
-            border-bottom-color: val[0]
-        &-box.list.{key} &-header
-            border-right-color: val[0]
-        // 选项卡激活时色
-        &-box.{key} &-label.active, &-box.list.{key} &-label.active
-            background-color: val[0]
+        &.{key} &-label.active
+            border-color: val[0]
