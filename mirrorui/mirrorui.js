@@ -613,8 +613,7 @@
         constructor() {
             // 必须首先调用 super 方法
             super();
-            // 样式
-            $(this).addClass('btn');
+
         }
         // ========
         // 钩子函数
@@ -624,6 +623,10 @@
             // ==================
             // init set prop
             // ==================
+            // 样式
+            if (!$(this).hasClass('btn')) {
+                $(this).addClass('btn');
+            }
         }
 
         // =======
@@ -2794,8 +2797,6 @@ contDom:
             // ==================
             // init set prop
             // ==================
-            // 添加样式
-            $(this).addClass('mnavmenu');
         }
 
         // ========
@@ -2803,6 +2804,10 @@ contDom:
         // 元素每次插入到 DOM 时都会调用.用于运行安装代码,例如获取资源或渲染.一般来说,您应将工作延迟至合适时机执行
         // ========
         connectedCallback() {
+            // 添加样式(在构造里添加会报错,违法构造函数里的适用代码规则,但是其它如btn组件就不报错)
+            if (!$(this).hasClass('mnavmenu')) {
+                $(this).addClass('mnavmenu')
+            }
         }
 
         // =======

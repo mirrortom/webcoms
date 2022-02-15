@@ -58,14 +58,17 @@
   </div>
   <script>
     (() => {
-      document.getElementById('mnavmenu1').create((item, i) => {
-        window.ns.msgbox.alert(item.innerHTML + '  index: ' + i);
-      });
       let html = '';
       for (var i = 0; i < 15; i++) {
         html += `<h6 class="mg-10">&gt;&gt;填充内容${i+1}</h4>`;
       }
       document.getElementById('contbox').innerHTML = html;
+      //
+      let dom = document.getElementById('mnavmenu1');
+      //console.log(dom);
+      dom.create((item, i) => {
+        window.ns.msgbox.alert(item.innerHTML + '  index: ' + i);
+      });
     })();
   </script>
 </body>
