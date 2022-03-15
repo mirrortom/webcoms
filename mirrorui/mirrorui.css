@@ -3463,3 +3463,27 @@ p {
   width: 0.5em;
   border-radius: 50%;
 }
+.ico-well {
+  position: relative;
+}
+.ico-well:before,
+.ico-well:after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  background-color: transparent;
+}
+.ico-well:before {
+  width: 0.8em;
+  height: 0.04em;
+  box-shadow: 0 -0.16em, 0 0.16em;
+}
+.ico-well:after {
+  width: 0.04em;
+  height: 0.8em;
+  box-shadow: -0.16em 0, 0.16em -0.04em;
+  transform: rotate(8deg);
+}

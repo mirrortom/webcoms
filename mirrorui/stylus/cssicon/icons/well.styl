@@ -1,0 +1,24 @@
+﻿// 井号 well
+
+.ico-well
+    position: relative
+
+    &:before,&:after
+        position: absolute
+        left: 0
+        right: 0
+        bottom:0
+        top:0
+        margin: auto
+        background-color: transparent
+
+    &:before
+        width: .8em
+        height: .04em
+        box-shadow: 0 -.16em,0 .16em
+ 
+    &:after
+        width: .04em
+        height: .8em
+        box-shadow: -.16em 0,.16em -.04em
+        transform: rotate(8deg)

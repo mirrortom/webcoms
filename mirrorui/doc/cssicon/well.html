@@ -1,0 +1,77 @@
+﻿<div class="doc-page">
+  <h2>井号</h2>
+  <p>电话,编程,地址常用图标</p>
+  <div class="mg-20">
+    <i class="ico ico-well text-md"></i>
+    <i class="ico ico-well text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-well</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <style>
+    .demowell {
+      position: relative;
+      font-size: 100px;
+    }
+
+      .demowell:before, .demowell:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+      }
+
+    .demowell:before {
+      width: .8em;
+      height: .04em;
+      box-shadow: 0 -.16em pink,0 .16em pink;
+      background-color: red;
+    }
+
+    .demowell:after {
+      width: .04em;
+      height: .8em;
+      box-shadow: -.16em 0 lightblue,.16em -.04em lightblue;
+      background-color: blue;
+      transform: rotate(8deg);
+    }
+  </style>
+  <br />
+  <p>井号简单的看就是2横2竖,设计上,横线和竖线的交叉点位于1/3处,或者说交点位于横线1/3处,同时也是竖线的1/3处.2横是水平的,2竖有8度的倾斜.</p>
+  <p>实现时,用before和after做了一个十字(下图红色蓝色十字),长度为80%容器,厚度为4%,绝对定位垂直居中.2横2竖分别是这个十字的阴影.阴影的位置没有详细的计算,大体上是交点是线长的1/3处,经过调节后,设置阴影位置距离十字.16em处比较合适.</p>
+  <p>第2个竖线阴影抬高了一个线条的厚度距离,在竖直位置上.由于竖线有8度的旋转,所以2个竖线阴影看起来不一样高.具体抬高距离没有计算,粗略设置为一个线条厚度.</p>
+  <p><i class="ico demowell demowell"></i></p>
+  <br />
+  <p><i class="ico ico-well fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-well
+        position: relative
+
+        &:before,&:after
+            position: absolute
+            left: 0
+            right: 0
+            bottom:0
+            top:0
+            margin: auto
+            background-color: transparent
+
+        &:before
+            width: .8em
+            height: .04em
+            box-shadow: 0 -.16em,0 .16em
+ 
+        &:after
+            width: .04em
+            height: .8em
+            box-shadow: -.16em 0,.16em -.04em
+            transform: rotate(8deg)
+
+</pre>
+</div>
