@@ -1,17 +1,20 @@
 ﻿<div class="doc-page">
   <h2>关于css图标</h2>
-  <p>不用图片,使用css3功能实现一些简易的常用的图标.</p>
-  <p>html标签用 &lt;i&gt; 标记,加上css的:after :before伪类.原则上一个图标只用一个&lt;i&gt;</p>
-  <p>所有元素的box-sizing:border-box</p>
+  <p>使用css3功能实现一些简易的常用的图标.</p>
+  <p>html标签用 &lt;i&gt; 标记,加上css的:after :before伪类,实际有3个元素可用.</p>
   <p>一个质量很高的项目,参考搬运. <a href="https://viglino.github.io/iconicss" target="_blank">https://viglino.github.io/iconicss</a>&emsp;(github) <a href="https://github.com/Viglino/iconicss" target="_blank">https://github.com/Viglino/iconicss</a></p>
+  <h4>基本样式</h4>
+  <p>所有元素的box-sizing:border-box</p>
   <pre class="bg-gray-lt">
 
     .ico
         // 图片默认都是块级行内元素
         display:inline-block
         pointer-events:none
-        // 垂直居中,面积 1em X 1em
+        // 垂直对齐,
         vertical-align:middle
+
+        //面积 1em X 1em
         width:1em
         height:1em
 
@@ -22,7 +25,18 @@
 
 </pre>
   <br />
-  <p>制作css图标常用的一些样式规则</p>
+  <p>用法</p>
+  <pre class="bg-gray-lt">
+
+    // 颜色和大小使用文本颜色和大小样式类设定
+    &lt;i class="ico ico-xxx"&gt;&lt;/i&gt;
+    &lt;i class="ico ico-xxx text-xxl"&gt;&lt;/i&gt;
+    &lt;i class="ico ico-xxx text-danger"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <h4>常用规则</h4>
+  <p>制作css图标用到的一些样式规则</p>
   <style scoped>
     .borderdemo {
       display: inline-block;
@@ -40,8 +54,30 @@
       height: 0;
       border: 15px solid transparent;
     }
+
+    .contentTxt {
+      font-size: 100px;
+      border-radius: 50%;
+      border: 1px solid;
+      text-align: center;
+    }
+
+      .contentTxt:before {
+        font-style: normal;
+        content: 'i';
+        vertical-align: bottom;
+      }
   </style>
-  <p class="article-title text-sm">border</p>
+  <h5>content</h5>
+  <p>:before,:after伪类的属性,可以写入符号,可做文字类的图标.</p>
+  <p><i class="ico contentTxt"></i></p>
+  <pre class="bg-gray-lt">
+
+  content: 'i';
+
+</pre>
+  <br />
+  <h5>border</h5>
   <p>设置了4条边,为每一条边设置了颜色.</p>
   <i class="borderdemo"></i>
   <pre class="bg-gray-lt">
@@ -107,7 +143,7 @@
 
 </pre>
   <br />
-  <p class="article-title sm">border-radius</p>
+  <h5>border-radius</h5>
   <p>边框圆角效果,设置圆角border-radius:50% 50%,图案像一个游泳圈.三角形成了扇形.</p>
   <i class="borderdemo" style="border-radius: 20% 20% 20% 20%"></i>
   <i class="borderdemo mg-l-10" style="border-radius: 50% 50%"></i>
@@ -116,8 +152,8 @@
   <i class="borderdemo1 mg-l-10" style="border-radius: 50% 50%;border-color:transparent #81bc06 transparent #ffba08;"></i>
   <p>来自MDN的解释: CSS 属性 border-radius 允许你设置元素的外边框圆角.当使用一个半径时确定一个圆形,当使用两个半径时确定一个椭圆.这个(椭)圆与边框的交集形成圆角效果.</p>
   <p><a href="/wz/study/borderradius.html" target="_blank">border-radius理解</a></p>
-
-  <p class="article-title sm">transform</p>
+  <p>可以画出圆或者椭圆的效果</p>
+  <h5>transform</h5>
   <p>旋转角度,作为一个搭配规则非常有用.比如要做一个黑白半球,把边框图案旋转45度看下效果.</p>
   <i class="borderdemo1" style="border-color:#ccc #ccc #333 #333;border-radius:50%;"></i>
   <i class="borderdemo1 mg-l-10" style="border-color: #ccc #ccc #333 #333; border-radius: 50%; transform: rotate(45deg)"></i>
@@ -130,7 +166,7 @@
 </pre>
   <br />
   <p>对于rotate这个旋转,是基于一个坐标系旋转.transform-origin:x y 这个规则可以设定旋转点位子.具体参考五角星图标说明.</p>
-  <p class="article-title sm">currentColor</p>
+  <h5>currentColor</h5>
   <p>来自MDN: currentColor 关键字代表原始的 color 属性的计算值.它允许让继承自属性或子元素的属性颜色属性以默认值不再继承</p>
   <p>这个属性值可以设置, background-color: currentColor .如果图标的颜色是使用背景色的,那么这样设置后,也可以通过设置文字颜色color来改变图标颜色了.</p>
   <i style="display: inline-block;
@@ -152,7 +188,7 @@
 
 </pre>
   <br />
-  <p class="article-title sm">box-shadow</p>
+  <h5>box-shadow</h5>
   <p>盒子阴影,图标实现利器啊.</p>
   <p>例如这个微软图标.这个图案有4个部分,每个部分颜色不同,从左上红色块开始,这是盒子实体,设置了width,heigh都是1em,是一个正方形盒子.</p>
   <p>其它3块都是box-shadow实现.这个css有5个参数,依次是: x-offset阴影偏离X正方向是值 y-offset 阴影模糊半斤 阴影大小 阴影颜色.</p>
@@ -207,4 +243,7 @@
   <p>在计算机中,由于任何图案都是由像素组成的,每个像素就是一个点,这些点的颜色不同,位子不同,它们排列成一个矩阵,这个矩阵呈现的就是图案.</p>
   <p>再回想这个box-shadow,如果把一个盒子实体作为一个"像素"单位,那么基于这个实体设置的无数box-shadow阴影,就可以得到无数的"像素",它们的大小/颜色和位子可设置,将这些"像素"按矩阵排列,那么自然也就是一幅图案.</p>
   <p>用这个原理,做一些简易的像素画图标是可行的.</p>
+  <h5>渐变</h5>
+  <p>css3的渐变有很强大的绘图功能,正好用来做图标.</p>
+  <p><a href="/wz/study/csslg.html" target="_blank">线性渐变</a> | <a href="/wz/study/cssrg.html" target="_blank">径向渐变</a> | <a href="/wz/study/csscg.html" target="_blank">圆锥渐变</a></p>
 </div>
