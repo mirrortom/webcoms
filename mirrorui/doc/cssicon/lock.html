@@ -16,7 +16,7 @@
   <p>图标设计参考了常见的锁具,体现锁3处地方,上面的锁环,锁体,和钥匙孔.</p>
   <p>锁体设计占容器80%,高40%.锁环盒模型长宽占比60%,40%,锁环厚度为10%.锁整体呈正方形,边长占容器80%,居中于容器.</p>
   <p>锁环用:before,top-left,top-right圆角实现,去掉了下边框.</p>
-  <p>锁体用:after,钥匙孔实际是盒模型的content区域.锁体用边框填充形成.本来希望做个圆形的钥匙孔的,但没有找到思路,未实现.</p>
+  <p>锁体用:after,锁孔是用径向渐变画出的圆,水平半径为0.06em.</p>
   <p><i class="ico ico-lock fs100"></i></p>
   <p>完整样式</p>
   <pre class="bg-gray-lt">
@@ -37,9 +37,7 @@
         &:after
             width: .8em
             height: .4em
-            border-color:currentColor
-            border-style:solid
-            border-width:.19em .32em
+            background-image: radial-gradient(circle,transparent .06em,currentColor .06em);
 
 </pre>
 </div>
