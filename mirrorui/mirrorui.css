@@ -3487,3 +3487,27 @@ p {
   box-shadow: -0.16em 0, 0.16em -0.04em;
   transform: rotate(8deg);
 }
+.ico-code {
+  position: relative;
+}
+.ico-code:before,
+.ico-code:after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+}
+.ico-code:before {
+  width: 0.04em;
+  min-width: 1px;
+  height: 0.8em;
+  background-color: currentColor;
+  transform: rotate(15deg);
+}
+.ico-code:after {
+  width: 0.9em;
+  height: 0.4em;
+  background-image: linear-gradient(45deg, transparent 0.12em, currentColor 0.12em 0.16em, transparent 0.16em), linear-gradient(-45deg, transparent 0.12em, currentColor 0.12em 0.16em, transparent 0.16em), linear-gradient(135deg, transparent 0.12em, currentColor 0.12em 0.16em, transparent 0.16em), linear-gradient(-135deg, transparent 0.12em, currentColor 0.12em 0.16em, transparent 0.16em);
+}

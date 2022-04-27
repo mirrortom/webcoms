@@ -1,0 +1,101 @@
+﻿<div class="doc-page">
+  <h2>代码</h2>
+  <p>程序代码图标,2个尖括号和1个斜杠.</p>
+  <div class="mg-20">
+    <i class="ico ico-code text-md"></i>
+    <i class="ico ico-code text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-code</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>分为2部分,左右尖括号和斜杠.斜杠使用:before,高度为容器的80%,水平垂直居中,倾斜15度.</p>
+  <p>尖括号用:after.是一个宽高为容器90%和40%的矩形.也是水平垂直居中.</p>
+  <p>尖括号的尖点位于矩形竖直边的中点,尖括号的角度为90度.两边与水平线成45度角,与上下边相交形成等腰直角三角形.</p>
+  <canvas id="canvas1"></canvas>
+  <p>尖括号是用:after的线性渐变画出的.使用4个渐变叠加,每个渐变画出一个边.</p>
+  <p>渐变的角度是45度,这个已知.要画出括号的一条边,需要计算出渐变位置.就是上图的CH(红线)的长度.</p>
+  <p>这容易得出,CEF是等腰直角,那么CH(高)就是 CE/sqrt(2). 如此,尖括号矩形高为0.4em, CH = 0.4em / 2 / 1.414 = 0.14em</p>
+  <p>尖括号厚度设计为0.04em,以0.14em渐变点为分界,前后各0.04/2em.所以css渐变线设为(0.12em~0.16).</p>
+  <br />
+  <p><i class="ico ico-code fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-code
+        position: relative
+
+        &:before,&:after
+            position: absolute
+            left: 0
+            right: 0
+            bottom:0
+            top:0
+            margin: auto
+
+        &:before
+            width: .04em
+            min-width:1px
+            height: .8em
+            background-color:currentColor
+            transform: rotate(15deg)
+ 
+        &:after
+            width: .9em
+            height: .4em
+            background-image:
+                // 线厚度0.04em,以0.14em渐变点为分界,前后各0.04/2.
+                linear-gradient(45deg,transparent .12em,currentColor .12em .16em,transparent .16em),
+                linear-gradient(-45deg,transparent .12em,currentColor .12em .16em,transparent .16em),
+                linear-gradient(135deg,transparent .12em,currentColor .12em .16em,transparent .16em),
+                linear-gradient(-135deg,transparent .12em,currentColor .12em .16em,transparent .16em)
+
+</pre>
+  <br />
+  <script>
+    ((win) => {
+      let cav = win.cavlib('canvas1').style();
+      let ctx = cav.ctx;
+      //
+      ctx.font = '18px serif';
+      // 坐标轴
+      let oX = 300 / 2, oY = 150 / 2;
+      ctx.translate(oX, oY);
+      cav.lineArrow([-oX, 0, oX - 10, 0]);
+      cav.lineArrow([0, oY, 0, -oY + 10]);
+      // 矩形
+      let rW = 180, rH = 80;
+      ctx.rect(-rW / 2, -rH / 2, rW, rH);
+      ctx.stroke();
+      // 尖括号,左上/下 右上/下
+      let points = [[-rW / 2, 0, (- rW + rH) / 2, -rH / 2],
+      [-rW / 2, 0, (- rW + rH) / 2, rH / 2],
+      [rW / 2, 0, (rW - rH) / 2, -rH / 2],
+      [rW / 2, 0, (rW - rH) / 2, rH / 2]
+      ];
+      ctx.strokeStyle = 'blue';
+      for (var i = 0, len = points.length; i < len; i++) {
+        let p = points[i];
+        ctx.beginPath();
+        ctx.moveTo(p[0], p[1]);
+        ctx.lineTo(p[2], p[3]);
+        ctx.stroke();
+      }
+      // 左下角,线性渐变位置距离
+      ctx.strokeStyle = 'red';
+      ctx.beginPath();
+      ctx.moveTo(-rW / 2, rH / 2);
+      ctx.lineTo(-rW / 2 + rH / 4, rH / 4);
+      ctx.stroke();
+      // 左下角和垂线点标识
+      ctx.fillStyle = 'blue';
+      ctx.fillText('C', -rW / 2 - 15, rH / 2 + 15);
+      ctx.fillText('H', -rW / 2 + rH / 4 + 5, rH / 4 - 5);
+      // 左边中点,渐变点和下边交点
+      ctx.fillText('E', -rW / 2 - 15, 0 - 5);
+      ctx.fillText('F', -rW / 2 + rH / 2, rH / 2 + 15);
+    })(window);
+  </script>
+</div>
