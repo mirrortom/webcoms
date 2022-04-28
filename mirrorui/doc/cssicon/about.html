@@ -67,6 +67,28 @@
         content: 'i';
         vertical-align: bottom;
       }
+
+    .transform-1 {
+      width: 200px;
+      height: 100px;
+      position: relative;
+      background-color: #eee;
+    }
+
+    .transform-2, .transform-3 {
+      display: inline-block;
+      position: absolute;
+      width: 30px;
+      height: 20px;
+      background-color: #00ff0050;
+      left: 50%;
+      top: 50%;
+    }
+
+    .transform-3 {
+      background-color: #ff000050;
+      transform: translate(-50%,-50%);
+    }
   </style>
   <h5>content</h5>
   <p>:before,:after伪类的属性,可以写入符号,可做文字类的图标.</p>
@@ -165,7 +187,24 @@
 
 </pre>
   <br />
-  <p>对于rotate这个旋转,是基于一个坐标系旋转.transform-origin:x y 这个规则可以设定旋转点位子.具体参考五角星图标说明.</p>
+  <p>rotate变换,是基于一个坐标系旋转.transform-origin:x y 这个规则可以设定旋转点位子.具体参考五角星图标说明.</p>
+  <p>常用的还有平移 transform:translate(left,top),可以让盒模型离开原来的位置,可以结合绝对定位使用.</p>
+  <div class="transform-1">
+    <span class="transform-2"></span>
+    <span class="transform-3"></span>
+  </div>
+  <p>上图是平移法实现居中,分2步实现.</p>
+  <p>先设置left和top都是50%,此时绿色方块的左上角位于容器的中心.但没居中,需要减去方块width和height的一半.</p>
+  <p>用translate(-50%,-50%)正好实现.它的-50%参照的就是绿色方块的with和height.于是,省掉了计算的麻烦.</p>
+  <pre class="bg-gray-lt">
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+</pre>
+  <br />
   <h5>currentColor</h5>
   <p>来自MDN: currentColor 关键字代表原始的 color 属性的计算值.它允许让继承自属性或子元素的属性颜色属性以默认值不再继承</p>
   <p>这个属性值可以设置, background-color: currentColor .如果图标的颜色是使用背景色的,那么这样设置后,也可以通过设置文字颜色color来改变图标颜色了.</p>
