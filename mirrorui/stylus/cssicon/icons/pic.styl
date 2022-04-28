@@ -1,0 +1,29 @@
+﻿// 图片图标
+
+.ico-pic
+    position: relative
+    overflow: hidden
+    border:1px solid
+    border-bottom:none
+
+    &:before,&:after
+        position: absolute
+        background-color: currentColor
+
+    &:before
+        left: .3em
+        top: .3em
+        width: .2em
+        height: .2em
+        border-radius: 50%
+        transform: translate(-50%,-50%)
+ 
+    &:after
+        left: .3em
+        top: .6em
+        width: .6em
+        height: .6em
+        // (.4em - .1em ) * 0.707  (-.4em - .1em ) * 0.707
+        box-shadow: .212em -.353em
+        transform-origin: 0 0
+        transform: rotate(45deg)

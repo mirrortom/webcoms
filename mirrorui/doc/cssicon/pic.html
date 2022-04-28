@@ -1,0 +1,86 @@
+﻿<div class="doc-page">
+  <style scoped>
+    .picdemo {
+      font-size: 100px;
+      position: relative;
+      overflow: hidden;
+      background-image: linear-gradient(transparent 30%,red 30% 31%,transparent 31% 50%,blue 50% 51%,transparent 51% 60%,green 60% 61%,transparent 61%),linear-gradient(to right,transparent 30%,green 30% 31%,transparent 31% 70%,blue 70% 71%,transparent 71%);
+    }
+
+      .picdemo:before, .picdemo:after {
+        position: absolute;
+      }
+
+      .picdemo:before {
+        left: .3em;
+        top: .3em;
+        width: .2em;
+        height: .2em;
+        border-radius: 50%;
+        background-color: #ffd80080;
+        transform: translate(-50%,-50%);
+      }
+
+      .picdemo:after {
+        left: .3em;
+        top: .6em;
+        width: .6em;
+        height: .6em;
+        box-shadow: calc((.4em - .1em ) * 0.707) calc((-.1em - .4em ) * 0.707) #00000050;
+        transform-origin: 0 0;
+        background-color: #4cff0050;
+        transform: rotate(45deg);
+      }
+  </style>
+  <h2>图片</h2>
+  <p>表示图片的图标.参考印象中的图片,有月亮和山峰2种元素.</p>
+  <div class="mg-20">
+    <i class="ico ico-pic text-md"></i>
+    <i class="ico ico-pic text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-pic</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>月亮:before,设计直径为容器的20%,位置在左上坐标(left:30%,top:30%)</p>
+  <p>山峰:after,边长为容器60%的正方形,旋转45度放置.左边山尖位置在(left:30%,top:60%),右边山尖位置在(left:70%,top:50%).</p>
+  <div><i class="ico picdemo"></i></div>
+  <p>右边山峰是box-shadow做成,麻烦的是它的定位问题.经过研究,它是一个坐标变换问题.在上图绿色三角形的顶点(左山尖)为原点的坐标系中,右山尖的坐标是(.4em,-.1em).那么坐标系旋转45度后,求该点坐标,它就是box-shadow的left,top值.</p>
+  <p>根据<a target="_blank" href="/canvas/transfer.html">坐标变换</a>公式: x = x0 * cos(θ) + y0 * sin(θ) ,y = y0 * cos(θ) - x0 * sin(θ) 可以得出: </p>
+  <p>left: (.4em - .1em ) * 0.707 , top: (-.4em - .1em ) * 0.707</p>
+  <br />
+  <p><i class="ico ico-pic fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-pic
+        position: relative
+        overflow: hidden
+        border:1px solid
+
+        &:before,&:after
+            position: absolute
+            background-color: currentColor
+
+        &:before
+            left: .3em
+            top: .3em
+            width: .2em
+            height: .2em
+            border-radius: 50%
+            transform: translate(-50%,-50%)
+ 
+        &:after
+            left: .3em
+            top: .6em
+            width: .6em
+            height: .6em
+            // (.4em - .1em ) * 0.707  (-.4em - .1em ) * 0.707
+            box-shadow: .212em -.353em
+            transform-origin: 0 0
+            transform: rotate(45deg)
+
+</pre>
+</div>

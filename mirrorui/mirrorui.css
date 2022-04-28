@@ -3509,3 +3509,31 @@ p {
   height: 0.4em;
   background-image: linear-gradient(45deg, transparent 0.12em, currentColor 0.12em 0.16em, transparent 0.16em), linear-gradient(-45deg, transparent 0.12em, currentColor 0.12em 0.16em, transparent 0.16em), linear-gradient(135deg, transparent 0.12em, currentColor 0.12em 0.16em, transparent 0.16em), linear-gradient(-135deg, transparent 0.12em, currentColor 0.12em 0.16em, transparent 0.16em);
 }
+.ico-pic {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid;
+  border-bottom: none;
+}
+.ico-pic:before,
+.ico-pic:after {
+  position: absolute;
+  background-color: currentColor;
+}
+.ico-pic:before {
+  left: 0.3em;
+  top: 0.3em;
+  width: 0.2em;
+  height: 0.2em;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.ico-pic:after {
+  left: 0.3em;
+  top: 0.6em;
+  width: 0.6em;
+  height: 0.6em;
+  box-shadow: 0.212em -0.353em;
+  transform-origin: 0 0;
+  transform: rotate(45deg);
+}
