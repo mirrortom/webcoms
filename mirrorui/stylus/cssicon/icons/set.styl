@@ -1,0 +1,23 @@
+﻿// 设置调节图标
+
+.ico-set
+    position: relative
+
+    &:before,&:after
+        position: absolute
+        left: 50%
+        top: 50%
+        transform: translate(-50%,-50%)
+
+    &:before
+        width: .8em
+        height: 2px
+        box-shadow: 0 -.175em,0 .175em
+
+    &:after
+        width: .16em
+        height: .16em
+        min-width: 4px
+        min-height: 4px
+        border-radius: 50%
+        box-shadow: .14em -.175em,-.14em .175em

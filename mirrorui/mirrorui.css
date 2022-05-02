@@ -3537,3 +3537,26 @@ p {
   transform-origin: 0 0;
   transform: rotate(45deg);
 }
+.ico-set {
+  position: relative;
+}
+.ico-set:before,
+.ico-set:after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.ico-set:before {
+  width: 0.8em;
+  height: 2px;
+  box-shadow: 0 -0.175em, 0 0.175em;
+}
+.ico-set:after {
+  width: 0.16em;
+  height: 0.16em;
+  min-width: 4px;
+  min-height: 4px;
+  border-radius: 50%;
+  box-shadow: 0.14em -0.175em, -0.14em 0.175em;
+}

@@ -1,0 +1,45 @@
+﻿<div class="doc-page">
+  <h2>设置</h2>
+  <p>设置调节图标,调节杠和滑块组成</p>
+  <div class="mg-20">
+    <i class="ico ico-set text-md"></i>
+    <i class="ico ico-set text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-set</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>杠和滑块在容器中心,绝对定位垂直居中.实际显示的是box-shadow.</p>
+  <p>滑杠是:before的box-shadow,长度为容器80%,厚度为2px.2个滑杠3分容器,位于垂直的33%和66%位置.</p>
+  <p>滑块是:after,圆形,直径为容器的16%.最小4px(杠厚度的2倍).位于滑杠的左右大约1/3位置.</p>
+  <br />
+  <p><i class="ico ico-set fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-set
+        position: relative
+
+        &:before,&:after
+            position: absolute
+            left: 50%
+            top: 50%
+            transform: translate(-50%,-50%)
+
+        &:before
+            width: .8em
+            height: 2px
+            box-shadow: 0 -.175em,0 .175em
+
+        &:after
+            width: .16em
+            height: .16em
+            min-width: 4px
+            min-height: 4px
+            border-radius: 50%
+            box-shadow: .14em -.175em,-.14em .175em
+
+</pre>
+</div>
