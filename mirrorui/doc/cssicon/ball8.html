@@ -1,0 +1,45 @@
+﻿<div class="doc-page">
+  <h2>8号球</h2>
+  <p>台球8号黑球</p>
+  <div class="mg-20">
+    <i class="ico ico-ball8 text-md"></i>
+    <i class="ico ico-ball8 text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-ball8</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>球体用径向渐变实现,中心空白圆的圆心坐标在(left:50%,top:40%)位置,直径是容器的30%.空白圆到黑色背景之间有.02em的渐变过渡,为了显得平滑.</p>
+  <p>8字是用2个圆圈组成,上圈(.16em)比下圈(.20em)直径小25%.2个圈水平居中,交点位于空白圆的圆心上.这样,8字就位于空白圆的中间.</p>
+  <p>上圈的top值就是: .4em - .16em = .24em, 下圈设计top值: .4em .2个圈在交点处有些重叠,这样8字显得紧凑,故下圈实际top值设置为.38em</p>
+  <br />
+  <p><i class="ico ico-ball8 fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-ball8
+        position: relative
+        border-radius: 50%
+        background-image: radial-gradient(circle at 50% .4em,transparent .3em, currentColor .32em)
+
+        &:before,&:after
+            position: absolute
+            left: 50%
+            border:.03em solid
+            border-radius:50%
+            transform: translateX(-50%)
+
+        &:before
+            top:.24em
+            width:.16em
+            height:.16em
+ 
+        &:after
+            top: .38em
+            width: .2em
+            height: .2em
+
+</pre>
+</div>

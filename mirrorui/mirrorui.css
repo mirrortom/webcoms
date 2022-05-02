@@ -3560,3 +3560,26 @@ p {
   border-radius: 50%;
   box-shadow: 0.14em -0.175em, -0.14em 0.175em;
 }
+.ico-ball8 {
+  position: relative;
+  border-radius: 50%;
+  background-image: radial-gradient(circle at 50% 0.4em, transparent 0.3em, currentColor 0.32em);
+}
+.ico-ball8:before,
+.ico-ball8:after {
+  position: absolute;
+  left: 50%;
+  border: 0.03em solid;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+.ico-ball8:before {
+  top: 0.24em;
+  width: 0.16em;
+  height: 0.16em;
+}
+.ico-ball8:after {
+  top: 0.38em;
+  width: 0.2em;
+  height: 0.2em;
+}

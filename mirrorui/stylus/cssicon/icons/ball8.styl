@@ -1,0 +1,23 @@
+﻿// 8号球
+
+.ico-ball8
+    position: relative
+    border-radius: 50%
+    background-image: radial-gradient(circle at 50% .4em,transparent .3em, currentColor .32em)
+
+    &:before,&:after
+        position: absolute
+        left: 50%
+        border:.03em solid
+        border-radius:50%
+        transform: translateX(-50%)
+
+    &:before
+        top:.24em
+        width:.16em
+        height:.16em
+ 
+    &:after
+        top: .38em
+        width: .2em
+        height: .2em
