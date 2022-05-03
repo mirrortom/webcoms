@@ -3607,3 +3607,16 @@ p {
   border-color: currentColor transparent transparent;
   border-bottom: none;
 }
+.ico-font {
+  position: relative;
+}
+.ico-font:before {
+  content: 'A';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-family: serif;
+  font-style: normal;
+  font-size: 1em;
+  transform: translate(-50%, -50%);
+}

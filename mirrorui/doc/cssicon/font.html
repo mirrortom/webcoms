@@ -1,0 +1,34 @@
+﻿<div class="doc-page">
+  <h2>字体</h2>
+  <p>代表字体的图标,文本编辑器常见,就是字母A.</p>
+  <div class="mg-20">
+    <i class="ico ico-font text-md"></i>
+    <i class="ico ico-font text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-font</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>用:before的content'A'完成,使用serif字体,大小1em,居中.</p>
+  <br />
+  <p><i class="ico ico-font fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-font
+        position: relative
+
+        &:before
+            content: 'A'
+            position: absolute
+            left: 50%
+            top: 50%
+            font-family: serif
+            font-style: normal
+            font-size: 1em
+            transform: translate(-50%,-50%)
+
+</pre>
+</div>
