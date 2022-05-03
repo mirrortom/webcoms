@@ -3583,3 +3583,27 @@ p {
   width: 0.2em;
   height: 0.2em;
 }
+.ico-download {
+  position: relative;
+  border-bottom: 0.04em solid;
+}
+.ico-download:before,
+.ico-download:after {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ico-download:before {
+  top: 0.2em;
+  width: 0.2em;
+  height: 0.4em;
+  background-color: currentColor;
+}
+.ico-download:after {
+  top: 0.6em;
+  width: 0.5em;
+  border-style: solid;
+  border-width: 0.3em 0.25em 0;
+  border-color: currentColor transparent transparent;
+  border-bottom: none;
+}
