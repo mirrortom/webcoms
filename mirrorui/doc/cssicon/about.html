@@ -89,6 +89,28 @@
       background-color: #ff000050;
       transform: translate(-50%,-50%);
     }
+
+    .clippath-1 {
+      border: 1px dotted;
+      width: 70px;
+      height: 100px;
+    }
+
+      .clippath-1:before {
+        content: '';
+        display: inline-block;
+        width: 70px;
+        height: 100px;
+        background-color: currentColor;
+        clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+      }
+
+    .clippath-2 {
+      width: 100px;
+      height: 70px;
+      background-color: currentColor;
+      clip-path: polygon(0 0,10% 0,10% 10%,20% 10%,20% 20%,30% 20%,30% 30%,40% 30%,40% 40%,50% 40%,50% 50%,50% 100%,0 100%);
+    }
   </style>
   <h5>content</h5>
   <p>:before,:after伪类的属性,可以写入符号,可做文字类的图标.</p>
@@ -285,4 +307,16 @@
   <h5>渐变</h5>
   <p>css3的渐变有很强大的绘图功能,正好用来做图标.</p>
   <p><a href="/wz/study/csslg.html" target="_blank">线性渐变</a> | <a href="/wz/study/cssrg.html" target="_blank">径向渐变</a> | <a href="/wz/study/csscg.html" target="_blank">圆锥渐变</a></p>
+  <h5>clip-path</h5>
+  <p>canvas的剪切路径,css里也有.图案只显示在剪切路径范围内的部分.对于不那么规则的图形,可以用剪切路径实现.</p>
+  <div class="grids">
+    <div class="clippath-1 mg-r-20"></div>
+    <div class="clippath-2"></div>
+  </div>
+  <pre class="bg-gray-lt">
+
+    // 长方形4边中点的连线,形成一个菱形
+    clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+
+</pre>
 </div>

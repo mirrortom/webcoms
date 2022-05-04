@@ -1,0 +1,83 @@
+﻿<div class="doc-page">
+  <h2>四角星</h2>
+  <p>星光图标,像星星发出的闪光,又像是忍者飞镖.</p>
+  <div class="mg-20">
+    <i class="ico ico-star4 text-md"></i>
+    <i class="ico ico-star4 text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-star4</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>4角星图标由2个菱形拼合而成.</p>
+  <p>正方形中,取上边中点,再将平行于上边的中线,平分,再平分,得到2个中点,连接这3个点,再连接下边的中点,就得到一个菱形.</p>
+  <p>同理,左右两边也得到一个菱形.此时,就呈现4角星.</p>
+  <canvas id="canvas1"></canvas>
+  <br />
+  <p>css用clip-path实现比较容易.2个菱形分别是:before,:after,重叠在一起.</p>
+  <br />
+  <p><i class="ico ico-star4 fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-star4
+        position: relative
+
+        &:before,&:after
+            position: absolute
+            left: 0
+            top: 0
+            width: 1em
+            height: 1em
+            background-color: currentColor
+
+        &:before
+            clip-path: polygon(50% 0,75% 50%,50% 100%,25% 50%)
+
+        &:after
+            clip-path: polygon(50% 25%,100% 50%,50% 75%,0 50%)
+
+</pre>
+  <script>
+    ((win) => {
+      canva1();
+      function canva1() {
+        let cav = win.cavlib('canvas1').style();
+        let ctx = cav.ctx;
+        //
+        let w = 300, h = 150;
+        // x,y轴 原始
+        ctx.save();
+        ctx.beginPath();
+        ctx.setLineDash([3]);
+        ctx.strokeStyle = 'gray';
+        cav.lineArrow([0, h / 2, w - 10, h / 2]);
+        cav.lineArrow([w / 2, h, w / 2, 10]);
+        ctx.restore();
+        // 矩形
+        let rW = 120, rH = 120;
+        ctx.translate(w / 2, h / 2);
+        ctx.rect(-rW / 2, -rH / 2, rW, rH);
+        ctx.stroke();
+        // 上/下边菱形
+        let points1 = [[0, -rH / 2], [rW / 4, 0], [0, rH / 2], [-rW / 4, 0]];
+        // 左右边菱形
+        let points2 = [[-rW / 2, 0], [0, -rH / 4], [rW / 2, 0], [0, rH / 4]];
+
+        // 绘画
+        let data = [points1, points2];
+        for (var i = 0; i < 2; i++) {
+          let p = data[i];
+          ctx.beginPath();
+          for (var j = 0; j < p.length; j++) {
+            ctx.lineTo(p[j][0], p[j][1]);
+          }
+          ctx.closePath();
+          ctx.stroke();
+        }
+      }
+    })(window);
+  </script>
+</div>

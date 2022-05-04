@@ -1,0 +1,18 @@
+﻿// 4角星
+
+.ico-star4
+    position: relative
+
+    &:before,&:after
+        position: absolute
+        left: 0
+        top: 0
+        width: 1em
+        height: 1em
+        background-color: currentColor
+
+    &:before
+        clip-path: polygon(50% 0,75% 50%,50% 100%,25% 50%)
+
+    &:after
+        clip-path: polygon(50% 25%,100% 50%,50% 75%,0 50%)
