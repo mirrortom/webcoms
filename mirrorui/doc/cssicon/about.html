@@ -111,6 +111,55 @@
       background-color: currentColor;
       clip-path: polygon(0 0,10% 0,10% 10%,20% 10%,20% 20%,30% 20%,30% 30%,40% 30%,40% 40%,50% 40%,50% 50%,50% 100%,0 100%);
     }
+
+    .scale {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background-color: #eeeeff;
+    }
+
+      .scale:before {
+        content: '';
+        position: absolute;
+        display: inline-block;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: currentColor;
+      }
+
+    .scale-1:before {
+      width: 100px;
+      height: 100px;
+      transform: scale(.5);
+    }
+
+    .scale-2:before {
+      width: 60px;
+      height: 60px;
+      transform: scaleX(.5);
+    }
+
+    .scale-3:before {
+      transform: scaleX(.5) rotate(45deg);
+    }
+
+    .scale-4:before {
+      width: 30px;
+      transform: rotate(45deg);
+    }
+    .scale-5:before {
+      transform: rotate(45deg);
+    }
+    .scale-6:before {
+      transform: scaleX(.3) rotate(45deg);
+    }
+    .scale-7:before {
+      transform: scaleX(.7) rotate(45deg);
+    }
   </style>
   <h5>content</h5>
   <p>:before,:after伪类的属性,可以写入符号,可做文字类的图标.</p>
@@ -227,6 +276,41 @@
 
 </pre>
   <br />
+  <p>scale缩放变换,也可以只按X或Y轴缩放.</p>
+  <div class="scale scale-1"></div>
+  <p>黑色方块本来是边长100px的,使用缩放后只有50px了</p>
+  <pre class="bg-gray-lt">
+
+    transform: scale(.5);
+
+</pre>
+  <br />
+  <p>这个好像用处不大,如果要缩放改变大小,直接设置那么大就可以啊.</p>
+  <p>如果进行X,Y轴缩放再叠加旋转变换,可以改变图形的比例.</p>
+  <div class="grids">
+    <div class="scale scale-2"></div>
+    <div class="scale scale-2 scale-3"></div>
+  </div>
+  <br />
+  <pre class="bg-gray-lt">
+
+    transform: scaleX(.5) rotate(45deg);
+
+</pre>
+  <br />
+  <p>上图是边长60px正方形,上左是X轴缩放0.5,变成了长方形,宽边长了30.</p>
+  <p>上图右是在左的基础上叠加45度旋转,变成了菱形,这个有点费解,长方形怎么会变成菱形.长方形旋转45度是这样的</p>
+  <div class="scale scale-2 scale-4"></div>
+  <p>如果是正方形旋转45度,那么是个特殊菱形(下左1,边长60).按照先X轴缩放,再旋转45度的套路,如果改变缩放比例,发现菱形水平对角线变化了.而且是按缩放比例变化的.</p>
+  <div class="grids">
+    <div class="scale scale-2 scale-5"></div>
+    <div class="scale scale-2 scale-6"></div>
+    <div class="scale scale-2 scale-7"></div>
+  </div>
+  <br />
+  <p>上图左1,边长大小为84.85px,这正好是60 * sqrt(2). 左2是25.46px, 即 84.85 * 0.3(缩放比例). 左3: 84.85px * 0.7 = 59.4px</p>
+  <p>这个套路可以将一个正方形盒模型变成一个菱形,通过设置scale的X/Y值,来改变菱形对角线的长度.</p>
+  <p>变换函数叠加,不同顺序得到的效果不同.</p>
   <h5>currentColor</h5>
   <p>来自MDN: currentColor 关键字代表原始的 color 属性的计算值.它允许让继承自属性或子元素的属性颜色属性以默认值不再继承</p>
   <p>这个属性值可以设置, background-color: currentColor .如果图标的颜色是使用背景色的,那么这样设置后,也可以通过设置文字颜色color来改变图标颜色了.</p>
