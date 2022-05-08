@@ -40,6 +40,7 @@
   <ItemGroup>
     <Content Include="404.html" />
     <Content Include="doc\cachepagedemo1.html" />
+    <Content Include="doc\cssicon\share.html" />
     <Content Include="doc\cssicon\star4.html" />
     <Content Include="doc\cssicon\font.html" />
     <Content Include="doc\cssicon\download.html" />
@@ -165,6 +166,7 @@
     <None Include="stylus\coms\msgbox.styl" />
     <None Include="stylus\coms\msgpanel.styl" />
     <None Include="stylus\coms\mnavmenu.styl" />
+    <None Include="stylus\cssicon\icons\share.styl" />
     <None Include="stylus\cssicon\icons\font.styl" />
     <None Include="stylus\cssicon\icons\download.styl" />
     <None Include="stylus\cssicon\icons\ball8.styl" />

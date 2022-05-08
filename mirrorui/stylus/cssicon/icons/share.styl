@@ -1,0 +1,29 @@
+﻿// 共享
+
+.ico-share
+    position: relative
+
+    &:before,&:after
+        position: absolute
+
+    &:before
+        left: .1em
+        top: 50%
+        width: .2em
+        height: .2em
+        min-width: 4px
+        min-height: 4px
+        border-radius: 50%
+        background-color: currentColor
+        box-shadow: .62em .32em,.62em -.32em
+        transform: translateY(-50%)
+ 
+    &:after
+        left: .54em
+        top: 50%
+        width: .424em
+        height: .424em
+        border: 1px solid
+        border-top: none
+        border-right: none
+        transform: translateY(-50%) scaleX(2) rotate(45deg)

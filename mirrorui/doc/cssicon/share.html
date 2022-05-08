@@ -1,0 +1,140 @@
+﻿<div class="doc-page">
+  <h2>共享</h2>
+  <p>分享,共享.常用图标.</p>
+  <div class="mg-20">
+    <i class="ico ico-share text-md"></i>
+    <i class="ico ico-share text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-share</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <style>
+    .sharedemo {
+      background-color: #80808030;
+      position: relative;
+      font-size: 100px;
+    }
+
+      .sharedemo:before, .sharedemo:after {
+        position: absolute;
+      }
+
+      .sharedemo:before {
+        left: .1em;
+        top: .42em;
+        width: .16em;
+        height: .16em;
+        min-width: 4px;
+        min-height: 4px;
+        border-radius: 50%;
+        background-color: currentColor;
+        box-shadow: .62em .32em,.62em -.32em;
+      }
+
+
+      .sharedemo:after {
+        left: .58em;
+        top: 50%;
+        width: .452em;
+        height: .452em;
+        border: 1px solid;
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+    .sharedemo-1:after {
+      transform: translateY(-50%) scaleX(2) rotate(45deg);
+    }
+  </style>
+  <p>图标由3个圆圈和两个直线组成,圆圈的圆心连接成的图案是一个等边三角形,而2个直线正是这个三角形的2条边.</p>
+  <p>设计左边的圆圈位于容器左边10%处,垂直居中.半径为容器10%.右边2个圆圈分别距离容器上/下边和右边10%的距离</p>
+  <canvas id="canvas1"></canvas>
+  <br />
+  <p>圆圈用:before和它的box-shadow实现.</p>
+  <p>连线实际上是一个菱形的两条边,2个等边三角形拼在一起是一个菱形.上图中,菱形的垂直对角线长度,就是三角形的边长.这个长度值是,100% - 2*10%(上下边距) - 2*10%(半径) = 60%</p>
+  <p>根据缩放加旋转45度可以实现菱形的经验套路,要实现一个锤直对角线为 0.6em 的菱形,它的原始盒模型边长为 0.6em*sin45 = 0.424em</p>
+  <div class="grids">
+    <span class="ico sharedemo"></span>
+    <span class="ico sharedemo sharedemo-1 mg-l-20"></span>
+  </div>
+  <p>左圈和右圈的水平距离是100% - 2*10%(边距) - 2*10%(半径) = 60%,而这段距离也是菱形水平对角线长度的一半.那么水平对角线就是120%.</p>
+  <p>对于垂直对角线为0.6em的菱形,要实现水平对角线为1.2em,那么,将X缩放比例设为2倍即可.如此,3个圈的圆心,就正好位于菱形的3个顶点上了.</p>
+  <p>其实菱形的左顶点要位于左圈的圆心上,这个是菱形盒模型的left值,也是要计算的.但没有找到计算办法,而是看图调整而得的,这个是偷懒了.</p>
+  <p><i class="ico ico-share fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-share
+        position: relative
+
+        &:before,&:after
+            position: absolute
+
+        &:before
+            left: .1em
+            top: 50%
+            width: .2em
+            height: .2em
+            min-width: 4px
+            min-height: 4px
+            border-radius: 50%
+            background-color: currentColor
+            box-shadow: .62em .32em,.62em -.32em
+            transform: translateY(-50%)
+ 
+        &:after
+            left: .54em
+            top: 50%
+            width: .424em
+            height: .424em
+            border: 1px solid
+            border-top: none
+            border-right: none
+            transform: translateY(-50%) scaleX(2) rotate(45deg)
+
+</pre>
+  <br />
+  <script>
+    ((win) => {
+      let cav = win.cavlib('canvas1').style();
+      let ctx = cav.ctx;
+      //
+      ctx.font = '18px serif';
+      // 坐标轴
+      let oX = 300 / 2, oY = 150 / 2;
+      ctx.translate(oX, oY);
+      cav.lineArrow([-oX, 0, oX - 10, 0]);
+      cav.lineArrow([0, oY, 0, -oY + 10]);
+      // 矩形
+      let rW = 120, rH = 120;
+      ctx.rect(-rW / 2, -rH / 2, rW, rH);
+      ctx.stroke();
+
+      // 3个圈
+      let cirx = rW / 2 - 2 * rW / 10, ciry = rH / 2 - 2 * rH / 10;
+      let points = [[-cirx, 0], [cirx, ciry], [cirx, -ciry]];
+      for (var i = 0, len = points.length; i < len; i++) {
+        let cir = points[i];
+        ctx.beginPath();
+        ctx.arc(cir[0], cir[1], rW / 10, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      // 菱形连线
+      ctx.beginPath();
+      ctx.moveTo(-cirx, 0);
+      ctx.lineTo(cirx, ciry);
+      ctx.lineTo(3 * cirx, 0);
+      ctx.lineTo(cirx, -ciry);
+      ctx.closePath();
+      ctx.stroke();
+      // 菱形垂直对角线
+      ctx.beginPath();
+      ctx.moveTo(cirx, ciry);
+      ctx.lineTo(cirx, -ciry);
+      ctx.strokeStyle = 'blue';
+      ctx.stroke();
+    })(window);
+  </script>
+</div>

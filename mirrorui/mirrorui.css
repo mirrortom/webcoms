@@ -3638,3 +3638,32 @@ p {
 .ico-star4:after {
   clip-path: polygon(50% 25%, 100% 50%, 50% 75%, 0 50%);
 }
+.ico-share {
+  position: relative;
+}
+.ico-share:before,
+.ico-share:after {
+  position: absolute;
+}
+.ico-share:before {
+  left: 0.1em;
+  top: 50%;
+  width: 0.2em;
+  height: 0.2em;
+  min-width: 4px;
+  min-height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+  box-shadow: 0.62em 0.32em, 0.62em -0.32em;
+  transform: translateY(-50%);
+}
+.ico-share:after {
+  left: 0.54em;
+  top: 50%;
+  width: 0.424em;
+  height: 0.424em;
+  border: 1px solid;
+  border-top: none;
+  border-right: none;
+  transform: translateY(-50%) scaleX(2) rotate(45deg);
+}
