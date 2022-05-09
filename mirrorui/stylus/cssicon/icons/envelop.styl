@@ -1,0 +1,24 @@
+﻿// 信封
+
+.ico-envelop
+    position: relative
+    
+    &:before,&:after
+        position: absolute
+        left: 50%
+        width: .8em
+        border: 1px solid currentColor
+
+    &:before
+        top: 50%
+        height: .6em
+        border-radius:.04em
+        transform: translate(-50%,-50%)
+
+    &:after
+        top: calc(50% - .26em)
+        width: .566em
+        height: .566em
+        border-left:none
+        border-top:none
+        transform: translate(-50%,-50%) scaleY(.75) rotate(45deg)

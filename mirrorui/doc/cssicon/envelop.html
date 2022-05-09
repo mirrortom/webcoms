@@ -1,0 +1,86 @@
+﻿<div class="doc-page">
+  <h2>信封</h2>
+  <p>信封图标,传统纸质信封</p>
+  <div class="mg-20">
+    <i class="ico ico-envelop text-md"></i>
+    <i class="ico ico-envelop text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-envelop</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <style>
+    .envdemo {
+      font-size: 100px;
+      position: relative;
+      outline: 1px solid;
+    }
+
+      .envdemo:before, .envdemo:after {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: .8em;
+        border: 1px solid currentColor;
+      }
+
+      .envdemo:before {
+        height: .6em;
+        border-radius: .04em;
+        transform: translate(-50%,-50%);
+      }
+
+      .envdemo:after {
+        width: .566em;
+        height: .566em;
+        transform: translate(-50%,-50%) scaleY(.75) rotate(45deg);
+      }
+
+    .envdemo-1:after {
+      top: calc(50% - .26em);
+      transform: translate(-50%,-50%) scaleY(.75) rotate(45deg);
+    }
+  </style>
+  <p>由外层框和开口折叠处2部分组成.2部分都是绝对定位居中.</p>
+  <p>外层框:before,长宽比例为 0.8em:0.6em</p>
+  <p>折叠处是:after,一个菱形的下半部分,这个菱形的水平对角线与信封上边重合.</p>
+  <p>依旧是用做菱形的套路,已知对角线长度就是0.8.那么原始正方形边长 0.8 * sin45 = 0.566.</p>
+  <p>设计折叠尖角位于信封垂直中线位置.那么,尖角处到信封上边原本是 0.8/2= 0.4em ,而信封垂直中线是 0.6/2 = 0.3em .所以,缩放比例 0.3/0.4 = 0.75</p>
+  <div class="ico envdemo"></div>
+  <br />
+  <p>还需要让菱形水平对角线和信封上边重合</p>
+  <p>观察发现,菱形的水平和垂直对角线正好和信封的长和宽一样长,那么只需要将菱形上移半个信封高度即可.即: top: 50% - 0.6/2</p>
+  <div class="ico envdemo envdemo-1"></div>
+  <br />
+  <p>最后微调为不完全重合,在信封上边框的下面一点.</p>
+  <p><i class="ico ico-envelop fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-envelop
+        position: relative
+    
+        &:before,&:after
+            position: absolute
+            left: 50%
+            width: .8em
+            border: 1px solid currentColor
+
+        &:before
+            top: 50%
+            height: .6em
+            border-radius:.04em
+            transform: translate(-50%,-50%)
+
+        &:after
+            top: calc(50% - .26em)
+            width: .566em
+            height: .566em
+            border-left:none
+            border-top:none
+            transform: translate(-50%,-50%) scaleY(.75) rotate(45deg)
+
+</pre>
+</div>

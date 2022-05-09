@@ -3690,3 +3690,27 @@ p {
   background-color: currentColor;
   transform: translateX(-50%);
 }
+.ico-envelop {
+  position: relative;
+}
+.ico-envelop:before,
+.ico-envelop:after {
+  position: absolute;
+  left: 50%;
+  width: 0.8em;
+  border: 1px solid currentColor;
+}
+.ico-envelop:before {
+  top: 50%;
+  height: 0.6em;
+  border-radius: 0.04em;
+  transform: translate(-50%, -50%);
+}
+.ico-envelop:after {
+  top: calc(50% - 0.26em);
+  width: 0.566em;
+  height: 0.566em;
+  border-left: none;
+  border-top: none;
+  transform: translate(-50%, -50%) scaleY(0.75) rotate(45deg);
+}
