@@ -3667,3 +3667,26 @@ p {
   border-right: none;
   transform: translateY(-50%) scaleX(2) rotate(45deg);
 }
+.ico-wlan {
+  position: relative;
+}
+.ico-wlan:before,
+.ico-wlan:after {
+  position: absolute;
+  left: 50%;
+}
+.ico-wlan:before {
+  top: 50%;
+  width: 0.7em;
+  height: 0.7em;
+  transform: translate(-50%, -50%) rotate(-135deg);
+  background-image: radial-gradient(at 0 0, transparent 0.22em, currentColor 0.23em 0.3em, transparent 0.31em 0.42em, currentColor 0.43em 0.5em, transparent 0.51em 0.62em, currentColor 0.63em 0.7em, transparent 0.71em);
+}
+.ico-wlan:after {
+  top: 84%;
+  width: 0.14em;
+  height: 0.14em;
+  border-radius: 50%;
+  background-color: currentColor;
+  transform: translateX(-50%);
+}

@@ -1,0 +1,132 @@
+﻿<div class="doc-page">
+  <h2>无线网络</h2>
+  <p>wlan图标,表示无线网络的.</p>
+  <div class="mg-20">
+    <i class="ico ico-wlan text-md"></i>
+    <i class="ico ico-wlan text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-wlan</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <style>
+    .wlandemo {
+      position: relative;
+      font-size: 100px;
+      border: 1px solid;
+    }
+
+      .wlandemo:before {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: .7em;
+        height: .7em;
+        border: 1px solid red;
+        transform: translate(-50%,-50%);
+      }
+
+    .wlandemo-1:before {
+      transform: translate(-50%,-50%) rotate(45deg);
+    }
+
+    .wlandemo-2:before {
+      background-image: radial-gradient(at 0 0,transparent .1em,#0026ff60 .11em .22em,currentColor .23em .3em,#ffd80060 .31em .42em,currentColor .43em .5em,#ff000060 .51em .62em,currentColor .63em .7em,transparent .71em);
+    }
+    .wlandemo-3:before {
+      transform: translate(-50%,-50%) rotate(-135deg);
+    }
+    .wlandemo-3:after {
+      position: absolute;
+      left:50%;
+      top: 84%;
+      width: .14em;
+      height: .14em;
+      border-radius: 50%;
+      background-color: orangered;
+      transform: translateX(-50%);
+    }
+  </style>
+  <p>参考常见的wlan图标,从一个圆点开始扩散,周围3条圆弧表示无线电波,圆点表示波源.</p>
+  <p>在一个正方形里,以一个角顶点为圆心,从里到外画圆弧,最外层圆弧的半径是正方形边长,这条圆弧与顶角的两边相切.</p>
+  <canvas id="canva1"></canvas>
+  <br />
+  <p>圆弧用径向渐变实现,元素用:before.边长是容器的70%.因为边长0.707(sin45)的正方形,旋转45度后,占地面积是1.</p>
+  <div class="ico wlandemo wlandemo-1"></div>
+  <p>从渐变圆心到最远圆弧的距离是0.7em,这个范围内有圆弧,还有圆点.</p>
+  <p>实际上,3条圆弧是6条,分别是圆弧和透明圆弧交错而成的.</p>
+  <p>另外,圆心和第一道圆弧之间还要放圆点.那么,给圆点留出.1em的距离.剩下0.6em给6个圆弧,平均宽度0.1em.</p>
+  <p>设计透明圆弧宽度为.12em,圆弧宽度为0.08em,圆点直径为.14em(容器的14%).</p>
+  <div class="grids">
+    <div><span class="ico wlandemo wlandemo-2"></span></div>
+    <div><span class="ico wlandemo wlandemo-2 wlandemo-3 mg-l-10"></span></div>
+  </div>
+  <br />
+  <p>圆点用:after实现,定位在底部中间,距离容器底部一个直径的位置.这个位置也刚好是渐变圆心垂直上方,使得圆点刚好位于顶角内.</p>
+
+  <br />
+  <p><i class="ico ico-wlan fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    .ico-wlan
+        position: relative
+
+        &:before,&:after
+            position: absolute
+            left: 50%
+
+        &:before
+            top: 50%
+            width: .7em
+            height: .7em
+            transform: translate(-50%,-50%) rotate(-135deg)
+            background-image: radial-gradient(at 0 0
+                              ,transparent .22em,currentColor .23em .3em
+                              ,transparent .31em .42em,currentColor .43em .5em
+                              ,transparent .51em .62em,currentColor .63em .7em
+                              ,transparent .71em)
+ 
+        &:after
+            top: 84%
+            width: .14em
+            height: .14em
+            border-radius: 50%
+            background-color: currentColor
+            transform: translateX(-50%)
+
+</pre>
+  <br />
+  <script>
+    ((win) => {
+      let cav = win.cavlib('canva1').style();
+      let ctx = cav.ctx;
+      //
+      ctx.font = '18px serif';
+      let w = 300, h = 150;
+      // rect
+      let rlen = 120;
+      let left = (w - rlen) / 2, top = (h - rlen) / 2
+      ctx.beginPath();
+      ctx.rect(left, top, rlen, rlen);
+      ctx.stroke();
+      // 圆心
+      ctx.strokeStyle = 'red';
+      let cirx = left, ciry = top;
+      let cir = rlen / 20;
+      ctx.beginPath();
+      ctx.arc(cirx, ciry, cir, 0, Math.PI * 2);
+      ctx.stroke();
+      // 圆弧
+      ctx.strokeStyle = 'blue';
+      let cirs = [rlen, 2 * rlen / 3, rlen / 3];
+      for (var i = 0, len = cirs.length; i < len; i++) {
+        ctx.beginPath();
+        ctx.arc(cirx, ciry, cirs[i], 0, Math.PI / 2);
+        ctx.stroke();
+      }
+    })(window);
+  </script>
+</div>

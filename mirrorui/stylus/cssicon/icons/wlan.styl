@@ -1,0 +1,23 @@
+﻿// 无线网络
+
+.ico-wlan
+    position: relative
+
+    &:before,&:after
+        position: absolute
+        left: 50%
+
+    &:before
+        top: 50%
+        width: .7em
+        height: .7em
+        transform: translate(-50%,-50%) rotate(-135deg)
+        background-image: radial-gradient(at 0 0,transparent .22em,currentColor .23em .3em,transparent .31em .42em,currentColor .43em .5em,transparent .51em .62em,currentColor .63em .7em,transparent .71em)
+ 
+    &:after
+        top: 84%
+        width: .14em
+        height: .14em
+        border-radius: 50%
+        background-color: currentColor
+        transform: translateX(-50%)
