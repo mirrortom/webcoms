@@ -1,0 +1,223 @@
+﻿<div class="doc-page">
+  <h2>地图</h2>
+  <p>地图,地图软件上常见的定位点图标</p>
+  <div class="mg-20">
+    <i class="ico ico-map text-md"></i>
+    <i class="ico ico-map text-xxxl text-primary"></i>
+  </div>
+  <pre class="bg-gray-lt">
+
+  &lt;i class="ico <b>ico-map</b>"&gt;&lt;/i&gt;
+
+</pre>
+  <br />
+  <p>地图图标的外形看起来是一个圆加上一个尖角.很像一种算角度的工具,那种带有刻度的圆环,环外面有个可以滑动的尖角.</p>
+  <p>开始研究时认为是一种菱形或者正方形的内接圆,加上相切的两边的那个顶角组成.</p>
+  <p>下图菱形的内切圆(蓝色)和下方顶角两边(红色)组成的形状.</p>
+  <div class="grids">
+    <div><canvas id="canva1"></canvas></div>
+    <div class="mg-l-15"><canvas id="canva2"></canvas></div>
+  </div>
+  <br />
+  <p>后来发现,一个等边三角形内接圆和一个角组成的图形更接近.</p>
+  <p>内接圆(蓝色)和三角形KAH组成的图形.外侧大三角形是等边三角形.</p>
+  <p>为方便分析,下图等边三角形一边与X轴平行,与此边平行的中线(KH),位于X轴上,坐标原点是该中线中点(E).</p>
+  <canvas id="canva3"></canvas>
+  <br />
+  <p>那么,在css实现时,就是一个圆(蓝色)和一个三角形(KAH)的拼合形状.</p>
+  <p>需要计算的有,圆半径(OK),三角形的底(KH)和高(AE),圆的圆心和三角形的底的距离(OE).</p>
+  <p>先确定图标高度,图标的高度是从C点到A点,而CA就是外侧三角形的高.这个高度不能超过1em,即图标的高.</p>
+  <p>所以, CA <= 1em</p>
+  <p>由于等边三角形特点,内接圆的圆心正好位于高的2/3处(从顶角到底边方向).而且,切点正是3边的中点.</p>
+  <p>故: OK = OC = CA * 1/3</p>
+  <p>在三角形OKE里,角OKE为30度,故: KE = OK * cos30 ,而KH是中线,E是中点,故: KH = 2 * KE </p>
+  <p>而 OE = OK * sin30 = OK * 1/2 ,OK = OJ. 故: OE = EJ, E是OJ中点.</p>
+  <p>由于 AE= EJ + AJ,而: OE = EJ, 又 OC = OJ = AJ是三等分,且 OC = OK.最后得出:</p>
+  <p>AE = EJ + AJ = OE + OC = EC = CA / 2</p>
+  <p>还有三角形KAH的top定位值,从图的C点到A点容易看出: top = 圆top + OC + OE = 圆top + AE</p>
+  <p>调整后,高度取了.84em,图标上下留出0.08em空间.</p>
+  <p><i class="ico ico-map fs100"></i></p>
+  <p>完整样式</p>
+  <pre class="bg-gray-lt">
+
+    // 等边三角形高 h=.84em, cos30=0.866
+    .ico-map
+        position: relative
+    
+        &:before,&:after
+            position: absolute
+            left: 50%
+            transform: translateX(-50%)
+
+        &:before
+            top: .08em
+            // 2 * h / 3
+            width: .56em
+            height: .56em
+            border-radius: 50%
+            background-image: radial-gradient(transparent 18%,currentColor 20%)
+
+        &:after
+            // .08 + h / 2
+            top: .5em
+            border-style: solid
+            border-color: currentColor transparent transparent
+            // 高h/2 底(半) cos30*h/3
+            border-width: .42em .242em 0
+            border-bottom: none
+
+</pre>
+  <br />
+  <script>
+    ((win) => {
+      canva1();
+      canva2();
+      canva3();
+      function canva1() {
+        let cav = win.cavlib('canva1').style();
+        let ctx = cav.ctx;
+        //
+        let w = 80, h = 150;
+        ctx.canvas.width = w;
+        ctx.canvas.height = h;
+        ctx.font = '18px serial';
+        // x,y轴
+        cav.xyAxis();
+        // 菱形
+        ctx.translate(w / 2, h / 2);
+        // 水平,垂直对角线
+        let rw = 60, rh = 2 * rw;
+        let points = [[0, -rh / 2], [rw / 2, 0], [0, rh / 2], [-rw / 2, 0]];
+        ctx.beginPath();
+        for (var i = 0; i < points.length; i++) {
+          ctx.lineTo(points[i][0], points[i][1]);
+        }
+        ctx.closePath();
+        ctx.stroke();
+        // 内接圆
+        let cir = rw / Math.sqrt(5);
+        ctx.beginPath();
+        ctx.arc(0, 0, cir, 0, Math.PI * 2);
+        ctx.strokeStyle = 'blue';
+        ctx.stroke();
+        // 两个切点,与底部顶角连线
+        let angle = Math.atan(rw / rh);
+        let crossX = Math.cos(angle) * cir;
+        let crossY = Math.sin(angle) * cir;
+        ctx.beginPath();
+        ctx.moveTo(-crossX, crossY);
+        ctx.lineTo(points[2][0], points[2][1]);
+        ctx.lineTo(crossX, crossY);
+        ctx.strokeStyle = 'red';
+        ctx.stroke();
+      }
+      function canva2() {
+        let cav = win.cavlib('canva2').style();
+        let ctx = cav.ctx;
+        //
+        let w = 150;
+        ctx.canvas.width = w;
+        ctx.canvas.height = w;
+        ctx.font = '18px serial';
+        // x,y轴
+        cav.xyAxis();
+        // 正方形
+        ctx.translate(w / 2, w / 2);
+        // 对角线
+        let rw = 120;
+        let points = [[0, -rw / 2], [rw / 2, 0], [0, rw / 2], [-rw / 2, 0]];
+        ctx.beginPath();
+        for (var i = 0; i < points.length; i++) {
+          ctx.lineTo(points[i][0], points[i][1]);
+        }
+        ctx.closePath();
+        ctx.stroke();
+        // 内接圆
+        let cir = rw / Math.sqrt(2) / 2;
+        ctx.beginPath();
+        ctx.arc(0, 0, cir, 0, Math.PI * 2);
+        ctx.strokeStyle = 'blue';
+        ctx.stroke();
+        // 两个切点,与底部顶角连线
+        let crossX = rw / 4;
+        let crossY = crossX;
+        ctx.beginPath();
+        ctx.moveTo(-crossX, crossY);
+        ctx.lineTo(points[2][0], points[2][1]);
+        ctx.lineTo(crossX, crossY);
+        ctx.strokeStyle = 'red';
+        ctx.stroke();
+      }
+      function canva3() {
+        let cav = win.cavlib('canva3').style();
+        let ctx = cav.ctx;
+        //
+        let w = 200, h = 200;
+        ctx.canvas.width = ctx.canvas.height = w;
+        ctx.font = '18px serial';
+
+        // x,y轴
+        cav.xyAxis();
+        // 原点移动到中心
+        ctx.translate(w / 2, h / 2);
+        // 等边三角形T 边长s,高h
+        let tH = 150, tS = tH / Math.cos(Math.PI / 6);
+        // T顶点坐标顺序: 上右,上左,下
+        let tpoints = [[tS / 2, -tH / 2], [-tS / 2, -tH / 2], [0, tH / 2]];
+        // 内切圆r 圆心rx,ry和半径cir
+        // S = 三角形面积 C = 三角形周长
+        // x = (bc * a.x + ca * b.x + ab * c.x) / C
+        // y = (bc * a.y + ca * b.y + ab * c.y) / C
+        // r = 2S / C
+        // 由于是等边三角形,且原点位于中线中点,故可简化坐标点.
+        let cirx = 0;
+        let ciry = -tH / 6;
+        let cir = tH / 3;
+
+        // draw T
+        ctx.beginPath();
+        for (var i = 0, len = tpoints.length; i < len; i++) {
+          ctx.lineTo(tpoints[i][0], tpoints[i][1]);
+        }
+        ctx.closePath();
+        ctx.stroke();
+
+        // draw 内接圆,圆心
+        ctx.beginPath();
+        ctx.arc(cirx, ciry, 6, 0, Math.PI * 2);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(cirx, ciry, cir, 0, Math.PI * 2);
+        ctx.strokeStyle = 'blue';
+        ctx.stroke();
+
+        // draw 内接圆心到左右两边垂线 KOH
+        ctx.beginPath();
+        ctx.moveTo(tS / 4, 0);
+        ctx.lineTo(cirx, ciry);
+        ctx.lineTo(-tS / 4, 0);
+        ctx.strokeStyle = 'green';
+        ctx.stroke();
+
+        // 标注
+        // 内接圆心O, 下面顶角A
+        ctx.beginPath();
+        ctx.fillStyle = 'blue';
+        ctx.fillText('O', 5, ciry);
+        ctx.fillText('A', tpoints[2][0] + 5, tpoints[2][1] + 5);
+        // 水平底边中点C
+        ctx.fillText('C', 5, tpoints[0][1] - 5);
+        // 左右两边垂足H, K, E(中点)
+        ctx.fillStyle = 'green';
+        ctx.fillText('H', tS / 4 + 5, 18);
+        ctx.fillText('k', -tS / 4 - 15, 18);
+        ctx.fillText('E', 5, -2);
+        // 圆弧HK,与高交点 J
+        ctx.fillText('J', 5, cir - 5);
+      }
+
+
+    })(window);
+  </script>
+</div>

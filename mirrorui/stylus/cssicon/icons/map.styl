@@ -1,0 +1,27 @@
+﻿// map地图
+
+// 等边三角形高 h=.84em, cos30=0.866
+.ico-map
+    position: relative
+    
+    &:before,&:after
+        position: absolute
+        left: 50%
+        transform: translateX(-50%)
+
+    &:before
+        top: .08em
+        // 2 * h / 3
+        width: .56em
+        height: .56em
+        border-radius: 50%
+        background-image: radial-gradient(transparent 18%,currentColor 20%)
+
+    &:after
+        // .08 + h / 2
+        top: .5em
+        border-style: solid
+        border-color: currentColor transparent transparent
+        // 高h/2 底(半) cos30*h/3
+        border-width: .42em .242em 0
+        border-bottom: none

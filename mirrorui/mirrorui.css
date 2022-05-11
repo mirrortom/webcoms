@@ -3714,3 +3714,26 @@ p {
   border-top: none;
   transform: translate(-50%, -50%) scaleY(0.75) rotate(45deg);
 }
+.ico-map {
+  position: relative;
+}
+.ico-map:before,
+.ico-map:after {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ico-map:before {
+  top: 0.08em;
+  width: 0.56em;
+  height: 0.56em;
+  border-radius: 50%;
+  background-image: radial-gradient(transparent 18%, currentColor 20%);
+}
+.ico-map:after {
+  top: 0.5em;
+  border-style: solid;
+  border-color: currentColor transparent transparent;
+  border-width: 0.42em 0.242em 0;
+  border-bottom: none;
+}
