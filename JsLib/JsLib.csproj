@@ -64,7 +64,7 @@
     <Content Include="src\cavlib\curve.part.js" />
     <Content Include="src\cavlib\data2_cirs.part.js" />
     <Content Include="src\cavlib\data1_line.part.js" />
-    <Content Include="src\cavlib\line.part.js" />
+    <Content Include="src\cavlib\aid.part.js" />
     <Content Include="src\jslib\1start.part.js" />
     <Content Include="src\jslib\domEvent.part.js" />
     <Content Include="src\jslib\2end.part.js" />

@@ -163,7 +163,10 @@ cirs.getCrossLine = (cir1, cir2) => {
 };
 // 
 factory.cirs = cirs;
+// ====
+// 辅助方法,比如画坐标系箭头辅助线等等.
 // 实例方法
+// ====
 factory.extend({
     /**
      * 带箭头的线,从points的第1组坐标开始到最后一组坐标,结束时画上箭头.箭头底边与线段最后一段垂直
@@ -209,6 +212,38 @@ factory.extend({
         } else {
             this.ctx.stroke();
         }
+        this.ctx.restore();
+        return this;
+    }
+});
+
+factory.extend({
+    /**
+     * 画坐标轴辅助线:以画布中心为原点,箭头方向:,X轴右方向,Y轴上方向
+     * 
+     * @param {number} style 风格: 虚线=0,实线=1
+     * @param {number} oX 原点x坐标
+     * @param {number} oY 原点y坐标
+     * @param {number} oXLen x轴长度
+     * @param {number} oYLen y轴长度
+     * @returns {any} return this
+     */
+    'xyAxis': function (style = 0, oX = null, oY = null, oXLen = 0, oYLen = 0) {
+        let x = oX || this.canvas.width / 2;
+        let y = oY || this.canvas.height / 2;
+        let xLen = oXLen || this.canvas.width;
+        let yLen = oYLen || this.canvas.height;
+        //
+        this.ctx.save();
+        this.ctx.translate(x, y);
+        // 线条风格
+        if (style == 0) {
+            this.ctx.setLineDash([2]);
+        }
+        // x,y轴
+        this.ctx.beginPath();
+        this.lineArrow([-x, 0, x - 10, 0]);
+        this.lineArrow([0, y, 0, -y + 10]);
         this.ctx.restore();
         return this;
     }
