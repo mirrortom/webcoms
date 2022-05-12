@@ -1,0 +1,16 @@
+﻿[
+  {
+    "outputFile": "test.css",
+    "inputFile": "test.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "mirrorui.css",
+    "inputFile": "stylus/index.styl",
+    "minify": {
+      "enabled": false
+    }
+  }
+]

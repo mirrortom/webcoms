@@ -1,0 +1,27 @@
+[
+  {
+    "outputFileName": "mirrorui.js",
+    "inputFiles": [
+      "js/help.js",
+      "js/m-btn.js",
+      "js/m-switch.js",
+      "js/m-file.js",
+      "js/m-check.js",
+      "js/m-radio.js",
+      "js/cachepage.js",
+      "js/msgbox.js",
+      "js/mydate.js",
+      "js/m-pagenum.js",
+      "js/m-sidemenu.js",
+      "js/tabs.js",
+      "js/m-msgshow.js",
+      "js/m-mnavmenu.js",
+      "js/mdirbar.js",
+      "js/m-range.js",
+      "js/exts/m-inputwatch.js"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  }
+]
