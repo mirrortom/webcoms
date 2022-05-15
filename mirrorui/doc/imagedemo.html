@@ -1,12 +1,33 @@
 ﻿<div class="doc-part-box" id="imagedemo">
+  <style>
+    .imgdemo1, .imgdemo2, .imgdemo3 {
+      display: inline-block;
+    }
+
+    .imgdemo1 {
+      width: 500px;
+      height:200px;
+      background-image: repeating-linear-gradient(blue 0 5%,transparent 5% 10%);
+    }
+
+    .imgdemo2 {
+      width: 200px;
+      height: 120px;
+      background-image: repeating-radial-gradient(green 0 5%,transparent 5% 10%);
+    }
+
+    .imgdemo3 {
+      width:200px;
+      height: 200px;
+      background-image: repeating-conic-gradient(red 0 30deg,pink 30deg 60deg,yellow 60deg 90deg);
+    }
+  </style>
   <h2>图片</h2>
   <p>自动适应父容器大小 class="img-autosize" 圆角class="img-rounded" 圆形class="img-circle"</p>
-  <div class="grids">
-    <div class="grid"><img class="img-autosize" style="border:1px solid var(--color-gray)" src="img/imgdemo.gif"/></div>
-    <div class="grid"><img class="img-rounded" style="border:1px solid var(--color-gray)" src="img/imgdemo.gif" /></div>
-    <div class="grid"><img class="img-circle" style="border:1px solid var(--color-gray)" src="img/imgdemo.gif" /></div>
-  </div>
-  <br />  
+  <div style="width:320px"><img class="img-autosize imgdemo1" style="border:1px solid var(--color-gray)" /></div>
+  <div class="mg-t-15"><img class="img-rounded imgdemo2" style="border:1px solid var(--color-gray)" /></div>
+  <div class="mg-t-15"><img class="img-circle imgdemo3" style="border:1px solid var(--color-gray)" /></div>
+  <br />
   <pre class="bg-gray-lt">
 
   &lt;div class="grid"&gt;&lt;img class="<strong>img-autosize</strong>" &gt;&lt;/div&gt;

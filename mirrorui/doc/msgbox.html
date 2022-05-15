@@ -62,7 +62,7 @@
 </pre>
   <p class="article-title">自定义弹出层</p>
   <p># 自定义框是一个HTML片段,弹出的本质是在将它显示在弹出层父级上</p>
-  <img src="img/msgboxlayer.png" alt="" width="600" />
+  <canvas class="bg-gray-lt" id="canvas1" width="400" height="240"></canvas>
   <br />
   <m-btn class="mg-tb-10" onclick="showcustom()">弹出下面的HTML片段 msgbox.<strong>show</strong>('custom html')</m-btn>
 
@@ -77,7 +77,67 @@
   &lt;/div&gt;
 
     </pre>
+  <br />
   <script>
+    (() => {
+      let cav = document.getElementById('canvas1');
+      let ctx = cav.getContext('2d');
+      ctx.font = '14px serial';
+      // 左顶点
+      let x = 20, y = 20;
+      // viewport 200
+      let vW = 200, vH = 160;
+      // 标注方法
+      let cmt = (x1, y1, x2, y2, lineColor, txt) => {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = ctx.fillStyle = lineColor;
+        ctx.stroke();
+        ctx.fillText(txt, x2, y2);
+      }
+      // viewport
+      ctx.beginPath();
+      ctx.rect(x, y, vW, vH);
+      ctx.strokeStyle = 'skyblue';
+      ctx.stroke();
+      cmt(x + vW - 20, y + 5, x + vW + 50, y, 'skyblue', '浏览器视口');
+      // shadow layer
+      ctx.beginPath();
+      ctx.fillStyle = '#00000040';
+      ctx.fillRect(2 * x, 2 * y, vW, vH);
+      cmt(x + vW + 10, 2 * y + 5, x + vW + 70, 3 * y, 'black', '遮罩层,body子级');
+      ctx.fillText('半透明,视口大小', x + vW + 70, 4 * y)
+      // parent layer
+      ctx.beginPath();
+      ctx.rect(3 * x, 3 * y, vW, vH);
+      ctx.strokeStyle = '#7FFF00';
+      ctx.stroke();
+      cmt(3 * x + vW - 10, 3 * y + vH / 2, 3 * x + vW + 30, 3 * y + vH / 3, '#7FFF00', '弹出层父级');
+      ctx.fillText('全透明,视口大小', 3 * x + vW + 30, 4 * y + vH / 3);
+      ctx.fillText('自动竖直滚动条', 3 * x + vW + 30, 5 * y + vH / 3);
+      // msgbox layer
+      let mW = vW * 0.6, mH = vH / 3;
+      let mx = 4 * x, my = 5 * y;
+      ctx.beginPath();
+      ctx.rect(mx, my, mW, mH);
+      ctx.strokeStyle = ctx.fillStyle = 'orangered';
+      ctx.stroke();
+      ctx.fillText('msgbox', mx * 1.1, my + 15);
+      ctx.fillText('x', mx + mW * 0.9, my + 15);
+      ctx.fillText('ok', mx + mW * 0.8, my + mH - 5);
+      ctx.fillText('cancel', mx * 1.1, my + mH - 5);
+      ctx.beginPath();
+      ctx.moveTo(mx, my + 2 * mH / 3);
+      ctx.lineTo(mx + mW, my + 2 * mH / 3);
+      ctx.lineTo(mx + mW, my + mH);
+      ctx.lineTo(mx + mW / 2, my + mH);
+      ctx.lineTo(mx + mW / 2, my + 2 * mH / 3);
+      ctx.stroke();
+      cmt(mx + mW * 0.6, my + mH * 0.9, mx + mW / 2 + 150, my + mH / 2 + 50, 'orangered', '弹出层');
+      ctx.fillText('父级范围内显示', mx + mW / 2 + 150, my + mH / 2 + 70);
+      ctx.fillText('自定义位置样式', mx + mW / 2 + 150, my + mH / 2 + 90);
+    })();
     function confirmCall(res) {
       let resdom = document.querySelector('#confirmRes');
       resdom.textContent = res == 1 ? "确定(1)" : "取消(0)";
@@ -91,12 +151,12 @@
     function showcustom() {
       let innerhtml =
         `<div style="background-color:#eee;width:400px;border:1px solid #666;align-self:center;padding:15px">
-      <h3>自定义弹出层标题</h3>
-      <p>弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段</p>
-      <p>自定义弹出框需要定义HTML以及按钮事件,然后调用msgbox.show()弹出</p>
-      <div class="text-center"><m-btn onclick="window.ns.msgbox.close()">取消</m-btn>
-      <m-btn class="btn" onclick="window.ns.msgbox.close()">确定</m-btn></div>
-    </div>`;
+                        <h3>自定义弹出层标题</h3>
+                        <p>弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段</p>
+                        <p>自定义弹出框需要定义HTML以及按钮事件,然后调用msgbox.show()弹出</p>
+                        <div class="text-center"><m-btn onclick="window.ns.msgbox.close()">取消</m-btn>
+                        <m-btn class="btn" onclick="window.ns.msgbox.close()">确定</m-btn></div>
+                      </div>`;
       window.ns.msgbox.show(innerhtml);
     }
   </script>
