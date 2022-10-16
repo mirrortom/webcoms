@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
   <link href="/mirrorui/mirrorui.css" rel="stylesheet" />
   <title>jslib-doc | Mirror Space</title>
   <style>
@@ -26,12 +26,10 @@
   </style>
 </head>
 <body>
-  <script src="jslib.js"></script>
-  <script src="/mirrorui/mirrorui.js"></script>
+
   <div class="page">
     <div class="menu-box">
       <m-sidemenu class="sidemenu-box" id="main_menubox">
-
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">About<i class="sidemenu-arrdown"></i></span>
@@ -110,15 +108,11 @@
       @Include("/doc/domstring.part.cshtml")
     </div>
   </div>
-
+  <script src="jslib.js"></script>
+  <script src="/mirrorui/mirrorui.js"></script>
   <script>
     // 为主菜单绑定点击事件 点击后加上sidemenu-active类,标识为活动菜单
-    document.getElementById('main_menubox').create();
-
-    // chg font-size
-    function chgfontsize(size) {
-      document.body.style.setProperty('--font-size', size + 'px');
-    }
+    $('#main_menubox')[0].create();
   </script>
 </body>
 </html>

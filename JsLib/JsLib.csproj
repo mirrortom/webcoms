@@ -57,26 +57,19 @@
     <None Include="Readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cavlib.js" />
     <Content Include="jslib.js" />
-    <Content Include="src\cavlib\1start.part.js" />
-    <Content Include="src\cavlib\2end.part.js" />
-    <Content Include="src\cavlib\curve.part.js" />
-    <Content Include="src\cavlib\data2_cirs.part.js" />
-    <Content Include="src\cavlib\data1_line.part.js" />
-    <Content Include="src\cavlib\aid.part.js" />
-    <Content Include="src\jslib\1start.part.js" />
-    <Content Include="src\jslib\domEvent.part.js" />
-    <Content Include="src\jslib\2end.part.js" />
-    <Content Include="src\jslib\dom.part.js" />
-    <Content Include="src\jslib\ext_com_elemstring.part.js" />
-    <Content Include="src\jslib\ext_com_ajax.part.js" />
-    <Content Include="src\jslib\ext_base_rand.part.js" />
-    <Content Include="src\jslib\ext_base_date.part.js" />
-    <Content Include="src\jslib\ext_base_valid.part.js" />
-    <Content Include="src\jslib\ext_com_formcheck.part.js" />
-    <Content Include="src\jslib\ext_base_string.part.js" />
-    <Content Include="src\jslib\ext_base_array.part.js" />
+    <Content Include="src\1start.part.js" />
+    <Content Include="src\domEvent.part.js" />
+    <Content Include="src\2end.part.js" />
+    <Content Include="src\dom.part.js" />
+    <Content Include="src\ext_com_elemstring.part.js" />
+    <Content Include="src\ext_com_ajax.part.js" />
+    <Content Include="src\ext_base_rand.part.js" />
+    <Content Include="src\ext_base_date.part.js" />
+    <Content Include="src\ext_base_valid.part.js" />
+    <Content Include="src\ext_com_formcheck.part.js" />
+    <Content Include="src\ext_base_string.part.js" />
+    <Content Include="src\ext_base_array.part.js" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

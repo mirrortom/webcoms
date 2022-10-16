@@ -9,7 +9,7 @@
 *@
 <div class="doc-part-box" id="jslib">
   <h2>全局对象</h2>
-  <p>jslib,是一个类数组对象.也是模仿jQuery的,里面包含dom引用和操作方法.有length属性,表示回当前选中的dom个数.</p>
+  <p>内部对象jslib,是一个类数组对象.也是模仿jQuery的,里面包含dom引用和操作方法.有length属性,表示回当前选中的dom个数.</p>
   <pre class="bg-gray-lt">
 
     // 类数组对象,存放选择器选中的dom元素,还有操作方法,模仿jQuery对象
@@ -21,7 +21,7 @@
     }
 
     // 引用对象 模仿jQuery使用 "$".外部调用这个函数使用jslib对象.
-    window.lib = factory
+    window.jslib = factory
     if(!window.$)
         window.$ = factory
 

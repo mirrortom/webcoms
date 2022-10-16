@@ -3,34 +3,19 @@
     "outputFileName": "jslib.js",
     "inputFiles": [
       // 基本
-      "src/jslib/1start.part.js",
-      "src/jslib/dom.part.js",
-      "src/jslib/domEvent.part.js",
-      "src/jslib/ext_base_array.part.js",
-      "src/jslib/ext_base_string.part.js",
-      "src/jslib/ext_base_rand.part.js",
-      "src/jslib/ext_base_date.part.js",
-      "src/jslib/ext_base_valid.part.js",
-      "src/jslib/2end.part.js",
+      "src/1start.part.js",
+      "src/dom.part.js",
+      "src/domEvent.part.js",
+      "src/ext_base_array.part.js",
+      "src/ext_base_string.part.js",
+      "src/ext_base_rand.part.js",
+      "src/ext_base_date.part.js",
+      "src/ext_base_valid.part.js",
+      "src/2end.part.js",
       // 扩展
-      "src/jslib/ext_com_formcheck.part.js",
-      "src/jslib/ext_com_ajax.part.js",
-      "src/jslib/ext_com_elemstring.part.js"
-    ],
-    "minify": { "enabled": false }
-  },
-  {
-    "outputFileName": "cavlib.js",
-    "inputFiles": [
-      "src/cavlib/1start.part.js",
-      // 坐标点计算
-      "src/cavlib/data1_line.part.js",
-      "src/cavlib/data2_cirs.part.js",
-      // 绘画
-      "src/cavlib/aid.part.js",
-      "src/cavlib/curve.part.js",
-      //
-      "src/cavlib/2end.part.js"
+      "src/ext_com_formcheck.part.js",
+      "src/ext_com_ajax.part.js",
+      "src/ext_com_elemstring.part.js"
     ],
     "minify": { "enabled": false }
   }
