@@ -1799,8 +1799,9 @@ p {
   color: var(--color-white);
 }
 .sidemenu-label {
-  display: block;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   font-weight: 700;
   padding: 0.4em;
@@ -1809,15 +1810,21 @@ p {
 }
 .sidemenu-arrleft,
 .sidemenu-arrdown {
-  display: inline-block;
-  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 1em;
-  height: 1px;
-  top: 50%;
-  right: 0.4em;
+  height: 1em;
+}
+.sidemenu-arrleft:before,
+.sidemenu-arrdown:before {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 2px;
   background-color: currentColor;
 }
-.sidemenu-arrleft {
+.sidemenu-arrleft:before {
   box-shadow: 0 -0.3em, 0 0.3em;
 }
 .sidemenu-group-close li:not(:first-child) {

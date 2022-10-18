@@ -1,13 +1,13 @@
 ﻿<div class="doc-page">
   <h2>侧边菜单</h2>
   <p># 使用自定义标记 <strong>&lt;m-sidemenu&gt;</strong> </p>
-  <p class="text-in">位于页面左侧的主菜单,用于管理系统的页面导航.</p>
+  <p class="text-in">位于页面左侧的主菜单,用于管理系统的主菜单.只有1级菜单.</p>
   <p class="text-in">最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.</p>
   <p class="text-in">菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法. </p>
   <p class="text-in">略微兼容手机端,菜单项左边缩进减小,展开收起图标缩小.可以参考手机端的天猫京东的分类商品页面,侧边菜单占屏幕的20%左右.</p>
-  <div class="grids-1 grids-md-2" id="sidemenutestbox">
-    <div>
-      <m-sidemenu class="bg-primary mg-5" id="sidemenudemo2">
+  <div class="grids" id="sidemenutestbox">
+    <div class="grid-12 grid-md-6 ">
+      <m-sidemenu class="bg-primary mg-5" id="sidemenudemo2" style="width:200px">
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">绑定事件<i class="sidemenu-arrdown"></i></span>
@@ -20,7 +20,7 @@
         </ul>
       </m-sidemenu>
     </div>
-    <div>
+    <div class="grid-12 grid-md-6 ">
       <m-sidemenu class="bg-gray-lt mg-5" id="sidemenudemo1" style="width:200px">
         <ul class="sidemenu-group">
           <li>
@@ -74,7 +74,7 @@
       [
         // 每个元素是一个对象
         {
-  <strong>title</strong>: '菜单组标题',
+          <strong>title</strong>: '菜单组标题',
           // 菜单组标题的属性和样式
           props: { k: 'v', k1: 'v1' },
           styles: ['class1','class2'],
@@ -82,7 +82,7 @@
           // 每组菜单项是一个数组
           menus: [
             {
-  <strong>title</strong>: '菜单标题',
+              <strong>title</strong>: '菜单标题',
               // 菜单项dom的属性
               props: { href: '#url', name: 'name' },
               // 菜单项dom的样式

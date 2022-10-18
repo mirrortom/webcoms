@@ -29,8 +29,9 @@
         color: var-white
     // 菜单组标题
     &-label
-        display: block
-        position: relative
+        display: flex
+        justify-content: space-between
+        align-items: center
         width: 100%
         font-weight: 700
         padding: .4em
@@ -38,16 +39,22 @@
         @extend .text-overflow
         cursor: pointer
 
-    // 菜单组标题 收起/展开
+    // 菜单组标题 收起/展开图标
     &-arrleft, &-arrdown
-        display:inline-block
-        position: absolute
+        display: inline-flex
+        justify-content: center
+        align-items: center
         width:1em
-        height:1px
-        top: 50%
-        right: .4em
+        height:1em
+       
+    &-arrleft:before, &-arrdown:before
+        content:''
+        display:inline-block
+        width:1em
+        height:2px
         background-color: currentColor
-    &-arrleft
+    // close
+    &-arrleft:before
         box-shadow:0 -.3em,0 .3em; 
          
     // 菜单组关闭

@@ -613,7 +613,8 @@
         constructor() {
             // 必须首先调用 super 方法
             super();
-
+            // 样式
+            $(this).addClass('btn');
         }
         // ========
         // 钩子函数
@@ -623,10 +624,6 @@
             // ==================
             // init set prop
             // ==================
-            // 样式
-            if (!$(this).hasClass('btn')) {
-                $(this).addClass('btn');
-            }
         }
 
         // =======
@@ -2479,7 +2476,8 @@ contDom:
                     let groupItem = json[i];
                     // 菜单组
                     let mgroup = $('<ul>').addClass('sidemenu-group');
-                    let menugroupTitle = $('<span>').addClass('sidemenu-label').html(groupItem.title + '<i class="sidemenu-arrdown"></i>');
+                    let menugroupTitle = $('<span>').addClass('sidemenu-label').html(groupItem.title);
+                    menugroupTitle.append($('<i>').addClass('sidemenu-arrdown')[0]);
                     //menugroupTitle.prop('title', groupItem.title);
                     groupItem.styles && menugroupTitle.addClass(...groupItem.styles);
                     groupItem.props && menugroupTitle.prop(groupItem.props);
