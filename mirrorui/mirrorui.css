@@ -94,7 +94,8 @@ a {
 }
 .text-overflow,
 .sidemenu-item,
-.sidemenu-label {
+.sidemenu-label,
+.docmenu-item {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1850,6 +1851,67 @@ p {
   .sidemenu-split {
     margin: 0.4em 0 0.4em 0.4em;
   }
+}
+.docmenu {
+  display: block;
+}
+.docmenu-group {
+  list-style: none;
+}
+.docmenu-group .docmenu-group {
+  margin-left: 1em;
+}
+.docmenu-item {
+  display: block;
+  text-decoration: none;
+  padding: 4px 0 4px 2em;
+  font-weight: 400;
+  cursor: pointer;
+}
+.docmenu-item:not(.active):hover {
+  text-decoration: underline;
+}
+.docmenu-item.active {
+  font-weight: 600;
+  background-color: var(--color-gray-lt);
+}
+.docmenu-title {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.docmenu-open,
+.docmenu-close {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+}
+.docmenu-open:before,
+.docmenu-close:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  width: 0.7em;
+  height: 0.7em;
+  border: 2px solid currentColor;
+  border-right: none;
+  border-bottom: none;
+}
+.docmenu-open:before {
+  bottom: 0.396em;
+  left: 50%;
+  transform: translateX(-50%) rotate(-135deg);
+}
+.docmenu-close:before {
+  right: 0.396em;
+  top: 50%;
+  transform: translateY(-50%) rotate(135deg);
+}
+.docmenu-group-close li:not(:first-child) {
+  display: none;
 }
 .panel {
   border: 1px solid var(--color-gray-lt);

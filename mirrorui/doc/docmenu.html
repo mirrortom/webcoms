@@ -1,0 +1,148 @@
+﻿<div class="doc-page">
+  <h2>文档菜单</h2>
+  <p># 使用自定义标记 <strong>&lt;m-docmenu&gt;</strong> </p>
+  <p class="text-in">用于文档页面,位于左侧的菜单,模仿了MSDN的文档菜单,简洁风格.可以嵌套.</p>
+  <p class="text-in">一个菜单组是一个ul列表,其中的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.li里可以嵌套菜单组.</p>
+  <p class="text-in">菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法. </p>
+
+  <m-docmenu class="mg-5" id="docmenudemo1" style="width:200px">
+    <ul class="docmenu-group">
+      <li>
+        <span class="docmenu-title"><i class="docmenu-open"></i>文档菜单</span>
+      </li>
+      <li><a class="docmenu-item">菜单一(点击)</a></li>
+      <li><a class="docmenu-item">菜单二</a></li>
+      <li><a class="docmenu-item">菜单三</a></li>
+      <li>
+        <ul class="docmenu-group">
+          <li>
+            <span class="docmenu-title"><i class="docmenu-open"></i>文档菜单子级1</span>
+          </li>
+          <li><a class="docmenu-item">菜单1.1</a></li>
+          <li><a class="docmenu-item">菜单1.2</a></li>
+        </ul>
+      </li>
+    </ul>
+  </m-docmenu>
+  <br />
+  <pre class="bg-gray-lt">
+
+    // DOM结构
+    &lt;ul class="docmenu-group"&gt;
+      &lt;li&gt;
+        &lt;span class="docmenu-label"&gt;&lt;i class="docmenu-open"&gt;&lt;/i&gt;文档菜单&lt;/span&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单一&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单二&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;
+        &lt;ul class="docmenu-group"&gt;
+          &lt;li&gt;
+            &lt;span class="docmenu-label"&gt;&lt;i class="docmenu-open"&gt;&lt;/i&gt;文档菜单子级1&lt;/span&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单1.1&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单1.2&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    // 调用create()方法,初始化菜单
+    let docmenu1 = document.getElementById('main_menubox');
+    docmenu1.<strong>create()</strong>;
+
+</pre>
+  <br />
+  <p># 方法 <strong>create(json, itemClickE)</strong></p>
+  <p class="text-in">生成菜单项,绑定事件.可以传入json对象,动态生成菜单项.</p>
+  <p>
+    <m-btn id="createdocmenu1">生成菜单</m-btn>
+  </p>
+
+  <m-docmenu id="docmenujsondeom1" class="bg-gray-dk" style="width:200px"></m-docmenu>
+  <br />
+  <pre class="bg-gray-lt">
+
+    // json结构: 一个数组,元素是一个对象.{title:'菜单组标题',menus:['菜单项1','菜单项2',..,{}]}
+       menus里可以嵌套子菜单组
+       [
+          {
+              title: '组标题',
+              menus: ['菜单项1','菜单项2',
+                       {
+                        title: '子菜单组标题',menus:[]]
+                       }
+                     ]
+          },
+          ...
+       ]
+  
+    // <strong>itemClickE(item, index)</strong>: 点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
+    // 这两个参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要第1个参数,传(null,fun)
+    
+</pre>
+  <br />
+  <p># 方法 <strong>activeItem(itemIndex)</strong></p>
+  <p class="text-in">指定一个激活的菜单,itemIndex 是菜单索引</p>
+  <p># 方法 <strong>openGroups(tag)</strong></p>
+  <p class="text-in">打开/关闭所有菜单组,tag=-1(关闭)</p>
+  <pre class="bg-gray-lt">
+    
+    // 激活第三个菜单
+    document.getElementById('docmenudemo1').<strong>activeItem(2)</strong>;
+
+    // 关闭所有菜单组
+    openGroups(-1);
+
+</pre>
+  <br />
+  <script>
+    (() => {
+
+      let docmenu1 = document.getElementById('docmenudemo1');
+      docmenu1.create();
+      docmenu1.activeItem(2);
+      docmenu1.create(null,
+        (item, i) => {
+          window.ns.msgbox.alert(item.innerText + 'index:' + i);
+        }
+      );
+      //
+      document.getElementById('createdocmenu1').onclick = () => {
+        // 菜单数据是一个数组
+        let menuJson =
+          [
+            {
+              title: "文档菜单组1",
+              menus: ['菜单1.1', '菜单1.2', '菜单1.3',
+                {
+                  title: '菜单组1.4',
+                  menus: ['1.4-1', '1.4-2', '1.4-3']
+                }]
+            },
+            {
+              title: "文档菜单组2",
+              menus: ['菜单2.1', '菜单2.2', '菜单2.3',
+                {
+                  title: '菜单组2.4',
+                  menus: ['2.4-1', '2.4-2', '2.4-3',
+                    {
+                      title: '2.5',
+                      menus: ['2.5-1', '2.5-2', '2.5-3', '2.5-4']
+                    },
+                    {
+                      title: '2.6',
+                      menus: ['2.6-1', '2.6-2', '2.6-3', '2.6-4', '2.6-5']
+                    }
+                  ]
+                }]
+            }
+          ];
+        let docjsonmenu1 = document.getElementById('docmenujsondeom1');
+        docjsonmenu1.innerHTML = '';
+        docjsonmenu1.create(menuJson, (item, index) => {
+          window.ns.msgbox.alert(`menuId : ${item.getAttribute('menuId')}, menuIndex : ${index}`);
+        });
+        docjsonmenu1.openGroups();
+      }
+    })();
+  </script>
+</div>

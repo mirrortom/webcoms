@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="404.html" />
+    <Content Include="doc\docmenu.html" />
     <Content Include="doc\update.html" />
     <Content Include="doc\cachepagedemo1.html" />
     <Content Include="doc\mdirbardemo.html" />
@@ -49,6 +50,7 @@
     <Content Include="js\m-file.js" />
     <Content Include="js\m-radio.js" />
     <Content Include="js\m-check.js" />
+    <Content Include="js\m-docmenu.js" />
     <Content Include="js\m-switch.js" />
     <Content Include="js\m-btn.js" />
     <Content Include="js\mdirbar.js" />
@@ -129,6 +131,7 @@
     <None Include="stylus\coms\msgbox.styl" />
     <None Include="stylus\coms\msgpanel.styl" />
     <None Include="stylus\coms\mnavmenu.styl" />
+    <None Include="stylus\coms\docmenu.styl" />
     <None Include="stylus\exts\menubar.styl" />
     <None Include="stylus\exts\kvpair.styl" />
     <None Include="stylus\exts\pageload.styl" />
