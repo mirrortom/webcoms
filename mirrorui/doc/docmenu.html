@@ -27,7 +27,7 @@
   <br />
   <pre class="bg-gray-lt">
 
-    // DOM结构
+    // 单个菜单组DOM结构
     &lt;ul class="docmenu-group"&gt;
       &lt;li&gt;
         &lt;span class="docmenu-label"&gt;&lt;i class="docmenu-open"&gt;&lt;/i&gt;文档菜单&lt;/span&gt;
@@ -37,7 +37,7 @@
       &lt;li&gt;
         &lt;ul class="docmenu-group"&gt;
           &lt;li&gt;
-            &lt;span class="docmenu-label"&gt;&lt;i class="docmenu-open"&gt;&lt;/i&gt;文档菜单子级1&lt;/span&gt;
+            &lt;span class="docmenu-title"&gt;&lt;i class="docmenu-open"&gt;&lt;/i&gt;文档菜单子级1&lt;/span&gt;
           &lt;/li&gt;
           &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单1.1&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单1.2&lt;/a&gt;&lt;/li&gt;
@@ -51,8 +51,11 @@
 
 </pre>
   <br />
-  <p># 方法 <strong>create(json, itemClickE)</strong></p>
-  <p class="text-in">生成菜单项,绑定事件.可以传入json对象,动态生成菜单项.</p>
+  <p># 方法 <strong>create(json, menuItemClickE, menuItemSet)</strong></p>
+  <p class="text-in">生成菜单项,绑定事件,设置属性.传入菜单数据json对象,动态生成菜单项.</p>
+  <p class="text-in">json: 菜单数据</p>
+  <p class="text-in">menuItemClickE : 菜单项点击事件</p>
+  <p class="text-in">menuItemSet : 菜单项设置</p>
   <p>
     <m-btn id="createdocmenu1">生成菜单</m-btn>
   </p>
@@ -61,36 +64,51 @@
   <br />
   <pre class="bg-gray-lt">
 
-    // json结构: 一个数组,元素是一个对象.{title:'菜单组标题',menus:['菜单项1','菜单项2',..,{}]}
-       menus里可以嵌套子菜单组
+    // json结构: 一个数组,元素是一个对象.{title:'菜单组标题',menus:[{菜单项1},{菜单项2},..,{}]}
+    // menus里可以嵌套子菜单组,如果菜单项是一个包含menus属性的对象,那么视为子菜单组
+    // 菜单项可以是对象或者字符串或者其它类型,需要传入menuItemSet方法自定义菜单项
        [
           {
               title: '组标题',
-              menus: ['菜单项1','菜单项2',
+              menus: [{菜单项1},{菜单项2},
                        {
-                        title: '子菜单组标题',menus:[]]
+                        title: '子菜单组标题',<b>menus</b>:[]]
                        }
                      ]
           },
           ...
        ]
   
-    // <strong>itemClickE(item, index)</strong>: 点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
-    // 这两个参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要第1个参数,传(null,fun)
+    // <strong>menuItemClickE(menuItem, index)</strong>: 点击菜单后执行的方法.menuItem是被点击的菜单dom对象,index是菜单索引
+    // <strong>menuItemSet(menuItem,data)</strong>: 自定义菜单项.menuItem是菜单dom对象,实际是一个a标记,可以设置一些属性.data就是菜单项在json里的源对象.
+    // 所有参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要的参数传(null,click,set)
     
 </pre>
   <br />
   <p># 方法 <strong>activeItem(itemIndex)</strong></p>
   <p class="text-in">指定一个激活的菜单,itemIndex 是菜单索引</p>
-  <p># 方法 <strong>openGroups(tag)</strong></p>
-  <p class="text-in">打开/关闭所有菜单组,tag=-1(关闭)</p>
+  <p># 方法 <strong>openGroups(index=-1)</strong></p>
+  <p class="text-in">打开菜单组,index=-1(全部打开)</p>
+  <p># 方法 <strong>closeGroups(index=-1)</strong></p>
+  <p class="text-in">关闭菜单组,index=-1(全部关闭)</p>
+  <p>菜单和菜单组的索引编号是顺序排列下来,从0开始.如果有嵌套,只是简单累加.</p>
   <pre class="bg-gray-lt">
     
     // 激活第三个菜单
     document.getElementById('docmenudemo1').<strong>activeItem(2)</strong>;
 
     // 关闭所有菜单组
-    openGroups(-1);
+    closeGroups();
+    // 打开所有菜单组
+    openGroups();
+
+    // 菜单和索引是累加计数,线性的.
+    菜单组1(0)
+        菜单1.1(0)
+        菜单1.2(1)
+      菜单组1.3(1)
+        菜单1.3.1(2)
+        菜单1.3.2(3)
 
 </pre>
   <br />
@@ -138,10 +156,16 @@
           ];
         let docjsonmenu1 = document.getElementById('docmenujsondeom1');
         docjsonmenu1.innerHTML = '';
-        docjsonmenu1.create(menuJson, (item, index) => {
-          window.ns.msgbox.alert(`menuId : ${item.getAttribute('menuId')}, menuIndex : ${index}`);
-        });
-        docjsonmenu1.openGroups();
+        docjsonmenu1.create(menuJson,
+          (item, index) => {
+            window.ns.msgbox.alert(`menuId : ${item.getAttribute('menuId')}, menuIndex : ${index}`);
+          },
+          (item, data) => {
+            $(item).text(data);
+          }
+        );
+        docjsonmenu1.openGroups(0);
+        docjsonmenu1.openGroups(1);
       }
     })();
   </script>

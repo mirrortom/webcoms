@@ -40,11 +40,11 @@
 
         // 主要方法: 生成文档菜单
         // json结构: 一个数组,元素是一个对象.{title:'菜单组标题',menus:['菜单项1','菜单项2',..,{}]}
-        // menus里可以嵌套子菜单组
+        // menus里可以嵌套子菜单组,如果对象包含menus属性,那么视为子菜单组
         // [
         //    {
         //        title: '组标题',
-        //        menus: ['菜单项1','菜单项2',
+        //        menus: [{菜单项1},{菜单项2},
         //                 {
         //                  title: '子菜单组标题',menus:[]]
         //                 }
@@ -53,7 +53,7 @@
         //    ...
         // ]
         //
-        create(json, menuItemClickE) {
+        create(json, menuItemClickE, menuItemSet) {
             // 菜单项dom生成
             if (json) {
 
@@ -67,15 +67,18 @@
 
                     // 菜单项标题
                     for (let i = 0; i < group.menus.length; i++) {
-                        let menuItem = group.menus[i];
+                        let menuData = group.menus[i];
                         // 子级
-                        if (typeof menuItem === 'object') {
+                        if (typeof menuData === 'object' && menuData.menus) {
                             let li = $('<li>')[0];
-                            createDocMenuGroup(menuItem, li);
+                            createDocMenuGroup(menuData, li);
                             ul.append(li);
                         } else {
                             // 属性和样式
-                            let menu = $('<a>').addClass('docmenu-item').text(menuItem);
+                            let menu = $('<a>').addClass('docmenu-item');
+                            if (typeof menuItemSet === 'function') {
+                                menuItemSet(menu[0], menuData);
+                            }
                             ul.append($('<li>').append(menu[0])[0]);
                         }
                     }
@@ -128,18 +131,37 @@
             let activeMenuItem = $(this).find('.docmenu-item')[menuIndex];
             activeMenuItem.click();
         }
-        // 打开/关闭所有菜单组
-        // tag=-1 关闭
-        openGroups(tag) {
+        // 打开/关闭菜单组
+        // index:索引.为-1时打开所有组
+        openGroups(index = -1) {
             let openClsN = 'docmenu-open', closeClsN = 'docmenu-close',
                 groupCloseClsN = 'docmenu-group-close';
-            if (tag == -1) {
+            if (index == -1) {
+                $(this).find('.docmenu-group').removeClass(groupCloseClsN);
+                $(this).find(`.${closeClsN}`).removeClass(closeClsN).addClass(openClsN);
+                return;
+            }
+            let group = $(this).find('.docmenu-group').eq(index);
+            if (group.length == 1) {
+                group.removeClass(groupCloseClsN);
+                group.find(`.${closeClsN}`).eq(0).removeClass(closeClsN).addClass(openClsN);
+            }
+        }
+        // 关闭菜单组
+        // index:索引.为-1时关闭所有组
+        closeGroups(index = -1) {
+            let openClsN = 'docmenu-open', closeClsN = 'docmenu-close',
+                groupCloseClsN = 'docmenu-group-close';
+            if (index == -1) {
                 $(this).find('.docmenu-group').addClass(groupCloseClsN);
                 $(this).find(`.${openClsN}`).removeClass(openClsN).addClass(closeClsN);
                 return;
             }
-            $(this).find('.docmenu-group').removeClass(groupCloseClsN);
-            $(this).find(`.${closeClsN}`).removeClass(closeClsN).addClass(openClsN);
+            let group = $(this).find('.docmenu-group').eq(index);
+            if (group.length == 1) {
+                group.addClass(groupCloseClsN);
+                group.find(`.${openClsN}`).eq(0).removeClass(openClsN).addClass(closeClsN);
+            }
         }
     });
 })(window);
