@@ -1,53 +1,55 @@
 ﻿<div class="doc-page">
   <h2>工具样式</h2>
   <p>为了方便使用,做一些单一功能的样式类.所谓"原子样式",组合使用多种原子样式达到一定效果.这种做法灵活搭配,也可以减少重复的css条目.</p>
-  <p class="article-title">text-overflow</p>
-  <p>文本超出时,显示省略号.需要给元素设置宽度width或者max-width,否则没有效果.</p>
-  <p class="text-overflow" style="width:260px" title="text-overflow文本超出时,显示省略号">
+  <p class="article-title">文本省略号</p>
+  <p>文本超出容器宽度时,不换行,而是显示省略号.</p>
+  <p>需要给元素设置宽度width或者max-width,否则没有效果.</p>
+  <p class="text-overflow pd-5 bg-success-lt" style="width:260px" title="text-overflow文本超出时,显示省略号">
     class="<strong>text-overflow</strong>" 文本超出时,显示省略号
   </p>
   <pre class="bg-gray-lt">
+
   // text-overflow类设置了max-width:100%
   &lt;p class="<strong>text-overflow</strong>" style="width:260px" title="text-overflow文本超出时,显示省略号"&gt;
     class="text-overflow" 文本超出时,显示省略号
   &lt;/p&gt;
 
 </pre>
-  <p class="article-title">文本对齐</p>
+  <p class="article-title">文本水平对齐</p>
   <div class="grids-3">
-    <p class="text-left bg-gray mg-lr-10">class="text-left" 左</p>
-    <p class="text-center bg-primary mg-lr-10">class="text-center" 中</p>
-    <p class="text-right bg-info mg-lr-10">class="text-right" 右</p>
+    <p class="text-left bg-success-lt pd-5 mg-5">class="text-left"</p>
+    <p class="text-center bg-success-lt pd-5 mg-5">class="text-center"</p>
+    <p class="text-right bg-success-lt pd-5 mg-5">class="text-right"</p>
   </div>
   <p class="article-title">文本大小</p>
+  <div class="layout-hw">
+    <p class="bg-success-lt pd-5 mg-5 text-sm">text-sm 12px</p>
+    <p class="bg-success-lt pd-5 mg-5">默认 14px</p>
+    <p class="bg-success-lt pd-5 mg-5 text-md">text-md 16px</p>
+    <p class="bg-success-lt pd-5 mg-5 text-lg">text-lg 20px</p>
+    <p class="bg-success-lt pd-5 mg-5 text-xl">text-xl 24px</p>
+    <p class="bg-success-lt pd-5 mg-5 text-xxl">text-xxl 36px</p>
+    <p class="bg-success-lt pd-5 mg-5 text-xxxl">text-xxxl 48px</p>
+  </div>
 
-  <p class="bg-gray-lt text-sm">text-sm 12px</p>
-  <p class="bg-gray-lt">默认 14px</p>
-  <p class="bg-gray-lt text-md">text-md 16px</p>
-  <p class="bg-gray-lt text-lg">text-lg 20px</p>
-  <p class="bg-gray-lt text-xl">text-xl 24px</p>
-  <p class="bg-gray-lt text-xxl">text-xxl 36px</p>
-  <p class="bg-gray-lt text-xxxl">text-xxxl 48px</p>
-
-  <p class="article-title">text-in</p>
-  <p># 段落开头缩进2em</p>
-  <p class="text-in">class="<strong>text-in</strong>" 这个用于一段文字开头缩进2em.表示一段文字的开始.</p>
+  <p class="article-title">文本缩进</p>
+  <p class="text-in pd-5 bg-success-lt" style="width:260px">class="<strong>text-in</strong>" 用于一段文字开头缩进2em.表示一段文字的开始.</p>
   <p class="article-title">文本颜色</p>
-  <p># 主题文本色</p>
-  <div class="grids-5">
+  <p># 主题文本色,dk表示颜色加深(dark),lt表示减淡(little)</p>
+  <div class="grids-2 grids-md-5">
     @foreach (var item in Model.themecolors)
     {
       <p class="text-@item bg-gray-lt pd-5 mg-lr-10">class="text-@item"</p>
     }
   </div>
-  <div class="grids-5">
+  <div class="grids-2 grids-md-5">
     @foreach (var item in Model.themecolors)
     {
       string se = item + "-dk";
       <p class="text-@se bg-gray-lt pd-5 mg-lr-10">class="text-@se"</p>
     }
   </div>
-  <div class="grids-5">
+  <div class="grids-2 grids-md-5">
     @foreach (var item in Model.themecolors)
     {
       string lt = item + "-lt";
@@ -55,30 +57,30 @@
     }
   </div>
   <p># 黑白灰</p>
-  <div class="grids-3">
-    <span class="text-black-lt bg-gray-lt pd-5 mg-10">默认文字颜色#333 class="text-black-lt"</span>
-    <span class="text-black bg-gray-lt pd-5 mg-10">黑色 class="text-black"</span>
-    <span class="text-white bg-black-lt pd-5 mg-10">白色 class="text-white"</span>
-    <span class="text-gray bg-black-lt pd-5 mg-10">灰色 class="text-gray"</span>
-    <span class="text-gray-dk bg-black-lt pd-5 mg-10">深灰色 class="text-gray-dk"</span>
-    <span class="text-gray-lt bg-black-lt pd-5 mg-10">浅灰色 class="text-gray-lt"</span>
+  <div class="layout-hw">
+    <span class="text-black-lt bg-success-lt pd-5 mg-10">class="text-black-lt" 默认文字颜色#333 </span>
+    <span class="text-black bg-success-lt pd-5 mg-10">class="text-black" 黑色</span>
+    <span class="text-white bg-success-lt pd-5 mg-10">class="text-white" 白色</span>
+    <span class="text-gray bg-black-lt pd-5 mg-10">class="text-gray" 灰色</span>
+    <span class="text-gray-dk bg-black-lt pd-5 mg-10">class="text-gray-dk" 深灰色</span>
+    <span class="text-gray-lt bg-black-lt pd-5 mg-10">class="text-gray-lt" 浅灰色</span>
   </div>
   <p class="article-title">背景颜色</p>
   <p># 主题背景颜色</p>
-  <div class="grids-5">
+  <div class="grids-2 grids-md-5">
     @foreach (var item in Model.themecolors)
     {
       <p class="bg-@item text-white pd-5 mg-lr-10">class="bg-@item"</p>
     }
   </div>
-  <div class="grids-5">
+  <div class="grids-2 grids-md-5">
     @foreach (var item in Model.themecolors)
     {
       string dk = item + "-dk";
       <p class="bg-@dk text-white pd-5 mg-lr-10">class="bg-@dk"</p>
     }
   </div>
-  <div class="grids-5">
+  <div class="grids-2 grids-md-5">
     @foreach (var item in Model.themecolors)
     {
       string lt = item + "-lt";
@@ -87,38 +89,75 @@
   </div>
   <p># 黑白灰</p>
   <div class="grids-3">
-    <span class="bg-black-opa50 pd-5 mg-10">半透明黑 class="bg-black-opa50"</span>
-    <span class="bg-black text-white pd-5 mg-10">黑色 class="bg-black"</span>
-    <span class="bg-white pd-5 mg-10">白色 class="bg-white"</span>
-    <span class="bg-gray pd-5 mg-10">灰色 class="bg-gray"</span>
-    <span class="bg-gray-dk pd-5 mg-10">深灰色 class="bg-gray-dk"</span>
-    <span class="bg-gray-lt pd-5 mg-10">浅灰色 class="bg-gray-lt"</span>
+    <span class="bg-black-opa50 pd-5 mg-10">class="bg-black-opa50" 半透明黑</span>
+    <span class="bg-black text-white pd-5 mg-10">class="bg-black" 黑色</span>
+    <span class="bg-white pd-5 mg-10">class="bg-white"白色</span>
+    <span class="bg-gray pd-5 mg-10">class="bg-gray" 灰色</span>
+    <span class="bg-gray-dk pd-5 mg-10">class="bg-gray-dk" 深灰色 </span>
+    <span class="bg-gray-lt pd-5 mg-10">class="bg-gray-lt" 浅灰色</span>
   </div>
 
-  <p class="article-title">边距margin 内容距padding</p>
-  <p># pd-n(n=5,10,15,..,45,50) 四个方向(l,r,t,b) pd-l-n pd-r-n pd-t-n pd-b-n, 可以组合上下与左右 pd-lr-n pd-tb-n</p>
-  <div class="text-center" style="border:1px solid #eee">
-    <span class="pd-10 bg-gray">class="pd-10"</span>
-    <span class="pd-t-10 bg-primary">class="pd-t-10" 上</span>
-    <span class="pd-b-10 bg-success">class="pd-b-10" 下</span>
-    <span class="pd-lr-10 bg-danger">class="mg-lr-20" 左右</span>
-    <span class="pd-tb-10 bg-info">class="mg-tb-20" 上下</span>
+  <p class="article-title">margin 和 padding</p>
+  <p>列举了常用的margin和padding值,n = (5,10,15,..,45,50)</p>
+  <p>可以设置上下左右(t,b,l,r)4种方向,以及上下(tb)和左右(lr)2种组合方向</p>
+  <p>margin和padding对块级和行内块级元素完全生效,对行内元素部分生效.</p>
+  <div class="mg-b-15">
+    <span class="pd-15 mg-10 bg-success-lt" style="display:inline-block">class="pd-15"</span>
+    <span class="pd-t-15 mg-10 bg-success-lt" style="display:inline-block">class="pd-t-15"</span>
+    <span class="pd-b-15 mg-10 bg-success-lt" style="display:inline-block">class="pd-b-15"</span>
+    <span class="pd-l-15 mg-10 bg-success-lt" style="display:inline-block">class="pd-l-15"</span>
+    <span class="pd-r-15 mg-10 bg-success-lt" style="display:inline-block">class="pd-r-15"</span>
+    <span class="pd-tb-15 mg-10 bg-success-lt" style="display:inline-block">class="pd-tb-15"</span>
+    <span class="pd-lr-15 mg-10 bg-success-lt" style="display:inline-block">class="pd-lr-15"</span>
   </div>
-  <p class="article-title">margin-auto margin-lr-auto</p>
-  <p>有宽度的块级元素左右居中,样式内容是: margin-left:auto margin-right:auto margin:auto</p>
-  <div style="border:1px solid #eee">
-    <div class="mg-lr-auto bg-primary-lt mg-10" style="width:300px;">class="mg-lr-auto" width:300px</div>
-    <div class="mg-auto bg-info-lt" style="width:300px;">class="mg-auto" width:300px</div>
+
+  <div class="layout-hw">
+    <div class="mg-5 bg-gray-lt">
+      <span class="mg-15 bg-success-lt" style="display:inline-block">class="mg-15"</span>
+    </div>
+    <div class="mg-5 bg-gray-lt">
+      <span class="mg-t-15 bg-success-lt" style="display:inline-block">class="mg-t-15"</span>
+    </div>
+    <div class="mg-5 bg-gray-lt">
+      <span class="mg-b-15 bg-success-lt" style="display:inline-block">class="mg-b-15"</span>
+    </div>
+    <div class="mg-5 bg-gray-lt">
+      <span class="mg-l-15 bg-success-lt" style="display:inline-block">class="mg-l-15"</span>
+    </div>
+    <div class="mg-5 bg-gray-lt">
+      <span class="mg-r-15 bg-success-lt" style="display:inline-block">class="mg-r-15"</span>
+    </div>
+    <div class="mg-5 bg-gray-lt">
+      <span class="mg-tb-15 bg-success-lt" style="display:inline-block">class="mg-tb-15"</span>
+    </div>
+    <div class="mg-5 bg-gray-lt">
+      <span class="mg-lr-15 bg-success-lt" style="display:inline-block">class="mg-lr-15"</span>
+    </div>
+  </div>
+
+  <p class="article-title">块级元素左右居中</p>
+  <p>#左右居中</p>
+  <p>对有宽度的块级元素在父级容器中左右居中,使用margin实现.</p>
+  <div class="bg-gray-lt" style="width:260px;height:50px">
+    <div class="mg-lr-auto bg-primary-lt" style="width:200px">class="mg-lr-auto"</div>
+  </div>
+  <br />
+  <p>#左右上下居中</p>
+  <p>效果和水平居中一样,但对有宽度和高度的块级元素,可以配合绝对定位实现水平垂直居中.</p>
+  <div class="bg-gray-lt" style="position:relative;width:260px;height:50px">
+    <div class="mg-auto bg-info-lt" style="width:200px;height:20px;position:absolute;top:0;bottom:0;left:0;right:0">class="mg-auto"</div>
   </div>
   <br />
   <p class="article-title">隐藏与显示</p>
   <p>d-none d-block 媒体查询:针对不同大小屏幕 d - sm|md|lg|xl - none|block</p>
-  <p>例1,只在640px以下小屏幕才显示: class='d-block d-sm-none'</p>
-  <p>例2,只在992px以上大屏幕才显示: class='d-none d-lg-block'</p>
-  <div class="grids-4">
-    <span class="d-block pd-5 d-sm-none bg-danger mg-lr-10">小屏幕 640px以下显示</span>
-    <span class="d-none pd-5 d-sm-block bg-gray mg-lr-10">小平版 640px以上显示</span>
-    <span class="d-none pd-5 d-lg-block bg-primary mg-lr-10">大平板 992px以上显示</span>
-    <span class="d-none pd-5 d-xl-block bg-success mg-lr-10">PC 1200px以上显示</span>
+  <p>例1,只在640px以下小屏幕才显示: class='<b>d-block d-sm-none</b>'</p>
+  <p>例2,只在640px以上屏幕才显示: class='<b>d-none d-sm-block</b>'</p>
+  <p>例3,只在992px以上大屏幕才显示: class='<b>d-none d-lg-block</b>'</p>
+  <p>例4,只在1200px以上PC大屏幕才显示: class='<b>d-none d-xl-block</b>'</p>
+  <div class="grids-2 grids-md-4">
+    <span class="d-block pd-5 d-sm-none bg-danger mg-lr-10">例1 小屏幕 640px以下显示</span>
+    <span class="d-none pd-5 d-sm-block bg-gray mg-lr-10">例2 小平版 640px以上显示</span>
+    <span class="d-none pd-5 d-lg-block bg-primary mg-lr-10">例3 大平板 992px以上显示</span>
+    <span class="d-none pd-5 d-xl-block bg-success mg-lr-10">例4 PC 1200px以上显示</span>
   </div>
 </div>
