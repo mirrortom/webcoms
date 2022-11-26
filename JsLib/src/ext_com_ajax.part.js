@@ -2,23 +2,26 @@
 // ajax (使用原生: fetch()) fetch方法返回Promise对象.
 // 做了参数初始化包装,用法支持使用await方式,也可以使用.then()方式
 // https://github.com/matthew-andrews/isomorphic-fetch
-// (详细讲解)http://www.ruanyifeng.com/blog/2020/12/fetch-tutorial.html
-//          https://www.cnblogs.com/libin-1/p/6853677.html
+
+// (参考文档)
+// https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
+// http://www.ruanyifeng.com/blog/2020/12/fetch-tutorial.html
 // ====================================================================
 ((win) => {
     // help
     const $ = win.ns.jslib;
     // 初始化post请求
     let initPost = (para, initCfg) => {
-        let formData = new FormData();
-        if (para instanceof FormData) {
-            formData = para;
+        let cfg = { method: "POST" };
+        if (para instanceof FormData || typeof para == 'string') {
+            cfg.body = para;
         } else if (para) {
+            let formData = new FormData();
             Object.keys(para).forEach((key) => {
                 formData.append(key, para[key]);
             });
+            cfg.body = formData;
         }
-        let cfg = { method: "POST", body: formData };
         if (initCfg) {
             Object.keys(initCfg).forEach((key) => {
                 cfg[key] = initCfg[key];
@@ -34,14 +37,21 @@
                 para.forEach((val, key) => {
                     urlpara.push(`${key}=${val}`);
                 });
-            } else {
+            } else if (typeof para == 'object') {
+                // json
                 Object.keys(para).forEach((key) => {
                     urlpara.push(`${key}=${para[key]}`);
                 });
+            } else if (typeof para == 'string') {
+                // 字符串直接加后面
+                urlpara.push(para);
             }
+            // 
             if (url.indexOf('?') < 0) {
+                // 没有参数 http://url
                 url += '?';
             } else {
+                // 已有参数 http://url?a=1
                 url += '&';
             }
             url += urlpara.join('&');
