@@ -1,0 +1,74 @@
+﻿<div class="doc-page">
+  <h2>单选与多选</h2>
+  <p># 使用自定义标记,多选 <strong>&lt;m-check&gt;</strong> , 单选 <strong>&lt;m-radio&gt;</strong></p>
+  <div>
+    <m-check class="checked" tag="多选组-1" id="mcheckbox1"></m-check>
+    <m-check class="mg-l-20" tag="多选组-2"></m-check>
+    <m-radio class="checked mg-l-20" name="radiogroup1" tag="单选组-1"></m-radio>
+    <m-radio class="mg-l-20" name="radiogroup1" tag="单选组-2"></m-radio>
+    <m-check class="mg-l-20" tag="多选(disabled)" disabled></m-check>
+    <m-radio class="mg-l-20" name="radiogroup1" tag="单选(disabled)" disabled></m-radio>
+  </div>
+  <br />
+  <div class="grids-10">
+    @{
+      int i = 0, j = 0;
+    }
+    @foreach (string item in Model.themecolors)
+    {
+      i++;
+      <div><m-check class="@item text-md checked" tag="多选组-@i"></m-check></div>
+    }
+    @foreach (string item in Model.themecolors)
+    {
+      j++;
+      <m-radio class="@item text-md" name="radiogroup1" tag="单选组-@j"></m-radio>
+    }
+  </div>
+  <br />
+  <p># 属性 <strong>checked</strong></p>
+  <p class="text-in">选中返回true,否则返回false</p>
+
+  <p># 属性 <strong>onClicked(fn)</strong></p>
+  <p class="text-in">点击切换后执行方法</p>
+
+  <p># 标签属性 <strong>tag</strong></p>
+  <p class="text-in">设置一个标题</p>
+
+  <p># 单选</p>
+  <p class="text-in">同一个父级下的多个单选框,设置相同的name属性,实现单选</p>
+
+  <p># 选中状态,大小,颜色</p>
+  <p class="text-in">添加 <strong>.checked</strong>样式,会展现选中状态,添加 primary,text-lg等工具样式调整颜色和大小</p>
+
+  <pre class="bg-gray-lt">
+  // m-check多选,m-radio单选
+  &lt;m-radio tag="单选框2"&gt;&lt;/m-radio&gt;
+  &lt;m-check class="checked" tag="多选框1"&gt;&lt;/m-check&gt;
+
+  // tag:设置标题
+  &lt;m-check class="checked" <strong>tag</strong>="多选框1"&gt;&lt;/m-check&gt;
+
+  // 获取选中状态
+  let check1 = document.getElementById('checkbox1');
+  check1.<strong>checked</strong> // true / false
+
+  // 执行方法
+  check1.<strong>onClicked</strong> = (radio) => {
+    // radio参数就是this对象
+    radio.getAttribute('tag');
+  }
+
+  // 单选
+  &lt;m-radio tag="单选框1" <strong>name</strong>="radiogroup1" &gt;&lt;/m-radio&gt;
+  &lt;m-radio tag="单选框2" <strong>name</strong>="radiogroup1" &gt;&lt;/m-radio&gt;
+
+  // 颜色和大小,选中状态
+  &lt;m-check class="<strong>primary checked</strong> " tag="多选框1"&gt;&lt;/m-check&gt;
+  &lt;m-radio class="<strong>text-lg</strong>" tag="单选框2"&gt;&lt;/m-radio&gt;
+
+  // 禁用
+  &lt;m-radio <strong>disabled</strong> tag="单选框2"&gt;&lt;/m-radio&gt;
+
+</pre>
+</div>

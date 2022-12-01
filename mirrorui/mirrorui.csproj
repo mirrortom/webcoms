@@ -85,7 +85,11 @@
     <Content Include="doc\datetime.html" />
     <Content Include="doc\cachepage.html" />
     <Content Include="doc\design_form.html" />
-    <None Include="doc\form.cshtml" />
+    <None Include="doc\check.cshtml" />
+    <Content Include="doc\formlayout.html" />
+    <Content Include="doc\file.html" />
+    <Content Include="doc\select.html" />
+    <Content Include="doc\input.html" />
     <None Include="doc\grids.cshtml" />
     <Content Include="doc\mediaquery.html" />
     <Content Include="doc\pagelayout.html" />

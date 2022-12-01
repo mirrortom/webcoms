@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
   <link href="../mirrorui.css" rel="stylesheet" />
-  <script src="../mirrorui.js"></script>
   <title></title>
   <style>
     .container {
@@ -43,6 +41,7 @@
       </div>
     </div>
   </div>
+  <script src="../mirrorui.js"></script>
   <script>
     ((win) => {
       // help
@@ -79,6 +78,7 @@
 
       // 初始化sidemenu
       let sm1 = document.getElementById('sidemenu1');
+      console.log(sm1);
       sm1.create(menuJson, (menuItem, index) => {
         let menuId = '_' + index;
         cpg.load(menuId, menuItem.innerText);

@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="../mirrorui.css" rel="stylesheet" />
-  <script src="../mirrorui.js"></script>
   <title></title>
   <style>
     html, body {
@@ -56,11 +55,12 @@
       </div>
     </m-mnavmenu>
   </div>
+  <script src="../mirrorui.js"></script>
   <script>
     (() => {
       let html = '';
       for (var i = 0; i < 15; i++) {
-        html += `<h6 class="mg-10">&gt;&gt;填充内容${i+1}</h4>`;
+        html += `<h6 class="mg-10">&gt;&gt;填充内容${i + 1}</h4>`;
       }
       document.getElementById('contbox').innerHTML = html;
       //

@@ -94,7 +94,18 @@
           </li>
           <li><a class="docmenu-item" urlid="list">列表</a></li>
           <li><a class="docmenu-item" urlid="table">表格</a></li>
-          <li><a class="docmenu-item" urlid="form">表单</a></li>
+          <li>
+            <ul class="docmenu-group">
+              <li>
+                <span class="docmenu-title"><i class="docmenu-open"></i>表单</span>
+              </li>
+              <li><a class="docmenu-item" urlid="input">文本框</a></li>
+              <li><a class="docmenu-item" urlid="select">选择框</a></li>
+              <li><a class="docmenu-item" urlid="file">文件</a></li>
+              <li><a class="docmenu-item" urlid="check">单多选</a></li>
+              <li><a class="docmenu-item" urlid="formlayout">布局</a></li>
+            </ul>
+          </li>
         </ul>
 
         <ul class="docmenu-group">
@@ -144,8 +155,8 @@
       <div class="pd-15 pd-b-50" id="cachepage_cont"></div>
     </div>
   </div>
-  <script src="mirrorui.js"></script>
   <script src="../jslib/jslib.js"></script>
+  <script src="mirrorui.js"></script>
   <script>
     ((win) => {
       // 新建cachePage实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
