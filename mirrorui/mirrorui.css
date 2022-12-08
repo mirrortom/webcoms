@@ -727,6 +727,15 @@ a {
 .mg-auto {
   margin: auto;
 }
+.f-h-center {
+  justify-content: center;
+}
+.f-v-center {
+  align-items: center;
+}
+.f-vs-center {
+  align-self: center;
+}
 .d-none {
   display: none !important;
 }

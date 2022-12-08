@@ -148,6 +148,22 @@
     <div class="mg-auto bg-info-lt" style="width:200px;height:20px;position:absolute;top:0;bottom:0;left:0;right:0">class="mg-auto"</div>
   </div>
   <br />
+  <p class="article-title">flex布局居中</p>
+  <p>元素使用flex布局时,项目元素在轴线上的居中对齐.</p>
+  <p>用于父元素.在主轴上居中(f-h-center:justify-content),在垂直(与主轴)轴上居中(f-v-center:align-items)</p>
+  <div class="bg-gray-lt layout-h f-h-center f-v-center" style="width:260px;height:50px">
+    <div class="mg-lr-auto bg-info-lt" style="width:200px">
+      <span class="d-block">class="f-h-center"</span>
+      <span class="d-block">class="f-v-center"</span>
+    </div>
+  </div>
+  <br />
+  <p>用于项目元素.在垂直轴上居中(f-vs-center:align-self).</p>
+  <div class="bg-gray-lt layout-h f-h-center" style="width:260px;height:60px">
+    <span class="label info" style="width:100px">label</span>
+    <span class="label success f-vs-center">"f-vs-center"</span>
+  </div>
+  <br />
   <p class="article-title">隐藏与显示</p>
   <p>d-none d-block 媒体查询:针对不同大小屏幕 d - sm|md|lg|xl - none|block</p>
   <p>例1,只在640px以下小屏幕才显示: class='<b>d-block d-sm-none</b>'</p>
