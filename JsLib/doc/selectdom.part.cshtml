@@ -286,7 +286,7 @@
 </div>
 
 <div class="doc-part-box" id="loadhtml">
-  <h2>$('#id').load(url)</h2>
+  <h2>$('#id').load(url,callback)</h2>
   <p>从url加载html,然后设置到所有匹配元素的innerHTML.</p>
   <p>$ 的实例方法,类似于jquery.load()的功能.这里是使用XMLHttpRequest对象的get方法实现.不能跨域.</p>
   <p>如果返回失败了,丢出异常.如果成功:xhr.readyState === 4 && xhr.status === 200 则设置返回的html到容器元素里.</p>
@@ -300,4 +300,5 @@
   <br />
   <p>也可以加载js,为了实现动态加载js.用url扩展名判断,例如 xx.js是js文件,hh.html是html文件.</p>
   <p>如果请求的是js,那么将js放到script标记中. 再放到this.html('&lt;script&gt;xhr.response)</p>
+  <p>callback方法在成功返回时执行</p>
 </div>
