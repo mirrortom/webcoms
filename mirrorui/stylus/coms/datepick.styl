@@ -5,15 +5,23 @@
 // 基本高度和宽度单位
 $date-row-height = 40px
 $date-col-width = 40px
+
+// 主题色变量
+.date-box
+    --t-date-hover:$gray['1']// hover背景
+    --t-date-opened-bg-color:$gray['1']//打开了选框的按钮
+    --t-date-selected:$gray['3']// 选中的按钮
+    --t-date-ym-bg-color:$gray['1']// 年月背景交替色
+   
 // 外层容器
 .date-box
-    position: absolute
+    @extend $ext-position-absolute
     width: 282px
     cursor: default
-    border: 1px solid var-gray-dk
-    background-color: var-white
+    @extend $ext-border-1px
     outline: none
-    user-select: none
+    @extend $ext-user-select-none
+    background-color:inherit
     z-index: 10001
 
 // 行row    
@@ -39,20 +47,23 @@ $date-col-width = 40px
 // 列col
 .date-col
     &-ym, &-today, &-week, &-day, &-clear, &-ok, &-time,&-prev, &-next
-        display: grid
+        @extend $ext-display-grid
         place-items:center
-        font-weight:500
+    // 年月/周/今天/时间 按钮加粗体
     &-ym, &-week, &-today, &-time
-        font-weight:700
+        @extend $ext-weight-700//(这个样式权重不高)
+    // 日期不加粗
+    &-day
+        @extend $ext-weight-500
     // 年/月
     // 进退
     &-prev, &-next
-        position:relative
+        @extend $ext-position-relative
     &-prev:before,&-next:before
-        content:''
-        display:inline-block
-        position: absolute
-        border:2px solid var-primary-dk
+        @extend $ext-content-empty
+        @extend $ext-display-inline-block
+        @extend $ext-position-absolute
+        border:2px solid
         border-right:none
         border-bottom:none
         left:50%
@@ -75,40 +86,21 @@ $date-col-width = 40px
         grid-column: 3
     // 时间
 
-// 特定项
-.date
-    // 周末
-    &-weekend
-        color:var-danger
-    // 非当前月的日
-    &-dayout
-        opacity: 0.2
-    // 当日
-    &-today
-        background-color: var-gray
-    // 选中
-    &-selected
-        background-color: var-primary-dk
-        color: var-white
-    // 打开了选框的按钮
-    &-open
-        background-color: var-primary-lt
- 
 // 选项框
 .date-ops
     &-ym, &-time
         position: absolute
         left: 0
         width: 100%
-        background-color: var-white
         // css的calc写法时,如果有stylue变量,要用%s当占位符,表达式要放引号内.后面空格%空格接上变量名
         height: 'calc(100% - %s)' % $date-row-height
+        background-color:inherit
     // 年月框
     &-ym
         display:grid
         grid-template-columns: 70% 30%
         top: $date-row-height
-        border-top: 1px solid var-gray
+        border-top: 1px solid $border-color
     &-year, &-month
         display: grid
     // 年框
@@ -123,46 +115,48 @@ $date-col-width = 40px
         grid-template-columns: repeat(2,1fr)
     // 时间框
     &-time
-        display:grid
+        @extend $ext-display-grid
         place-items:center
         bottom: $date-row-height
-        border-bottom: 1px solid var-gray
+        border-bottom: 1px solid $border-color
     // 时框
     &-hour
-        position: relative
+        @extend $ext-position-relative
         width:80%
         height:80%
-        border-radius:50%
-        border:1px solid var-gray
+        @extend $ext-border-circle
+        @extend $ext-border-1px
     // 分秒加减框
     &-plus
-        position: absolute
+        @extend $ext-position-absolute
         top:45%
         left:50%
         transform: translateX(-50%)
-        display: grid
+        @extend $ext-display-grid
         grid-template-rows: repeat(2,$date-row-height)
-        grid-template-columns: repeat(2,$date-col-width) ($date-col-width/2) repeat(2,($date-col-width*0.8))
+        grid-template-columns: repeat(2,$date-col-width*0.9) ($date-col-width/3) repeat(2,($date-col-width*0.7))
 
 // 选项
 .date-op
     // 年,月,时,上/下午/分秒加减按钮
     &-year, &-month, &-hour, &-am, &-pm, &-plus
-        display: grid
+        @extend $ext-display-grid
         place-items: center
         font-weight:500
-    // 选项交替背景色
+    // 年月选项交替背景色
     &-month:nth-of-type(4n+1),&-month:nth-of-type(4n+4)
     &-year:nth-of-type(8n+1),&-year:nth-of-type(8n+2),&-year:nth-of-type(8n+7),&-year:nth-of-type(8n+8)
-    &-hour, &-plus
-        background-image: repeating-radial-gradient(transparent,var-gray-lt)
+        background-color: var(--t-date-ym-bg-color)
+    // 边框: 时,上午下午,加减按钮
+    &-hour, &-plus, &-am, &-pm
+        @extend $ext-border-1px
     // 时
     &-hour
-        position: absolute
+        @extend $ext-position-absolute
         width: $date-col-width
         height: $date-row-height
-        border-radius: 50%
         transform: translate(-50%,-50%)
+        @extend $ext-border-circle
     &-hour.h12,&-hour.h6
         left:50%
     &-hour.h12
@@ -193,32 +187,54 @@ $date-col-width = 40px
         top: 75%
     // 上/下午
     &-am, &-pm
-        position: absolute
+        @extend $ext-position-absolute
         width: $date-col-width
         height: $date-row-height
+        @extend $ext-border-cir-default
         top:20%
         transform: translateX(-50%)
     &-am
         left:35%
     &-pm
         left:65%
-    // 分秒加减
+    // 分秒加减按钮
+    &-plus
+        @extend $ext-border-cir-default
+    // 第一行第3个,第二行第3个,放在网格的第4列
     &-plus:nth-of-type(3), &-plus:nth-of-type(7)
         grid-column: 4
 
-// hover
+// hover 颜色,字
 @media (any-hover: hover)
     .date
         // 年月/年月选项/进退/今天/日/清空/时间/时间选项/确定
-        &-col-ym:hover, &-col-prev:hover, &-col-next:hover, &-col-today:hover, &-col-day:hover, &-col-clear:hover, &-col-ok:hover, &-col-time:hover
-        &-op-year:hover, &-op-month:hover, &-op-hour:hover, &-op-am:hover, &-op-pm:hover, &-op-plus:hover
-            background-color: var-primary-lt
-            cursor: pointer
+        &-col-ym:hover, &-col-prev:hover, &-col-next:hover, &-col-today:hover, &-col-day:hover:not(&-today,&-selected), &-col-clear:hover, &-col-ok:hover, &-col-time:hover
+        &-op-year:hover:not(&-selected), &-op-month:hover:not(&-selected), &-op-hour:hover:not(&-selected), &-op-am:hover:not(&-selected), &-op-pm:hover:not(&-selected), &-op-plus:hover
+            background-color: var(--t-date-hover)
+            @extend $ext-cursor-pointer
 
 // active 选项点击
 .date-op
     &-year:active, &-month:active,&-hour:active,&-am:active,&-pm:active,&-plus:active
-        font-weight:700
+        @extend $ext-weight-700
+
+// 特定项颜色突出
+.date
+    // 周末
+    &-weekend
+        color:$red['5']
+    // 非当前月的日
+    &-dayout
+        opacity: 0.2
+    // 当日
+    &-today
+        background-color: $gray['6']
+    // 选中(样式为了增强优先级)
+    &-box &-selected
+        background-color: var(--t-date-selected)
+    // 打开了选框的按钮
+    &-open
+        background-color: var(--t-date-opened-bg-color)
 
 // 手机版显示
 @media only screen and (max-width: $screen-phone) 
@@ -227,3 +243,10 @@ $date-col-width = 40px
         top: 25vh
         left: 0
         width: 100vw
+
+// 
+{$theme-dark} .date-box
+    --t-date-hover:$gray['6']// hover背景
+    --t-date-opened-bg-color:$gray['7']//打开了选框的按钮
+    --t-date-selected:$gray['6']// 选中的按钮
+    --t-date-ym-bg-color:$gray['8']// 年月背景交替色

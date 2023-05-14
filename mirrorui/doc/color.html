@@ -1,0 +1,49 @@
+﻿<div class="doc-page">
+  <h2>颜色</h2>
+  <p>颜色值采取的是<a href="https://github.com/tailwindlabs/tailwindcss" target="_blank">tailwind css</a>的色卡,除了黑白灰,还有8个彩色.</p>
+  <p>灰和8种彩色,选择了50-900梯度,数值越大,颜色越深.</p>
+  <div id="colorsbox" class="grids-9 mg-b-20"></div>
+  <p>黑白(#000和#fff),各附带一个相近色,颜色选自Neutral-50白色近色,Neutral-950黑色近色</p>
+  <div>
+    <m-btn id="btntheme">暗/浅切换</m-btn>
+    <b class="bd bg-white text-black color-b">黑</b>
+    <b class="bd bg-black text-white color-b">白</b>
+    <b class="bd bg-white-1 text-black-1 color-b">黑-1</b>
+    <b class="bd bg-black-1 text-white-1 color-b">白-1</b>
+  </div>
+</div>
+<style scoped>
+  .color-b {
+    display: inline-flex;
+    width: 60px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+  }
+</style>
+<script>
+  ((win) => {
+    let html = '';
+    let colors = win.colors;
+    for (var i = 0; i < colors.length; i++) {
+      let color = colors[i];
+      let colorrow = '';
+      for (var j = 0; j < 10; j++) {
+        colorrow += `<b class="grid bg-${color}-${j} color-b mg-tb-5"></b>`;
+      }
+      html += `<div class="grid layout-v f-v-center"><b>${color}</b>${colorrow}</div>`;
+    }
+    $('#colorsbox').html(html);
+
+    //
+    $('#btntheme')[0].onclick = () => {
+      let cls = 'theme-dark';
+      if ($('html').hasClass(cls)) {
+        $('html').removeClass(cls)
+      } else {
+        $('html').addClass(cls)
+      }
+    }
+  })(window);
+</script>

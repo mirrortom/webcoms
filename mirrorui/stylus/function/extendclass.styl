@@ -1,0 +1,143 @@
+﻿// 扩展样式,其它元素会使用的相同的css样式,避免重复,使用扩展
+// 引用语法: @extend $ext-text-overflow ,使用后,相当于写下了这个样式下的所有css条目
+//=======
+// 文本
+//=======
+// 文本超出时,显示省略号.需要有宽度max-width 或者width
+$ext-text-overflow
+    max-width: 100%
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+$ext-color-white
+    color:$white['0']
+// @extend $ext-weight-700
+$ext-weight-700
+    font-weight:700
+// @extend $ext-weight-500
+$ext-weight-500
+    font-weight:500
+// @extend $ext-text-align-center
+$ext-text-align-center
+    text-align: center
+
+//==========
+// display
+//==========
+// @extend $ext-display-block
+$ext-display-block
+    display:block
+// @extend $ext-display-inline-block
+$ext-display-inline-block
+    display:inline-block
+// @extend $ext-display-none
+$ext-display-none
+    display:none
+
+// @extend $ext-display-grid
+$ext-display-grid
+    display:grid
+// @extend $ext-display-flex
+$ext-display-flex
+    display: flex
+$ext-display-inline-flex
+    display: inline-flex
+// @extend $ext-align-center
+$ext-align-center
+    align-items: center
+$ext-justify-center
+    justify-content: center
+// @extend $ext-inline-flex-vh-center
+$ext-inline-flex-vh-center
+    @extend $ext-display-inline-flex
+    @extend $ext-align-center
+    @extend $ext-justify-center
+$ext-flex-vh-center
+    @extend $ext-display-flex
+    @extend $ext-align-center
+    @extend $ext-justify-center
+$ext-valign-middle
+    vertical-align: middle
+
+//==========
+// position
+//==========
+// @extend $ext-position-relative
+$ext-position-relative
+    position:relative
+// @extend $ext-position-absolute
+$ext-position-absolute
+    position:absolute
+// @extend $ext-position-fixed
+$ext-position-fixed
+    position: fixed
+// 绝对定位4方向拉伸
+// @extend $ext-position-0
+$ext-position-0
+    left: 0
+    top: 0
+    right: 0
+    bottom: 0
+
+
+//==========
+// border
+//==========
+// @extend $ext-border-1px
+$ext-border-1px
+    border: 1px solid $border-color
+// @extend $ext-border-cir-default
+$ext-border-cir-default
+    border-radius: $cir-angle
+// @extend $ext-border-circle
+$ext-border-circle
+    border-radius: 50%
+
+//==========
+// disabled
+//==========
+// 样式来自bt
+$ext-disabled
+    cursor: not-allowed
+    box-shadow: none
+    opacity: 0.65
+
+//=======
+// width
+//=======
+// @extend $ext-width-100
+$ext-width-100
+    width:100%
+
+//========
+// cursor
+//========
+// @extend $ext-cursor-pointer
+$ext-cursor-pointer
+    cursor: pointer
+
+//======
+// user
+//======
+// @extend $ext-user-select-none
+$ext-user-select-none
+    user-select: none
+
+//============
+// content伪类
+//============
+// @extend $ext-content-empty
+$ext-content-empty
+    content:''
+
+//============
+// overflow
+//============
+$ext-overflow-x-hidden
+    overflow-x:hidden
+$ext-overflow-x-auto
+    overflow-x:auto
+$ext-overflow-y-hidden
+    overflow-y:hidden
+$ext-overflow-y-auto
+    overflow-y:auto

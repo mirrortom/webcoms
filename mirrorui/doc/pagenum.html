@@ -1,20 +1,18 @@
 ﻿<div class="doc-page">
   <h2>分页导航</h2>
-  <p># 使用自定义标记 <strong>&lt;m-pagenum&gt;</strong></p>
+  <p># 使用自定义标记 <b>&lt;m-pagenum&gt;</b></p>
   <p class="text-in">参考了天猫京东的分页条,最后设计成包含如下按钮.上一页,1页,当前页前几页,当前页,当前页后几页,最后页,下一页,总页数,跳转页输入框,确定按钮.</p>
   <m-pagenum class="d-block" id="pagenum1"></m-pagenum>
   <br />
-  <m-pagenum class="d-block primary text-lg" id="pagenum2"></m-pagenum>
+  <m-pagenum class="d-block sky text-lg" id="pagenum2"></m-pagenum>
   <br />
   <m-msgshow id="pgmsgshow1"></m-msgshow>
   <br />
-  <pre class="bg-gray-lt">
+  <pre>
+&lt;<b>m-pagenum</b> id="pagenum1"&gt;&lt;/m-pagenum&gt;
 
-  &lt;<strong>m-pagenum</strong> id="pagenum1"&gt;&lt;/m-pagenum&gt;
-
-  // 使用主题样式和字体大小工具样式
-  &lt;m-pagenum class="<strong>primary text-lg</strong>" id="pagenum2"&gt;&lt;/m-pagenum&gt;
-
+// 使用主题样式和字体大小工具样式
+&lt;m-pagenum class="<b>primary text-lg</b>" id="pagenum2"&gt;&lt;/m-pagenum&gt;
  </pre>
   <br />
   <p># 分页条特点:</p>
@@ -23,60 +21,57 @@
   <p class="text-in">可设置显示几个按钮,当前页码会位于中间,如果当前页码离首页和末页太远,显示省略号.</p>
   <p># 方法</p>
   <p class="text-in">create()</p>
-  <pre class="bg-gray-lt">
- 
-    let pgn1 = document.getElementById('pagenum1');
+  <pre>
+let pgn1 = document.getElementById('pagenum1');
 
-    // 配置
-    let cfg = {
-      // (必须) 当前页码 >0 由后端返回当前页码,或者页面记住当前请求页面 默认 1
-        <strong>pageIndex</strong>: 1,
+// 配置
+let cfg = {
+  // (必须) 当前页码 >0 由后端返回当前页码,或者页面记住当前请求页面 默认 1
+    <b>pageIndex</b>: 1,
 
-                // (必须) 总数 >0 由后端返回新的总数
-        <strong>totalData</strong>: 96,
+            // (必须) 总数 >0 由后端返回新的总数
+    <b>totalData</b>: 96,
 
-                // 每页数量 [5-50] 默认 10
-        <strong>pageSize</strong>: 10,
+            // 每页数量 [5-50] 默认 10
+    <b>pageSize</b>: 10,
 
-                // 显示几个按钮[5-10] 默认 5
-        <strong>totalBtn</strong>: 5
+            // 显示几个按钮[5-10] 默认 5
+    <b>totalBtn</b>: 5
 
-            // 页码改变时执行 pageIndex:改变时页码
-        <strong>onPageChg</strong>: (pageIndex)
-    }
+        // 页码改变时执行 pageIndex:改变时页码
+    <b>onPageChg</b>: (pageIndex)
+}
 
-    // 生成分页条
-    // 分页条在请求数据后调用,从后端获得当前页码和数据总数.
-    pgn1.<strong>create</strong>(cfg);
-
+// 生成分页条
+// 分页条在请求数据后调用,从后端获得当前页码和数据总数.
+pgn1.<b>create</b>(cfg);
 </pre>
   <br />
   <p>获取数据后,生成分页条示例</p>
-  <pre class="bg-gray-lt">
+  <pre>
+function <b>getData</b>(pageIndex){
+    // 从接口获取数据
+    let json = getApi(para);
 
-    function <strong>getData</strong>(pageIndex){
-        // 从接口获取数据
-        let json = getApi(para);
+    // 生成分页条,pageindex当前页码,listcount数据总数,从服务端返回
+    <b>pageBar</b>(json.PageIndex, json.ListCount);
+}
 
-        // 生成分页条,pageindex当前页码,listcount数据总数,从服务的返回
-        <strong>pageBar</strong>(json.PageIndex, json.ListCount);
-    }
+// 分页条生成做成一个方法
+function <b>pageBar</b>(pageIndex, rowCount){
+    let cfg={
+        pageIndex : pageIndex,
+        totalData : rowCount,
 
-    // 分页条生成做成一个方法
-    function <strong>pageBar</strong>(pageIndex, rowCount){
-        let cfg={
-            pageIndex : pageIndex,
-            totalData : rowCount,
-
-            // 页码改变时执行 pageIndex:改变时页码
-            onPageChg: (pageIndex) => {
-            // 这里再调用取数据方法
-             <strong>getData</strong>(pageIndex);
-            }
-        };
+        // 页码改变时执行 pageIndex:改变时页码
+        onPageChg: (pageIndex) => {
+        // 这里再调用取数据方法
+          <b>getData</b>(pageIndex);
+        }
+    };
       
-        pgn1.create(cfg);
-    }
+    pgn1.create(cfg);
+}
 </pre>
   <script>
     ((win) => {

@@ -1,32 +1,44 @@
 ﻿// range 滑块
+// 主题色变量
 .range-box
-    display: block
-    padding-bottom: 20px
+    --t-range-btn-bg-color:$gray['6']// 滑块背景色
+    --t-range-bar-bg-color:$gray['3']// 滑条已划过背景色
+
+.range
+    &-box
+        @extend $ext-display-block
+        padding-bottom: 20px
+    &-bar
+        width: 100%
+        height: 10px
+        @extend $ext-border-cir-default
+        @extend $ext-border-1px
+        border-left:0 solid var(--t-range-bar-bg-color)
+        margin-top: 5px
+
+    &-btn
+        @extend $ext-display-inline-block
+        width: 20px
+        height: 20px
+        background-color: var(--t-range-btn-bg-color)
+        @extend $ext-border-circle
+        margin-top: -5px
 
 
-.range-bar
-    width: 100%
-    height: 10px
-    border-radius: 4px
-    background-color: var-gray-lt
-    margin-top: 5px
+    &-btn.active
+        cursor: grab
 
+    &-txt
+        @extend $ext-display-block
+        width: 20px
+        text-align: center
 
-.range-btn
-    display: inline-block
-    width: 20px
-    height: 20px
-    background-color: var-gray-dk
-    border-radius: 50%
-    margin-top: -5px
-
-
-.range-btn.active
-    box-shadow: 0px 0px 4px var-black-lt
-    cursor: grab
-  
-
-.range-txt
-    display: block
-    width: 20px
-    text-align: center
+{$theme-dark} .range-box
+    --t-range-btn-bg-color:$gray['3']// 滑块背景色
+    --t-range-bar-bg-color:$gray['6']// 滑条已划过背景色
+    
+// 彩色主题
+for k,v in $theme-name-colors-dict
+    .range-box.{k}
+        --t-range-btn-bg-color:v['5']// 滑块背景色
+        --t-range-bar-bg-color:v['4']// 滑条已划过背景色

@@ -13,7 +13,7 @@
 
     .container {
       display: grid;
-      grid-template-rows: 36px auto 44px;
+      grid-template-rows: 36px 36px auto 44px;
       height: 100%;
     }
   </style>
@@ -21,6 +21,7 @@
 <body>
   <div class="container">
     <div id="mdirbarbox"></div>
+    <div><m-btn id="btntheme">主题</m-btn></div>
     <div id="contentbox"></div>
     <m-mnavmenu id="mnavmenu1">
       <div class="mnavmenu-group split">
@@ -74,6 +75,17 @@
           if (type == -1)
             win.ns.msgbox.alert('已经不能退了!');
         })
+      }
+
+      //
+      document.getElementById('btntheme').onclick = () => {
+        let cls = 'theme-dark';
+        let html = document.documentElement;
+        if (html.classList.contains(cls)) {
+          html.classList.remove(cls);
+        } else {
+          html.classList.add(cls);
+        }
       }
     })(window);
   </script>

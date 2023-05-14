@@ -1,168 +1,65 @@
-﻿// 这两个用于去掉EDGE浏览器下INPUT框输入内容后自动产生的X号和小眼晴图标
-::-ms-clear, ::-ms-reveal
-    display: none
+﻿// 设定: 文本框,多行文本框,选择框,表单标签
+
+// 这两个用于去掉EDGE浏览器下INPUT框输入内容后自动产生的X号和小眼晴图标
+// 新版EDGE没这个问题了
+//input::-ms-clear, input::-ms-reveal
+    //@extend $ext-display-none
+
+// 主题色变量,会应用到输入框,选择框,单/多选,文件
+.input-text,.select,.textarea,.input-file,.input-check
+    --t-form-bd-color:$border-color// 边框颜色
+    --t-form-hover:$gray['5']// hover边框颜色
+
+// dark主题
+{$theme-dark} .input-text, {$theme-dark} .select, {$theme-dark} .textarea,{$theme-dark} .input-file, {$theme-dark} .input-check
+    --t-form-bd-color:$gray['4']// 边框颜色
+    --t-form-hover: $gray['3']// hover边框颜色
     
-// 表单标题
-.form-label
-    display: inline-block
+// 彩色主题
+for k,v in $theme-name-colors-dict
+    .input-text.{k},.select.{k},.textarea.{k},.input-file.{k},.input-check.{k}
+        --t-form-bd-color: v['4']// 边框颜色,获得焦点时边框颜色
+        --t-form-hover: v['6']// hover边框颜色
+    // dark模式下颜色
+    {$theme-dark} .input-text.{k},{$theme-dark} .select.{k},{$theme-dark} .textarea.{k},{$theme-dark} .input-file.{k},{$theme-dark} .input-check.{k}
+        --t-form-bd-color: v['6']// 边框颜色,获得焦点时边框颜色
+        --t-form-hover: v['4']// hover边框颜色
 
-// ========================================
-// input输入框 , select , textarea多行文本框
-// ========================================
-.input-text,.select,.textarea
-    display: block
-    width: 100%
-    padding: 6px 8px
-    font-size: inherit
-    border: 1px solid var-gray
-    border-radius: 2px
-    background-color: var-white
-    transition: border-color $duration
-.textarea
-    min-height: 100px
-    resize: vertical
-    overflow-y: auto
+// hover: 边框色微变.(在hover时,改变边框颜色变量也可以达到效果)
+.input-text:hover, .textarea:hover, .select:hover, .input-file:hover, .input-check:hover .check, .input-check:hover .radio
+    border-color: var(--t-form-hover)
 
-// ====================================================================================
-// 文件上传控件的做法是,将input type插件透明化,盖在标签上.点击标签时,实际点击的是Input file
-// 这个使用了自定义控件 m-file
-// ====================================================================================
-.input-file
-    display: block
-    position: relative
-    overflow: hidden
-    border: 1px solid var-gray
-    // input file 透明的覆盖在label上
-    & input[type=file]
-        position: absolute
-        top: 0
-        left: 0
-        opacity: 0
-        width: 100%;
-        height: 100%;
-        cursor: pointer
-    // 标签显示文件名字
-    & .form-label
-        padding: 6px 8px
-        width: 100%;
-        vertical-align: middle       
-        overflow: hidden
-        text-overflow: ellipsis
-        white-space: nowrap
-        transition: border-color $duration
-
-// ====================================================================================
-// 使用自定义控件 m-check m-radio
-// ====================================================================================
-// 复选框,单选框容器
-.input-check
-    display: inline-block
-    cursor: pointer
-// 标题
-.input-check .form-label
-    cursor: pointer
-    vertical-align: middle
-
-// 复选框,单选框方框 inline-flex布局,内容居中
-.input-check .check,.input-check .radio
-    display: inline-flex
-    justify-content: center
-    align-items: center
-    vertical-align: middle
-    width: 1.2em
-    height: 1.2em
-    margin-right: 5px
-    background-color: var-gray-lt
-    border: 1px solid var-gray-dk
-.input-check .radio
-    border-radius: 50%
-
-// 复选框input-check选中之后,生成选中状态的勾,勾是一个方形DOM的边框,去掉上边与左边,旋转45度后得到
-.input-check .check:after
-    content: ''
-    display: inline-block
-    width: .7em
-    height: 1em
-    border: 0 solid var-font-color
-    border-top: none
-    border-left: none
-    background: transparent
-    transform: rotate(45deg)
-    // 动画效果,在其input-checkbox元素选中时,会修改border-width值
-    transition: border-width $duration
-
-.input-check.checked .check:after
-    border-width: 3px
-
-// 单选框input-radio 选中之后,生成中的圆点,圆点是圆角边框为50%的DOM
-.input-check .radio:after
-    content: ''
-    display: inline-block
-    width: 0
-    height: 0
-    background-color: var-font-color
-    border-radius: 50%
-    // 动画效果,在其input-radio被选中时,会修改width和height
-    transition: width,height $duration
-.input-check.checked .radio:after
-    width: .6em
-    height: .6em
-
-// 颜色 复选框和单选框
-for key, val in $themeColorsKV
-    .input-check
-        // 复选框选中时,背景为主题色,勾为白色
-        &.{key}.checked .check
-            background-color: val[0]
-        &.{key}.checked .check:after
-            border-color: var-white
-        // 单选框选中时, 边框和点为主题
-        &.{key}.checked .radio
-            border-color: val[0]
-        &.{key}.checked .radio:after
-            background-color: val[0]
-        // hover
-        &.{key}:hover .check,&.{key}:hover .radio
-            border-color: val[0]
-// 表单控件悬停时边框色:主色 (文本框,多行框,文件框,下拉框,单选,复选)
-.input-text:hover, .textarea:hover, .select:hover, .input-file:hover,.input-check:hover .check,.input-check:hover .radio
-    border-color: var-primary
-// 表单控件得焦点时: 外边框色为主色 外边框不占空间位置 (文本框,多行框,下拉框)
-.input-text:focus, .textarea:focus, .select:focus
-    outline: 4px solid var-primary-lt
 // disabled
 .input-text[disabled],.select[disabled],.textarea[disabled],.input-file[disabled],.input-check[disabled]
-    border-color: var-gray
-    cursor: not-allowed
-    opacity: .65
+    @extend $ext-disabled
 .input-file[disabled] input[type=file],.input-check[disabled] .form-label
     cursor: not-allowed
+
 // =====================================================================
 // 表单栅格布局
 // =====================================================================
-// 表单栅格布局 表单元素放在class="grids"里,自己加类class="grid-x"
-// 使用栅格布局时,表单元素和表单标题要设置高度,否则发生标题和元素高度不一样的问题
-.grids
+// 表单栅格布局 每一行的表单元素放在class="grids"里,每个元素设定"单元格数"
+// class="grid-x".使用栅格布局时,表单元素和表单标题是直接作为布局项元素的
+// ,元素尺寸会被容器拉伸
+// 传统纸质表单的模仿,表单界面就像纸质的那种.输入框没有边框,是在一个格子中
+
+.form-table
     & .form-label, & .input-text, & .textarea, & .input-file, & .select, & .input-check
         align-self: center
-
-// =====================================================================
-// 表单表格布局
-// =====================================================================
-// 传统纸质表单的模仿,在此样式内的表单界面就像纸质的那种.输入框没有边框,是在一个格子中
-.form-table
+        border: none
+        border-radius:0
+        outline: none
     // 外边框
-    border: 1px solid var-gray-dk
+    @extend $ext-border-1px
     // 内边框 各表单项边框由grids底边框和grid右边框组成.除了最后一个元素不含边框外,因为会与大边框重合
     .grids:not(:last-child)
-        border-bottom: 1px solid var-gray-lt
+        border-bottom: 1px solid $border-color
     .grids [class*=grid]:not(:last-child)
-        border-right: 1px solid var-gray-lt
+        border-right: 1px solid $border-color
     // 输入框边框去掉
-    .input-text, .textarea
-        border: none
+    //.input-text, .textarea
+        //border: none
     // 输入框焦点时,背景色变化,以示可以编辑
     .input-text:hover, .input-text:focus, .textarea:hover, .textarea:focus
-        background-color: var-gray-lt
-        outline: none
+        background-color: $border-color
     // .textarea多行文本框高度自动适应册格高度,但最小高度为100px

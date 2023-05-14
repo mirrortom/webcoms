@@ -1,0 +1,49 @@
+﻿<div class="doc-page">
+  <h2>标签</h2>
+  <p>默认标签背景颜色继承父级,可以自定义标签背景色,文字色,也可以使用主题背景色</p>
+  <div class="mg-tb-10">
+    <span class="label">默认标签</span>
+    <span class="label cir">圆角</span>
+  </div>
+  <p>添加背景字体工具样式定义标签主题</p>
+  <div id="labelbox" class="layout-h mg-tb-10"></div>
+  <div id="labelnumbox" class="layout-h mg-tb-10"></div>
+  <pre class="bg-gray-lt">
+&lt;span class="<strong>label</strong>"&gt;默认标签&lt;/span&gt;
+
+// 圆角
+&lt;span class="label <strong>cir</strong>"&gt;圆角 class="label cir"&lt;/span&gt;
+
+.label
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    border: 1px solid $border-color(gray-2)
+    padding:2px .5em;
+    border-radius:$cir-angle(4px)
+// 圆角
+.label.cir
+    border-radius: 1em;  
+</pre>
+</div>
+<script>
+  ((win) => {
+    let colors = win.themecolors;
+    //
+    let html = '';
+    for (var i = 0; i < colors.length; i++) {
+      let color = colors[i];
+      let cir = i % 2 == 0 ? 'cir' : '';
+      html += `<span class="label ${cir} text-white-1 bg-${color}-5 mg-lr-5">tag</span>`;
+    }
+    $('#labelbox').html(html);
+
+    //
+    html = '';
+    for (var i = 0; i < 10; i++) {
+      html += `<span class="label cir text-white-1 bg-sky-5 mg-lr-5">${i}</span>`;
+    }
+    $('#labelnumbox').html(html);
+    
+  })(window);
+</script>

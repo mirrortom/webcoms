@@ -23,7 +23,7 @@
 </head>
 <body>
   <div class="container">
-    <div></div>
+    <div><m-btn id="btntheme">主题</m-btn></div>
     <div id="contbox" class="content"></div>
     <m-mnavmenu id="mnavmenu1">
       <div class="mnavmenu-group split">
@@ -49,9 +49,9 @@
       <div class="mnavmenu-group">
         <ul class="mnavmenu-itembox close">
           <li><a class="mnavmenu-item">烤鸭</a></li>
-          <li><a class="mnavmenu-item">烤鹅</a></li>
+          <li><a class="mnavmenu-item">烤鱼</a></li>
         </ul>
-        <span class="mnavmenu-label">&equiv; 最后菜单</span>
+        <span class="mnavmenu-label">&equiv; 菜单3</span>
       </div>
     </m-mnavmenu>
   </div>
@@ -69,6 +69,17 @@
       dom.create((item, i) => {
         window.ns.msgbox.alert(item.innerHTML + '  index: ' + i);
       });
+
+      //
+      document.getElementById('btntheme').onclick = () => {
+        let cls = 'theme-dark';
+        let html = document.documentElement;
+        if (html.classList.contains(cls)) {
+          html.classList.remove(cls);
+        } else {
+          html.classList.add(cls);
+        }
+      }
     })();
   </script>
 </body>

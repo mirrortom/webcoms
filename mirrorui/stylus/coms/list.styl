@@ -1,36 +1,71 @@
 // 列表 ul ol
+// 主题色变量
 .list
-    padding-left: 0
-    list-style: none
-.list > li
-    padding: 6px 0 6px 1em
-// 嵌套时加padding-left
-.list .list
-    padding-left: 12px
-// 方块~圆 风格
+    --t-list-style-color:$gray['8']// ul无序列表风格颜色
 .list
-    &.square > li::before, &.cir > li::before
+    list-style: none inside
+    //list-style-position:
+    & li
+        padding: 2px 0
+    // 符号/编号与内容的距离
+    & li::before
+        margin-right:.5em
+    // 嵌套的列表缩进
+    & .list li
+        margin-left:1.8em
+
+// 风格 方块,圆,等边三角 使用>直接子元素选择器,避免影响嵌套的list
+.list
+    &.disc > li::before,&.cir > li::before,&.square > li::before,&.triangle > li::before
         content: ''
-        display: inline-block
-        width: .6em
-        height: .6em
-        background-color: #000
-        margin-right: 6px
+        @extend $ext-display-inline-block
+        // 符号和文字对齐,想了很多办法都不行,li设为flex不可取,影响嵌套的list.绝对定位也是.最后近似在原位置,向上移动1px
+        @extend $ext-position-relative
+        top:-1px
+        width:.6em
+        height:.6em
+        background-color: var(--t-list-style-color)
+        @extend $ext-border-circle
     &.cir > li::before
-        border-radius: 50%
-// 方块,圆的主题色
-for key, val in $themeColorsKV
-    .list.square.{key} > li::before
-        background-color: val[0]
-    .list.cir.{key} > li::before
-        background-color: val[0]
+        background-color: transparent
+        border: 1px solid var(--t-list-style-color)
+    &.square > li::before,&.triangle > li::before
+        border-radius:0
+    &.triangle > li::before
+        // 宽度不变 height=sin60 * width
+        height:.52em
+        clip-path: polygon(50% 0,100% 100%,0 100%)
+
 // 数值列样式,abc列样式
 .list
-    &.num,&.abc
+    // 计算嵌套,只能使用一种风格,嵌套的list不用再添加风格样式
+    &.nums,&.abcs,&.zhs, &.nums .list,&.abcs .list,&.zhs .list
         counter-reset: li-item
-    &.num > li::before,&.abc > li::before
-        counter-increment: li-item;
+    &.nums li,&.abcs li,&.zhs li
+        counter-increment: li-item
+    &.nums li::before
+        content: counters(li-item,'.') '.';
+    &.abcs li::before
+        content: counters(li-item,'.',upper-latin) '.'
+    &.zhs li::before
+        content: counters(li-item,'.',cjk-ideographic) '.'
+    // 不计算嵌套,可以使用多种风格
+    &.num,&.abc,&.zh
+        counter-reset: li-item
+    &.num > li,&.abc > li,&.zh > li
+        counter-increment: li-item
     &.num > li::before
-        content: counters(li-item,'.') '. ';
+        content: counter(li-item) '.';
     &.abc > li::before
-        content: '(' counters(li-item,'.',lower-latin) ') '
+        content: counter(li-item,upper-latin) '.'
+    &.zh > li::before
+        content: counter(li-item,cjk-ideographic) '.'
+
+// dark主题
+{$theme-dark} .list
+    --t-list-style-color:$gray['4']// 方块颜色
+    
+// 彩色主题
+for k,v in $theme-name-colors-dict
+    .list.{k}
+        --t-list-style-color:v['5']// 方块颜色

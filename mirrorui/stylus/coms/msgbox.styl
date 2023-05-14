@@ -2,34 +2,27 @@
 .msgbox
     // 遮罩
     &-shadow
-        position: fixed
-        left: 0
-        top: 0
-        right: 0
-        bottom: 0
+        @extend $ext-position-fixed
+        @extend $ext-position-0
         opacity: 0.4
         background-color: #000
         z-index: 10000
     // 父层
     &-modal
-        display: flex
-        justify-content: center
-        position: fixed
-        left: 0
-        top: 0
-        right: 0
-        bottom: 0
-        overflow-x: hidden
-        overflow-y: auto
+        @extend $ext-display-flex
+        @extend $ext-justify-center
+        @extend $ext-position-fixed
+        @extend $ext-position-0
+        @extend $ext-overflow-x-hidden
+        @extend $ext-overflow-y-auto
         z-index: 10001
     // 弹出框
     &
-        position: relative
+        @extend $ext-position-relative
         width: 75vw
         height: 120px
         padding: 20px
-        background-color: #fff
-        box-shadow: 2px 2px 16px #000
+        background-color: var(--back-color)
 // 输入框高度大一些
 .msgbox-prompt
     height: 140px
@@ -46,7 +39,7 @@
 // 弹出框按钮
 .msgbox
     &-ok,&-cancel
-        position: absolute
+        @extend $ext-position-absolute
         bottom: 1em
     &-ok
         left: 80%

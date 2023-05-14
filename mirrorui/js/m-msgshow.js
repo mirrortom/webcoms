@@ -76,7 +76,7 @@
             let thisobj = $(this);
             let tpl = `<span class="title">\u2714 成功</span><span class="msg">${msg}</span><b class="close">x</b>`;
             thisobj.html(tpl);
-            thisobj.removeClass().addClass('msgshow', 'success');
+            thisobj.removeClass().addClass('msgshow', 'bg-green-4');
             //
             thisobj.find('.close')[0].onclick = () => {
                 this.clear();
@@ -91,7 +91,7 @@
             let thisobj = $(this);
             let tpl = `<span class="title">i 提示</span><span class="msg">${msg}</span><b class="close">x</b>`;
             thisobj.html(tpl);
-            thisobj.removeClass().addClass('msgshow', 'info');
+            thisobj.removeClass().addClass('msgshow', 'bg-sky-4');
             //
             thisobj.find('.close')[0].onclick = () => {
                 this.clear();
@@ -106,7 +106,7 @@
             let thisobj = $(this);
             let tpl = `<span class="title">\u2716 错误</span><span class="msg">${msg}</span><b class="close">x</b>`;
             thisobj.html(tpl);
-            thisobj.removeClass().addClass('msgshow', 'danger');
+            thisobj.removeClass().addClass('msgshow', 'bg-red-4');
             //
             thisobj.find('.close')[0].onclick = () => {
                 this.clear();
@@ -121,7 +121,7 @@
             let thisobj = $(this);
             let tpl = `<span class="title">\u26A0 警示</span><span class="msg">${msg}</span><b class="close">x</b>`;
             thisobj.html(tpl);
-            thisobj.removeClass().addClass('msgshow', 'warning');
+            thisobj.removeClass().addClass('msgshow', 'bg-orange-4');
             //
             thisobj.find('.close')[0].onclick = () => {
                 this.clear();

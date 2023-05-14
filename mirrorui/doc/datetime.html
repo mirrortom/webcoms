@@ -1,21 +1,21 @@
 ﻿<div class="doc-page">
   <h2>日期时间</h2>
   <p>日期控件,兼容PC与手机端.支持日期和日期时间基本功能</p>
-  <div class="grids bg-gray text-center">
-    <label class="form-label grid-5 grid-md-2">日期</label>
-    <input class="grid-7 grid-md-2 input-text" onclick="window.ns.myDatePick()" type="text" />
-    <label class="form-label grid-5 grid-md-2">日期时间</label>
-    <input class="grid-7 grid-md-3 input-text" onclick="window.ns.myDatePick({fmt:'datetime'})" type="text" />
+  <div class="form-table">
+    <div class="grids">
+      <label class="form-label text-center grid-5 grid-md-2">日期</label>
+      <input class="grid-7 input-text grid-md-2" onclick="window.ns.myDatePick()" type="text" />
+      <label class="form-label text-center grid-5 grid-md-2">日期时间</label>
+      <input class="grid-7 grid-md-3 input-text" onclick="window.ns.myDatePick({fmt:'datetime'})" type="text" />
+    </div>
   </div>
   <br />
-  <pre class="bg-gray-lt">
+  <pre>
+// 日期
+&lt;input onclick="window.ns.<strong>myDatePick()</strong>" type="text"&gt;
 
-  // 日期
-  &lt;input onclick="window.ns.<strong>myDatePick()</strong>" type="text"&gt;
-
-  // 日期时间
-  &lt;input onclick="window.ns.<strong>myDatePick({fmt:'datetime'})</strong> type="text"&gt;
-
+// 日期时间
+&lt;input onclick="window.ns.<strong>myDatePick({fmt:'datetime'})</strong> type="text"&gt;
 </pre>
   <br />
   <p># 实现思路</p>

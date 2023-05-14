@@ -1,28 +1,26 @@
-﻿// body font-size 基准
-// 如果没有必要,组件的字体大小不必设置,继承body
+﻿// 字体大小,继承body
 // 最小字体12px,默认14px
 $font-size-sm = 12px
-$font-size = 14px
+$font-size-base = 14px
 $font-size-md = 16px
 $font-size-lg = 20px
 $font-size-xl = 24px
-$font-size-xxl = 36px
-$font-size-xxxl = 48px
-// 对应css变量
-var-font-size-sm = var(--font-size-sm)
-var-font-size = var(--font-size)
-var-font-size-md = var(--font-size-md)
-var-font-size-lg = var(--font-size-lg)
-var-font-size-xl = var(--font-size-xl)
-var-font-size-xxl = var(--font-size-xxl)
-var-font-size-xxxl = var(--font-size-xxxl)
+$font-size-2xl = 30px
+$font-size-3xl = 36px
+$font-size-4xl = 48px
+$font-size-5xl = 60px
+$font-size-6xl = 84px
 
-// 字体大小键值对
-$fontSizeKV = {
-    sm: var-font-size-sm,
-    md: var-font-size-md,
-    lg: var-font-size-lg,
-    xl: var-font-size-xl,
-    xxl: var-font-size-xxl,
-    xxxl: var-font-size-xxxl
+// 字体大小字典
+$fontSize-dict = {
+    sm:$font-size-sm
+    base: $font-size-base
+    md: $font-size-md
+    lg: $font-size-lg
+    xl: $font-size-xl
+    '2xl': $font-size-2xl
+    '3xl': $font-size-3xl
+    '4xl': $font-size-4xl
+    '5xl': $font-size-5xl
+    '6xl': $font-size-6xl
 }

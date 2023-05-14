@@ -1,10 +1,9 @@
 ﻿<div class="doc-page">
   <h2>侧边菜单</h2>
-  <p># 使用自定义标记 <strong>&lt;m-sidemenu&gt;</strong> </p>
+  <p># 使用自定义标记 <b>&lt;m-sidemenu&gt;</b> </p>
   <p class="text-in">位于页面左侧的主菜单,用于管理系统的主菜单.只有1级菜单.</p>
   <p class="text-in">最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.</p>
   <p class="text-in">菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法. </p>
-  <p class="text-in">略微兼容手机端,菜单项左边缩进减小,展开收起图标缩小.可以参考手机端的天猫京东的分类商品页面,侧边菜单占屏幕的20%左右.</p>
   <div class="grids" id="sidemenutestbox">
     <div class="grid-12 grid-md-6 ">
       <m-sidemenu class="bg-primary mg-5" id="sidemenudemo2" style="width:200px">
@@ -36,30 +35,28 @@
     </div>
   </div>
   <br />
-  <pre class="bg-gray-lt">
+  <pre>
+// DOM结构
+&lt;<b>m-sidemenu</b> class="sidemenu" id="main_menubox"&gt;
+  // 一组菜单
+  &lt;ul class="sidemenu-group"&gt;
+    &lt;li&gt;
+      &lt;span class="sidemenu-label"&gt;组标题&lt;i class="sidemenu-arrdown"&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a class="sidemenu-item" href="#grid"&gt;菜单项&lt;/a&gt;&lt;/li&gt;
+    // 分割线
+    &lt;li&gt;&lt;b class="sidemenu-split"&gt;&lt;/b&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  ...
 
-  // DOM结构
-  &lt;<strong>m-sidemenu</strong> class="sidemenu" id="main_menubox"&gt;
-    // 一组菜单
-    &lt;ul class="sidemenu-group"&gt;
-      &lt;li&gt;
-        &lt;span class="sidemenu-label"&gt;组标题&lt;i class="sidemenu-arrdown"&gt;&lt;/i&gt;&lt;/span&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a class="sidemenu-item" href="#grid"&gt;菜单项&lt;/a&gt;&lt;/li&gt;
-      // 分割线
-      &lt;li&gt;&lt;b class="sidemenu-split"&gt;&lt;/b&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-    ...
+&lt;/<b>m-sidemenu</b>&gt;
 
-  &lt;/<strong>m-sidemenu</strong>&gt;
-
-  // 调用create()方法,初始化菜单
-  let sidemenu1 = document.getElementById('main_menubox');
-  sidemenu1.<strong>create()</strong>;
-
+// 调用create()方法,初始化菜单
+let sidemenu1 = document.getElementById('main_menubox');
+sidemenu1.<b>create()</b>;
 </pre>
   <br />
-  <p># 方法 <strong>create(json, itemClickE)</strong></p>
+  <p># 方法 <b>create(json, itemClickE)</b></p>
   <p class="text-in">生成菜单项,绑定事件.可以传入json对象,动态生成菜单项.</p>
   <p>
     <m-btn id="createsidemenu1">生成菜单</m-btn>
@@ -67,45 +64,41 @@
 
   <m-sidemenu id="sidemenujsondeom1" class="bg-gray-lt" style="width:200px"></m-sidemenu>
   <br />
-  <pre class="bg-gray-lt">
+  <pre>
+  // josn结构: 菜单数据是一个数组,除了 <b>title</b> 外,其它都可以省略
+  let menuJson =
+    [
+      // 每个元素是一个对象
+      {
+        <b>title</b>: '菜单组标题',
+        // 菜单组标题的属性和样式
+        props: { k: 'v', k1: 'v1' },
+        styles: ['class1','class2'],
 
-    // josn结构: 菜单数据是一个数组,除了 <strong>title</strong> 外,其它都可以省略
-    let menuJson =
-      [
-        // 每个元素是一个对象
-        {
-          <strong>title</strong>: '菜单组标题',
-          // 菜单组标题的属性和样式
-          props: { k: 'v', k1: 'v1' },
-          styles: ['class1','class2'],
-
-          // 每组菜单项是一个数组
-          menus: [
-            {
-              <strong>title</strong>: '菜单标题',
-              // 菜单项dom的属性
-              props: { href: '#url', name: 'name' },
-              // 菜单项dom的样式
-              styles: ['link','primary']
-            },
-            // 如果需要分割线
-            { title: '-' }
-          ]
-        }
-      ]
+        // 每组菜单项是一个数组
+        menus: [
+          {
+            <b>title</b>: '菜单标题',
+            // 菜单项dom的属性
+            props: { href: '#url', name: 'name' },
+            // 菜单项dom的样式
+            styles: ['link','primary']
+          },
+          // 如果需要分割线
+          { title: '-' }
+        ]
+      }
+    ]
   
-    // <strong>itemClickE(item, index)</strong>: 点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
-    // 这两个参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要第1个参数,传(null,fun)
-    
+  // <b>itemClickE(item, index)</b>: 点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
+  // 这两个参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要第1个参数,传(null,fun)
 </pre>
   <br />
-  <p># 方法 <strong>activeItem(itemIndex)</strong></p>
+  <p># 方法 <b>activeItem(itemIndex)</b></p>
   <p class="text-in">指定一个激活的菜单,itemIndex 是菜单索引</p>
-  <pre class="bg-gray-lt">
-    
-    // 激活第三个菜单
-    document.getElementById('sidemenudemo1').<strong>activeItem(2)</strong>;
-
+  <pre>
+// 激活第三个菜单
+document.getElementById('sidemenudemo1').<b>activeItem(2)</b>;
 </pre>
   <br />
   <script>

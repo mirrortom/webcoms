@@ -1,97 +1,134 @@
-﻿// ==========================================================
-// sytlus颜色变量定义,5种主题颜色和灰色每种3个,加上黑白一共20个变量
-// lt表示减淡色,dk表示加深色
-// ==========================================================
+﻿// =====================================================
+// 颜色值采取的是tailwind css的色卡,除了黑白灰,还有8个彩色.
+// https://tailwindcss.com/docs/customizing-colors
+// =====================================================
 
-// 1.黑白灰
-$black = #000
-// 字体颜色,body
-$black-lt = lighten($black,20%)
-// 透明背景用于鼠标hover
-$black-opa50 = #00000050
-// 背景色,body
-$white = #fff
-// 默认色
-$gray = #dee2e6
-$gray-lt = lighten($gray, 45%)
-$gray-dk = darken($gray, 15%)
+// 黑白,各附带一个相近色,以替代纯色.颜色来自tailwindcss的 Neutral-50,Neutral-950
+$black={'0':#000,'1':#1a1a1e}
+$white={'0':#fff,'1':#fafafa}
 
-// 2.主题色
-$primary = #38bdf8
-$primary-lt = lighten($primary, 45%)
-$primary-dk = darken($primary, 15%)
-
-// 3.成功
-$success = #28a745
-$success-lt = lighten($success, 45%)
-$success-dk = darken($success, 15%)
-
-// 4.警示
-$warning = #ffc107
-$warning-lt = lighten($warning, 45%)
-$warning-dk = darken($warning, 15%)
-
-// 5.提示
-$info = #17a2b8
-$info-lt = lighten($info, 45%)
-$info-dk = darken($info, 15%)
-
-// 6.失败
-$danger = #dc3545
-$danger-lt = lighten($danger, 45%)
-$danger-dk = darken($danger, 15%)
-
-// ============================================================================
-// 颜色变量对应一个css变量,如 "$black" "--color-balck" 命名规则 "$" 换成 "--color-" 
-// 组件样式颜色使用了css变量,为了省去写css变量的 var() 函数的麻烦,这里设置成变量方便使用
-// 命名规则 "var(--color-balck)" 对应 "var-black"
-// ============================================================================
-
-// 1.黑白灰
-var-black = var(--color-black)
-// 字体颜色,body
-var-black-lt = var(--color-black-lt)
-var-font-color = var(--font-color)
-// 透明背景用于鼠标hover
-var-black-opa50 = var(--color-black-opa50)
-// 背景色,body
-var-white = var(--color-white)
-// 默认色
-var-gray = var(--color-gray)
-var-gray-lt = var(--color-gray-lt)
-var-gray-dk = var(--color-gray-dk)
-
-// 2.主题色
-var-primary = var(--color-primary)
-var-primary-lt = var(--color-primary-lt)
-var-primary-dk = var(--color-primary-dk)
-
-// 3.成功
-var-success = var(--color-success)
-var-success-lt = var(--color-success-lt)
-var-success-dk = var(--color-success-dk)
-
-// 4.警示
-var-warning = var(--color-warning)
-var-warning-lt = var(--color-warning-lt)
-var-warning-dk = var(--color-warning-dk)
-
-// 5.提示
-var-info = var(--color-info)
-var-info-lt = var(--color-info-lt)
-var-info-dk = var(--color-info-dk)
-
-// 6.失败
-var-danger = var(--color-danger)
-var-danger-lt = var(--color-danger-lt)
-var-danger-dk = var(--color-danger-dk)
-
-// 主题颜色css变量KV对-用于for循环,key是主题class名,
-// val值是一个数组,0位是主题色css变量,1位是颜色加深的css变量,2位是减淡色
-$themeColorsKV = {
-    primary: (var-primary var-primary-dk var-primary-lt),
-    danger: (var-danger var-danger-dk var-danger-lt),
-    success: (var-success var-success-dk var-success-lt),
-    info: (var-info var-info-dk var-info-lt),
-    warning: (var-warning var-warning-dk var-warning-lt)
+// 灰和8种彩色,选择了50-900梯度,数值越大,颜色越深.
+// gray, red orange yellow green sky blue purple pink
+$gray={
+    '0':#f9fafb,
+    '1': #f3f4f6,
+    '2': #e5e7eb,
+    '3': #d1d5db,
+    '4': #9ca3af,
+    '5': #6b7280,
+    '6': #4b5563,
+    '7': #374151,
+    '8': #1f2937,
+    '9': #111827
 }
+
+$red={
+    '0': #fef2f2,
+    '1': #fee2e2,
+    '2': #fecaca,
+    '3': #fca5a5,
+    '4': #f87171,
+    '5': #ef4444,
+    '6': #dc2626,
+    '7': #b91c1c,
+    '8': #991b1b,
+    '9': #7f1d1d
+}
+$orange={
+    '0': #fff7ed,
+    '1': #ffedd5,
+    '2': #fed7aa,
+    '3': #fdba74,
+    '4': #fb923c,
+    '5': #f97316,
+    '6': #ea580c,
+    '7': #c2410c,
+    '8': #9a3412,
+    '9': #7c2d12
+}
+$yellow={
+    '0': #fefce8,
+    '1': #fef9c3,
+    '2': #fef08a,
+    '3': #fde047,
+    '4': #facc15,
+    '5': #eab308,
+    '6': #ca8a04,
+    '7': #a16207,
+    '8': #854d0e,
+    '9': #713f12
+}
+$green={
+    '0': #f0fdf4,
+    '1': #dcfce7,
+    '2': #bbf7d0,
+    '3': #86efac,
+    '4': #4ade80,
+    '5': #22c55e,
+    '6': #16a34a,
+    '7': #15803d,
+    '8': #166534,
+    '9': #14532d
+}
+$sky={
+    '0': #f0f9ff,
+    '1': #e0f2fe,
+    '2': #bae6fd,
+    '3': #7dd3fc,
+    '4': #38bdf8,
+    '5': #0ea5e9,
+    '6': #0284c7,
+    '7': #0369a1,
+    '8': #075985,
+    '9': #0c4a6e
+}
+$blue={
+    '0': #eff6ff,
+    '1': #dbeafe,
+    '2': #bfdbfe,
+    '3': #93c5fd,
+    '4': #60a5fa,
+    '5': #3b82f6,
+    '6': #2563eb,
+    '7': #1d4ed8,
+    '8': #1e40af,
+    '9': #1e3a8a
+}
+$purple={
+    '0': #faf5ff,
+    '1': #f3e8ff,
+    '2': #e9d5ff,
+    '3': #d8b4fe,
+    '4': #c084fc,
+    '5': #a855f7,
+    '6': #9333ea,
+    '7': #7e22ce,
+    '8': #6b21a8,
+    '9': #581c87
+}
+$pink={
+    '0': #fdf2f8,
+    '1': #fce7f3,
+    '2': #fbcfe8,
+    '3': #f9a8d4,
+    '4': #f472b6,
+    '5': #ec4899,
+    '6': #db2777,
+    '7': #be185d,
+    '8': #9d174d,
+    '9': #831843
+}
+
+// 色卡字典
+$colors-dict={
+    white:$white
+    black:$black
+    gray:$gray,
+    red:$red,orange:$orange,yellow:$yellow,green:$green,
+    sky:$sky,blue:$blue,purple:$purple,pink:$pink
+}
+
+// 用于主题色的全局css变量的引用
+$front-color=var(--front-color)
+$back-color=var(--back-color)
+$border-color=var(--border-color)

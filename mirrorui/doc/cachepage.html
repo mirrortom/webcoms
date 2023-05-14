@@ -7,8 +7,7 @@
 
     .leftbox {
       display: inline-block;
-      width: 100px;
-      min-width: 100px;
+      width: 120px;
       vertical-align: top;
     }
 
@@ -28,19 +27,13 @@
   </style>
   <h2>CachePage</h2>
   <p># 缓存页,在页面间切换.每显示一个页面时,缓存当前的页面.</p>
-  <div id="cachethemebox">
-    <span class="label mg-r-10">主题</span>
-    <m-radio tag="default" class=checked name="radiogroup1" id="cache_def"></m-radio>
-    <m-radio tag="primary" class="primary" name="radiogroup1" id="cache_primary"></m-radio>
-    <m-radio tag="danger" class="danger" name="radiogroup1" id="cache_danger"></m-radio>
-    <m-radio tag="success" class="success" name="radiogroup1" id="cache_success"></m-radio>
-    <m-radio tag="info" class="info" name="radiogroup1" id="cache_info"></m-radio>
-    <m-radio tag="warning" class="warning" name="radiogroup1" id="cache_warning"></m-radio>
-  </div>
   <br />
   <div class="cachepagedemo">
     <div class="leftbox">
-      <span class="label mg-5">管理系统</span>
+      <div class="mg-5">
+        <span class="label">管理系统</span>
+        <m-btn id="tabsboxdemo_theme" themeIndex="0">主题色</m-btn>
+      </div>
       <ul id="main_menu1" class="list num"></ul>
     </div>
     <div class="main">
@@ -173,7 +166,7 @@
 </pre>
 
   <script>
-    (() => {
+    ((win) => {
       // 选项卡框Dom容器
       let tabsDom = document.getElementById('tabsbox1');
       // 显示内容Dom容器
@@ -211,14 +204,23 @@
       menubox.querySelector('a').click();
 
       // 换色
-      document.getElementById('cachethemebox').querySelectorAll('m-radio').forEach((item) => {
-        item.onClicked = (radio) => {
-          let style = radio.getAttribute('tag');
-          let cachepagebox = document.getElementById('tabsbox1');
-          cachepagebox.classList.remove('primary', 'success', 'danger', 'info', 'warning');
-          cachepagebox.classList.add(style);
+      $('#tabsboxdemo_theme')[0].onclick = (self) => {
+        let themes = win.themecolors;
+        let themeIndex = parseInt($('#tabsboxdemo_theme').prop('themeIndex'));
+        themes.forEach((val) => {
+          $('#tabsbox1').removeClass(val);
+        })
+
+        if (themeIndex >= themes.length) {
+          themeIndex = 0;
+          // 退出到默认主题
+          $('#tabsboxdemo_theme').prop('themeIndex', 0).html('主题色');
+          return;
         }
-      })
-    })();
+        let themeCls = themes[themeIndex];
+        $('#tabsbox1').addClass(themeCls);
+        $('#tabsboxdemo_theme').prop('themeIndex', themeIndex + 1).html('彩色' + themeCls);
+      }
+    })(window);
   </script>
 </div>

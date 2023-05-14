@@ -47,7 +47,7 @@
     let cls = {
         box: 'date-box',// 容器
         row0: 'date-row-ymt',// 第一行 年月 进退 今天
-        col00: 'date-col-ym',// 年月
+        col00: 'date-col-ym',// 年月-按钮
         col01: 'date-col-prev',// 退
         col02: 'date-col-next',// 进
         col03: 'date-col-today',// 今天
@@ -60,7 +60,7 @@
         today: 'date-today',// 日 当天
         row3: 'date-row-time',// 时分秒 清除 确定
         col30: 'date-col-clear',// 清除
-        col31: 'date-col-time',// 时分秒
+        col31: 'date-col-time',// 时分秒-按钮
         col32: 'date-col-ok',// 确定
         opsym: 'date-ops-ym',// 年月选框
         opsyear: 'date-ops-year',// 年选框
@@ -409,6 +409,13 @@
         return daylist;
     };
 
+    // 关闭所有弹出框(就是年月选则框和时间选择框)
+    let closeOpsBox = () => {
+        $('.' + cls.box).find('.' + cls.opsym + ',.' + cls.opstime).remove();
+        // 年月/时间按钮取消打开状态
+        $('.' + cls.box).find('.' + cls.col00 + ',.' + cls.col31).removeClass(cls.open);
+    }
+
     /*============================================================*
      * 事件方法:年,月的前进后退按钮,年月选择按钮,今天按钮
      *============================================================*/
@@ -433,8 +440,9 @@
         dateboxDom.onclick = (event) => {
             // 点击日期控件以内区域,阻止冒泡到根
             event.stopPropagation();
-            // 点击空白位置时,关闭已经打开的年,月,日,时,分,秒的选择框.需要在子元素上取消冒泡
-            $(dateboxDom).find(cls.startOps).remove();
+            // 点击空白位置时,关闭已经打开的年,月,时分秒的选择框.需要在子元素上取消冒泡
+            //$(dateboxDom).find(cls.startOps).remove();
+            closeOpsBox();
         };
     };
 
@@ -448,12 +456,11 @@
             // 年份月份选择框
             let ymops = $(dateboxDom).find('.' + cls.opsym);
             if (ymops.length > 0) {
-                ymops.remove();
-                $(thisobj).removeClass(cls.open);
+                closeOpsBox();
                 return;
             }
             // 关闭其它弹出窗,如果有
-            $(dateboxDom).find(cls.startOps).remove();
+            closeOpsBox();
 
             // 生成年/月份选择框和选项,添加为日期控件直接子元素
             let opsDom = createDom_YearMonthOps();
@@ -511,7 +518,7 @@
                 // 刷新 日
                 resetDaysDom();
                 // 关闭年/月份选择框
-                $(dateboxDom).find('.' + cls.opsym).remove();
+                closeOpsBox();
             };
         });
     };
@@ -578,12 +585,11 @@
             // 时间选择框
             let timeops = $(dateboxDom).find('.' + cls.opstime);
             if (timeops.length > 0) {
-                timeops.remove();
-                $(thisobj).removeClass(cls.open);
+                closeOpsBox();
                 return;
             }
             // 关闭其它弹出窗,如果有
-            $(dateboxDom).find(cls.startOps).remove();
+            closeOpsBox();
 
             // 生成time选择框和选项,添加为日期控件直接子元素
             let opsDom = createDom_TimeOps();

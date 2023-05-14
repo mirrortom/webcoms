@@ -1,0 +1,65 @@
+﻿// ==========================
+// 单选和复选 m-check m-radio
+// ==========================
+
+// 主题色变量
+.input-check
+    --t-check-checked-color:$gray['6']// 选中的钩和圆点颜色
+
+// 复选框,单选框容器
+.input-check
+    @extend $ext-inline-flex-vh-center
+    @extend $ext-cursor-pointer
+// 标题
+.input-check .form-label
+    @extend $ext-cursor-pointer
+
+// 复选框,单选框方框 inline-flex布局,内容居中
+.input-check .check,.input-check .radio
+    @extend $ext-inline-flex-vh-center
+    width: 1em
+    height: 1em
+    margin-right: 5px
+    @extend $ext-border-1px
+    border-color:var(--t-form-bd-color)
+.input-check .radio
+    @extend $ext-border-circle
+
+// 复选框input-check选中之后,生成选中状态的勾,勾是一个方形DOM的边框,去掉上边与左边,旋转后得到
+.input-check .check:after
+    content: ''
+    @extend $ext-display-inline-block
+    width: .4em
+    height: .6em
+    border: .2em solid transparent
+    border-top: none
+    border-left: none
+    transform: rotate(30deg)
+    // 动画效果,在其input-checkbox元素选中时,改变边框颜色
+    transition: border-color $duration
+// 选中
+.input-check.checked .check:after
+    border-color: var(--t-check-checked-color)
+
+// 单选框input-radio 选中之后,生成中的圆点,圆点是圆角边框为50%的DOM
+.input-check .radio:after
+    content: ''
+    @extend $ext-display-inline-block
+    width: 0
+    height: 0
+    border:.25em solid transparent
+    @extend $ext-border-circle
+    // 动画效果,在其input-radio被选中时,改变边框颜色
+    transition: border-color $duration
+// 选中
+.input-check.checked .radio:after
+    border-color: var(--t-check-checked-color)
+
+// dark主题
+{$theme-dark} .input-check
+    --t-check-checked-color:$gray['2']// 选中的钩和圆点颜色
+    
+// 彩色主题
+for k,v in $theme-name-colors-dict
+    .input-check.{k}
+        --t-check-checked-color:v['5']// 选中的钩和圆点颜色

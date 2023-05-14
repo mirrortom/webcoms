@@ -2,56 +2,54 @@
 
 // 外层容器 nav
 .mnavmenu
-    display: flex
-    align-items: center
-    border-top: 1px solid var-gray-dk
+    @extend $ext-display-flex
+    @extend $ext-align-center
+    border-top: 1px solid $border-color
     text-align: center
-    background-color: var-white
-    user-select: none
+    @extend $ext-user-select-none
 
     // 菜单组容器 div
     &-group
-        position: relative
+        @extend $ext-position-relative
         flex: 1 1 0
 
     // 菜单组容器加分割线
     &-group.split
-        border-right: 1px solid var-gray
+        border-right: 1px solid $border-color
 
     // 菜单形式1:点击后出子菜单,模仿微信那种的.每个菜单组容器里含有 span,ul
     // 菜单组标题 span
     &-label
-        display: block
+        @extend $ext-display-block
 
     // 菜单组菜单容器 ul
     &-itembox
-        position: absolute
+        @extend $ext-position-absolute
         bottom: 1.8em
-        width: 100%
-        background-color: var-white
+        @extend $ext-width-100
+        border-top: 1px solid $border-color
         z-index: 10000
         list-style: none
-        box-shadow: 2px -2px 5px var-gray-lt
+        background-color:var(--back-color)
 
     // 菜单容器收起(默认状态)
     &-itembox.close
-        display: none
+        @extend $ext-display-none
   
     // 菜单项
     &-item
-        display: block
-        padding: 8px 0
-        margin: 4px 0
+        @extend $ext-display-block
+        padding: 10px 0
 
     // 菜单项分割线
     &-split
-        display: block
+        @extend $ext-display-block
         height: 1px
         width:90%
         margin:0 auto
-        border-bottom: 1px dashed var-gray
+        border-bottom: 1px dashed $border-color
 
     // 菜单形式2: 导航菜单,没有子菜单,模仿app那种.每个菜单组容器里含有 span
     // 导航菜单 span
     &-menu
-        display: block
+        @extend $ext-display-block

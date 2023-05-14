@@ -1,21 +1,19 @@
 ﻿<div class="doc-part-box" id="mediaquery">
   <h2>媒体查询</h2>
   <p>不同屏幕宽度的判断界线.</p>
-  <pre class="bg-gray-lt">
-  // 手机(640px以下视为手机)
-  $screen-phone = 640px
-  // 小平板640以上,768px以下
-  $screen-tablet = 768px
-  // 大平板768以上,992px以下
-  $screen-bigtablet = 992px
-  // pc屏幕1200px以上
-  $screen-pc = 1200px
-
+  <pre>
+// 手机(640px以下视为手机)
+$screen-phone = 640px
+// 小平板640以上,768px以下
+$screen-tablet = 768px
+// 大平板768以上,1024px以下
+$screen-bigtablet = 1024px
+// pc屏幕1280px以上
+$screen-pc = 1280px
 </pre>
   <br />
   <p>媒体查询可以实现不同屏幕尺寸显示不同样式.语法如下.</p>
-  <pre class="bg-gray-lt">
-
+  <pre>
 // 宽度640px以上屏幕
 @media only screen and (min-width: 640px) {
   #mediaquerydiv1 {

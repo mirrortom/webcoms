@@ -1,9 +1,9 @@
 ﻿// 信息提示框
 .msgshow
-    display: block
-    padding: 0.8em
-    background-color: var-gray-lt
-    border-radius: $cir-angle
+    @extend $ext-display-block
+    padding: 10px
+    @extend $ext-border-1px
+    @extend $ext-border-cir-default
     & .title
         font-weight: 600
     & .msg
@@ -11,8 +11,3 @@
     & .close
         float: right
         cursor: pointer
-// 颜色
-for key, val in $themeColorsKV
-    .msgshow.{key}
-        background-color: val[2]
-        color: val[1]

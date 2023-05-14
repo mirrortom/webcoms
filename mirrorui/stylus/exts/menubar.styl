@@ -1,16 +1,20 @@
 ﻿// 菜单栏.用于手机
+
+// 主题色变量
+.menubar
+    --t-menubar-arr-active:$gray['2']// 菜单点击时右箭头色
+
 // 容器 flex布局,里面内容两端对齐.内容子集元素最多2个,如有多个用div包起
 .menubar
-    display: flex
+    @extend $ext-display-flex
     justify-content: space-between
-    align-items: center
+    @extend $ext-align-center
     padding: 10px 0
     margin-bottom: 10px
-    border: 1px solid var-gray
+    @extend $ext-border-1px
     border-left: none
     border-right: none
-    user-select: none
-    box-shadow: 0 2px 5px var-gray-lt
+    @extend $ext-user-select-none
 
     // 第一个子元素是左边容器,让左边有点距离
     & > :first-child
@@ -18,14 +22,17 @@
     
     // 右侧箭头
     & .arr
-      display: inline-block
+      @extend $ext-display-inline-block
       width: .8em
       height: .8em
-      border: 2px solid gray
+      border: 2px solid currentColor
       border-left: none
       border-bottom: none
       margin-right: 25px
       transform: rotate(45deg)
 
     &:active .arr
-        border-color: var-danger
+        border-color: var(--t-menubar-arr-active)
+
+{$theme-dark} .menubar
+    --t-menubar-arr-active:$gray['6']// 菜单点击时右箭头色

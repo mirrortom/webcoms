@@ -1,0 +1,75 @@
+﻿<div class="doc-page">
+  <h2>单选与多选</h2>
+  <p># 使用自定义标记,多选 <b>&lt;m-check&gt;</b> , 单选 <b>&lt;m-radio&gt;</b></p>
+  <div class="mg-b-10">
+    <m-check class="checked" tag="多选组-1" id="mcheckbox1"></m-check>
+    <m-check class="mg-l-20" tag="多选组-2"></m-check>
+    <m-radio class="checked mg-l-20" name="radiogroup1" tag="单选组-1"></m-radio>
+    <m-radio class="mg-l-20" name="radiogroup1" tag="单选组-2"></m-radio>
+    <m-check class="mg-l-20" tag="多选(disabled)" disabled></m-check>
+    <m-radio class="mg-l-20" name="radiogroup1" tag="单选(disabled)" disabled></m-radio>
+  </div>
+  <div id="checkbox1" class="mg-b-10 text-xl"></div>
+  <div id="radiobox1" class="mg-b-10 text-xl"></div>
+  <br />
+  <p># 属性 <b>checked</b></p>
+  <p class="text-in">选中返回true,否则返回false</p>
+
+  <p># 属性 <b>onClicked(fn)</b></p>
+  <p class="text-in">点击切换后执行方法</p>
+
+  <p># 标签属性 <b>tag</b></p>
+  <p class="text-in">设置一个标题</p>
+
+  <p># 单选</p>
+  <p class="text-in">同一个父级下的多个单选框,设置相同的name属性,实现单选</p>
+
+  <p># 选中状态,大小,颜色</p>
+  <p class="text-in">添加 <b>.checked</b>样式,会展现选中状态,添加 primary,text-lg等工具样式调整颜色和大小</p>
+
+  <pre>
+// m-check多选,m-radio单选
+&lt;m-radio tag="单选框2"&gt;&lt;/m-radio&gt;
+&lt;m-check class="checked" tag="多选框1"&gt;&lt;/m-check&gt;
+
+// tag:设置标题
+&lt;m-check class="checked" <b>tag</b>="多选框1"&gt;&lt;/m-check&gt;
+
+// 获取选中状态
+let check1 = document.getElementById('checkbox1');
+check1.<b>checked</b> // true / false
+
+// 执行方法
+check1.<b>onClicked</b> = (radio) => {
+  // radio参数就是this对象
+  radio.getAttribute('tag');
+}
+
+// 单选
+&lt;m-radio tag="单选框1" <b>name</b>="radiogroup1" &gt;&lt;/m-radio&gt;
+&lt;m-radio tag="单选框2" <b>name</b>="radiogroup1" &gt;&lt;/m-radio&gt;
+
+// 颜色和大小,选中状态
+&lt;m-check class="<b>primary checked</b> " tag="多选框1"&gt;&lt;/m-check&gt;
+&lt;m-radio class="<b>text-lg</b>" tag="单选框2"&gt;&lt;/m-radio&gt;
+
+// 禁用
+&lt;m-radio <b>disabled</b> tag="单选框2"&gt;&lt;/m-radio&gt;
+</pre>
+</div>
+<script>
+  ((win) => {
+    let colors = win.themecolors;
+    //
+    let checks = '';
+    let radius = '';
+    for (var i = 0; i < 3; i++) {
+      let color = colors[i*2];
+      let checked = i % 2 == 1 ? 'checked' : '';
+      checks += `<m-check class="${checked} ${color} mg-r-10" tag="check-${i + 1}"></m-check>`;
+      radius += `<m-radio class="${checked} ${color} mg-r-10" name="radiogroup3" tag="radio-${i + 1}"></m-radio>`;
+    }
+    $('#checkbox1').html(checks);
+    $('#radiobox1').html(radius);
+  })(window);
+</script>

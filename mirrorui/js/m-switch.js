@@ -19,11 +19,13 @@
                 if (this.onoff == true) {
                     this.onoff = false;
                     thisobj.removeClass('checked');
-                    thisobj.text(this.offTag);
+                    if (!thisobj.hasClass('notag'))
+                        thisobj.text(this.offTag);
                 } else {
                     this.onoff = true;
                     thisobj.addClass('checked');
-                    thisobj.text(this.onTag);
+                    if (!thisobj.hasClass('notag'))
+                        thisobj.text(this.onTag);
                 }
                 // 点击切换后执行方法
                 if (typeof this._onClick == 'function')
@@ -40,7 +42,8 @@
             this.onoff = thisobj.hasClass('checked') ? true : false;
             this.onTag = thisobj.prop('on') || 'ON';
             this.offTag = thisobj.prop('off') || 'OFF';
-            thisobj.text(this.onoff ? this.onTag : this.offTag);
+            if (!thisobj.hasClass('notag'))
+                thisobj.text(this.onoff ? this.onTag : this.offTag);
         }
 
         // ========

@@ -1,5 +1,10 @@
 ﻿// 标签页,选项卡页
 
+// 主题色变量
+.tabs
+    --t-tabs-label-hover: $gray['2']// 标签hover色
+    --t-tabs-label-active-color: $black['1']// 标签选中文字色
+    --t-tabs-label-active-bg-color: $gray['3']// 标签选中背景色
 .tabs
     // 容器
     display: grid
@@ -16,12 +21,10 @@
       
     // 标签栏
     &-header 
-        display: flex
+        @extend $ext-display-flex
         grid-row-start: 1
         text-align: center
-        border-color: #ddd
-        border-style: solid
-        border-width: 0
+        border: 0 solid $border-color
         border-bottom-width: 1px
     
     // 标签栏 左右布局时,标签竖排
@@ -52,41 +55,38 @@
     
     // 标签
     &-label 
-        padding: .3em .5em
-        border-style: solid
-        border-color: transparent
-        border-width: 0
-        border-bottom-width: 3px
-        white-space: nowrap
-        text-overflow: ellipsis
-        overflow: hidden
+        padding: 2px .5em
+        color:$gray['4']
+        border-radius:$cir-angle $cir-angle 0 0
+        @extend $ext-text-overflow
         user-select: none
-    
+
+    // hover
     &-label:hover 
-        background-color: var-gray-lt
+        background-color: var(--t-tabs-label-hover)
+        cursor:pointer
       
     // 标签 左右位置
     &.left &-label, &.right &-label 
-        padding: .5em .3em
+        padding: .5em 2px
         text-orientation: upright
         writing-mode: vertical-lr
         border-width: 0
 
     &.left &-label 
-        border-right-width: 3px
+        border-radius:$cir-angle 0 0 $cir-angle
 
     &.right &-label 
-        border-left-width: 3px
+        border-radius: 0 $cir-angle $cir-angle 0
 
     &.bottom &-label 
-        border-width: 0
-        border-top-width: 3px
-    
+        border-radius: 0 0 $cir-angle $cir-angle
 
     // 标签-活动的
     &-label.active
-        border-color: var-gray-dk
-        font-weight: 700
+        border-color: $border-color
+        background-color: var(--t-tabs-label-active-bg-color)
+        color:var(--t-tabs-label-active-color)
 
     // 标签 占满行均分标签栏
     &.full &-label
@@ -99,10 +99,15 @@
     // 内容-活动的
     &-panel.active
         display: block
-      
-// 颜色
-.tabs
-    for key, val in $themeColorsKV
-        // 选项卡框底边色
-        &.{key} &-label.active
-            border-color: val[0]
+
+// dark主题
+.theme-dark .tabs
+    --t-tabs-label-hover: $gray['7']// 标签hover色
+    --t-tabs-label-active-bg-color: $gray['6']// 标签选中背景色
+    --t-tabs-label-active-color: $white['1']// 标签选中文字色
+    
+// 彩色主题
+for k,v in $theme-name-colors-dict
+    .tabs.{k}
+        --t-tabs-label-active-bg-color:v['5']
+        --t-tabs-label-active-color: v['0']

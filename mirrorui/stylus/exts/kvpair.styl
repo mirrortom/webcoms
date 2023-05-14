@@ -2,18 +2,18 @@
 .kvpair
     display: inline-grid
     grid-template-columns: auto auto
-    grid-template-rows: auto auto
     place-items: center
-
-.kvpair
     // 边框和补白
-    & .key, & .val
-        padding: .08rem
-        border: 1px solid var-gray
-    & .val
-        border-left: none
+    .key
+        border-right:1px solid $border-color
+        border-radius:$cir-angle 0 0 $cir-angle
+    .val
+        border-radius:0 $cir-angle $cir-angle 0
+    .key,.val
+        padding: 2px .5em
     // 圆角
-    & .key.cir
-        border-radius: $cir-angle 0 0 $cir-angle
-    & .val.cir
-        border-radius: 0 $cir-angle $cir-angle 0
+    &.cir
+        .key
+            border-radius:1em 0 0 1em
+        .val
+            border-radius:0 1em 1em 0

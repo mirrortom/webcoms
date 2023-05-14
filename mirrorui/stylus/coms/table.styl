@@ -1,34 +1,47 @@
 ﻿// 表格
+
+// 主题色变量
 .table
-    border-collapse: collapse
-    border-spacing: 0
+    --t-table-hover-color:$gray['3']// 悬停背景色
+    --t-table-striped-color:$gray['2']// 交替斑马线背景色
+
+.table
+    border-collapse: collapse// 单元格边框合并
     width: 100%
-// 带外边框的表格
-.table.border
-    border: 1px solid var-gray
-// 带内外边框的表格
-.table.border-all, .table.border-all td
-    border: 1px solid var-gray-dk
-// 条纹的表格,隔行颜色变化,鼠标移入效果
-.table.striped tr:nth-child(even)
-    background-color: var-gray-lt
-// 主题隔行颜色变化
-for key, val in $themeColorsKV
-    .table.striped.{key} tr:nth-child(even)
-        background-color: val[0]
-// hover类鼠标移入效果
-.table.hover tr:hover
-    background-color: var-black-opa50
-// 单元格头
-.table th
-    border-top: 1px solid var-gray
-    border-bottom: 2px solid var-gray
-    vertical-align: bottom
-    padding: 5px
-    text-align: left
-    font-weight: 600
-// 单元格
-.table td
-    border-bottom: 1px solid var-gray
-    vertical-align: middle
-    padding: 5px
+    // 行的底边框
+    & tr
+        border-bottom:1px solid $border-color
+    // 单元格
+    & th,& td
+        padding:8px
+        text-align:left
+    // 带内外边框的表格
+    &.border th,&.border td
+        border: 1px solid $border-color
+
+    // 斑马线风格(不包含th的tr)
+    &.striped tr:nth-child(even) :not(th)
+        background-color: var(--t-table-striped-color)
+
+    // hover类鼠标移入效果(不包含th的tr)
+    &.hover tr:hover :not(th)
+        background-color: var(--t-table-hover-color)
+
+    // 紧凑
+    &.small th,&.small td
+        padding:2px
+
+// dark主题
+.theme-dark .table
+    --t-table-hover-color:$gray['6']// 悬停背景色
+    --t-table-striped-color:$gray['7']// 交替斑马线背景色
+    
+// 彩色主题
+for k,v in $theme-name-colors-dict
+    .table.{k}
+        --t-table-hover-color:v['3']// 悬停背景色
+        --t-table-striped-color:v['2']// 交替斑马线背景色
+    // dark模式下颜色加重
+    .theme-dark .table.{k}
+        --t-table-hover-color:v['7']// 悬停背景色
+        --t-table-striped-color:v['6']// 交替斑马线背景色

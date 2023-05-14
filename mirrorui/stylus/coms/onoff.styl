@@ -1,22 +1,40 @@
-﻿// 开关 swtich ON / OFF
+﻿// 主题色变量
 .switch
-    display: inline-block
+    --t-switch-checked-bg-color:$gray['7']// 选中(开)背景色
+    --t-switch-tag-color:$gray['2']// 标记/文字色
+
+// 开关 swtich ON / OFF
+.switch
+    @extend $ext-display-inline-flex
+    @extend $ext-align-center
     width: 5em
-    line-height: 1.5em
-    padding: 4px .8em
-    border: 1px solid var-gray-dk
+    padding: 4px 8px
+    @extend $ext-border-1px
     border-radius: 1em
-    background-color: var-gray
-    user-select: none
-    transition: background-color 1s
+    @extend $ext-user-select-none
+    transition: background-color $duration
+    color:var(--t-switch-tag-color)
 
 .switch.checked
-    text-align: right
-    background-color: var-black-lt
-    color: var-white
+    justify-content: end
+    background-color: var(--t-switch-checked-bg-color)
+    @extend $ext-color-white
 
-// 颜色
-for key, val in $themeColorsKV
-    .switch.checked.{key}
-        background-color: val[0]
-        border-color: val[1]
+// 图标形式
+.switch.notag:before
+    @extend $ext-content-empty
+    width:1.5em
+    height:1.5em
+    @extend $ext-border-circle
+    background-color:var(--t-switch-tag-color)
+.switch.checked.notag:before
+    background-color:$white['0']
+
+{$theme-dark} .switch
+    --t-switch-checked-bg-color:$gray['6']// 选中(开)背景色
+    --t-switch-tag-color:$gray['5']// 标记/文字色
+    
+// 彩色主题
+for k,v in $theme-name-colors-dict
+    .switch.{k}
+        --t-switch-checked-bg-color:v['6']// 选中(开)背景色

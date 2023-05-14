@@ -1,0 +1,110 @@
+﻿<div class="doc-page">
+  <h2>工具样式</h2>
+  <p>为了方便使用,做一些单一功能的样式类.所谓"原子样式",组合使用多种原子样式达到一定效果.这种做法灵活搭配,也可以减少重复的css条目.</p>
+  <p># 文本相关</p>
+  <p>文本超出容器宽度时,不换行,而是显示省略号.</p>
+  <p class="text-red-5">需要给元素设置宽度width或者max-width,否则没有效果.</p>
+  <p class="text-overflow pd-5 bg-success-lt" style="width:260px" title="text-overflow文本超出时,显示省略号">
+    class="<b>text-overflow</b>" 文本超出时,显示省略号
+  </p>
+  <pre>
+// text-overflow类设置了max-width:100%
+&lt;p class="<b>text-overflow</b>" style="width:260px" title="text-overflow文本超出时,显示省略号"&gt;
+  class="text-overflow" 文本超出时,显示省略号
+&lt;/p&gt;
+</pre>
+  <br />
+  <p>文本大小</p>
+  <div class="layout-v mg-b-10">
+    <p class="bg-blue-4 mg-5 text-sm">text-sm 12px</p>
+    <p class="bg-blue-4 mg-5 text-base">text-base 14px 默认</p>
+    <p class="bg-blue-4 mg-5 text-md">text-md 16px</p>
+    <p class="bg-blue-5 mg-5 text-lg">text-lg 20px</p>
+    <p class="bg-blue-5 mg-5 text-xl">text-xl 24px</p>
+    <p class="bg-blue-5 mg-5 text-2xl">text-2xl 30px</p>
+    <p class="bg-blue-4 mg-5 text-3xl">text-3xl 36px</p>
+    <p class="bg-blue-4 mg-5 text-4xl">text-4xl 48px</p>
+    <p class="bg-blue-4 mg-5 text-5xl">text-5xl 60px</p>
+    <p class="bg-blue-4 mg-5 text-6xl">text-6xl 84px</p>
+  </div>
+
+  <p>文本缩进</p>
+  <p class="text-in pd-5 bg-sky-5" style="width:260px">class="<b>text-in</b>" 用于一段文字开头缩进2em.表示一段文字的开始.</p>
+  <p>文本颜色</p>
+  <p class="text-in">颜色使用的是tailwind css的色卡,采用了gray和8种彩色,色值50~900.</p>
+  <p class="text-in">类名格式: <b>text-{colorname}-{level}</b> level取值: 0~9,colname取值: 'gray','red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple', 'pink'</p>
+  <div class="grids-3 mg-b-10">
+    <div class="text-sky-5 bd text-center">class="text-sky-5"</div>
+    <div class="text-red-5 bd text-center">class="text-red-5"</div>
+    <div class="text-yellow-5 bd text-center">class="text-yellow-5"</div>
+  </div>
+
+  <p># 背景颜色</p>
+  <p class="text-in">背景颜色和文字颜色相同,类名格式一致,将text换成bg: <b>bg-{colorname}-{level}</b></p>
+  <div class="grids-3 mg-b-10">
+    <div class="bg-sky-5 bd text-center">class="bg-sky-5"</div>
+    <div class="bg-red-5 bd text-center">class="bg-red-5"</div>
+    <div class="bg-yellow-5 bd text-center">class="bg-yellow-5"</div>
+  </div>
+
+  <p># margin 和 padding</p>
+  <p class="text-in">类名格式: <b>mg-{dir}-{val}</b> val取值范围:1~9, 10,15,20,..,95,100</p>
+  <p class="text-in">dir取值:(t,b,l,r,tb,lr), 就是4个方向top/bottom/left/right,以及上下(tb)和左右(lr)2种组合方向</p>
+  <div class="grids-3 mg-b-10">
+    <div class="bd">
+      <div class="mg-5 bg-blue-5 text-center">class="mg-5"</div>
+    </div>
+    <div class="pd-5 bd bg-sky-5 text-center">class="pd-5"</div>
+  </div>
+
+  <p># 边框</p>
+  <p class="text-in">类名格式: <b>bd-{dir} dir取值(t,b,l,r)或省略</b></p>
+  <p class="text-in">边框带圆角,类名格式: <b>bdr-{dir} dir取值(tl,tr,br,bl)或省略</b></p>
+  <p class="text-in">边框颜色,类名格式: <b>bd-{colorname}-{level} 取值同文字颜色</b></p>
+  <div class="grids-2 mg-b-10">
+    <div class="bd bd-red-5 bdr-tr mg-5">class="bd bd-red-5 bdr-tr"</div>
+    <div class="bd-l bd-t bd-sky-5 bdr-tl mg-5">class="bd-l bd-t bd-sky-5 bdr-tl"</div>
+  </div>
+  <p># 布局和对齐</p>
+  <p>文本内容或者子元素对齐</p>
+  <div class="grids-3 mg-b-10">
+    <p class="text-left bg-sky-5 pd-5 mg-5">class="text-left"</p>
+    <p class="text-center bg-sky-4 pd-5 mg-5">class="text-center"</p>
+    <p class="text-right bg-sky-5 pd-5 mg-5">class="text-right"</p>
+  </div>
+  <p>有宽度的块级元素在父级容器中左右居中</p>
+  <div class="bd mg-b-10" style="width:260px;height:30px">
+    <div class="mg-lr-auto bg-sky-5" style="width:200px">class="mg-lr-auto"</div>
+  </div>
+  <p>经典的绝对定位实现水平垂直居中</p>
+  <div class="bd mg-b-10" style="position:relative;width:260px;height:50px">
+    <div class="mg-auto bg-sky-5 text-center" style="width:200px;height:20px;position:absolute;top:0;bottom:0;left:0;right:0">class="mg-auto"</div>
+  </div>
+  <br />
+  <p>flex布局居中</p>
+  <p class="text-in">元素使用flex布局时,项目元素在轴线上的居中对齐.</p>
+  <pre>
+// 主轴上居中
+.f-h-center
+    justify-content: center
+// 垂直轴上居中
+.f-v-center
+    align-items: center
+// flex 布局时,让子元素在垂直轴线上居中,用于子元素
+.f-vs-center
+    align-self: center
+</pre>
+  <br />
+  <p># 隐藏与显示</p>
+  <p>d-none d-block 媒体查询:针对不同大小屏幕 d - sm|md|lg|xl - none|block</p>
+  <p>例1,只在640px以下小屏幕才显示: class='<b>d-block d-sm-none</b>'</p>
+  <p>例2,只在640px以上屏幕才显示: class='<b>d-none d-sm-block</b>'</p>
+  <p>例3,只在992px以上大屏幕才显示: class='<b>d-none d-lg-block</b>'</p>
+  <p>例4,只在1200px以上PC大屏幕才显示: class='<b>d-none d-xl-block</b>'</p>
+  <div class="grids-2 grids-md-4 bd">
+    <span class="d-block pd-5 d-sm-none bg-sky-5 mg-lr-10">例1 小屏幕 640px以下显示</span>
+    <span class="d-none pd-5 d-sm-block bg-blue-5 mg-lr-10">例2 小平版 640px以上显示</span>
+    <span class="d-none pd-5 d-lg-block bg-sky-4 mg-lr-10">例3 大平板 992px以上显示</span>
+    <span class="d-none pd-5 d-xl-block bg-blue-4 mg-lr-10">例4 PC 1200px以上显示</span>
+  </div>
+</div>

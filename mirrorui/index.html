@@ -20,8 +20,12 @@
       overflow-x: hidden;
       overflow-y: auto;
     }
-
-    .tabsmenu-box {
+    .theme-box {
+      display: grid;
+      grid-template-columns: repeat(2,50%);
+      cursor:pointer;
+    }
+    .tabsmenu-box, .theme-box {
       position: sticky;
       top: 0;
       width: 99%;
@@ -31,6 +35,12 @@
     pre {
       overflow-x: auto;
       max-width: 100%;
+      padding: 20px;
+      background-color: #e5e7eb;
+    }
+
+    .theme-dark pre {
+      background-color: #1f2937;
     }
     /*手机端*/
     @media only screen and (max-width: 768px) {
@@ -48,13 +58,13 @@
 <body>
   <div class="container">
     <div class="menu-box pd-l-10">
+      <div class="theme-box bd bdr text-center"><span class="bg-white-0 text-black-1" id="themebtnlight">light</span><span class="bg-black-1 text-white-0" id="themebtndark">dark</span></div>
       <m-docmenu class="pd-b-30" id="main_menubox">
         <ul class="docmenu-group">
           <li>
             <span class="docmenu-title"><i class="docmenu-open"></i>概述</span>
           </li>
           <li><a class="docmenu-item" urlid="about">关于</a></li>
-          <li><a class="docmenu-item" urlid="cssvar">css变量</a></li>
           <li><a class="docmenu-item" urlid="update">更新记录</a></li>
         </ul>
         <ul class="docmenu-group">
@@ -72,9 +82,8 @@
             <span class="docmenu-title"><i class="docmenu-open"></i>显示</span>
           </li>
           <li><a class="docmenu-item" urlid="h1h6p">大标题</a></li>
-          <li><a class="docmenu-item" urlid="article">段落标题</a></li>
           <li><a class="docmenu-item" urlid="label">标签</a></li>
-          <li><a class="docmenu-item" urlid="kvpair">名值标签</a></li>
+          <li><a class="docmenu-item" urlid="kvpair">标签对</a></li>
           <li><a class="docmenu-item" urlid="imagedemo">图片</a></li>
           <li><a class="docmenu-item" urlid="hrline">hr分隔线</a></li>
           <li><a class="docmenu-item" urlid="pageload">页面等待</a></li>
@@ -85,7 +94,7 @@
           </li>
           <li><a class="docmenu-item" urlid="panel">面板</a></li>
           <li><a class="docmenu-item" urlid="msgpanel">信息面板</a></li>
-          <li><a class="docmenu-item" urlid="tabs">选项卡</a></li>
+          <li><a class="docmenu-item" urlid="tabs">标签页</a></li>
           <li><a class="docmenu-item" urlid="cachepage">缓存页</a></li>
         </ul>
         <ul class="docmenu-group">
@@ -143,6 +152,7 @@
         </ul>
         <ul class="docmenu-group">
           <li><span class="docmenu-title"><i class="docmenu-open"></i>设计</span></li>
+          <li><a class="docmenu-item" urlid="color">颜色</a></li>
           <li><a class="docmenu-item" urlid="design_form">表单设计</a></li>
           <li><a class="docmenu-item" href="/mirroricon/index.html" target="_blank">CSS图标</a></li>
         </ul>
@@ -192,8 +202,20 @@
         });
 
       // 默认打开"关于"
-      docmenu1.activeItem(0);
+      docmenu1.activeItem(6);
 
+      // 彩色变量
+      win.themecolors = ['red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple', 'pink'];
+      // 彩色和灰
+      win.colors = ['gray', 'red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple', 'pink'];
+
+      // 主题切换
+      $('#themebtnlight')[0].onclick = () => {
+        $('html').removeClass('theme-dark');
+      }
+      $('#themebtndark')[0].onclick = () => {
+        $('html').addClass('theme-dark');
+      }
     })(window);
   </script>
 </body>

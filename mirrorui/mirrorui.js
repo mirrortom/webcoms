@@ -671,11 +671,13 @@
                 if (this.onoff == true) {
                     this.onoff = false;
                     thisobj.removeClass('checked');
-                    thisobj.text(this.offTag);
+                    if (!thisobj.hasClass('notag'))
+                        thisobj.text(this.offTag);
                 } else {
                     this.onoff = true;
                     thisobj.addClass('checked');
-                    thisobj.text(this.onTag);
+                    if (!thisobj.hasClass('notag'))
+                        thisobj.text(this.onTag);
                 }
                 // 点击切换后执行方法
                 if (typeof this._onClick == 'function')
@@ -692,7 +694,8 @@
             this.onoff = thisobj.hasClass('checked') ? true : false;
             this.onTag = thisobj.prop('on') || 'ON';
             this.offTag = thisobj.prop('off') || 'OFF';
-            thisobj.text(this.onoff ? this.onTag : this.offTag);
+            if (!thisobj.hasClass('notag'))
+                thisobj.text(this.onoff ? this.onTag : this.offTag);
         }
 
         // ========
@@ -1582,7 +1585,7 @@ contDom:
     let cls = {
         box: 'date-box',// 容器
         row0: 'date-row-ymt',// 第一行 年月 进退 今天
-        col00: 'date-col-ym',// 年月
+        col00: 'date-col-ym',// 年月-按钮
         col01: 'date-col-prev',// 退
         col02: 'date-col-next',// 进
         col03: 'date-col-today',// 今天
@@ -1595,7 +1598,7 @@ contDom:
         today: 'date-today',// 日 当天
         row3: 'date-row-time',// 时分秒 清除 确定
         col30: 'date-col-clear',// 清除
-        col31: 'date-col-time',// 时分秒
+        col31: 'date-col-time',// 时分秒-按钮
         col32: 'date-col-ok',// 确定
         opsym: 'date-ops-ym',// 年月选框
         opsyear: 'date-ops-year',// 年选框
@@ -1944,6 +1947,13 @@ contDom:
         return daylist;
     };
 
+    // 关闭所有弹出框(就是年月选则框和时间选择框)
+    let closeOpsBox = () => {
+        $('.' + cls.box).find('.' + cls.opsym + ',.' + cls.opstime).remove();
+        // 年月/时间按钮取消打开状态
+        $('.' + cls.box).find('.' + cls.col00 + ',.' + cls.col31).removeClass(cls.open);
+    }
+
     /*============================================================*
      * 事件方法:年,月的前进后退按钮,年月选择按钮,今天按钮
      *============================================================*/
@@ -1968,8 +1978,9 @@ contDom:
         dateboxDom.onclick = (event) => {
             // 点击日期控件以内区域,阻止冒泡到根
             event.stopPropagation();
-            // 点击空白位置时,关闭已经打开的年,月,日,时,分,秒的选择框.需要在子元素上取消冒泡
-            $(dateboxDom).find(cls.startOps).remove();
+            // 点击空白位置时,关闭已经打开的年,月,时分秒的选择框.需要在子元素上取消冒泡
+            //$(dateboxDom).find(cls.startOps).remove();
+            closeOpsBox();
         };
     };
 
@@ -1983,12 +1994,11 @@ contDom:
             // 年份月份选择框
             let ymops = $(dateboxDom).find('.' + cls.opsym);
             if (ymops.length > 0) {
-                ymops.remove();
-                $(thisobj).removeClass(cls.open);
+                closeOpsBox();
                 return;
             }
             // 关闭其它弹出窗,如果有
-            $(dateboxDom).find(cls.startOps).remove();
+            closeOpsBox();
 
             // 生成年/月份选择框和选项,添加为日期控件直接子元素
             let opsDom = createDom_YearMonthOps();
@@ -2046,7 +2056,7 @@ contDom:
                 // 刷新 日
                 resetDaysDom();
                 // 关闭年/月份选择框
-                $(dateboxDom).find('.' + cls.opsym).remove();
+                closeOpsBox();
             };
         });
     };
@@ -2113,12 +2123,11 @@ contDom:
             // 时间选择框
             let timeops = $(dateboxDom).find('.' + cls.opstime);
             if (timeops.length > 0) {
-                timeops.remove();
-                $(thisobj).removeClass(cls.open);
+                closeOpsBox();
                 return;
             }
             // 关闭其它弹出窗,如果有
-            $(dateboxDom).find(cls.startOps).remove();
+            closeOpsBox();
 
             // 生成time选择框和选项,添加为日期控件直接子元素
             let opsDom = createDom_TimeOps();
@@ -2928,7 +2937,7 @@ contDom:
             let thisobj = $(this);
             let tpl = `<span class="title">\u2714 成功</span><span class="msg">${msg}</span><b class="close">x</b>`;
             thisobj.html(tpl);
-            thisobj.removeClass().addClass('msgshow', 'success');
+            thisobj.removeClass().addClass('msgshow', 'bg-green-4');
             //
             thisobj.find('.close')[0].onclick = () => {
                 this.clear();
@@ -2943,7 +2952,7 @@ contDom:
             let thisobj = $(this);
             let tpl = `<span class="title">i 提示</span><span class="msg">${msg}</span><b class="close">x</b>`;
             thisobj.html(tpl);
-            thisobj.removeClass().addClass('msgshow', 'info');
+            thisobj.removeClass().addClass('msgshow', 'bg-sky-4');
             //
             thisobj.find('.close')[0].onclick = () => {
                 this.clear();
@@ -2958,7 +2967,7 @@ contDom:
             let thisobj = $(this);
             let tpl = `<span class="title">\u2716 错误</span><span class="msg">${msg}</span><b class="close">x</b>`;
             thisobj.html(tpl);
-            thisobj.removeClass().addClass('msgshow', 'danger');
+            thisobj.removeClass().addClass('msgshow', 'bg-red-4');
             //
             thisobj.find('.close')[0].onclick = () => {
                 this.clear();
@@ -2973,7 +2982,7 @@ contDom:
             let thisobj = $(this);
             let tpl = `<span class="title">\u26A0 警示</span><span class="msg">${msg}</span><b class="close">x</b>`;
             thisobj.html(tpl);
-            thisobj.removeClass().addClass('msgshow', 'warning');
+            thisobj.removeClass().addClass('msgshow', 'bg-orange-4');
             //
             thisobj.find('.close')[0].onclick = () => {
                 this.clear();
@@ -3223,7 +3232,6 @@ contDom:
         // =======
         // fields
         // =======
-        // NUglify在压缩js时,js类的成员变量无法识别,暂时不用.
 
         // =======
         // 构造函数
@@ -3239,7 +3247,7 @@ contDom:
             this._max;
             // 滑块当前值
             this._val = 0;
-            // 滑条长度
+            // 滑条长度(px)
             this._barLen = 0;
             // 鼠标拖动前的起始位置
             this._mStart = { x: 0, y: 0 };
@@ -3249,6 +3257,8 @@ contDom:
             this._rBtn;
             // 滑块文字dom
             this._rTxt;
+            // 滑条dom
+            this._rBar;
             // 滑块滑动事件
             this._changeFun;
             // ==================
@@ -3267,7 +3277,7 @@ contDom:
             // 所以,此方法里最好不用
             // 宜: 元素初始化后不再改变的量,可以读取使用.每次加入dom时,都要呈现新状态,丢弃旧状态的.
             // 不可: 添加子元素,修改变量,其它会导致元素状态改变的行为.
-            this._barLen = this.offsetWidth - this._rBtn.offsetWidth;
+            //this._barLen = this.offsetWidth - this._rBtn.offsetWidth;
         }
 
 
@@ -3285,10 +3295,10 @@ contDom:
                 v = this._min;
             else if (v > this._max)
                 v = this._max;
-            // 调整滑块位置
-            let marginLeft = v / this._max * this._barLen;
-            this._rBtn.style.marginLeft = marginLeft + 'px';
-            this._rTxt.style.marginLeft = marginLeft + 'px';
+            // 调整滑块/显示文字位置
+            let offsetLeft = v / this._max * this._barLen;
+            this._rTxt.style.marginLeft = offsetLeft + 'px';
+            this._rBar.style.borderLeftWidth = offsetLeft + 'px';
             // 赋值,显示值
             this._val = v;
             this._rTxt.innerText = v;
@@ -3306,24 +3316,32 @@ contDom:
         _init() {
             // 样式
             $(this).addClass('range-box');
-            let width = parseInt(this.getAttribute('width'));
-            if (width)
-                this.style.width = width + 'px';
+            // 长度
+            let width = parseInt(this.getAttribute('width')) || 320;
+            // 总长度要减去滑块dom的20px
+            this._barLen = width-20;
+            this.style.width = width + 'px';
 
             // 子元素
             let innerHtml = '<span class="range-txt"></span><div class="range-bar"><span class="range-btn"></span></div>';
             this.innerHTML = innerHtml;
             // 属性设置
+            // 滑块
             this._rBtn = this.querySelector('.range-btn');
+            // 标签
             this._rTxt = this.querySelector('.range-txt');
+            // 滑条
+            this._rBar = this.querySelector('.range-bar');
+            // 最小值
             this._min = parseInt(this.getAttribute('min')) || 0;
+            // 最大值
             this._max = parseInt(this.getAttribute('max')) || 100;
             if (this._min > this._max) {
                 this._min = 0;
                 this._max = 100;
             }
-        
-            // 滑块设置值
+
+            // 滑块初始设置值
             this.Value = parseInt(this.getAttribute('val'));
             // 事件绑定
             this._bindEvent();
@@ -3374,7 +3392,7 @@ contDom:
         // 开始拖动
         _start(x) {
             this._mStart.x = x;
-            this._btnBegin.x = parseInt(this._rBtn.style.marginLeft.replace('px', '')) || 0;
+            this._btnBegin.x = parseInt(this._rBar.style.borderLeftWidth.replace('px', '')) || 0;
             $(this._rBtn).addClass('active');
         }
         // 拖动中
@@ -3386,8 +3404,10 @@ contDom:
                 targetDist = 0;
             else if (targetDist > barLen)
                 targetDist = barLen;
-            this._rBtn.style.marginLeft = targetDist + 'px';
+            // 显示位置
             this._rTxt.style.marginLeft = targetDist + 'px';
+            // 滑条走过距离
+            this._rBar.style.borderLeftWidth = targetDist + 'px';
             this._val = parseInt(targetDist / barLen * this._max);
             this._rTxt.innerText = this._val;
             // 执行滑动事件

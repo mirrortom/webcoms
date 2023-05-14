@@ -1,48 +1,37 @@
 ﻿<div class="doc-page">
   <h2>表单栅格布局</h2>
   <p>可以将表单元素放到栅格里,做横向布局.用栅格框分组表单元素</p>
-  <div class="grids mg-b-5 bg-gray-lt">
-    <label class="form-label grid-1 text-center">姓名</label>
-    <input class="input-text grid-3" type="text" name="name1" value="mirror" />
-    <label class="form-label grid-1 text-center">Title</label>
-    <input class="input-text grid-3" type="text" name="title1" value="搬砖家" />
-    <label class="form-label grid-1 text-center">爱好</label>
-    <m-check class="checked primary grid-1" tag="吃喝"></m-check>
-    <m-check class="checked primary grid-1" tag="玩乐"></m-check>
-    <m-check class="checked primary grid-1" tag="睡觉"></m-check>
-  </div>
-  <div class="grids mg-b-5 bg-gray-lt">
-    <label class="form-label text-center grid-1">国家</label>
-    <select class="select grid-2">
-      <option>China</option>
-      <option>USA</option>
-      <option>UK</option>
-    </select>
-    <label class="form-label text-center grid-1">WebSite</label>
-    <input class="input-text grid-2" type="text" name="name3" value="mirrortom.github.io" />
-    <label class="form-label text-center grid-1">资料</label>
-    <m-file class="grid-3 bg-white"></m-file>
+  <div class="form-table">
+    <div class="grids">
+      <label class="form-label grid-1 text-center">姓名</label>
+      <input class="input-text grid-3" type="text" name="name1" value="mirror" />
+      <label class="form-label grid-1 text-center">Title</label>
+      <input class="input-text grid-3" type="text" name="title1" value="砖家" />
+      <label class="form-label grid-1 text-center">爱好</label>
+      <m-check class="checked grid-1 green" tag="吃喝"></m-check>
+      <m-check class="checked grid-1 sky" tag="玩乐"></m-check>
+      <m-check class="checked grid-1 yellow" tag="睡觉"></m-check>
+    </div>
+    <div class="grids">
+      <label class="form-label text-center grid-1">国家</label>
+      <select class="select grid-2">
+        <option>China</option>
+        <option>USA</option>
+        <option>UK</option>
+      </select>
+      <label class="form-label text-center grid-1">WebSite</label>
+      <input class="input-text grid-2" type="text" name="name3" value="mirrortom.github.io" />
+      <label class="form-label text-center grid-1">资料</label>
+      <m-file class="grid-3 bg-white"></m-file>
+    </div>
   </div>
   <br />
-  <pre class="bg-gray-lt">
-  &lt;div class="grids mg-b-5 bg-gray-lt"&gt;
-    &lt;label class="form-label grid-1 text-center"&gt;姓名&lt;/label&gt;
-    &lt;input class="input-text grid-3" type="text" name="name1" value="mirror" /&gt;
-    &lt;m-check class="checked primary grid-1" tag="睡觉"&gt;&lt;/m-check&gt;
-  &lt;/div&gt;
-  &lt;div class="grids g-gray-lt"&gt;
-    &lt;label class="form-label text-center grid-1"&gt;国家&lt;/label&gt;
-    &lt;m-file class="grid-3 bg-white"&gt;&lt;/m-file&gt;
-  &lt;/div&gt;
-
-</pre>
-  <br />
-  <p class="article-title">表单表格布局</p>
-  <p class="lead">纸质风格表单是模仿的传统表格式的风格,整个表单是一个大表格,里面按表单项合理布局.有外边框和表单项边框.</p>
+  <p># 表单表格布局</p>
+  <p class="text-in">纸质风格表单是模仿的传统表格式的风格,整个表单是一个大表格,里面按表单项合理布局.有外边框和表单项边框.</p>
   <p>html结构组成:最外层是div.form-table 每一行是一个册格行div.grids,里面是表单项,添加册格类占用宽度.不必填满12册格.</p>
   <p>这种实现办法,优点是类纸质传统风格,就像填写单据一样,习惯易用.缺点在于布局不够灵活,同一行的表单项必须高度一样,不像表格那样可以使用rowspan或colspan跨行列</p>
   <p>这个例子使用现有的样式实现简易的版本,复杂的表格需要采用传统的table布局,还有新的display:grid布局完成.</p>
-  <div class="form-table text-center text-md">
+  <div class="form-table text-center text-base">
     <div class="grids">
       <label class="grid-1 form-label">姓名</label>
       <input class="grid-1 input-text" value="苏轼" />
@@ -78,21 +67,20 @@
     </div>
   </div>
   <br />
-  <pre class="bg-gray-lt">
-  &lt;div class="<strong>form-table</strong> text-center"&gt;
-    &lt;div class="grids"&gt;
-      &lt;label class="grid-1 form-label"&gt;姓名&lt;/label&gt;
-      &lt;input class="grid-1 input-text" value="苏轼" /&gt;
+  <pre>
+&lt;div class="<b>form-table</b> text-center"&gt;
+  &lt;div class="grids"&gt;
+    &lt;label class="grid-1 form-label"&gt;姓名&lt;/label&gt;
+    &lt;input class="grid-1 input-text" value="苏轼" /&gt;
 
-      &lt;label class="grid-1 form-label"&gt;谥号&lt;/label&gt;
-      &lt;input class="grid-1 input-text" value="文忠" /&gt;
-    &lt;/div&gt;
-
-    &lt;div class="grids"&gt;
-      &lt;label class="grid-1 form-label"&gt;苏东坡&lt;/label&gt;
-      &lt;textarea class="grid-11 textarea"&gt;明月几时有？把酒问青天。...但愿人长久,千里共婵娟。&lt;/textarea&gt;
-    &lt;/div&gt;
+    &lt;label class="grid-1 form-label"&gt;谥号&lt;/label&gt;
+    &lt;input class="grid-1 input-text" value="文忠" /&gt;
   &lt;/div&gt;
 
+  &lt;div class="grids"&gt;
+    &lt;label class="grid-1 form-label"&gt;苏东坡&lt;/label&gt;
+    &lt;textarea class="grid-11 textarea"&gt;明月几时有？把酒问青天。...但愿人长久,千里共婵娟。&lt;/textarea&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 </pre>
 </div>

@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="404.html" />
+    <Content Include="doc\color.html" />
     <Content Include="doc\layoutline.html" />
     <Content Include="doc\docmenu.html" />
     <Content Include="doc\update.html" />
@@ -78,27 +79,25 @@
     <None Include="compilerconfig.json" />
     <Content Include="doc\mnavmenudemo.html" />
     <Content Include="doc\about.html" />
-    <Content Include="doc\cssvar.html" />
-    <Content Include="doc\article.html" />
-    <None Include="doc\btn.cshtml" />
+    <Content Include="doc\btn.html" />
     <Content Include="doc\btngroup.html" />
     <Content Include="doc\datetime.html" />
     <Content Include="doc\cachepage.html" />
     <Content Include="doc\design_form.html" />
-    <None Include="doc\check.cshtml" />
+    <Content Include="doc\check.html" />
     <Content Include="doc\formlayout.html" />
     <Content Include="doc\file.html" />
     <Content Include="doc\select.html" />
     <Content Include="doc\input.html" />
-    <None Include="doc\grids.cshtml" />
+    <Content Include="doc\grids.html" />
     <Content Include="doc\mediaquery.html" />
     <Content Include="doc\pagelayout.html" />
-    <None Include="doc\h1h6p.cshtml" />
+    <Content Include="doc\h1h6p.html" />
     <Content Include="doc\imagedemo.html" />
-    <None Include="doc\hrline.cshtml" />
+    <Content Include="doc\hrline.html" />
     <Content Include="doc\inputvalchange.html" />
-    <None Include="doc\kvpair.cshtml" />
-    <None Include="doc\label.cshtml" />
+    <Content Include="doc\kvpair.html" />
+    <Content Include="doc\label.html" />
     <Content Include="doc\msgpanel.html" />
     <Content Include="doc\list.html" />
     <Content Include="doc\menubar.html" />
@@ -106,22 +105,26 @@
     <Content Include="doc\msgshow.html" />
     <Content Include="doc\mnavmenu.html" />
     <Content Include="doc\mdirbar.html" />
-    <None Include="doc\onoff.cshtml" />
+    <Content Include="doc\onoff.html" />
     <Content Include="doc\panel.html" />
     <Content Include="doc\pageload.html" />
     <Content Include="doc\pagenum.html" />
     <Content Include="doc\range.html" />
     <Content Include="doc\-模板.part.html" />
     <Content Include="doc\sidemenu.html" />
-    <None Include="doc\table.cshtml" />
+    <Content Include="doc\table.html" />
     <Content Include="doc\tabs.html" />
-    <None Include="doc\toolclass.cshtml" />
+    <Content Include="doc\toolclass.html" />
     <Content Include="index.html" />
     <None Include="publish.json" />
     <None Include="stylus\base.styl" />
+    <None Include="stylus\coms\formcheck.styl" />
+    <None Include="stylus\coms\formfile.styl" />
+    <None Include="stylus\coms\forminput.styl" />
+    <None Include="stylus\function\extendclass.styl" />
+    <None Include="stylus\theme.styl" />
     <None Include="stylus\coms\layoutline.styl" />
     <None Include="stylus\coms\range.styl" />
-    <None Include="stylus\coms\article.styl" />
     <None Include="stylus\coms\btn.styl" />
     <None Include="stylus\coms\cachepage.styl" />
     <None Include="stylus\coms\datepick.styl" />
@@ -155,7 +158,7 @@
     <None Include="stylus\variables\cirangle.styl" />
     <None Include="stylus\variables\transition.styl" />
     <None Include="test.styl" />
-    <None Include="如何自定义ui.md" />
+    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="zcustom\" />

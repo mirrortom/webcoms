@@ -1,44 +1,32 @@
 ﻿<div class="doc-page">
-  <h2>input文本框</h2>
-  <div class="mg-b-10">
-    <label class="form-label mg-b-5">文本框</label>
-    <input class="input-text" type="text" value="123456abc中文-*=" />
+  <h2>表单输入控件</h2>
+  <p>文本框,多行文本框,选择框.支持主题色,体现在hover和边框.</p>
+  <div class="bd bdr pd-10 mg-b-15">
+    <label class="form-label mg-b-5">文本框标题使用label标记,添加样式:form-label</label>
+    <input class="input-text" type="text" value="在input上添加样式: input-text" />
   </div>
-  <div class="mg-b-10">
-    <label class="form-label mg-b-5">密码框</label>
-    <input class="input-text" type="password" value="123456" />
+  <div class="bd bdr pd-10 mg-b-15">
+    <label class="form-label mg-b-5">圆角</label>
+    <input class="input-text cir" type="text" value="圆角添加样式: cir" />
   </div>
-  <div class="mg-b-10">
-    <label class="form-label mg-b-5">Email</label>
-    <input class="input-text" type="email" value="xxx@mirror.com" />
+
+  <div class="bd bdr pd-10 mg-b-15">
+    <label class="form-label mg-b-5">密码框type=password</label>
+    <input class="input-text orange" type="password" value="123456" />
   </div>
-  <div class="mg-b-10 text-lg">
-    <label class="form-label mg-b-5">文本框</label>
-    <input class="input-text mg-b-5" type="text" value="123456abc中文-*=" />
-    <input class="input-text" disabled type="text" value="disabled" />
+
+  <div class="bd bdr pd-10 mg-b-15">
+    <label class="form-label mg-b-5">disabled</label>
+    <input class="input-text" disabled type="text" value="添加禁用属性: disabled" />
   </div>
-  <pre class="bg-gray-lt">
-  &lt;label class="<strong>form-label</strong> mg-b-5"&gt;文本框&lt;/label&gt;
-  &lt;input class="<strong>input-text</strong>" type="text" value="123456abc中文-*=" /&gt;
 
-  &lt;label class="form-label mg-b-5"&gt;密码框&lt;/label&gt;
-  &lt;input class="input-text" type="password" value="123456" /&gt;
-
-  &lt;label class="form-label mg-b-5"&gt;Email&lt;/label&gt;
-  &lt;input class="input-text" type="email" value="xxx@mirror.com" /&gt;
-
-  &lt;input class="input-text text-lg" type="text" value="123456abc中文-*=" /&gt;
-
-  &lt;input class="input-text" disabled type="text" value="disabled" /&gt;
-
-</pre>
-  <p class="article-title">textarea</p>
-  <label class="form-label mg-b-5">多行文本框</label>
-  <textarea class="textarea">多行文本框默认高度为100px,可以调整垂直方向大小.</textarea>
-  <br />
-  <pre class="bg-gray-lt">
-  &lt;label class="form-label mg-b-5"&gt;多行文本框&lt;/label&gt;
-  &lt;textarea class="<strong>textarea</strong>"&gt;多行文本框默认高度为100px,手动调整垂直方向大小.&lt;/textarea&gt;
-
+  <div class="bd bdr pd-10 mg-b-15">
+    <label class="form-label mg-b-5">多行文本框</label>
+    <textarea class="textarea">在textarea标记上添加样式:textarea,多行文本框默认高度为100px,可以调整垂直方向大小.</textarea>
+  </div>
+  <pre>
+&lt;label class="<b>form-label</b> mg-b-5"&gt;&lt;/label&gt;
+&lt;input class="<b>input-text</b> <b>cir</b> <b>disabled</b>" type="text" value="" /&gt;
+&lt;textarea class="<b>textarea</b>"&gt;&lt;/textarea&gt;
 </pre>
 </div>

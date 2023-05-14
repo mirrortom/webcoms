@@ -7,7 +7,6 @@
         // =======
         // fields
         // =======
-        // NUglify在压缩js时,js类的成员变量无法识别,暂时不用.
 
         // =======
         // 构造函数
@@ -23,7 +22,7 @@
             this._max;
             // 滑块当前值
             this._val = 0;
-            // 滑条长度
+            // 滑条长度(px)
             this._barLen = 0;
             // 鼠标拖动前的起始位置
             this._mStart = { x: 0, y: 0 };
@@ -33,6 +32,8 @@
             this._rBtn;
             // 滑块文字dom
             this._rTxt;
+            // 滑条dom
+            this._rBar;
             // 滑块滑动事件
             this._changeFun;
             // ==================
@@ -51,7 +52,7 @@
             // 所以,此方法里最好不用
             // 宜: 元素初始化后不再改变的量,可以读取使用.每次加入dom时,都要呈现新状态,丢弃旧状态的.
             // 不可: 添加子元素,修改变量,其它会导致元素状态改变的行为.
-            this._barLen = this.offsetWidth - this._rBtn.offsetWidth;
+            //this._barLen = this.offsetWidth - this._rBtn.offsetWidth;
         }
 
 
@@ -69,10 +70,10 @@
                 v = this._min;
             else if (v > this._max)
                 v = this._max;
-            // 调整滑块位置
-            let marginLeft = v / this._max * this._barLen;
-            this._rBtn.style.marginLeft = marginLeft + 'px';
-            this._rTxt.style.marginLeft = marginLeft + 'px';
+            // 调整滑块/显示文字位置
+            let offsetLeft = v / this._max * this._barLen;
+            this._rTxt.style.marginLeft = offsetLeft + 'px';
+            this._rBar.style.borderLeftWidth = offsetLeft + 'px';
             // 赋值,显示值
             this._val = v;
             this._rTxt.innerText = v;
@@ -90,24 +91,32 @@
         _init() {
             // 样式
             $(this).addClass('range-box');
-            let width = parseInt(this.getAttribute('width'));
-            if (width)
-                this.style.width = width + 'px';
+            // 长度
+            let width = parseInt(this.getAttribute('width')) || 320;
+            // 总长度要减去滑块dom的20px
+            this._barLen = width-20;
+            this.style.width = width + 'px';
 
             // 子元素
             let innerHtml = '<span class="range-txt"></span><div class="range-bar"><span class="range-btn"></span></div>';
             this.innerHTML = innerHtml;
             // 属性设置
+            // 滑块
             this._rBtn = this.querySelector('.range-btn');
+            // 标签
             this._rTxt = this.querySelector('.range-txt');
+            // 滑条
+            this._rBar = this.querySelector('.range-bar');
+            // 最小值
             this._min = parseInt(this.getAttribute('min')) || 0;
+            // 最大值
             this._max = parseInt(this.getAttribute('max')) || 100;
             if (this._min > this._max) {
                 this._min = 0;
                 this._max = 100;
             }
-        
-            // 滑块设置值
+
+            // 滑块初始设置值
             this.Value = parseInt(this.getAttribute('val'));
             // 事件绑定
             this._bindEvent();
@@ -158,7 +167,7 @@
         // 开始拖动
         _start(x) {
             this._mStart.x = x;
-            this._btnBegin.x = parseInt(this._rBtn.style.marginLeft.replace('px', '')) || 0;
+            this._btnBegin.x = parseInt(this._rBar.style.borderLeftWidth.replace('px', '')) || 0;
             $(this._rBtn).addClass('active');
         }
         // 拖动中
@@ -170,8 +179,10 @@
                 targetDist = 0;
             else if (targetDist > barLen)
                 targetDist = barLen;
-            this._rBtn.style.marginLeft = targetDist + 'px';
+            // 显示位置
             this._rTxt.style.marginLeft = targetDist + 'px';
+            // 滑条走过距离
+            this._rBar.style.borderLeftWidth = targetDist + 'px';
             this._val = parseInt(targetDist / barLen * this._max);
             this._rTxt.innerText = this._val;
             // 执行滑动事件

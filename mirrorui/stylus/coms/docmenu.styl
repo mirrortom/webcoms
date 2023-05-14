@@ -1,8 +1,12 @@
-﻿/**
-    文档菜单
-*/
+﻿//文档菜单
+
+// 主题色变量
 .docmenu
-    display: block
+    --t-docmenu-active-color:$black['1']// 菜单项选中字色
+    --t-docmenu-active-bg-color:$gray['3']// 菜单项选中背景色
+
+.docmenu
+    @extend $ext-display-block
     // 每个菜单组是一个ul
     &-group
         list-style: none
@@ -11,37 +15,39 @@
         margin-left: 1em
     // 菜单项
     &-item
-        display: block
+        @extend $ext-display-block
         text-decoration: none
         padding: 4px 0 4px 2em
-        font-weight: 400
-        cursor: pointer
-        @extend .text-overflow
+        @extend $ext-weight-500
+        @extend $ext-cursor-pointer
+        @extend $ext-text-overflow
+        @extend $ext-border-cir-default
     // 菜单项hover,菜单项加上下划线
     &-item:not(.active):hover
         text-decoration: underline
     // 菜单项选中
     &-item.active
-        font-weight: 600
-        background-color: var-gray-lt
+        @extend $ext-weight-700
+        color: var(--t-docmenu-active-color)
+        background-color: var(--t-docmenu-active-bg-color)
     // 菜单组标题
     &-title
-        display: flex
-        align-items: center
-        font-weight: 700
+        @extend $ext-display-flex
+        @extend $ext-align-center
+        @extend $ext-weight-700
         padding: 4px 0
-        cursor: pointer
+        @extend $ext-cursor-pointer
 
     // 菜单组标题 收起/展开图标
     &-open, &-close
-        display: inline-block
-        position: relative
+        @extend $ext-display-inline-block
+        @extend $ext-position-relative
         width:1em
         height:1em
     &-open:before, &-close:before
-        content:''
-        display:inline-block
-        position: absolute
+        @extend $ext-content-empty
+        @extend $ext-display-inline-block
+        @extend $ext-position-absolute
         width:.7em
         height:.7em
         border: 2px solid currentColor
@@ -58,4 +64,8 @@
         transform: translateY(-50%) rotate(135deg)
     // 菜单组关闭
     &-group-close li:not(:first-child)
-        display: none
+        @extend $ext-display-none
+
+{$theme-dark} .docmenu
+    --t-docmenu-active-color:$white['1']// 菜单项选中字色
+    --t-docmenu-active-bg-color:$gray['6']// 菜单项选中背景色

@@ -1,28 +1,39 @@
-﻿.pagenum
+﻿// 分页条
+// 页码按钮使用的是按钮组组件,样式都是.btn的,还有input-text,算是一个组合组件,所以样式很少.
+
+// 主题色变量
+.pagenum
+    //--t-pagenum-active-color:$white['1']// 当前页字色
+    --t-pagenum-active-bg-color:$gray['3']// 当前页背景色
+    --t-pagenum-hover:$gray['1']// hover背景色
+
+.pagenum
     // 外框
     &
-        user-select: none
-    
-    // 当前选中页
-    &-active, &-active:hover
-        color: var-white
-        background-color: var-gray-dk
+        @extend $ext-user-select-none    
+    // 当前选中页 
+    &-active,&-active:hover
+        background-color: var(--t-pagenum-active-bg-color)
 
     // 总页码,跳转区域 框   
     &-skip
         margin-left: 1em
     &-input
-        display: inline-block
+        @extend $ext-display-inline-block
         width: 3.6em
         margin: 0 4px
-        text-align: center
+        @extend $ext-text-align-center
         
     &-input:focus
         outline: none
 
-// 颜色
-for key, val in $themeColorsKV
-    .pagenum
-        &.{key} &-active, &.{key} &-active:hover
-            color: var-white
-            background-color: val[0]
+{$theme-dark} .pagenum
+    --t-pagenum-active-bg-color:$gray['5']// 当前页背景色
+    --t-pagenum-hover:$gray['4']// hover背景色
+
+// 彩色主题
+for k,v in $theme-name-colors-dict
+    .pagenum.{k}
+        --t-pagenum-active-bg-color:v['5']// 当前页背景色
+    .pagenum.{k} .pagenum-active
+        @extend $ext-color-white

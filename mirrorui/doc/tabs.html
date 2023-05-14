@@ -1,128 +1,121 @@
 ﻿<div class="doc-page">
   <h2>标签页</h2>
   <p>容器组件,选择标签卡,显示对应页面.</p>
-  <p>这次改成了自定义组件,删减了添加选项卡相关功能,简洁了样式,主要用于展示内容.</p>
-  <pre class="bg-gray-lt">
-
-  &lt;m-tabs&gt;&lt;/m-tabs&gt;
-
+  <p>自定义组件,删减了添加选项卡相关功能,简洁了样式,主要用于展示内容.</p>
+  <pre>
+&lt;m-tabs&gt;&lt;/m-tabs&gt;
 </pre>
   <br />
-  <m-tabs id="mytabs" height="240px">
-    <div class="tabs-header">
-      <span class="tabs-label">苏轼</span>
-      <span class="tabs-label">陆游</span>
-      <span class="tabs-label">李清照</span>
-      <span class="tabs-label">毛泽东</span>
-    </div>
-    <div class="tabs-content">
-      <div class="tabs-panel">
-        <h5>饮湖上初晴后雨二首·其二</h5>
-        <p>水光潋滟晴方好</p><p>山色空蒙雨亦奇</p><p>欲把西湖比西子</p><p>淡妆浓抹总相宜</p>
+  <div class="bd bdr pd-20 mg-b-10">
+    <m-tabs id="mytabs" height="240px">
+      <div class="tabs-header">
+        <span class="tabs-label">苏轼</span>
+        <span class="tabs-label">陆游</span>
+        <span class="tabs-label">李清照</span>
+        <span class="tabs-label">毛泽东</span>
       </div>
-      <div class="tabs-panel">
-        <h5>卜算子 咏梅</h5>
-        <p>驿外断桥边,寂寞开无主</p><p>已是黄昏独自愁,更著风和雨</p>
-        <p>无意苦争春,一任群芳妒</p><p>零落成泥碾作尘,只有香如故</p>
+      <div class="tabs-content">
+        <div class="tabs-panel">
+          <h5>饮湖上初晴后雨二首·其二</h5>
+          <p>水光潋滟晴方好</p><p>山色空蒙雨亦奇</p><p>欲把西湖比西子</p><p>淡妆浓抹总相宜</p>
+        </div>
+        <div class="tabs-panel">
+          <h5>卜算子 咏梅</h5>
+          <p>驿外断桥边,寂寞开无主</p><p>已是黄昏独自愁,更著风和雨</p>
+          <p>无意苦争春,一任群芳妒</p><p>零落成泥碾作尘,只有香如故</p>
+        </div>
+        <div class="tabs-panel">
+          <h5>一剪梅 红藕香残玉蕈秋</h5>
+          <p>红藕香残玉蕈秋,轻解罗裳,独上兰舟</p>
+          <p>云中谁寄锦书来,雁字回时,月满西楼</p>
+          <p>花自飘零水自流,一种相思,两处闲愁</p>
+          <p>此情无计可消除,才下眉头,却上心头</p>
+        </div>
+        <div class="tabs-panel">
+          <h5>浪淘沙 北戴河</h5>
+          <p>大雨落幽燕,白浪滔天,秦皇岛外打鱼船</p>
+          <p>一片汪洋都不见,知向谁边</p>
+          <p>往事越千年,魏武挥鞭,东临碣石有遗篇</p>
+          <p>萧瑟秋风今又是,换了人间</p>
+        </div>
       </div>
-      <div class="tabs-panel">
-        <h5>一剪梅 红藕香残玉蕈秋</h5>
-        <p>红藕香残玉蕈秋,轻解罗裳,独上兰舟</p>
-        <p>云中谁寄锦书来,雁字回时,月满西楼</p>
-        <p>花自飘零水自流,一种相思,两处闲愁</p>
-        <p>此情无计可消除,才下眉头,却上心头</p>
-      </div>
-      <div class="tabs-panel">
-        <h5>浪淘沙 北戴河</h5>
-        <p>大雨落幽燕,白浪滔天,秦皇岛外打鱼船</p>
-        <p>一片汪洋都不见,知向谁边</p>
-        <p>往事越千年,魏武挥鞭,东临碣石有遗篇</p>
-        <p>萧瑟秋风今又是,换了人间</p>
-      </div>
-    </div>
-  </m-tabs>
-  <br />
-  <p># 标签方位和样式</p>
+    </m-tabs>
+  </div>
+  <p># 标签方位</p>
   <p class="text-in">设置样式类实现标签栏的位置和样式.</p>
-  <pre class="bg-gray-lt">
-  
-  // 标签栏位置
-  &lt;m-tabs class="<b>left | right | bottom</b>" &gt;&lt;/m-tabs&gt;
+  <pre>
+// 标签栏位置
+&lt;m-tabs class="<b>left | right | bottom</b>" &gt;&lt;/m-tabs&gt;
 
-  // 标签铺满整栏
-  &lt;m-tabs class="<b>full</b>" &gt;&lt;/m-tabs&gt;
+// 标签铺满整栏
+&lt;m-tabs class="<b>full</b>" &gt;&lt;/m-tabs&gt;
   
-  // 主题色
-  &lt;m-tabs class="<b>primary | danger ...</b>" &gt;&lt;/m-tabs&gt;
-
+// 主题色
+&lt;m-tabs class="<b>red</b>" &gt;&lt;/m-tabs&gt;
 </pre>
-  <br />
-  <div>
+  <div class="mg-tb-20">
     <m-btn id="tabsdemo_none" class="mg-5">初始</m-btn>
-    <m-btn id="tabsdemo_left" class="mg-5">左侧</m-btn>
-    <m-btn id="tabsdemo_right" class="mg-5">右侧</m-btn>
-    <m-btn id="tabsdemo_bottom" class="mg-5">底部</m-btn>
-    <m-btn id="tabsdemo_full" class="mg-5">标签均分整栏</m-btn>
+    <m-btn id="tabsdemo_left" class="mg-5 bg-green-5">左侧</m-btn>
+    <m-btn id="tabsdemo_right" class="mg-5 bg-green-4">右侧</m-btn>
+    <m-btn id="tabsdemo_bottom" class="mg-5 bg-green-4">底部</m-btn>
+    <m-btn id="tabsdemo_full" class="mg-5 bg-green-4">标签均分整栏</m-btn>
     <m-btn id="tabsdemo_theme" themeIndex="0" class="mg-5">主题色</m-btn>
   </div>
-  <m-tabs id="mytabs2" height="200px">
-    <div class="tabs-header">
-      <span class="tabs-label">卓文君</span>
-      <span class="tabs-label">上官婉儿</span>
-      <span class="tabs-label">韩愈</span>
-      <span class="tabs-label">秦观</span>
-    </div>
-    <div class="tabs-content">
-      <div class="tabs-panel">
-        <h5>白头吟</h5>
-        <p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝,今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流</p>
-        <p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离,竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</p>
+  <div class="bd bdr pd-20">
+    <m-tabs id="mytabs2" height="200px">
+      <div class="tabs-header">
+        <span class="tabs-label">卓文君</span>
+        <span class="tabs-label">上官婉儿</span>
+        <span class="tabs-label">韩愈</span>
+        <span class="tabs-label">秦观</span>
       </div>
-      <div class="tabs-panel">
-        <h5>彩书怨</h5>
-        <p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚</p>
-        <p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</p>
+      <div class="tabs-content">
+        <div class="tabs-panel">
+          <h5>白头吟</h5>
+          <p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝,今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流</p>
+          <p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离,竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</p>
+        </div>
+        <div class="tabs-panel">
+          <h5>彩书怨</h5>
+          <p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚</p>
+          <p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</p>
+        </div>
+        <div class="tabs-panel">
+          <h5>春雪</h5>
+          <p>新年都未有芳华</p>
+          <p>二月初惊见草芽</p>
+          <p>白雪却嫌春色晚</p>
+          <p>故穿庭树作飞花</p>
+        </div>
+        <div class="tabs-panel">
+          <h5>鹊桥仙 纤云弄巧</h5>
+          <p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数</p>
+          <p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</p>
+        </div>
       </div>
-      <div class="tabs-panel">
-        <h5>春雪</h5>
-        <p>新年都未有芳华</p>
-        <p>二月初惊见草芽</p>
-        <p>白雪却嫌春色晚</p>
-        <p>故穿庭树作飞花</p>
-      </div>
-      <div class="tabs-panel">
-        <h5>鹊桥仙 纤云弄巧</h5>
-        <p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数</p>
-        <p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</p>
-      </div>
-    </div>
-  </m-tabs>
-
+    </m-tabs>
+  </div>
   <br />
   <p># dom属性</p>
   <p class="text-in">height,css合法的height值.在m-tabs上设置容器高度,默认320px.内容超过高度时,出现竖直滚动条.</p>
-  <pre class="bg-gray-lt">
-
-  // 高度设置为200px
-  &lt;m-tabs height="200px" &gt;&lt;/m-tabs&gt;
-
+  <pre>
+// height: 高度设置
+&lt;m-tabs height="200px" &gt;&lt;/m-tabs&gt;
 </pre>
   <br />
   <p># 方法</p>
   <p class="text-in">激活标签,index:标签索引.</p>
-  <pre class="bg-gray-lt">
-
-  // 激活第一个标签
-  tabs.<b>activeTab(0)</b>
-
+  <pre>
+// 激活第一个标签
+tabs.<b>activeTab(0)</b>
 </pre>
   <script>
-    (() => {
+    ((win) => {
       $('#mytabs')[0].activeTab(0);
       $('#mytabs2')[0].activeTab(0);
       //
       $('#tabsdemo_none')[0].onclick = () => {
-        $('#mytabs2').removeClass('left', 'right', 'bottom', 'full', 'primary', 'success', 'danger', 'info', 'warning');
+        $('#mytabs2').removeClass('left', 'right', 'bottom', 'full', 'red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple', 'pink');
       }
       $('#tabsdemo_left,#tabsdemo_right,#tabsdemo_bottom').each(item => {
         item.onclick = () => {
@@ -139,18 +132,22 @@
         }
       }
       $('#tabsdemo_theme')[0].onclick = (self) => {
-        let themes = ['primary', 'success', 'danger', 'info', 'warning'];
+        let themes = win.themecolors;
         let themeIndex = parseInt($('#tabsdemo_theme').prop('themeIndex'));
         themes.forEach((val) => {
           $('#mytabs2').removeClass(val);
         })
 
-        if (themeIndex + 1 >= themes.length) {
-          themeIndex = -1;
+        if (themeIndex >= themes.length) {
+          themeIndex = 0;
+          // 退出到默认主题
+          $('#tabsdemo_theme').prop('themeIndex', 0).html('主题色');
+          return;
         }
-        $('#mytabs2').addClass(themes[themeIndex + 1]);
-        $('#tabsdemo_theme').prop('themeIndex', themeIndex + 1);
+        let themeCls = themes[themeIndex];
+        $('#mytabs2').addClass(themeCls);
+        $('#tabsdemo_theme').prop('themeIndex', themeIndex + 1).html('彩色' + themeCls);
       }
-    })();
+    })(window);
   </script>
 </div>
