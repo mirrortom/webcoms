@@ -791,8 +791,8 @@
                 [].forEach.call(files, (item) => {
                     fnlist += item.name + ',';
                 });
-                fnlist = fnlist.substr(0, fnlist.length - 1);
-                console.log(fnlist);
+                fnlist = fnlist.substring(0, fnlist.length - 1);
+                //console.log(fnlist);
                 $(this).find('.form-label').text(fnlist);
             }
             // 设置标题
