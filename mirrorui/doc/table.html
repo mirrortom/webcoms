@@ -3,6 +3,8 @@
   <p>宽度设定100%,默认每行有底边框.</p>
   <p># 表格 class="table"</p>
   <div class="mg-20" id="table1"></div>
+  <p># 表格内容对齐,默认左对齐.可以在td/th的父级的tr上,或table标签上设置对齐样式</p>
+  <div class="mg-20" id="table2"></div>
   <p># 紧凑,缩小了单元格的padding. class="table small"</p>
   <div class="mg-20" id="table_small"></div>
   <p># 边框 class="table border"</p>
@@ -39,6 +41,7 @@
       html += '</tr>'
     }
     $('#table1').html($.dom.table(html, 'table'));
+    $('#table2').html($.dom.table(html, 'table text-center'));
     $('#table_small').html($.dom.table(html, 'table small'));
     $('#table_border').html($.dom.table(html, 'table border'));
     $('#table_striped').html($.dom.table(html, 'table striped hover'));

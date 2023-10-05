@@ -1451,7 +1451,7 @@ p {
 .table th,
 .table td {
   padding: 8px;
-  text-align: left;
+  text-align: inherit;
 }
 .table.border th,
 .table.border td {
