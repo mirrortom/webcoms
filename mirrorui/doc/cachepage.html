@@ -48,29 +48,27 @@
   <p class="text-in">组件只包含选项卡部分,菜单和内容容器部分是自由定义的</p>
   <p class="text-in">选项卡html内容由js生成,但是外层DIV容器需要写出</p>
   <p class="text-in">换主题色,在选项卡html容器上加 primary , success , danger </p>
-  <pre class="bg-gray-lt">
+  <pre>
+&lt;div class="tabsbox <b>primary</b>" id="tabsbox1"&gt;
+    // 向左按钮
+    &lt;a class="tabsbox-left"&gt;&lt;/a&gt;
 
-  &lt;div class="tabsbox <b>primary</b>" id="tabsbox1"&gt;
-      // 向左按钮
-      &lt;a class="tabsbox-left"&gt;&lt;/a&gt;
+    // 导航区
+    &lt;nav class="tabsbox-navbox"&gt;&lt;div class="tabsbox-nav"&gt;&lt;/div&gt;&lt;/nav&gt; 
 
-      // 导航区
-      &lt;nav class="tabsbox-navbox"&gt;&lt;div class="tabsbox-nav"&gt;&lt;/div&gt;&lt;/nav&gt; 
+    // 向右按钮
+    &lt;a class="tabsbox-right"&gt;&lt;/a&gt;
 
-      // 向右按钮
-      &lt;a class="tabsbox-right"&gt;&lt;/a&gt;
-
-      // 功能按钮组
-      &lt;div class="tabsbox-menugroup"&gt;
-          &lt;span class="tabsbox-menutitle"&gt;功能&lt;/span&gt;
-          &lt;div class="tabsbox-menulist"&gt;
-              &lt;span class="tabsbox-goto-active"&gt;定位当前页&lt;/span&gt;
-              &lt;span class="tabsbox-close-all"&gt;关闭全部&lt;/span&gt;
-              &lt;span class="tabsbox-close-other"&gt;关闭其它&lt;/span&gt;
-          &lt;/div&gt;
-      &lt;/div&gt;
-  &lt;/div&gt;
-
+    // 功能按钮组
+    &lt;div class="tabsbox-menugroup"&gt;
+        &lt;span class="tabsbox-menutitle"&gt;功能&lt;/span&gt;
+        &lt;div class="tabsbox-menulist"&gt;
+            &lt;span class="tabsbox-goto-active"&gt;定位当前页&lt;/span&gt;
+            &lt;span class="tabsbox-close-all"&gt;关闭全部&lt;/span&gt;
+            &lt;span class="tabsbox-close-other"&gt;关闭其它&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
         </pre>
   <br />
   <p># 功能与特点</p>
@@ -86,83 +84,83 @@
   <p class="text-in">为了避免页面冲突,通常是使用iframe来解决的,如果不希望用iframe,可以使用这个办法.</p>
   <p># 用法</p>
   <p class="text-in">在点击菜单时,调用cachepage.load方法,会将当前活动页面加入到缓存中,然后显示菜单对应页面到显示区</p>
-  <pre class="bg-gray-lt">
+  <pre>
+// 新建实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
+let cpg = window.ns.cachepage(tabsDom, contDom);
 
-  // 新建实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
-  let cpg = window.ns.cachepage(tabsDom, contDom);
+# 属性: <b>data</b>
+// 一个对象{},可以存放一些自定义数据
 
-  // 属性: <b>data</b>
-  // 一个对象{},可以存放一些自定义数据
+# 方法: <b>load(pid:菜单唯一标识, title:选项卡标题, para:自定义参数json对象)</b>
+// 点击左侧菜单时,调用此方法
+let cacheDoms = cpg.load(pid, title, para);
 
-  // 方法: <b>load(pid:菜单唯一标识,title:选项卡标题)</b>
-  // 点击左侧菜单时,调用此方法
-  // pid不能重复,每个菜单一个pid,可以在绑定菜单点击方法时,统一分配.
-  let cacheDoms = cpg.load(pid, title);
-
+// ### pid不能重复,它是每个缓存页的键,可以使用页面路径当作pid,不会重复.
+// 在单页应用中,可以将所有页面建立在router.urls这个json对象中,键统一分配,值是地址.例如
+router.urls = {
+    // 键对应到菜单dom,值可以是一个对象,有地址和其它数据等等.此例的url值可以作为pid.
+    "index": { url: "www/index.html", title: "首页" },
+}
 </pre>
   <br />
   <p class="text-in">运用属性(data)方法(getActiveTabPid)与事件(onNewPageLoad,onPageBeforeChange,onPageChanged),实现切换页面后,滚动条恢复到切换时的位置.单页应用所有页面是共用window的滚动条,每个页面滚动位置不一样,在切换时记录这个位置,切换后恢复.</p>
-  <pre class="bg-gray-lt">
+  <pre>
+# 方法: <b>getActiveTabPid()</b>
+// 获取当前活动选项卡的pid.没找到返回null
+let pid = cpg.getActiveTabPid()
 
-  // 方法: <b>getActiveTabPid()</b>
-  // 获取当前活动选项卡的pid.没找到返回null
-  let pid = cpg.getActiveTabPid()
+# 事件: <b>cachepage.onNewPageLoad(handler)</b>
+// 载入新页面后执行 (pid:新页面的id, title:新页面标题, contDom:页面容器, para:自定义json对象参数)=>{}
+cachepage.onNewPageLoad((pid, title, contDom, para)=>{
+    // 在这个事件里实现加载新页面的功能
+    contDom.innerHTML = pageHtml;
 
-  // 事件: <b>cachepage.onNewPageLoad(handler)</b>
-  // 载入新页面后执行 (pid:新页面的id, title:新页面标题, contDom:页面容器)=>{}
-  cachepage.onNewPageLoad((pid, title, contDom)=>{
-      // 在这个事件里实现加载新页面的功能
-      contDom.innerHTML = pageHtml;
+    // 1.新增页面的滚动条位置
+    cpg.data[pid] = { scrollX: 0, scrollY: 0 };
+});
 
-      // 1.新增页面的滚动条位置
-      cpg.data[pid] = { scrollX: 0, scrollY: 0 };
-  });
+# 事件: <b>cachepage.onPageBeforeChange(handler)</b>
+// 页面切换前执行 (pid:切换页面的id)=>{}
+cachepage.onPageBeforeChange((pid) => {
+    // 点击选项卡切换页面时执行,这时将要切换的页面还没有显示
+    console.log('即将切换到的页面id是: ' + pid);
 
-  // 事件: <b>cachepage.onPageBeforeChange(handler)</b>
-  // 页面切换前执行 (pid:切换页面的id)=>{}
-  cachepage.onPageBeforeChange((pid) => {
-      // 点击选项卡切换页面时执行,这时将要切换的页面还没有显示
-      console.log('即将切换到的页面id是: ' + pid);
+    // 2.记录当前页面的滚动条位置
+    cpg.data[pid] = { scrollX: window.scrollX, scrollY: window.scrollY };
 
-      // 2.记录当前页面的滚动条位置
-      cpg.data[pid] = { scrollX: window.scrollX, scrollY: window.scrollY };
+});
 
-  });
+# 事件: <b>cachepage.onPageChanged(handler)</b>
+// 切换页面后执行 (pid:切换页面的id)=>{}
+cachepage.onPageChanged = ((pid) => {
+    console.log('切换到的页面id是: ' + pid);
 
-  // 事件: <b>cachepage.onPageChanged(handler)</b>
-  // 切换页面后执行 (pid:切换页面的id)=>{}
-  cachepage.onPageChanged = ((pid) => {
-      console.log('切换到的页面id是: ' + pid);
-
-      // 3.切换后,恢复页面当时的滚动条位置
-      window.scrollTo(cpg.data[pid].scrollX, cpg.data[pid].scrollY);
+    // 3.切换后,恢复页面当时的滚动条位置
+    window.scrollTo(cpg.data[pid].scrollX, cpg.data[pid].scrollY);
       
-  });
+});
 
-  // 事件: <b>cachepage.onPageClosed(handler)</b>
-  // 页面关闭后执行 (pid:关闭页面的id)=>{}
-  cachepage.onPageChanged = ((pid) => {
-      console.log('关闭的页面id是: ' + pid);
-  });
-
+# 事件: <b>cachepage.onPageClosed(handler)</b>
+// 页面关闭后执行 (pid:关闭页面的id)=>{}
+cachepage.onPageChanged = ((pid) => {
+    console.log('关闭的页面id是: ' + pid);
+});
 </pre>
   <br />
   <p># 经典布局结构</p>
   <p class="text-in">缓存页组件可用于导航.信息管理系统的经典布局就是左变菜单,右边内容,右边上面缓存打开的页面,点击可以切换.</p>
   <p class="text-in">HTML结构如下:左侧菜单,右侧分为2部分,上面是选项卡,下面是内容区 <a class="btn text-primary link" href="doc/cachepagedemo1.html" target="_blank">新窗口示例</a></p>
-  <pre class="bg-gray-lt">
+  <pre>
+&lt;div class="container"&gt;
 
-  &lt;div class="container"&gt;
+  &lt;div class="left"&gt;&lt;ul&gt;菜单区域&lt;/ul&gt;&lt;/div&gt;
 
-    &lt;div class="left"&gt;&lt;ul&gt;菜单区域&lt;/ul&gt;&lt;/div&gt;
-
-    &lt;div class="right"&gt;
-      &lt;div class="tabsbox"&gt;选项卡区域&lt;/div&gt;
-      &lt;div&gt;内容区域&lt;/div&gt;
-    &lt;/div&gt;
-
+  &lt;div class="right"&gt;
+    &lt;div class="tabsbox"&gt;选项卡区域&lt;/div&gt;
+    &lt;div&gt;内容区域&lt;/div&gt;
   &lt;/div&gt;
 
+&lt;/div&gt;
 </pre>
 
   <script>
