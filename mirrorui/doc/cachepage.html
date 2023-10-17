@@ -112,11 +112,11 @@ let pid = cpg.getActiveTabPid()
 # 事件: <b>cachepage.onNewPageLoad(handler)</b>
 // 载入新页面后执行 (pid:新页面的id, title:新页面标题, contDom:页面容器, para:自定义json对象参数)=>{}
 cachepage.onNewPageLoad((pid, title, contDom, para)=>{
-    // 在这个事件里实现加载新页面的功能
+    // 在这个事件里实现加载新页面
     contDom.innerHTML = pageHtml;
 
     // 1.新增页面的滚动条位置
-    cpg.data[pid] = { scrollX: 0, scrollY: 0 };
+    cachepage.data[pid] = { scrollX: 0, scrollY: 0 };
 });
 
 # 事件: <b>cachepage.onPageBeforeChange(handler)</b>
@@ -126,18 +126,21 @@ cachepage.onPageBeforeChange((pid) => {
     console.log('即将切换到的页面id是: ' + pid);
 
     // 2.记录当前页面的滚动条位置
-    cpg.data[pid] = { scrollX: window.scrollX, scrollY: window.scrollY };
-
+    let activePid = cachepage.getActiveTabPid();
+    if (activePid) {
+      cachepage.data[activePid] = { scrollX: window.scrollX, scrollY: window.scrollY };
+    }
 });
 
 # 事件: <b>cachepage.onPageChanged(handler)</b>
 // 切换页面后执行 (pid:切换页面的id)=>{}
-cachepage.onPageChanged = ((pid) => {
+cachepage.onPageChanged((pid) => {
     console.log('切换到的页面id是: ' + pid);
 
     // 3.切换后,恢复页面当时的滚动条位置
-    window.scrollTo(cpg.data[pid].scrollX, cpg.data[pid].scrollY);
-      
+    if (cachepage.data[pid]) {
+      window.scrollTo(cpg.data[pid].scrollX, cpg.data[pid].scrollY);
+    }
 });
 
 # 事件: <b>cachepage.onPageClosed(handler)</b>
