@@ -24,7 +24,7 @@
         }
         // 如果是数字的情况,调用.indexOf(':for')就出错,没有这个函数
         if (typeof text == "string" && text.indexOf(':for') == 0) {
-            let txtarr = text.substr(4).split('|');
+            let txtarr = text.substring(4).split('|');
             let html = '';
             for (var i = 0, len = txtarr.length; i < len; i++) {
                 let txt = txtarr[i];

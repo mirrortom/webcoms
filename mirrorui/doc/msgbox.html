@@ -1,10 +1,10 @@
 ﻿<div class="doc-page">
   <h2>弹出框</h2>
   <p># 原理来自研究bootstrap的弹出层.模仿实现三种系统弹出框alert confirm prompt</p>
-  <p>alert</p>
+  <h6>alert</h6>
   <div>
     <m-btn onclick="window.ns.msgbox.alert('点击了弹出框 msgbox.alert()')">msgbox.alert()</m-btn>
-    <m-btn class="primary mg-l-10" onclick="window.ns.msgbox.alert('上方弹出 msgbox.alert()',null,'primary','top')">msgbox.alert()</m-btn>
+    <m-btn class="sky mg-l-10" onclick="window.ns.msgbox.alert('上方弹出 msgbox.alert()',null,'sky','top')">msgbox.alert()</m-btn>
   </div>
   <br />
   <pre>
@@ -14,15 +14,15 @@ let msgbox = window.ns.<b>msgbox</b>;
 // 参数
 // <b>txt</b>: 要显示的文本内容,必选
 // <b>onClosed</b>: 点击确定后执行方法
-// <b>btnStyle</b>: 按钮主题样式,primary,success,danger,...
+// <b>btnStyle</b>: 按钮样式(sky,red,...)
 // <b>position</b>: 弹出位置, <b>center</b> | top | bottom
 msgbox.<b>alert('txt', [onClosed], [btnStyle], [position])</b>
 </pre>
 
-  <p>confirm</p>
+  <h6>confirm</h6>
   <div>
-    <m-btn onclick="window.ns.msgbox.confirm('点击了弹出框 msgbox.confirm()',confirmCall)">msgbox.confirm()</m-btn>
-    <span id="confirmRes" class="label primary mg-l-10"></span>
+    <m-btn onclick="window.ns.msgbox.confirm('点击了弹出框 msgbox.confirm()',confirmCall,'sky')">msgbox.confirm()</m-btn>
+    <span id="confirmRes" class="label mg-l-10"></span>
   </div>
   <br />
   <pre>
@@ -32,15 +32,15 @@ let msgbox = window.ns.<b>msgbox</b>;
 // 参数
 // <b>txt</b>: 要显示的文本内容,必选
 // <b>callback</b>: 确定和取消都执行 callback(result), result: 确定 1,取消 0
-// <b>btnStyle</b>: 按钮主题样式,primary,success,danger,...
+// <b>btnStyle</b>: 确定按钮样式
 // <b>position</b>: 弹出位置, <b>center</b> | top | bottom
-msgbox.<b>alert('txt', [callback], [btnStyle], [position])</b>
+msgbox.<b>confirm('txt', [callback], [btnStyle], [position])</b>
 </pre>
 
-  <p>prompt</p>
+  <h6>prompt</h6>
   <div>
-    <m-btn onclick="window.ns.msgbox.prompt('输入内容: msgbox.prompt()',promptCall)">msgbox.confirm()</m-btn>
-    <span id="promptRes" class="label primary mg-l-10"></span>
+    <m-btn onclick="window.ns.msgbox.prompt('输入内容: msgbox.prompt()',promptCall,'red')">msgbox.confirm()</m-btn>
+    <span id="promptRes" class="label mg-l-10"></span>
   </div>
   <br />
   <pre>
@@ -50,9 +50,9 @@ let msgbox = window.ns.<b>msgbox</b>;
 // 参数
 // <b>txt</b>: 要显示的文本内容,必选
 // <b>callback</b>: 确定和取消都执行 callback(result), result: 确定 '输入的字符', 取消 ''
-// <b>btnStyle</b>: 按钮主题样式,primary,success,danger,...
+// <b>btnStyle</b>: 确定按钮样式
 // <b>position</b>: 弹出位置, <b>center</b> | top | bottom
-msgbox.<b>alert('txt', [callback], [btnStyle], [position])</b>
+msgbox.<b>prompt('txt', [callback], [btnStyle], [position])</b>
 </pre>
   <p>自定义弹出层</p>
   <p># 自定义框是一个HTML片段,弹出的本质是在将它显示在弹出层父级上</p>

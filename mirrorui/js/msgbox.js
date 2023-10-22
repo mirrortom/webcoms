@@ -33,7 +33,7 @@
         document.body.append(msgboxDom);
     };
     /**
-     * 生成标准弹出层的外层div元素,并设置风格样式和位置样式
+     * 生成标准弹出层的外层div元素,设置位置样式
      * @param {string} msg 要显示的信息
      * @param {string} position 位置:top | bottom
      * @returns {HTMLElement} 返回外层div元素
@@ -48,7 +48,7 @@
     /**
      * 生成标准按钮:确定,取消
      * @param {string} name 按钮种类 ok|cancel
-     * * @param {string} theme 按钮风格 primary|success|...
+     * * @param {string} theme 按钮风格
      * @returns {HTMLElement} 返回按钮dom
      */
     let createBtn = (name, theme) => {
@@ -77,7 +77,7 @@
      * alert 弹出框
      * @param {string} msg 要提示的信息
      * @param {Function} onClosed 关闭后执行方法
-     * @param {string} style 样式风格:primary | danger | success...
+     * @param {string} style 按钮样式
      * @param {string} position 位置:top | bottom
      */
     msgBox.alert = (msg, onClosed, style, position) => {
@@ -108,7 +108,7 @@
      * confirm 弹出框
      * @param {string} msg 要提示的信息
      * @param {Function} callback 回调函数
-     * @param {string} style 样式风格:primary | danger | success...
+     * @param {string} style 按钮样式
      * @param {string} position 位置:top | bottom
      */
     msgBox.confirm = (msg, callback, style, position) => {
@@ -150,7 +150,7 @@
      * prompt 弹出框
      * @param {string} msg 要提示的信息
      * @param {Function} callback 回调函数
-     * @param {string} style 样式风格:primary | danger | success...
+     * @param {string} style 确定按钮样式
      * @param {string} position 位置:top | bottom
      */
     msgBox.prompt = (msg, callback, style, position) => {
@@ -167,7 +167,7 @@
         let inputE = $('<input>').addClass('input-text','mg-tb-10').prop('type', 'text')[0];
         // 按钮
         let okBtn = createBtn('ok', style);
-        let cancelBtn = createBtn('cancel', style);
+        let cancelBtn = createBtn('cancel');
         // 绑定事件
         okBtn.onclick = () => {
             // 删除弹出框
