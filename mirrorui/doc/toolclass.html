@@ -81,18 +81,19 @@
     <div class="mg-auto bg-sky-5 text-center" style="width:200px;height:20px;position:absolute;top:0;bottom:0;left:0;right:0">class="mg-auto"</div>
   </div>
   <br />
-  <p>flex布局居中</p>
-  <p class="text-in">元素使用flex布局时,项目元素在轴线上的居中对齐.</p>
+  <p>flex布局居中/居右</p>
+  <p class="text-in">元素使用flex布局时,项目元素在轴线上的居中对齐.或者在轴的末端.</p>
+  <div class="layout-h f-h-end mg-5 bd"><span class="pd-5 bg-sky-5 mg-r-10">class="f-h-end"</span><span class="pd-5 bg-sky-5">item2</span></div>
   <pre>
-// 主轴上居中
-.f-h-center
-    justify-content: center
-// 垂直轴上居中
-.f-v-center
-    align-items: center
-// flex 布局时,让子元素在垂直轴线上居中,用于子元素
-.f-vs-center
-    align-self: center
+// 主轴上居中/末
+.f-h-center(end)
+    justify-content: center(end)
+// 垂直轴上居中/末
+.f-v-center(end)
+    align-items: center(end)
+// flex 布局时,让子元素在垂直轴线上居中/末,用于子元素
+.f-vs-center(end)
+    align-self: center(end)
 </pre>
   <br />
   <p># 隐藏与显示</p>
