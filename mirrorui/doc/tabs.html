@@ -1,9 +1,24 @@
 ﻿<div class="doc-page">
   <h2>标签页</h2>
-  <p>容器组件,选择标签卡,显示对应页面.</p>
+  <p>容器组件,选择标签卡,显示对应页面.标签卡和页面由索引位置关联.</p>
   <p>自定义组件,删减了添加选项卡相关功能,简洁了样式,主要用于展示内容.</p>
   <pre>
 &lt;m-tabs&gt;&lt;/m-tabs&gt;
+
+// 内部分为标签块和内容块2部分
+// 标签框
+&lt;div class="tabs-header"&gt;
+  &lt;span class="tabs-label"&gt;苏轼&lt;/span&gt;
+  ...
+&lt;div/&gt;
+// 内容框
+&lt;div class="tabs-content"&gt;
+  &lt;div class="tabs-panel"&gt;
+    &lt;h5&gt;饮湖上初晴后雨二首·其二&lt;/h5&gt;
+    &lt;p&gt;水光潋滟晴方好&lt;/p&gt;
+  &lt;/div&gt;
+  ...
+&lt;div/&gt;
 </pre>
   <br />
   <div class="bd bdr pd-20 mg-b-10">
