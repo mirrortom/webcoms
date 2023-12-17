@@ -12,7 +12,7 @@ contDom:
  */
 ((win) => {
   // 帮助函数
-  const $ = win.ns.domHelp;
+  const $ = win.ns.domHelp || win.ns.jslib;
   // 生成选项卡和功能区DOM,添加到容器内
   /* html内容:
       <a class="tabsbox-left"></a>

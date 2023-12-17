@@ -107,7 +107,8 @@
     --t-tabs-label-active-color: $white['1']// 标签选中文字色
     
 // 彩色主题
-for k,v in $theme-name-colors-dict
-    .tabs.{k}
-        --t-tabs-label-active-bg-color:v['5']
-        --t-tabs-label-active-color: v['0']
+if $theme-name-colors-dict is defined
+    for k,v in $theme-name-colors-dict
+        .tabs.{k}
+            --t-tabs-label-active-bg-color:v['5']
+            --t-tabs-label-active-color: v['0']

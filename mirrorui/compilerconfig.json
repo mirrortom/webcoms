@@ -1,14 +1,14 @@
 ﻿[
   {
-    "outputFile": "test.css",
-    "inputFile": "test.styl",
+    "outputFile": "mirrorui.css",
+    "inputFile": "stylus/index.styl",
     "minify": {
       "enabled": false
     }
   },
   {
-    "outputFile": "mirrorui.css",
-    "inputFile": "stylus/index.styl",
+    "outputFile": "zcustom/ui.css",
+    "inputFile": "zcustom/xmy.styl",
     "minify": {
       "enabled": false
     }

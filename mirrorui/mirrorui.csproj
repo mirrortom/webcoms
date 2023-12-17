@@ -66,10 +66,8 @@
     <Content Include="js\tabs.js" />
     <Content Include="mirrorui.css" />
     <Content Include="mirrorui.js" />
-    <Content Include="test.css">
-      <DependentUpon>test.styl</DependentUpon>
-    </Content>
-    <Content Include="test.html" />
+    <Content Include="zcustom\ui.css" />
+    <Content Include="zcustom\ui.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -157,11 +155,9 @@
     <None Include="stylus\variables\mediaquery.styl" />
     <None Include="stylus\variables\cirangle.styl" />
     <None Include="stylus\variables\transition.styl" />
-    <None Include="test.styl" />
+    <None Include="zcustom\xmy.styl" />
     <None Include="readme.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="zcustom\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,6 +2,7 @@
   {
     "outputFileName": "mirrorui.js",
     "inputFiles": [
+      // 如果使用jslib.js，help.js可以不需要
       "js/help.js",
       "js/m-btn.js",
       "js/m-switch.js",
@@ -20,6 +21,19 @@
       "js/mdirbar.js",
       "js/m-range.js",
       "js/exts/m-inputwatch.js"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    // 用于xmy项目
+    "outputFileName": "zcustom/ui.js",
+    "inputFiles": [
+      "js/tabs.js",
+      "js/msgbox.js",
+      "js/m-mnavmenu.js",
+      "js/mdirbar.js"
     ],
     "minify": {
       "enabled": false

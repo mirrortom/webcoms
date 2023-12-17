@@ -127,22 +127,23 @@
     --t-btn-bg-hover:$gray['7']// hover背景颜色
     
 // 彩色主题
-for k,v in $theme-name-colors-dict
-    .btn.{k}
-        --t-btn-color: v['0']// 按钮文字色
-        --t-btn-bg-color: v['5']// 按钮背景色
-        --t-btn-color-hover: v['0']// hover按钮文字色
-        --t-btn-bg-hover:v['4']// hover背景颜色
-    // 连接式按钮彩色时
-    .btn.{k}.link
-        --t-btn-color: v['5']// 按钮文字色
-        //--t-btn-bg-color: v['5']// 按钮背景色
-        --t-btn-color-hover: v['6']// hover按钮文字色
-        //--t-btn-bg-hover:v['4']// hover背景颜色
-    // 反转的,字体/边框彩色,白背景
-    .btn.{k}-r
-        --t-btn-color: v['5']// 按钮文字色
-        --t-btn-bd-color:v['5']// 边框
-        --t-btn-bg-color: v['0']// 按钮背景色
-        --t-btn-color-hover: v['0']// hover按钮文字色
-        --t-btn-bg-hover:v['4']// hover背景颜色
+if $theme-name-colors-dict is define
+    for k,v in $theme-name-colors-dict
+        .btn.{k}
+            --t-btn-color: v['0']// 按钮文字色
+            --t-btn-bg-color: v['5']// 按钮背景色
+            --t-btn-color-hover: v['0']// hover按钮文字色
+            --t-btn-bg-hover:v['4']// hover背景颜色
+        // 连接式按钮彩色时
+        .btn.{k}.link
+            --t-btn-color: v['5']// 按钮文字色
+            //--t-btn-bg-color: v['5']// 按钮背景色
+            --t-btn-color-hover: v['6']// hover按钮文字色
+            //--t-btn-bg-hover:v['4']// hover背景颜色
+        // 反转的,字体/边框彩色,白背景
+        .btn.{k}-r
+            --t-btn-color: v['5']// 按钮文字色
+            --t-btn-bd-color:v['5']// 边框
+            --t-btn-bg-color: v['0']// 按钮背景色
+            --t-btn-color-hover: v['0']// hover按钮文字色
+            --t-btn-bg-hover:v['4']// hover背景颜色
