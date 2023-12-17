@@ -61,7 +61,6 @@ img,
 .mnavmenu-label,
 .mnavmenu-item,
 .mnavmenu-split,
-.mnavmenu-menu,
 .d-block {
   display: block;
 }
@@ -2452,6 +2451,9 @@ p {
   width: 90%;
   margin: 0 auto;
   border-bottom: 1px dashed var(--border-color);
+}
+.mnavmenu-menu {
+  flex: 1 0;
 }
 .mdirbar {
   --t-mdirbar-back-active: #e5e7eb;
