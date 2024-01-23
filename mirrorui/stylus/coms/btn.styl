@@ -127,7 +127,7 @@
     --t-btn-bg-hover:$gray['7']// hover背景颜色
     
 // 彩色主题
-if $theme-name-colors-dict is define
+if $theme-name-colors-dict is defined
     for k,v in $theme-name-colors-dict
         .btn.{k}
             --t-btn-color: v['0']// 按钮文字色

@@ -64,6 +64,13 @@ img,
 .d-block {
   display: block;
 }
+.btn-list-area,
+.docmenu-group-close li:not(:first-child),
+.sidemenu-group-close li:not(:first-child),
+.mnavmenu-itembox.close,
+.d-none {
+  display: none;
+}
 .list.disc > li::before,
 .list.cir > li::before,
 .list.square > li::before,
@@ -86,13 +93,7 @@ img,
 .pagenum-input {
   display: inline-block;
 }
-.btn-list-area,
-.docmenu-group-close li:not(:first-child),
-.sidemenu-group-close li:not(:first-child),
-.mnavmenu-itembox.close,
-.d-none {
-  display: none;
-}
+.msgbox-modal,
 .date-col-ym,
 .date-col-today,
 .date-col-week,
@@ -113,9 +114,12 @@ img,
 .mdirbar {
   display: grid;
 }
+.layout-h,
+.layout-hw,
+.layout-v,
 .tabs-header,
 .btn.d-block,
-.msgbox-modal,
+.msgbox,
 .docmenu-title,
 .sidemenu-label,
 .mnavmenu,
@@ -139,6 +143,25 @@ img,
 .input-check .check,
 .input-check .radio,
 .btn,
+.sidemenu-arrleft,
+.sidemenu-arrdown,
+.f-h-center {
+  justify-content: center;
+}
+.f-h-end {
+  justify-content: end;
+}
+.msgbox-r-c {
+  justify-self: center;
+}
+.msgbox-r-r {
+  justify-self: end;
+}
+.label,
+.input-check,
+.input-check .check,
+.input-check .radio,
+.btn,
 .switch,
 .docmenu-title,
 .sidemenu-label,
@@ -152,19 +175,13 @@ img,
 .f-v-end {
   align-items: end;
 }
-.label,
-.input-check,
-.input-check .check,
-.input-check .radio,
-.btn,
-.msgbox-modal,
-.sidemenu-arrleft,
-.sidemenu-arrdown,
-.f-h-center {
-  justify-content: center;
+.msgbox-c-c,
+.f-vs-center {
+  align-self: center;
 }
-.f-h-end {
-  justify-content: end;
+.msgbox-c-b,
+.f-vs-end {
+  align-self: end;
 }
 .tabsbox-menugroup,
 .list.disc > li::before,
@@ -173,7 +190,6 @@ img,
 .list.triangle > li::before,
 .input-file,
 .btn-list-group,
-.msgbox,
 .date-col-prev,
 .date-col-next,
 .date-ops-hour,
@@ -185,8 +201,6 @@ img,
 .tabsbox-menutitle,
 .input-file input[type=file],
 .btn-list-area,
-.msgbox-ok,
-.msgbox-cancel,
 .date-box,
 .date-col-prev:before,
 .date-col-next:before,
@@ -824,7 +838,6 @@ body {
 .layout-h,
 .layout-hw,
 .layout-v {
-  display: flex;
   flex: 0 0 auto;
 }
 .layout-hw {
@@ -1882,6 +1895,142 @@ p {
 .theme-dark .btn {
   --t-btn-bg-hover: #374151;
 }
+.btn.red {
+  --t-btn-color: #fef2f2;
+  --t-btn-bg-color: #ef4444;
+  --t-btn-color-hover: #fef2f2;
+  --t-btn-bg-hover: #f87171;
+}
+.btn.red.link {
+  --t-btn-color: #ef4444;
+  --t-btn-color-hover: #dc2626;
+}
+.btn.red-r {
+  --t-btn-color: #ef4444;
+  --t-btn-bd-color: #ef4444;
+  --t-btn-bg-color: #fef2f2;
+  --t-btn-color-hover: #fef2f2;
+  --t-btn-bg-hover: #f87171;
+}
+.btn.orange {
+  --t-btn-color: #fff7ed;
+  --t-btn-bg-color: #f97316;
+  --t-btn-color-hover: #fff7ed;
+  --t-btn-bg-hover: #fb923c;
+}
+.btn.orange.link {
+  --t-btn-color: #f97316;
+  --t-btn-color-hover: #ea580c;
+}
+.btn.orange-r {
+  --t-btn-color: #f97316;
+  --t-btn-bd-color: #f97316;
+  --t-btn-bg-color: #fff7ed;
+  --t-btn-color-hover: #fff7ed;
+  --t-btn-bg-hover: #fb923c;
+}
+.btn.yellow {
+  --t-btn-color: #fefce8;
+  --t-btn-bg-color: #eab308;
+  --t-btn-color-hover: #fefce8;
+  --t-btn-bg-hover: #facc15;
+}
+.btn.yellow.link {
+  --t-btn-color: #eab308;
+  --t-btn-color-hover: #ca8a04;
+}
+.btn.yellow-r {
+  --t-btn-color: #eab308;
+  --t-btn-bd-color: #eab308;
+  --t-btn-bg-color: #fefce8;
+  --t-btn-color-hover: #fefce8;
+  --t-btn-bg-hover: #facc15;
+}
+.btn.green {
+  --t-btn-color: #f0fdf4;
+  --t-btn-bg-color: #22c55e;
+  --t-btn-color-hover: #f0fdf4;
+  --t-btn-bg-hover: #4ade80;
+}
+.btn.green.link {
+  --t-btn-color: #22c55e;
+  --t-btn-color-hover: #16a34a;
+}
+.btn.green-r {
+  --t-btn-color: #22c55e;
+  --t-btn-bd-color: #22c55e;
+  --t-btn-bg-color: #f0fdf4;
+  --t-btn-color-hover: #f0fdf4;
+  --t-btn-bg-hover: #4ade80;
+}
+.btn.sky {
+  --t-btn-color: #f0f9ff;
+  --t-btn-bg-color: #0ea5e9;
+  --t-btn-color-hover: #f0f9ff;
+  --t-btn-bg-hover: #38bdf8;
+}
+.btn.sky.link {
+  --t-btn-color: #0ea5e9;
+  --t-btn-color-hover: #0284c7;
+}
+.btn.sky-r {
+  --t-btn-color: #0ea5e9;
+  --t-btn-bd-color: #0ea5e9;
+  --t-btn-bg-color: #f0f9ff;
+  --t-btn-color-hover: #f0f9ff;
+  --t-btn-bg-hover: #38bdf8;
+}
+.btn.blue {
+  --t-btn-color: #eff6ff;
+  --t-btn-bg-color: #3b82f6;
+  --t-btn-color-hover: #eff6ff;
+  --t-btn-bg-hover: #60a5fa;
+}
+.btn.blue.link {
+  --t-btn-color: #3b82f6;
+  --t-btn-color-hover: #2563eb;
+}
+.btn.blue-r {
+  --t-btn-color: #3b82f6;
+  --t-btn-bd-color: #3b82f6;
+  --t-btn-bg-color: #eff6ff;
+  --t-btn-color-hover: #eff6ff;
+  --t-btn-bg-hover: #60a5fa;
+}
+.btn.purple {
+  --t-btn-color: #faf5ff;
+  --t-btn-bg-color: #a855f7;
+  --t-btn-color-hover: #faf5ff;
+  --t-btn-bg-hover: #c084fc;
+}
+.btn.purple.link {
+  --t-btn-color: #a855f7;
+  --t-btn-color-hover: #9333ea;
+}
+.btn.purple-r {
+  --t-btn-color: #a855f7;
+  --t-btn-bd-color: #a855f7;
+  --t-btn-bg-color: #faf5ff;
+  --t-btn-color-hover: #faf5ff;
+  --t-btn-bg-hover: #c084fc;
+}
+.btn.pink {
+  --t-btn-color: #fdf2f8;
+  --t-btn-bg-color: #ec4899;
+  --t-btn-color-hover: #fdf2f8;
+  --t-btn-bg-hover: #f472b6;
+}
+.btn.pink.link {
+  --t-btn-color: #ec4899;
+  --t-btn-color-hover: #db2777;
+}
+.btn.pink-r {
+  --t-btn-color: #ec4899;
+  --t-btn-bd-color: #ec4899;
+  --t-btn-bg-color: #fdf2f8;
+  --t-btn-color-hover: #fdf2f8;
+  --t-btn-bg-hover: #f472b6;
+}
 @-moz-keyframes btnloading {
   100% {
     transform: rotate(360deg);
@@ -1962,32 +2111,12 @@ p {
   z-index: 10001;
 }
 .msgbox {
+  flex-direction: column;
+  justify-content: space-between;
   width: 75vw;
-  height: 120px;
-  padding: 20px;
+  min-height: 120px;
+  padding: 15px;
   background-color: var(--back-color);
-}
-.msgbox-prompt {
-  height: 140px;
-}
-.msgbox-center {
-  align-self: center;
-}
-.msgbox-top {
-  align-self: flex-start;
-}
-.msgbox-bottom {
-  align-self: flex-end;
-}
-.msgbox-ok,
-.msgbox-cancel {
-  bottom: 1em;
-}
-.msgbox-ok {
-  left: 80%;
-}
-.msgbox-cancel {
-  left: 60%;
 }
 @media only screen and (min-width: 768px) {
   .msgbox {
@@ -4765,12 +4894,6 @@ p {
 }
 .mg-auto {
   margin: auto;
-}
-.f-vs-center {
-  align-self: center;
-}
-.f-vs-end {
-  align-self: end;
 }
 @media only screen and (min-width: 640px) {
   .d-sm-none {

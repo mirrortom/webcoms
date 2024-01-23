@@ -30,10 +30,7 @@
     // 用于xmy项目
     "outputFileName": "zcustom/ui.js",
     "inputFiles": [
-      "js/tabs.js",
-      "js/msgbox.js",
-      "js/m-mnavmenu.js",
-      "js/mdirbar.js"
+      "js/msgbox.js"
     ],
     "minify": {
       "enabled": false

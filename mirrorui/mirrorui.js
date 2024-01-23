@@ -1336,7 +1336,7 @@ contDom:
     // 添加遮罩层
     let shadow = $('<div>').addClass(shadowCls)[0];
     document.body.append(shadow);
-    // 生成弹出框
+    // 生成弹出框父级
     let parentDiv = $('<div>').addClass(modalCls)[0];
     return parentDiv;
   };
@@ -1349,27 +1349,94 @@ contDom:
     document.body.append(msgboxDom);
   };
   /**
-   * 生成标准弹出层的外层div元素,设置位置样式
+   * 位置样式,分析参数值,生成位置样式名字数组
+   */
+  let positionClass = (position) => {
+    // 位置样式
+    let clsarr = [];
+    // 默认居中-5
+    if (!position) {
+      clsarr.push(msgboxCls + '-r-c');
+      clsarr.push(msgboxCls + '-c-c');
+      return clsarr;
+    }
+    switch (position) {
+      // 上中-2
+      case 'top-center':
+        clsarr.push(msgboxCls + '-r-c');
+        break;
+      // 上右-3
+      case 'top-right':
+        clsarr.push(msgboxCls + '-r-r');
+        break;
+      // 左中-4
+      case 'left-center':
+        clsarr.push(msgboxCls + '-c-c');
+        break;
+      // 右中-6
+      case 'right-center':
+        clsarr.push(msgboxCls + '-r-c');
+        clsarr.push(msgboxCls + '-c-c');
+        break;
+      // 左下-7
+      case 'left-bottom':
+        clsarr.push(msgboxCls + '-c-b');
+        break;
+      // 下中-8
+      case 'bottom-center':
+        clsarr.push(msgboxCls + '-r-c');
+        clsarr.push(msgboxCls + '-c-b');
+        break;
+      // 右下-9
+      case 'right-bottom':
+        clsarr.push(msgboxCls + '-r-r');
+        clsarr.push(msgboxCls + '-c-b');
+        break;
+      // 上左-1(grid布局默认值),或者无效值
+      case 'top-left':
+      default:
+        break;
+    }
+    return clsarr;
+  }
+  /**
+   * 生成标准弹出层的外层div元素(容器),设置位置样式
    * @param {string} msg 要显示的信息
-   * @param {string} position 位置:top | bottom
+   * @param {string} position 位置(9宫格):top | bottom | left | right | center(默认),或者组合先行后列
    * @returns {HTMLElement} 返回外层div元素
    */
   let createOuterDiv = (msg, position) => {
-    // 样式风格,位置样式
-    let outerDiv = $('<div>').addClass(msgboxCls, msgboxCls + '-' + (position || 'center'));
+    // 样式风格 msgboxCls类只加在3个标准框上
+    let outerDiv = $('<div>').addClass(msgboxCls).addClass(...positionClass(position));
     // 内容
-    outerDiv.text(msg || '');
+    outerDiv.append($('<p>').text(msg || '')[0]);
     return outerDiv[0];
   };
   /**
-   * 生成标准按钮:确定,取消
-   * @param {string} name 按钮种类 ok|cancel
-   * * @param {string} theme 按钮风格
-   * @returns {HTMLElement} 返回按钮dom
+   * 生成标准按钮区域:确定,取消
+   * @param {number} code 按钮种类 1=ok|2=ok+cancel
+   * @param {string} theme 按钮主题样式(只用于确定按钮)
+   * @returns {HTMLElement} 返回按钮区域的Div
    */
-  let createBtn = (name, theme) => {
-    let btn = $('<span>').addClass('btn', msgboxCls + '-' + name, theme).text(name === 'ok' ? '确定' : '取消');
-    return btn[0];
+  let createBtn = (code, onOk, onCancel, theme) => {
+    let okBtn = $('<span>').addClass('btn', theme).text('确定');
+    let cancelBtn = $('<span>').addClass('btn', theme).text('取消');
+    let btnArea = $('<div>').addClass('layout-h', 'pd-lr-20', 'f-h-end');
+    // 绑定事件
+    okBtn[0].onclick = () => {
+      // 删除弹出框
+      msgBox.close();
+      onOk();
+    };
+    cancelBtn[0].onclick = () => {
+      // 删除弹出框
+      msgBox.close();
+      onCancel();
+    };
+    if (code == 2)
+      btnArea.append($(cancelBtn).addClass('mg-r-30')[0]);
+    btnArea.append(okBtn[0]);
+    return btnArea[0];
   };
   // 弹出框类
   let msgBox = {};
@@ -1402,20 +1469,15 @@ contDom:
     // 生成遮罩层和弹出层父级,并且加入到body直属
     let parentDiv = createMsgBox();
     // 生成alertDom: 
-    // <div class="msgbox 样式? 位置?">内容<span class="btn msgbox-ok">OK</span></div>
     let alertDom = createOuterDiv(msg, position);
-    // 按钮
-    let okBtn = createBtn('ok', style);
-    // 按钮事件
-    okBtn.onclick = () => {
-      // 删除弹出框
-      msgBox.close();
+    // 按钮区域
+    let btnArea = createBtn(1, () => {
       // 执行关闭事件
       if (typeof onClosed === 'function')
         onClosed();
-    };
+    }, null, style);
     // 显示
-    alertDom.appendChild(okBtn);
+    alertDom.appendChild(btnArea);
     parentDiv.appendChild(alertDom);
     showMsgBox(parentDiv);
   };
@@ -1433,31 +1495,22 @@ contDom:
     // 生成遮罩层和弹出层父级,并且加入到body直属
     let parentDiv = createMsgBox();
     // 生成confirmDom:
-    // <div class="msgbox 样式? 位置?">内容<span class="msgbox-btn msgbox-ok">OK</span>
-    //                    <span class="msgbox-btn msgbox-cancel">Cancel</span></div >
     let confirmDom = createOuterDiv(msg, position);
-    // 按钮
-    let okBtn = createBtn('ok', style);
-    let cancelBtn = createBtn('cancel');
-    // 绑定事件
-    okBtn.onclick = () => {
-      // 删除弹出框
-      msgBox.close();
-      // 结果传回1表示点击OK
-      if (typeof callback === 'function')
-        callback(1);
-    };
-    cancelBtn.onclick = () => {
-      // 删除弹出框
-      msgBox.close();
-      // 结果传回0表示点击取消
-      if (typeof callback === 'function')
-        callback(0);
-    };
+    // 按钮区域
+    let btnArea = createBtn(2,
+      () => {
+        // 结果传回1表示点击OK
+        if (typeof callback === 'function')
+          callback(1);
+      },
+      () => {
+        // 结果传回0表示点击取消
+        if (typeof callback === 'function')
+          callback(0);
+      },
+      style);
     // 显示
-    confirmDom.innerText = msg;
-    confirmDom.appendChild(okBtn);
-    confirmDom.appendChild(cancelBtn);
+    confirmDom.appendChild(btnArea);
     parentDiv.appendChild(confirmDom);
     showMsgBox(parentDiv);
   };
@@ -1475,55 +1528,50 @@ contDom:
     // 生成遮罩层和弹出层父级,并且加入到body直属
     let parentDiv = createMsgBox();
     // 生成promptDom:
-    // <div class="msgbox 样式? 位置?">内容<input class="msgbox-input" type="text"/>
-    // <span class="msgbox-btn msgbox-ok">Ok</span><span class="msgbox-btn msgbox-cancel">Cancel</span></div>
     let promptDom = createOuterDiv(msg, position);
     promptDom.classList.add('msgbox-prompt');
     // input框
-    let inputE = $('<input>').addClass('input-text', 'mg-tb-10').prop('type', 'text')[0];
-    // 按钮
-    let okBtn = createBtn('ok', style);
-    let cancelBtn = createBtn('cancel');
-    // 绑定事件
-    okBtn.onclick = () => {
-      // 删除弹出框
-      msgBox.close();
-      // 输入传回
-      if (typeof callback === 'function') {
-        callback(inputE.value);
-      }
-    };
-    cancelBtn.onclick = () => {
-      // 删除弹出框
-      msgBox.close();
-      // 输入传回空字符串
-      if (typeof callback === 'function')
-        callback('');
-    };
+    let inputE = $('<input>').addClass('input-text', 'mg-b-10').prop('type', 'text')[0];
+    // 按钮区域
+    let btnArea = createBtn(2,
+      () => {
+        // 输入传回
+        if (typeof callback === 'function') {
+          callback(inputE.value);
+        }
+      },
+      () => {
+        // 输入传回空字符串
+        if (typeof callback === 'function')
+          callback(inputE.value);
+      },
+      style);
     // 显示
-    promptDom.innerText = msg;
     promptDom.appendChild(inputE);
-    promptDom.appendChild(okBtn);
-    promptDom.appendChild(cancelBtn);
+    promptDom.appendChild(btnArea);
     parentDiv.appendChild(promptDom);
     showMsgBox(parentDiv);
   };
 
   /**
    * 弹出自定义HTML片段
-   * @param {string|HTMLElement} customBox 自定义弹出层html片段
+   * @param {string|HTMLElement} html 自定义弹出层html片段
    * @param {Function} onBefore 显示前执行
    * @param {Function} onShow 显示后执行
+   * @param {string} position 位置
    */
-  msgBox.show = (customBox, onBefore, onShow) => {
+  msgBox.show = (html, onBefore, onShow, position) => {
     // 删除可能存在的弹出框
     msgBox.close();
     // 生成遮罩层和弹出层父级,并且加入到body直属
     let parentDiv = createMsgBox();
-    if (typeof customBox === 'string')
-      parentDiv.innerHTML = customBox;
+    if (typeof html === 'string')
+      parentDiv.innerHTML = html;
     else
-      parentDiv.appendChild(msgboxhtml);
+      parentDiv.appendChild(html);
+    // 位置
+    let posClsArr = positionClass(position);
+    $(parentDiv.firstElementChild).addClass(...posClsArr);
     //
     if (typeof onBefore === 'function')
       onBefore();
