@@ -27,30 +27,49 @@ $ext-text-align-center
 // @extend $ext-display-block
 $ext-display-block
     display:block
-// @extend $ext-display-inline-block
-$ext-display-inline-block
-    display:inline-block
 // @extend $ext-display-none
 $ext-display-none
     display:none
+// @extend $ext-display-inline-block
+$ext-display-inline-block
+    display:inline-block
 
+// display flex / grid , inline-felx / inline-grid
 // @extend $ext-display-grid
 $ext-display-grid
     display:grid
+$ext-display-inline-grid
+    display: inline-grid
 // @extend $ext-display-flex
 $ext-display-flex
     display: flex
 $ext-display-inline-flex
     display: inline-flex
-// @extend $ext-align-center
-$ext-align-center
-    align-items: center
-$ext-align-end
-    align-items: end
+
+// justify: center|end
 $ext-justify-center
     justify-content: center
 $ext-justify-end
     justify-content: end
+
+// justify-self: center|end ,for grid layout
+$ext-justify-self-center
+    justify-self: center
+$ext-justify-self-end
+    justify-self: end
+
+// align-items: center|end
+$ext-align-center
+    align-items: center
+$ext-align-end
+    align-items: end
+
+// align-self: center|end
+$ext-align-self-center
+    align-self: center
+$ext-align-self-end
+    align-self: end
+
 // @extend $ext-inline-flex-vh-center
 $ext-inline-flex-vh-center
     @extend $ext-display-inline-flex
