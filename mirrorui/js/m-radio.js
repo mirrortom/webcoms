@@ -17,7 +17,11 @@
       this.onclick = () => {
         if (this.hasAttribute('disabled')) return;
         let thisobj = $(this);
-        if (thisobj.hasClass('checked')) return;
+        if (thisobj.hasClass('checked')) {
+          // 再次点击选中的单选按钮时,取消选中
+          thisobj.removeClass('checked');
+          return;
+        }
         thisobj.addClass('checked');
         // 取消同级的(在同一个父元素下的),name属性值相同的单选按钮的选中状态
         thisobj.siblings('m-radio[name=' + thisobj.prop('name') + ']').removeClass('checked');
