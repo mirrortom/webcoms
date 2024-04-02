@@ -857,29 +857,29 @@ h6 {
   line-height: 1.1;
   color: inherit;
   background-color: inherit;
-  margin: 8px 0;
+  margin: 0.6em 0;
 }
 h1 {
-  font-size: 36px;
+  font-size: 2.6em;
 }
 h2 {
-  font-size: 30px;
+  font-size: 2.15em;
 }
 h3 {
-  font-size: 24px;
+  font-size: 1.75em;
 }
 h4 {
-  font-size: 20px;
+  font-size: 1.44em;
 }
 h5 {
-  font-size: 16px;
+  font-size: 1.2em;
 }
 h6 {
   font-size: 14px;
 }
 p {
-  margin: 0 0 16px;
-  line-height: 1.8em;
+  margin: 0 0 1em;
+  line-height: 1.8;
 }
 .label {
   padding: 2px 0.5em;
@@ -2683,34 +2683,34 @@ p {
   --t-pagenum-active-bg-color: #ec4899;
 }
 .text-sm {
-  font-size: 12px;
+  font-size: 0.9em;
 }
 .text-base {
   font-size: 14px;
 }
 .text-md {
-  font-size: 16px;
+  font-size: 1.2em;
 }
 .text-lg {
-  font-size: 20px;
+  font-size: 1.44em;
 }
 .text-xl {
-  font-size: 24px;
+  font-size: 1.75em;
 }
 .text-2xl {
-  font-size: 30px;
+  font-size: 2.15em;
 }
 .text-3xl {
-  font-size: 36px;
+  font-size: 2.6em;
 }
 .text-4xl {
-  font-size: 48px;
+  font-size: 3.4em;
 }
 .text-5xl {
-  font-size: 60px;
+  font-size: 4.2em;
 }
 .text-6xl {
-  font-size: 84px;
+  font-size: 6em;
 }
 .text-in {
   text-indent: 2em;
