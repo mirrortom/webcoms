@@ -42,6 +42,12 @@
     <Content Include="doc\color.html" />
     <Content Include="doc\layoutline.html" />
     <Content Include="doc\docmenu.html" />
+    <Content Include="doc\toolwidth.html" />
+    <Content Include="doc\toollayout.html" />
+    <Content Include="doc\toolmgpd.html" />
+    <Content Include="doc\toolborder.html" />
+    <Content Include="doc\toolcolor.html" />
+    <Content Include="doc\tooltext.html" />
     <Content Include="doc\update.html" />
     <Content Include="doc\cachepagedemo1.html" />
     <Content Include="doc\mdirbardemo.html" />
@@ -112,7 +118,7 @@
     <Content Include="doc\sidemenu.html" />
     <Content Include="doc\table.html" />
     <Content Include="doc\tabs.html" />
-    <Content Include="doc\toolclass.html" />
+    <Content Include="doc\toolhv.html" />
     <Content Include="index.html" />
     <None Include="publish.json" />
     <None Include="stylus\base.styl" />

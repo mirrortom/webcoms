@@ -2712,6 +2712,33 @@ p {
 .text-6xl {
   font-size: 6em;
 }
+.text-b-1 {
+  font-weight: 100;
+}
+.text-b-2 {
+  font-weight: 200;
+}
+.text-b-3 {
+  font-weight: 300;
+}
+.text-b-4 {
+  font-weight: 400;
+}
+.text-b-5 {
+  font-weight: 500;
+}
+.text-b-6 {
+  font-weight: 600;
+}
+.text-b-7 {
+  font-weight: 700;
+}
+.text-b-8 {
+  font-weight: 800;
+}
+.text-b-9 {
+  font-weight: 900;
+}
 .text-in {
   text-indent: 2em;
 }
@@ -4894,6 +4921,120 @@ p {
 }
 .mg-auto {
   margin: auto;
+}
+.w-10 {
+  width: 10%;
+}
+.w-vw-10 {
+  width: 10vw;
+}
+.w-15 {
+  width: 15%;
+}
+.w-vw-15 {
+  width: 15vw;
+}
+.w-20 {
+  width: 20%;
+}
+.w-vw-20 {
+  width: 20vw;
+}
+.w-25 {
+  width: 25%;
+}
+.w-vw-25 {
+  width: 25vw;
+}
+.w-30 {
+  width: 30%;
+}
+.w-vw-30 {
+  width: 30vw;
+}
+.w-35 {
+  width: 35%;
+}
+.w-vw-35 {
+  width: 35vw;
+}
+.w-40 {
+  width: 40%;
+}
+.w-vw-40 {
+  width: 40vw;
+}
+.w-45 {
+  width: 45%;
+}
+.w-vw-45 {
+  width: 45vw;
+}
+.w-50 {
+  width: 50%;
+}
+.w-vw-50 {
+  width: 50vw;
+}
+.w-55 {
+  width: 55%;
+}
+.w-vw-55 {
+  width: 55vw;
+}
+.w-60 {
+  width: 60%;
+}
+.w-vw-60 {
+  width: 60vw;
+}
+.w-65 {
+  width: 65%;
+}
+.w-vw-65 {
+  width: 65vw;
+}
+.w-70 {
+  width: 70%;
+}
+.w-vw-70 {
+  width: 70vw;
+}
+.w-75 {
+  width: 75%;
+}
+.w-vw-75 {
+  width: 75vw;
+}
+.w-80 {
+  width: 80%;
+}
+.w-vw-80 {
+  width: 80vw;
+}
+.w-85 {
+  width: 85%;
+}
+.w-vw-85 {
+  width: 85vw;
+}
+.w-90 {
+  width: 90%;
+}
+.w-vw-90 {
+  width: 90vw;
+}
+.w-95 {
+  width: 95%;
+}
+.w-vw-95 {
+  width: 95vw;
+}
+.w-100 {
+  width: 100%;
+}
+.w-vw-100 {
+  width: 100vw;
 }
 @media only screen and (min-width: 640px) {
   .d-sm-none {

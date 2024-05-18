@@ -20,11 +20,13 @@
       overflow-x: hidden;
       overflow-y: auto;
     }
+
     .theme-box {
       display: grid;
       grid-template-columns: repeat(2,50%);
-      cursor:pointer;
+      cursor: pointer;
     }
+
     .tabsmenu-box, .theme-box {
       position: sticky;
       top: 0;
@@ -74,8 +76,21 @@
           <li><a class="docmenu-item" urlid="grids">册格</a></li>
           <li><a class="docmenu-item" urlid="layoutline">线性排布</a></li>
           <li><a class="docmenu-item" urlid="mediaquery">媒体查询</a></li>
-          <li><a class="docmenu-item" urlid="toolclass">工具样式</a></li>
           <li><a class="docmenu-item" urlid="pagelayout">页面布局</a></li>
+          <li>
+            <ul class="docmenu-group">
+              <li>
+                <span class="docmenu-title"><i class="docmenu-open"></i>工具样式</span>
+              </li>
+              <li><a class="docmenu-item" urlid="tooltext">文本</a></li>
+              <li><a class="docmenu-item" urlid="toolborder">边框</a></li>
+              <li><a class="docmenu-item" urlid="toolcolor">颜色</a></li>
+              <li><a class="docmenu-item" urlid="toollayout">对齐</a></li>
+              <li><a class="docmenu-item" urlid="toolwidth">宽度</a></li>
+              <li><a class="docmenu-item" urlid="toolmgpd">边距补白</a></li>
+              <li><a class="docmenu-item" urlid="toolhv">显示隐藏</a></li>
+            </ul>
+          </li>
         </ul>
         <ul class="docmenu-group">
           <li>
@@ -199,10 +214,12 @@
           if (!urlid) return;
           let title = $(item).text();
           cpg.load(urlid, title);
+          // 当前页面id添加到hash属性,便于测试查找页面.(这属性改变了URL,但浏览器不会刷新页面)
+          win.location.hash = '#pageId=' + urlid;
         });
 
       // 默认打开"关于"
-      docmenu1.activeItem(0);
+      docmenu1.activeItem(10);
 
       // 彩色变量
       win.themecolors = ['red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple', 'pink'];

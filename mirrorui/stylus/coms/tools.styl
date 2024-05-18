@@ -4,10 +4,15 @@
 //=======
 // 文本
 //=======
+// 文本大小
 for k, v in $fontSize-dict
     .text-{k}
         font-size: v
-// 文本段落首行缩进
+// 文本加粗
+for k,v in $fontWeight
+    .text-b-{k}
+        font-weight: v
+// 文本段落首行缩进2em
 .text-in
     text-indent: 2em
 // 文本超出时,显示省略号
@@ -101,7 +106,19 @@ for colorName,list in $colors-dict
 .f-vs-end
     @extend $ext-align-self-end
 
+//===============
+// 长度,常用长度
+//===============
+for len in range(10,100,5)
+    val=len*1%// 百分比宽度
+    valVw=len*1vw// VW宽度
+    .w-{len}
+        width:val
+    .w-vw-{len}
+        width:valVw
+//=================================
 // display:none block 隐藏|显示
+//=================================
 .d-none
     @extend $ext-display-none
 .d-block

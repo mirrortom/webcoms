@@ -1,0 +1,33 @@
+﻿<div class="doc-page">
+  <h2>文本</h2>
+  <p>为了方便使用,做一些单一功能的样式类.所谓"原子样式",组合使用多种原子样式达到一定效果.这种做法灵活搭配,也可以减少重复的css条目.</p>
+  <p>主要参考tailwind的css条目.<a href="https://tailwindcss.com/docs" target="_blank">tailwind css</a></p>
+  <p># 当文本超出容器宽度时,不换行,显示省略号.</p>
+  <p class="text-red-5">需要给元素设置宽度width或者max-width,否则没有效果.</p>
+  <p class="text-overflow pd-5 bg-success-lt" style="width:260px" title="text-overflow文本超出时,显示省略号">
+    class="<b>text-overflow</b>" 文本超出时,显示省略号
+  </p>
+  <pre>
+// text-overflow类设置了max-width:100%
+&lt;p class="<b>text-overflow</b>" style="width:260px" title="text-overflow文本超出时,显示省略号"&gt;
+  class="text-overflow" 文本超出时,显示省略号
+&lt;/p&gt;
+</pre>
+  <br />
+  <p># 文字大小</p>
+  <div class="layout-v">
+    <p><span class="bg-purple-4 text-sm pd-lr-10">1 text-sm 12px</span></p>
+    <p><span class="bg-gray-3 text-base pd-lr-10">2 text-base 14px 默认</span></p>
+    <p><span class="bg-orange-2 text-md pd-lr-10">3 text-md 16px</span></p>
+    <p><span class="bg-orange-3 text-lg pd-lr-10">4 text-lg 20px</span></p>
+    <p><span class="bg-orange-4 text-xl pd-lr-10">5 text-xl 24px</span></p>
+    <p><span class="bg-orange-5 text-2xl pd-lr-10">6 text-2xl 30px</span></p>
+    <p><span class="bg-red-4 text-3xl pd-lr-10">7 text-3xl 36px</span></p>
+    <p><span class="bg-red-5 text-4xl pd-lr-10">8 text-4xl 48px</span></p>
+    <p><span class="bg-red-6 text-5xl pd-lr-10">9 text-5xl 60px</span></p>
+    <p><span class="bg-red-7 text-6xl pd-lr-10">10 text-6xl 84px</span></p>
+  </div>
+
+  <p># 文本缩进</p>
+  <p class="text-in pd-15 bg-sky-5" style="width:260px">class="<b>text-in</b>" 用于一段文字开头缩进2em.表示一段文字的开始.</p>
+</div>
