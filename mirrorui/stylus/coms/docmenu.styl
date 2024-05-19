@@ -1,4 +1,4 @@
-﻿//文档菜单
+﻿//==文档菜单==//
 
 // 主题色变量
 .docmenu
@@ -7,9 +7,6 @@
 
 .docmenu
     @extend $ext-display-block
-    // 每个菜单组是一个ul
-    &-group
-        list-style: none
     // 嵌套子菜单组的缩进
     &-group &-group
         margin-left: 1em
@@ -22,6 +19,9 @@
         @extend $ext-cursor-pointer
         @extend $ext-text-overflow
         @extend $ext-border-cir-default
+    // 直接子菜单项
+    & > &-item
+        padding: 4px 0 4px 1em
     // 菜单项hover,菜单项加上下划线
     &-item:not(.active):hover
         text-decoration: underline
@@ -63,7 +63,7 @@
         top: 50%
         transform: translateY(-50%) rotate(135deg)
     // 菜单组关闭
-    &-group-close li:not(:first-child)
+    &-group-close *:not(:first-child)
         @extend $ext-display-none
 
 {$theme-dark} .docmenu

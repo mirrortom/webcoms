@@ -65,7 +65,7 @@ img,
   display: block;
 }
 .btn-list-area,
-.docmenu-group-close li:not(:first-child),
+.docmenu-group-close *:not(:first-child),
 .sidemenu-group-close li:not(:first-child),
 .mnavmenu-itembox.close,
 .d-none {
@@ -2454,15 +2454,15 @@ p {
   --t-docmenu-active-color: #1a1a1e;
   --t-docmenu-active-bg-color: #d1d5db;
 }
-.docmenu-group {
-  list-style: none;
-}
 .docmenu-group .docmenu-group {
   margin-left: 1em;
 }
 .docmenu-item {
   text-decoration: none;
   padding: 4px 0 4px 2em;
+}
+.docmenu > .docmenu-item {
+  padding: 4px 0 4px 1em;
 }
 .docmenu-item:not(.active):hover {
   text-decoration: underline;
