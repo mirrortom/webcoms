@@ -2716,12 +2716,8 @@ contDom:
     ]
     一个数组,每个菜单是一个对象,除了title必须.props是加到菜单或组上的属性,styles是样式名字.都可省略.
     如果对象里包含menus数组,那么视为菜单组,title是组标题.menus里还是菜单对象,可以嵌套menus.
-      dom结构说明
-    <m-docmenu>
-
-    </m-docmenu>
     */
-    create(json, menuItemClickE) {
+    create(json, menuItemClickE, menuItemSetE) {
       let cls = this.Cls;
       // 添加样式
       let thisobj = $(this);
@@ -2796,6 +2792,14 @@ contDom:
             menuItemClickE(item, menuIndex);
         }
       })
+
+      // 3.菜单项自定义设置
+      if (typeof menuItemSetE == 'function') {
+        $(this).find('.' + cls.item).each((item, index) => {
+          let menuIndex = index;
+          menuItemSetE(item, menuIndex);
+        })
+      }
     }
 
     // 程序点击一个菜单项

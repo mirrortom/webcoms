@@ -1,12 +1,13 @@
 ﻿<div class="doc-page">
   <h2>文档菜单</h2>
   <p># 使用自定义标记 <b>&lt;m-docmenu&gt;</b> </p>
-  <p class="text-in">用于文档页面,位于左侧的菜单,模仿了MSDN的文档菜单,简洁风格.可以嵌套.</p>
-  <p class="text-in">一个菜单组是一个ul列表,其中的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.li里可以嵌套菜单组.</p>
-  <p class="text-in">菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法. </p>
+  <p class="text-in">用于文档页面,位于左侧的菜单,模仿了MSDN的文档菜单,简洁风格.可以多级嵌套.</p>
+  <p class="text-in">一个菜单组是一个div.里面的a是菜单项,组标题是第一个子元素span.组内的div就是嵌套组.</p>
+  <p class="text-in">传入一个方法绑定到菜单项的点击事件.</p>
 
   <m-docmenu class="mg-5 bg-gray-3" id="docmenudemo1" style="width:200px">
     <a class="docmenu-item">独立子菜单1</a>
+    <a class="docmenu-item">独立子菜单2</a>
     <div class="docmenu-group">
       <span class="docmenu-title"><i class="docmenu-open"></i>文档菜单</span>
       <a class="docmenu-item">菜单一(点击)</a>
@@ -21,23 +22,22 @@
   </m-docmenu>
   <br />
   <pre>
-// 单个菜单组DOM结构
-&lt;ul class="docmenu-group"&gt;
-  &lt;li&gt;
+// m-docmenu菜单组DOM结构
+&lt;m-docmenu class="docmenu"&gt;
+  &lt;a class="docmenu-item"&gt;独立子菜单1&lt;/a&gt;
+  &lt;a class="docmenu-item"&gt;独立子菜单2&lt;/a&gt;
+  &lt;div class="docmenu-group"&gt;
     &lt;span class="docmenu-title"&gt;&lt;i class="docmenu-open"&gt;&lt;/i&gt;文档菜单&lt;/span&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单一&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单二&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;ul class="docmenu-group"&gt;
-      &lt;li&gt;
-        &lt;span class="docmenu-title"&gt;&lt;i class="docmenu-open"&gt;&lt;/i&gt;文档菜单子级1&lt;/span&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单1.1&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a class="docmenu-item"&gt;菜单1.2&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+    &lt;a class="docmenu-item"&gt;菜单一(点击)&lt;/a&gt;
+    &lt;a class="docmenu-item"&gt;菜单二&lt;/a&gt;
+    &lt;a class="docmenu-item"&gt;菜单三&lt;/a&gt;
+    &lt;div class="docmenu-group"&gt;
+      &lt;span class="docmenu-title"&gt;&lt;i class="docmenu-open"&gt;&lt;/i&gt;文档菜单子级1&lt;/span&gt;
+      &lt;a class="docmenu-item"&gt;菜单1.1&lt;/a&gt;
+      &lt;a class="docmenu-item"&gt;菜单1.2&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/m-docmenu&gt;
 
 // 调用create()方法,初始化菜单
 let docmenu1 = document.getElementById('main_menubox');
@@ -45,10 +45,10 @@ docmenu1.<b>create()</b>;
 </pre>
   <br />
   <p># 方法 <b>create(json, menuItemClickE, menuItemSet)</b></p>
-  <p class="text-in">生成菜单项,绑定事件,设置属性.传入菜单数据json对象,动态生成菜单项.</p>
-  <p class="text-in">json: 菜单数据,使用json生成菜单时需要</p>
-  <p class="text-in">menuItemClickE(menuItem, index) : 菜单项点击事件,菜单生成后,点击菜单项时执行.</p>
-  <p class="text-in">menuItemSet(menuItem,data) : 菜单项设置方法,生成菜单时执行,可以为菜单项添加自定义内容</p>
+  <p class="text-in">生成菜单,主要做了,绑定事件,设置属性等.参数都可以省略.</p>
+  <p class="text-in"><b>json</b>: 菜单数据,使用json生成菜单时需要.如果使用已有dom,不需要.</p>
+  <p class="text-in"><b>menuItemClickE(menuItem, index)</b> : 菜单项点击事件,菜单生成后,点击菜单项时执行.</p>
+  <p class="text-in"><b>menuItemSet(menuItem,data)</b> : 菜单项设置方法,生成菜单时执行,可以为菜单项添加自定义内容.<b class="text-red-5">create方法执行时</b>,绑定了菜单项的click事件,这个方法如果也绑定了click事件,会覆盖掉.</p>
   <p>
     <m-btn id="createdocmenu1" class="orange">生成菜单</m-btn>
   </p>
@@ -56,24 +56,22 @@ docmenu1.<b>create()</b>;
   <m-docmenu id="docmenujsondeom1" class="bg-orange-3" style="width:200px"></m-docmenu>
   <br />
   <pre>
-// json结构: 一个数组,元素是一个对象.{title:'菜单组标题',menus:[{菜单项1},{菜单项2},..,{}]}
-// menus里可以嵌套子菜单组,如果菜单项是一个包含menus属性的对象,那么视为子菜单组
-// 菜单项可以是对象或者字符串或者其它类型,需要传入menuItemSet方法自定义菜单项
+// json结构:每个菜单是一个对象,title属性必须,其它不必须.如果是菜单组,需要含有menus属性.
     [
-      {
-          title: '组标题',
-          menus: [{菜单项1},{菜单项2},
-                    {
-                    title: '子菜单组标题',<b>menus</b>:[]]
-                    }
-                  ]
-      },
-      ...
+      {title: '菜单标题1', props: { }, styles: []}
+      {title: '组标题1', props: {}, styles: [],
+         menus:[
+                 { title: '菜单标题', props: { }, styles: [] },
+                 { title: '菜单标题', props: { }, styles: [],
+                     menus:[{}] 
+                 }
+               ]
+      }
     ]
   
 // <b>menuItemClickE(menuItem, index)</b>: 点击菜单后执行的方法.menuItem是被点击的菜单dom对象,index是菜单索引
-// <b>menuItemSet(menuItem,data)</b>: 自定义菜单项.menuItem是菜单dom对象,实际是一个a标记,可以设置一些属性.data就是菜单项在json里的源对象.
-// 所有参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要的参数传(null,click,set)
+// <b>menuItemSet(menuItem,index)</b>: 自定义菜单项.menuItem是菜单dom对象,实际是一个a标记.
+// 所有参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要的参数传(null,clickHandler,setHandler)
 </pre>
   <br />
   <p># 方法 <b>activeItem(itemIndex)</b></p>
