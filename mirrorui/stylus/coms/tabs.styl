@@ -23,7 +23,7 @@
     &-header 
         @extend $ext-display-flex
         grid-row-start: 1
-        text-align: center
+        @extend $ext-text-align-center
         border: 0 solid $border-color
         border-bottom-width: 1px
     
@@ -59,12 +59,12 @@
         color:$gray['4']
         border-radius:$cir-angle $cir-angle 0 0
         @extend $ext-text-overflow
-        user-select: none
+        @extend $ext-user-select-none
 
     // hover
     &-label:hover 
         background-color: var(--t-tabs-label-hover)
-        cursor:pointer
+        @extend $ext-cursor-pointer
       
     // 标签 左右位置
     &.left &-label, &.right &-label 
@@ -94,11 +94,11 @@
     
     // 内容
     &-panel
-        display: none
+        @extend $ext-display-none
     
     // 内容-活动的
     &-panel.active
-        display: block
+        @extend $ext-display-block
 
 // dark主题
 .theme-dark .tabs
