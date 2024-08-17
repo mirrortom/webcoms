@@ -42,10 +42,12 @@
 .sidemenu-item {
   font-weight: 500;
 }
+.tabs-header,
 .pagenum-input {
   text-align: center;
 }
 img,
+.tabs-panel.active,
 .input-text,
 .select,
 .textarea,
@@ -64,6 +66,7 @@ img,
 .d-block {
   display: block;
 }
+.tabs-panel,
 .btn-list-area,
 .docmenu-group-close *:not(:first-child),
 .sidemenu-group-close li:not(:first-child),
@@ -295,6 +298,7 @@ img,
 .mnavmenu-itembox {
   width: 100%;
 }
+.tabs-label:hover,
 .input-check,
 .input-check .form-label,
 .btn,
@@ -319,6 +323,7 @@ img,
 .sidemenu-label {
   cursor: pointer;
 }
+.tabs-label,
 .btn,
 .switch,
 .date-box,
@@ -1028,7 +1033,6 @@ p {
 }
 .tabs-header {
   grid-row-start: 1;
-  text-align: center;
   border: 0 solid var(--border-color);
   border-bottom-width: 1px;
 }
@@ -1059,11 +1063,9 @@ p {
   padding: 2px 0.5em;
   color: #9ca3af;
   border-radius: 4px 4px 0 0;
-  user-select: none;
 }
 .tabs-label:hover {
   background-color: var(--t-tabs-label-hover);
-  cursor: pointer;
 }
 .tabs.left .tabs-label,
 .tabs.right .tabs-label {
@@ -1088,12 +1090,6 @@ p {
 }
 .tabs.full .tabs-label {
   flex: 1 1 0;
-}
-.tabs-panel {
-  display: none;
-}
-.tabs-panel.active {
-  display: block;
 }
 .theme-dark .tabs {
   --t-tabs-label-hover: #374151;
