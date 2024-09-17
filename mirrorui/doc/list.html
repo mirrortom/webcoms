@@ -2,78 +2,79 @@
   <h2>列表</h2>
   <p>使用ul,ol标记,加list类.</p>
   <p>根据原有的ul,ol的样式,稍微调整了li的上下padding.在嵌套时的padding-left.另外,加了数值和字母序列</p>
-  <p># 无序列表,包含4种风格,支持颜色主题</p>
+  <h4>无序列表</h4>
+  <p>包含5种图案风格,使用了emoji图案,跟随字体颜色.</p>
   <pre>
 &lt;ul class="<b>list</b>"&gt;
 
-// 形状 方块,圆,三角形
+// 形状 圆点(默认),方块,圆心,三角形,五角星
 &lt;ul class="list <b>disc</b>"&gt;
 &lt;ul class="list <b>square</b>"&gt;
 &lt;ul class="list <b>cir</b>"&gt;
 &lt;ul class="list <b>triangle</b>"&gt;
+&lt;ul class="list <b>star</b>"&gt;
 </pre>
-  <ul class="list cir pd-lr-10 mg-b-10">
-    <li>
-      面包
-      <ul class="list square yellow">
-        <li>白面包</li>
-        <li>黑面包</li>
-      </ul>
-    </li>
-    <li>
-      米饭
-      <ul class="list disc green">
-        <li>大米</li>
-        <li>香米</li>
-      </ul>
-    </li>
-    <li>
-      馒头
-      <ul class="list triangle orange">
-        <li>白面馒头</li>
-        <li>黄米窝头</li>
-      </ul>
-    </li>
+  <div class="mg-tb-15">
+    <span class="btn-group" id="btngroup1">
+      <m-btn para="disc">圆点(默认) ●</m-btn>
+      <m-btn para="square" class="">方块 ■</m-btn>
+      <m-btn para="cir">圆心 ○</m-btn>
+      <m-btn para="triangle" class="">三角形 ▲</m-btn>
+      <m-btn para="star">五角星 ★</m-btn>
+    </span>
+  </div>
+  <ul class="list pd-lr-10 mg-b-10 mg-l-10 " id="list1">
+    <li>图案标记列表支持5种图</li>
+    <li>圆点,默认</li>
+    <li>空心圆</li>
+    <li>正方形</li>
+    <li>三角形</li>
+    <li>五角星</li>
+    <li>支持主题颜色</li>
   </ul>
-  <p># 有序列表,3种风格,可选是否计算嵌套.不支持颜色主题.</p>
+  <h4>有序列表</h4>
+  <p>4种风格,可选是否计算嵌套.不支持颜色主题.</p>
   <pre>
  &lt;ol class="list"&gt;
 
-// 数值,大写字母,中文
+// 数值,大写字母,小写字母,中文
 &lt;ol class="list <strong>num</strong>"&gt;
 &lt;ol class="list <strong>abc</strong>"&gt;
+&lt;ol class="list <strong>abc-l</strong>"&gt;
 &lt;ol class="list <strong>zh</strong>"&gt;
 // 要计算嵌套,在风格样式后加上s
 &lt;ol class="list <strong>nums</strong>"&gt;
 </pre>
   <p class="text-sky-5">不计算嵌套,每个list都从新开始计数,可以多种风格一起使用</p>
   <ol class="list num pd-lr-10 mg-b-10">
+    <li>支持4种风格</li>
     <li>
-      猪肉
-      <ol class="list num">
-        <li>猪排</li>
-        <li>猪脚</li>
-      </ol>
-    </li>
-    <li>
-      牛肉
+      字母
       <ol class="list abc">
-        <li>牛排</li>
-        <li>牛肚</li>
+        <li>AAAAAAAAAAAA</li>
+        <li>BBBBBBBBBBBB</li>
+        <li>CCC</li>
       </ol>
     </li>
     <li>
-      羊肉
+      中文
       <ol class="list zh">
-        <li>羊排</li>
-        <li>羊腿</li>
+        <li>一二三</li>
+        <li>四五六</li>
+      </ol>
+    </li>
+    <li>
+      小写
+      <ol class="list abcl">
+        <li>cccccccccccc</li>
+        <li>dddddddddddd</li>
       </ol>
     </li>
   </ol>
-  <p class="text-sky-5">计算嵌套,从最外层的list开始计数,只能用同一风格,嵌套的list不必再加风格类</p>
+  <p class="text-sky-5">计算嵌套(样式名字后面带上s),从最外层的list开始计数,只能用同一风格,嵌套的list不必再加风格类</p>
 
   <ol class="list nums pd-lr-10 mg-b-10">
-    <li class="text-sky-5">VIP会员全部消费7折</li>
+    <li class="">VIP会员全部消费7折</li>
     <li>
       普通会员9.5折
       <ol class="list">
@@ -95,5 +96,16 @@
     </li>
   </ol>
 
-  <p># 主题颜色作用在形状上.编号无效,如需要可以设置字体颜色</p>
+  <p># 主题颜色适用在形状上.编号无效.</p>
 </div>
+<script>
+  (() => {
+    $('#btngroup1 m-btn').each((item) => {
+      item.onclick = () => {
+        let para = $(item).prop('para');
+        $('#list1').removeClass('disc', 'square', 'cir', 'triangle', 'star')
+          .addClass(para);
+      }
+    });
+  })();
+</script>

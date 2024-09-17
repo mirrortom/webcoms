@@ -74,10 +74,6 @@ img,
 .d-none {
   display: none;
 }
-.list.disc > li::before,
-.list.cir > li::before,
-.list.square > li::before,
-.list.triangle > li::before,
 .form-label,
 .input-check .check:after,
 .input-check .radio:after,
@@ -187,10 +183,6 @@ img,
   align-self: end;
 }
 .tabsbox-menugroup,
-.list.disc > li::before,
-.list.cir > li::before,
-.list.square > li::before,
-.list.triangle > li::before,
 .input-file,
 .btn-list-group,
 .date-col-prev,
@@ -268,10 +260,6 @@ img,
 .sidemenu-item {
   border-radius: 4px;
 }
-.list.disc > li::before,
-.list.cir > li::before,
-.list.square > li::before,
-.list.triangle > li::before,
 .input-check .radio,
 .input-check .radio:after,
 .btn.loading::after,
@@ -1350,78 +1338,82 @@ p {
   --t-list-style-color: #1f2937;
 }
 .list {
-  list-style: none inside;
+  list-style: none;
 }
 .list li {
-  padding: 2px 0;
-}
-.list li::before {
-  margin-right: 0.5em;
+  padding: 2px 0 2px 0.5em;
 }
 .list .list li {
   margin-left: 1.8em;
 }
-.list.disc > li::before,
-.list.cir > li::before,
-.list.square > li::before,
-.list.triangle > li::before {
-  content: '';
-  top: -1px;
-  width: 0.6em;
-  height: 0.6em;
-  background-color: var(--t-list-style-color);
+.list > li::marker,
+.list.disc > li::marker {
+  content: '●';
+  color: var(--t-list-style-color);
+  font-size: 1.2em;
 }
-.list.cir > li::before {
-  background-color: transparent;
-  border: 1px solid var(--t-list-style-color);
+.list.cir > li::marker {
+  content: '○';
 }
-.list.square > li::before,
-.list.triangle > li::before {
-  border-radius: 0;
+.list.square > li::marker {
+  content: '■';
 }
-.list.triangle > li::before {
-  height: 0.52em;
-  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+.list.triangle > li::marker {
+  content: '▲';
+}
+.list.star > li::marker {
+  content: '★';
 }
 .list.nums,
 .list.abcs,
 .list.zhs,
+.list.abcls,
 .list.nums .list,
 .list.abcs .list,
-.list.zhs .list {
+.list.zhs .list,
+.list.abcls .list {
   counter-reset: li-item;
 }
 .list.nums li,
 .list.abcs li,
-.list.zhs li {
+.list.zhs li,
+.list.abcls li {
   counter-increment: li-item;
 }
-.list.nums li::before {
+.list.nums li::marker {
   content: counters(li-item, '.') '.';
 }
-.list.abcs li::before {
+.list.abcs li::marker {
   content: counters(li-item, '.', upper-latin) '.';
 }
-.list.zhs li::before {
+.list.abcls li::marker {
+  content: counters(li-item, '.', lower-latin) '.';
+}
+.list.zhs li::marker {
   content: counters(li-item, '.', cjk-ideographic) '.';
 }
 .list.num,
 .list.abc,
-.list.zh {
+.list.zh,
+.list.abcl {
   counter-reset: li-item;
 }
 .list.num > li,
 .list.abc > li,
-.list.zh > li {
+.list.zh > li,
+.list.abcl > li {
   counter-increment: li-item;
 }
-.list.num > li::before {
+.list.num > li::marker {
   content: counter(li-item) '.';
 }
-.list.abc > li::before {
+.list.abc > li::marker {
   content: counter(li-item, upper-latin) '.';
 }
-.list.zh > li::before {
+.list.abcl > li::marker {
+  content: counter(li-item, lower-latin) '.';
+}
+.list.zh > li::marker {
   content: counter(li-item, cjk-ideographic) '.';
 }
 .theme-dark .list {
