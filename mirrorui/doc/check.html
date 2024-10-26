@@ -12,11 +12,12 @@
   <div id="checkbox1" class="mg-b-10 text-xl"></div>
   <div id="radiobox1" class="mg-b-10 text-xl"></div>
   <br />
-  <p># 属性 <b>checked</b></p>
+  <p># 属性 <b>checked</b> <m-btn id="checkTestBtn1">尝试</m-btn></p>
   <p class="text-in">选中返回true,否则返回false</p>
+  <p class="text-in">设置为true时,选中,否则取消选中.</p>
 
   <p># 属性 <b>onClicked(fn)</b></p>
-  <p class="text-in">点击切换后执行方法</p>
+  <p class="text-in">点击切换后执行方法.(仅单选按钮)</p>
 
   <p># 标签属性 <b>tag</b></p>
   <p class="text-in">设置一个标题</p>
@@ -38,6 +39,7 @@
 // 获取选中状态
 let check1 = document.getElementById('checkbox1');
 check1.<b>checked</b> // true / false
+check1.<b>checked</b> = true // true选中,false取消选中
 
 // 执行方法
 check1.<b>onClicked</b> = (radio) => {
@@ -64,12 +66,16 @@ check1.<b>onClicked</b> = (radio) => {
     let checks = '';
     let radius = '';
     for (var i = 0; i < 3; i++) {
-      let color = colors[i*2];
+      let color = colors[i * 2];
       let checked = i % 2 == 1 ? 'checked' : '';
-      checks += `<m-check class="${checked} ${color} mg-r-10" tag="check-${i + 1}"></m-check>`;
-      radius += `<m-radio class="${checked} ${color} mg-r-10" name="radiogroup3" tag="radio-${i + 1}"></m-radio>`;
+      checks += `<m-check id="check${i + 1}" class="${checked} ${color} mg-r-10" tag="check-${i + 1}"></m-check>`;
+      radius += `<m-radio id="radio${i + 1}" class="${checked} ${color} mg-r-10" name="radiogroup3" tag="radio-${i + 1}"></m-radio>`;
     }
     $('#checkbox1').html(checks);
     $('#radiobox1').html(radius);
+    $('#checkTestBtn1').click(() => {
+      $('#check1')[0].checked = !$('#check1')[0].checked;
+      $('#radio1')[0].checked = !$('#radio1')[0].checked;
+    });
   })(window);
 </script>

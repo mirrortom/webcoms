@@ -24,7 +24,7 @@
         }
         thisobj.addClass('checked');
         // 取消同级的(在同一个父元素下的),name属性值相同的单选按钮的选中状态
-        thisobj.siblings('m-radio[name=' + thisobj.prop('name') + ']').removeClass('checked');
+        this.clearChecked();
         // 点击切换后执行方法
         if (typeof this._onClick == 'function')
           this._onClick(this);
@@ -53,10 +53,22 @@
     // =======
     // prop
     // =======
-    // checked属性.选中true
+    // 获取checked属性.选中true
     get checked() {
       return $(this).hasClass('checked');
     }
+
+    // 设置checked属性
+    set checked(value) {
+      if (value == true) {
+        $(this).addClass('checked');
+        // 同时要去掉同组的其它选中状态
+        this.clearChecked();
+      }
+      else
+        $(this).removeClass('checked');
+    }
+
     // 点击切换后执行方法
     set onClicked(fn) {
       this._onClick = fn;
@@ -64,5 +76,11 @@
     // =======
     // method
     // =======
+
+    // 取消同组其它按钮选中状态
+    clearChecked() {
+      let thisobj = $(this);
+      thisobj.siblings('m-radio[name=' + thisobj.prop('name') + ']').removeClass('checked');
+    }
   });
 })(window);

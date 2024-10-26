@@ -17,8 +17,7 @@
       this.onclick = () => {
         if (this.hasAttribute('disabled')) return;
         let thisobj = $(this);
-        let ischecked = thisobj.hasClass('checked');
-        if (ischecked == true) {
+        if (thisobj.hasClass('checked')) {
           thisobj.removeClass('checked');
         } else {
           thisobj.addClass('checked');
@@ -55,6 +54,12 @@
       return $(this).hasClass('checked');
     }
 
+    set checked(value) {
+      if (value == true)
+        $(this).addClass('checked');
+      else
+        $(this).removeClass('checked');
+    }
     // =======
     // method
     // =======
