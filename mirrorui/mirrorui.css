@@ -150,6 +150,15 @@ img,
 .f-h-end {
   justify-content: end;
 }
+.f-h-sb {
+  justify-content: space-between;
+}
+.f-h-sa {
+  justify-content: space-around;
+}
+.f-h-se {
+  justify-content: space-evenly;
+}
 .msgbox-r-c {
   justify-self: center;
 }

@@ -91,16 +91,24 @@ for colorName,list in $colors-dict
     margin-right: auto
 .mg-auto
     margin: auto
-// 线性布局(flex)时,让子元素在轴(主/交)线上居中/居右,用于父元素
+// 线性布局(flex)时,让子元素在主轴线上居中/居右对齐,用于父元素
 .f-h-center
     @extend $ext-justify-center
 .f-h-end
     @extend $ext-justify-end
+// 线性布局(flex)时,让子元素两端分布/平均分布/间隔相等分布,用于父元素
+.f-h-sb
+    @extend $ext-justify-sb
+.f-h-sa
+    @extend $ext-justify-sa
+.f-h-se
+    @extend $ext-justify-se
+// 线性布局(flex)时,让子元素在交叉轴线上居中/居右,用于父元素
 .f-v-center
     @extend $ext-align-center
 .f-v-end
     @extend $ext-align-end
-// flex/grid 布局时,让子元素在垂直轴线上居中,用于子元素
+// flex/grid 布局时,让子元素在垂直轴线上居中/居右,用于子元素
 .f-vs-center
     @extend $ext-align-self-center
 .f-vs-end

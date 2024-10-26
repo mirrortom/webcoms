@@ -26,6 +26,27 @@
       <span class="pd-5 bg-yellow-5">class="f-h-end"</span>
     </div>
   </div>
+  <br />
+  <p>flex布局时,在主轴上,两端分布/平均分布/间隔相等分布</p>
+  <div class="layout-h f-h-sb bd mg-lr-5 mg-b-10">
+    <span class="pd-5 bg-sky-4">class="f-h-sb"</span>
+    <span class="pd-5 bg-sky-4">space-between</span>
+    <span class="pd-5 bg-sky-4">space-between</span>
+    <span class="pd-5 bg-sky-4">space-between</span>
+  </div>
+  <div class="layout-h f-h-sa bd mg-lr-5 mg-b-10">
+    <span class="pd-5 bg-yellow-5">class="f-h-sa"</span>
+    <span class="pd-5 bg-yellow-5">space-around</span>
+    <span class="pd-5 bg-yellow-5">space-around</span>
+    <span class="pd-5 bg-yellow-5">space-around</span>
+  </div>
+  <div class="layout-h f-h-se bd mg-lr-5 mg-b-10">
+    <span class="pd-5 bg-blue-5">class="f-h-se"</span>
+    <span class="pd-5 bg-blue-5">space-evenly</span>
+    <span class="pd-5 bg-blue-5">space-evenly</span>
+    <span class="pd-5 bg-blue-5">space-evenly</span>
+  </div>
+  <br />
   <p>flex布局时,在交叉轴上居中/居末对齐</p>
   <div class="grids-2 mg-b-10">
     <div class="layout-h f-v-center bd mg-lr-5">
@@ -37,6 +58,7 @@
       <span class="pd-5 bg-yellow-5">class="f-v-end"</span>
     </div>
   </div>
+  <br />
   <p>flex布局时,在交叉轴上居中/居末对齐(用于子项目)</p>
   <div class="layout-h bd mg-lr-5">
     <span class="pd-25 bg-sky-5 mg-r-10"></span>
@@ -46,12 +68,18 @@
     <span class="f-vs-end pd-5 bg-yellow-5">class="f-vs-end"</span>
   </div>
   <pre>
-// 主轴上居中/末
+// 主轴上对齐,子元素:居中/末
 .f-h-center(end)
     justify-content: center(end)
-// 垂直轴上居中/末
+// 主轴上分布,子元素:两端分布/平均分布/间隔相等分布
+
+.f-h.sb(sa)(se)
+  justify-content: space-between(space-around)(space-evenly)
+
+// 垂直轴上对齐,子元素:居中/末
 .f-v-center(end)
     align-items: center(end)
+
 // flex 布局时,让子元素在垂直轴线上居中/末,用于子元素
 .f-vs-center(end)
     align-self: center(end)
