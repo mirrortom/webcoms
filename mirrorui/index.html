@@ -198,7 +198,18 @@
         });
 
       // 默认打开"关于"
-      docmenu1.activeItem(0);
+      docmenu1.activeItem(
+        (() => {
+          let urlid = 'sidemenu11';
+          let menus = $('#main_menubox .docmenu-item');
+
+          for (var i = 0; i < menus.length; i++) {
+            if ($(menus[i]).prop('urlid') == urlid)
+              return i;
+          }
+          return 0;
+        })()
+      );
 
       // 彩色变量
       win.themecolors = ['red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple', 'pink'];

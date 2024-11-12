@@ -6,7 +6,7 @@
   <p class="text-in">菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法. </p>
   <div class="grids" id="sidemenutestbox">
     <div class="grid-12 grid-md-6 ">
-      <m-sidemenu class="bg-primary mg-5" id="sidemenudemo2" style="width:200px">
+      <m-sidemenu class="blue mg-5" id="sidemenudemo2" style="width:200px">
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">绑定事件<i class="sidemenu-arrdown"></i></span>
@@ -14,13 +14,13 @@
           <li><a class="sidemenu-item">菜单一(点击)</a></li>
           <li><a class="sidemenu-item">菜单二</a></li>
           <li><span class="sidemenu-split"></span></li>
-          <li><a class="sidemenu-item">菜单三</a></li>
+          <li><a class="sidemenu-item active">菜单三</a></li>
           <li><a class="sidemenu-item">菜单四</a></li>
         </ul>
       </m-sidemenu>
     </div>
     <div class="grid-12 grid-md-6 ">
-      <m-sidemenu class="bg-gray-lt mg-5" id="sidemenudemo1" style="width:200px">
+      <m-sidemenu class="mg-5" id="sidemenudemo1" style="width:200px">
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">超长度<i class="sidemenu-arrdown"></i></span>
@@ -37,7 +37,7 @@
   <br />
   <pre>
 // DOM结构
-&lt;<b>m-sidemenu</b> class="sidemenu" id="main_menubox"&gt;
+&lt;<b>m-sidemenu</b> class="sky sidemenu" id="main_menubox"&gt;
   // 一组菜单
   &lt;ul class="sidemenu-group"&gt;
     &lt;li&gt;
@@ -62,7 +62,7 @@ sidemenu1.<b>create()</b>;
     <m-btn id="createsidemenu1">生成菜单</m-btn>
   </p>
 
-  <m-sidemenu id="sidemenujsondeom1" class="bg-gray-lt" style="width:200px"></m-sidemenu>
+  <m-sidemenu id="sidemenujsondeom1" class="sky" style="width:200px"></m-sidemenu>
   <br />
   <pre>
   // josn结构: 菜单数据是一个数组,除了 <b>title</b> 外,其它都可以省略

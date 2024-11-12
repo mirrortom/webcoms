@@ -2499,9 +2499,9 @@ p {
   --t-docmenu-active-bg-color: #4b5563;
 }
 .sidemenu {
-  --t-sidemenu-hover-bg-color: #e5e7eb;
+  --t-sidemenu-hover-bg-color: #9ca3af;
   --t-sidemenu-active-color: #fafafa;
-  --t-sidemenu-active-bg-color: #4b5563;
+  --t-sidemenu-active-bg-color: #374151;
 }
 .sidemenu-group {
   margin: 0;
@@ -2551,6 +2551,46 @@ p {
   --t-sidemenu-hover-bg-color: #4b5563;
   --t-sidemenu-active-color: #1a1a1e;
   --t-sidemenu-active-bg-color: #e5e7eb;
+}
+.sidemenu.red {
+  --t-sidemenu-hover-bg-color: #f87171;
+  --t-sidemenu-active-color: #fee2e2;
+  --t-sidemenu-active-bg-color: #ef4444;
+}
+.sidemenu.orange {
+  --t-sidemenu-hover-bg-color: #fb923c;
+  --t-sidemenu-active-color: #ffedd5;
+  --t-sidemenu-active-bg-color: #f97316;
+}
+.sidemenu.yellow {
+  --t-sidemenu-hover-bg-color: #facc15;
+  --t-sidemenu-active-color: #fef9c3;
+  --t-sidemenu-active-bg-color: #eab308;
+}
+.sidemenu.green {
+  --t-sidemenu-hover-bg-color: #4ade80;
+  --t-sidemenu-active-color: #dcfce7;
+  --t-sidemenu-active-bg-color: #22c55e;
+}
+.sidemenu.sky {
+  --t-sidemenu-hover-bg-color: #38bdf8;
+  --t-sidemenu-active-color: #e0f2fe;
+  --t-sidemenu-active-bg-color: #0ea5e9;
+}
+.sidemenu.blue {
+  --t-sidemenu-hover-bg-color: #60a5fa;
+  --t-sidemenu-active-color: #dbeafe;
+  --t-sidemenu-active-bg-color: #3b82f6;
+}
+.sidemenu.purple {
+  --t-sidemenu-hover-bg-color: #c084fc;
+  --t-sidemenu-active-color: #f3e8ff;
+  --t-sidemenu-active-bg-color: #a855f7;
+}
+.sidemenu.pink {
+  --t-sidemenu-hover-bg-color: #f472b6;
+  --t-sidemenu-active-color: #fce7f3;
+  --t-sidemenu-active-bg-color: #ec4899;
 }
 .mnavmenu {
   border-top: 1px solid var(--border-color);
