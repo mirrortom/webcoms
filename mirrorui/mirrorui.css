@@ -1807,7 +1807,7 @@ p {
 .btn {
   --t-btn-color: inherit;
   --t-btn-color-hover: inherit;
-  --t-btn-bg-hover: #f3f4f6;
+  --t-btn-bg-hover: #e5e7eb;
   --t-btn-bg-color: inherit;
   --t-btn-bd-color: var(--border-color);
 }
