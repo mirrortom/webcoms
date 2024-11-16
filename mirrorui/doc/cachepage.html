@@ -96,10 +96,10 @@ let cpg = window.ns.cachepage(tabsDom, contDom);
 let cacheDoms = cpg.load(pid, title, para);
 
 // ### pid不能重复,它是每个缓存页的键,可以使用页面路径当作pid,不会重复.
-// 在单页应用中,可以将所有页面建立在router.urls这个json对象中,键统一分配,值是地址.例如
-router.urls = {
+// 在单页应用中,可以将所有页面数据建立在一个对象中.例如
+router.pages = {
     // 键对应到菜单dom,值可以是一个对象,有地址和其它数据等等.此例的url值可以作为pid.
-    "index": { url: "www/index.html", title: "首页" },
+    "index": { url: "www/index.html", title: "首页", data: {} },
 }
 </pre>
   <br />
