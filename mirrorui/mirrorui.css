@@ -21,6 +21,7 @@
   color: #fff;
 }
 .tabsbox-tab.active,
+.switch,
 .date-col-ym,
 .date-col-week,
 .date-col-today,
@@ -2050,11 +2051,11 @@ p {
 }
 .switch {
   --t-switch-checked-bg-color: #374151;
-  --t-switch-tag-color: #e5e7eb;
+  --t-switch-tag-color: #9ca3af;
 }
 .switch {
   width: 5em;
-  padding: 4px 8px;
+  padding: 0.2em 0.6em;
   border-radius: 1em;
   transition: background-color 0.3s;
   color: var(--t-switch-tag-color);
@@ -2073,7 +2074,6 @@ p {
 }
 .theme-dark .switch {
   --t-switch-checked-bg-color: #4b5563;
-  --t-switch-tag-color: #6b7280;
 }
 .switch.red {
   --t-switch-checked-bg-color: #dc2626;

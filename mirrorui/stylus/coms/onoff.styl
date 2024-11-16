@@ -1,14 +1,15 @@
 ﻿// 主题色变量
 .switch
     --t-switch-checked-bg-color:$gray['7']// 选中(开)背景色
-    --t-switch-tag-color:$gray['2']// 标记/文字色
+    --t-switch-tag-color:$gray['4']// 标记/文字色
 
 // 开关 swtich ON / OFF
 .switch
     @extend $ext-display-inline-flex
     @extend $ext-align-center
+    @extend $ext-weight-700
     width: 5em
-    padding: 4px 8px
+    padding: .2em .6em
     @extend $ext-border-1px
     border-radius: 1em
     @extend $ext-user-select-none
@@ -32,7 +33,6 @@
 
 {$theme-dark} .switch
     --t-switch-checked-bg-color:$gray['6']// 选中(开)背景色
-    --t-switch-tag-color:$gray['5']// 标记/文字色
     
 // 彩色主题
 for k,v in $theme-name-colors-dict
