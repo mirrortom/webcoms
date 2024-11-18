@@ -21,7 +21,7 @@
         border: 1px solid $border-color
 
     // 斑马线风格(不包含th的tr)
-    &.striped tr:nth-child(even) :not(th)
+    &.striped tr:nth-child(even):not(th)
         background-color: var(--t-table-striped-color)
 
     // hover类鼠标移入效果(不包含th的tr)
@@ -38,7 +38,7 @@
     --t-table-striped-color:$gray['7']// 交替斑马线背景色
     
 // 彩色主题
-if $theme-name-colors-dict is define
+if $theme-name-colors-dict is defined
     for k,v in $theme-name-colors-dict
         .table.{k}
             --t-table-hover-color:v['3']// 悬停背景色
