@@ -23,7 +23,7 @@
 
     .theme-box {
       display: grid;
-      grid-template-columns: repeat(2,50%);
+      grid-template-columns: repeat(3,33%);
       cursor: pointer;
     }
 
@@ -60,7 +60,11 @@
 <body>
   <div class="container">
     <div class="menu-box pd-l-10">
-      <div class="theme-box bd bdr text-center"><span class="bg-white-0 text-black-1" id="themebtnlight">light</span><span class="bg-black-1 text-white-0" id="themebtndark">dark</span></div>
+      <div class="theme-box text-center" id="themeBtns">
+        <span class="label bg-white-0 text-black-0" tid="light">light</span>
+        <span class="label bg-black-0 text-white-0" tid="dark">dark</span>
+        <span class="label bg-sky-1 text-sky-5" tid="color" colorIndex="3">color</span>
+      </div>
       <m-docmenu class="pd-b-30" id="main_menubox">
         <div class="docmenu-group">
           <span class="docmenu-title"><i class="docmenu-open"></i>概述</span>
@@ -217,12 +221,36 @@
       win.colors = ['gray', 'red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple', 'pink'];
 
       // 主题切换
-      $('#themebtnlight')[0].onclick = () => {
-        $('html').removeClass('theme-dark');
-      }
-      $('#themebtndark')[0].onclick = () => {
-        $('html').addClass('theme-dark');
-      }
+      $('#themeBtns span[tid]').click((item) => {
+        // 获取html上的theme开头的样式
+        let themeCls = [];
+        let htmlClsList = $('html')[0].classList;
+        for (var i = 0, len = htmlClsList.length; i < len; i++) {
+          if (htmlClsList[i].indexOf('theme-') == 0)
+            themeCls.push(htmlClsList[i]);
+        }
+        // 先去掉所有主题样式,再添加
+        $('html').removeClass(...themeCls);
+        let themeName = $(item).prop('tid');
+        // 白
+        if (themeName == 'light')
+          return;
+
+        // 黑
+        if (themeName == 'dark') {
+          $('html').addClass('theme-dark');
+          return;
+        }
+
+        // 彩色,轮换
+        let currIndex = parseInt($(item).prop('colorIndex'));
+        let colorName = 'theme-' + win.themecolors[currIndex];
+        $('html').addClass(colorName);
+        let nextColorIndex = currIndex + 1;
+        if (nextColorIndex == win.themecolors.length)
+          nextColorIndex = 0;
+        $(item).prop('colorIndex', nextColorIndex);
+      });
     })(window);
   </script>
 </body>

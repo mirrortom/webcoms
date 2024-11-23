@@ -1280,7 +1280,8 @@ p {
   --t-tabsbox-tab-active-bg-color: #e5e7eb;
   --t-tabsbox-tab-active-color: #1a1a1e;
 }
-.tabsbox.red {
+.tabsbox.red,
+.theme-red .tabsbox {
   --t-tabsbox-bg-color: #fee2e2;
   --t-tabsbox-3btn-bd-color: #f87171;
   --t-tabsbox-3btn-hover: #ef4444;
@@ -1288,7 +1289,8 @@ p {
   --t-tabsbox-tab-active-bg-color: #ef4444;
   --t-tabsbox-tab-active-color: #fef2f2;
 }
-.tabsbox.orange {
+.tabsbox.orange,
+.theme-orange .tabsbox {
   --t-tabsbox-bg-color: #ffedd5;
   --t-tabsbox-3btn-bd-color: #fb923c;
   --t-tabsbox-3btn-hover: #f97316;
@@ -1296,7 +1298,8 @@ p {
   --t-tabsbox-tab-active-bg-color: #f97316;
   --t-tabsbox-tab-active-color: #fff7ed;
 }
-.tabsbox.yellow {
+.tabsbox.yellow,
+.theme-yellow .tabsbox {
   --t-tabsbox-bg-color: #fef9c3;
   --t-tabsbox-3btn-bd-color: #facc15;
   --t-tabsbox-3btn-hover: #eab308;
@@ -1304,7 +1307,8 @@ p {
   --t-tabsbox-tab-active-bg-color: #eab308;
   --t-tabsbox-tab-active-color: #fefce8;
 }
-.tabsbox.green {
+.tabsbox.green,
+.theme-green .tabsbox {
   --t-tabsbox-bg-color: #dcfce7;
   --t-tabsbox-3btn-bd-color: #4ade80;
   --t-tabsbox-3btn-hover: #22c55e;
@@ -1312,7 +1316,8 @@ p {
   --t-tabsbox-tab-active-bg-color: #22c55e;
   --t-tabsbox-tab-active-color: #f0fdf4;
 }
-.tabsbox.sky {
+.tabsbox.sky,
+.theme-sky .tabsbox {
   --t-tabsbox-bg-color: #e0f2fe;
   --t-tabsbox-3btn-bd-color: #38bdf8;
   --t-tabsbox-3btn-hover: #0ea5e9;
@@ -1320,7 +1325,8 @@ p {
   --t-tabsbox-tab-active-bg-color: #0ea5e9;
   --t-tabsbox-tab-active-color: #f0f9ff;
 }
-.tabsbox.blue {
+.tabsbox.blue,
+.theme-blue .tabsbox {
   --t-tabsbox-bg-color: #dbeafe;
   --t-tabsbox-3btn-bd-color: #60a5fa;
   --t-tabsbox-3btn-hover: #3b82f6;
@@ -1328,7 +1334,8 @@ p {
   --t-tabsbox-tab-active-bg-color: #3b82f6;
   --t-tabsbox-tab-active-color: #eff6ff;
 }
-.tabsbox.purple {
+.tabsbox.purple,
+.theme-purple .tabsbox {
   --t-tabsbox-bg-color: #f3e8ff;
   --t-tabsbox-3btn-bd-color: #c084fc;
   --t-tabsbox-3btn-hover: #a855f7;
@@ -1336,7 +1343,8 @@ p {
   --t-tabsbox-tab-active-bg-color: #a855f7;
   --t-tabsbox-tab-active-color: #faf5ff;
 }
-.tabsbox.pink {
+.tabsbox.pink,
+.theme-pink .tabsbox {
   --t-tabsbox-bg-color: #fce7f3;
   --t-tabsbox-3btn-bd-color: #f472b6;
   --t-tabsbox-3btn-hover: #ec4899;
@@ -1487,69 +1495,45 @@ p {
   --t-table-hover-color: #4b5563;
   --t-table-striped-color: #374151;
 }
-.table.red {
+.table.red,
+.theme-red .table {
   --t-table-hover-color: #fca5a5;
   --t-table-striped-color: #fecaca;
 }
-.theme-dark .table.red {
-  --t-table-hover-color: #b91c1c;
-  --t-table-striped-color: #dc2626;
-}
-.table.orange {
+.table.orange,
+.theme-orange .table {
   --t-table-hover-color: #fdba74;
   --t-table-striped-color: #fed7aa;
 }
-.theme-dark .table.orange {
-  --t-table-hover-color: #c2410c;
-  --t-table-striped-color: #ea580c;
-}
-.table.yellow {
+.table.yellow,
+.theme-yellow .table {
   --t-table-hover-color: #fde047;
   --t-table-striped-color: #fef08a;
 }
-.theme-dark .table.yellow {
-  --t-table-hover-color: #a16207;
-  --t-table-striped-color: #ca8a04;
-}
-.table.green {
+.table.green,
+.theme-green .table {
   --t-table-hover-color: #86efac;
   --t-table-striped-color: #bbf7d0;
 }
-.theme-dark .table.green {
-  --t-table-hover-color: #15803d;
-  --t-table-striped-color: #16a34a;
-}
-.table.sky {
+.table.sky,
+.theme-sky .table {
   --t-table-hover-color: #7dd3fc;
   --t-table-striped-color: #bae6fd;
 }
-.theme-dark .table.sky {
-  --t-table-hover-color: #0369a1;
-  --t-table-striped-color: #0284c7;
-}
-.table.blue {
+.table.blue,
+.theme-blue .table {
   --t-table-hover-color: #93c5fd;
   --t-table-striped-color: #bfdbfe;
 }
-.theme-dark .table.blue {
-  --t-table-hover-color: #1d4ed8;
-  --t-table-striped-color: #2563eb;
-}
-.table.purple {
+.table.purple,
+.theme-purple .table {
   --t-table-hover-color: #d8b4fe;
   --t-table-striped-color: #e9d5ff;
 }
-.theme-dark .table.purple {
-  --t-table-hover-color: #7e22ce;
-  --t-table-striped-color: #9333ea;
-}
-.table.pink {
+.table.pink,
+.theme-pink .table {
   --t-table-hover-color: #f9a8d4;
   --t-table-striped-color: #fbcfe8;
-}
-.theme-dark .table.pink {
-  --t-table-hover-color: #be185d;
-  --t-table-striped-color: #db2777;
 }
 .input-text,
 .select,
@@ -2616,42 +2600,50 @@ p {
   --t-sidemenu-active-color: #1a1a1e;
   --t-sidemenu-active-bg-color: #e5e7eb;
 }
-.sidemenu.red {
+.sidemenu.red,
+.theme-red .sidemenu {
   --t-sidemenu-hover-bg-color: #f87171;
   --t-sidemenu-active-color: #fee2e2;
   --t-sidemenu-active-bg-color: #ef4444;
 }
-.sidemenu.orange {
+.sidemenu.orange,
+.theme-orange .sidemenu {
   --t-sidemenu-hover-bg-color: #fb923c;
   --t-sidemenu-active-color: #ffedd5;
   --t-sidemenu-active-bg-color: #f97316;
 }
-.sidemenu.yellow {
+.sidemenu.yellow,
+.theme-yellow .sidemenu {
   --t-sidemenu-hover-bg-color: #facc15;
   --t-sidemenu-active-color: #fef9c3;
   --t-sidemenu-active-bg-color: #eab308;
 }
-.sidemenu.green {
+.sidemenu.green,
+.theme-green .sidemenu {
   --t-sidemenu-hover-bg-color: #4ade80;
   --t-sidemenu-active-color: #dcfce7;
   --t-sidemenu-active-bg-color: #22c55e;
 }
-.sidemenu.sky {
+.sidemenu.sky,
+.theme-sky .sidemenu {
   --t-sidemenu-hover-bg-color: #38bdf8;
   --t-sidemenu-active-color: #e0f2fe;
   --t-sidemenu-active-bg-color: #0ea5e9;
 }
-.sidemenu.blue {
+.sidemenu.blue,
+.theme-blue .sidemenu {
   --t-sidemenu-hover-bg-color: #60a5fa;
   --t-sidemenu-active-color: #dbeafe;
   --t-sidemenu-active-bg-color: #3b82f6;
 }
-.sidemenu.purple {
+.sidemenu.purple,
+.theme-purple .sidemenu {
   --t-sidemenu-hover-bg-color: #c084fc;
   --t-sidemenu-active-color: #f3e8ff;
   --t-sidemenu-active-bg-color: #a855f7;
 }
-.sidemenu.pink {
+.sidemenu.pink,
+.theme-pink .sidemenu {
   --t-sidemenu-hover-bg-color: #f472b6;
   --t-sidemenu-active-color: #fce7f3;
   --t-sidemenu-active-bg-color: #ec4899;

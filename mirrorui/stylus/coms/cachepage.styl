@@ -137,7 +137,7 @@
         padding-left:.8em
 
 // dark主题
-.theme-dark .tabsbox
+{$themePre}-dark .tabsbox
     --t-tabsbox-bg-color:$gray['8']// 控件背景色
     --t-tabsbox-3btn-bd-color:$gray['5']// 3个三角形按钮:两侧按钮+功能按钮
     --t-tabsbox-3btn-hover:$gray['3']// 3个三角形按钮:两侧按钮+功能按钮hover
@@ -146,7 +146,7 @@
     --t-tabsbox-tab-active-color: $black['1']// 标签选中字色
 // 彩色主题
 for k,v in $theme-name-colors-dict
-    .tabsbox.{k}
+    .tabsbox.{k},{$themePre}-{k} .tabsbox
         --t-tabsbox-bg-color:v['1']// 控件背景色
         --t-tabsbox-3btn-bd-color:v['4']// 3个三角形按钮:两侧按钮+功能按钮
         --t-tabsbox-3btn-hover:v['5']// 3个三角形按钮:两侧按钮+功能按钮hover

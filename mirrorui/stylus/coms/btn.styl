@@ -123,10 +123,10 @@
 
 //===================================================//
 // dark主题
-{$theme-dark} .btn
+{$themePre}-dark .btn
     --t-btn-bg-hover:$gray['7']// hover背景颜色
     
-// 彩色主题
+// 彩色主题-不要支持全局主题
 if $theme-name-colors-dict is defined
     for k,v in $theme-name-colors-dict
         .btn.{k}

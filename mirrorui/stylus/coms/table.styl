@@ -33,17 +33,13 @@
         padding:2px
 
 // dark主题
-.theme-dark .table
+{$themePre}-dark .table
     --t-table-hover-color:$gray['6']// 悬停背景色
     --t-table-striped-color:$gray['7']// 交替斑马线背景色
     
 // 彩色主题
 if $theme-name-colors-dict is defined
     for k,v in $theme-name-colors-dict
-        .table.{k}
+        .table.{k},{$themePre}-{k} .table
             --t-table-hover-color:v['3']// 悬停背景色
             --t-table-striped-color:v['2']// 交替斑马线背景色
-        // dark模式下颜色加重
-        .theme-dark .table.{k}
-            --t-table-hover-color:v['7']// 悬停背景色
-            --t-table-striped-color:v['6']// 交替斑马线背景色

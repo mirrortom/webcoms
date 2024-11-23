@@ -11,7 +11,7 @@
     --t-form-hover:$gray['5']// hover边框颜色
 
 // dark主题
-{$theme-dark} .input-text, {$theme-dark} .select, {$theme-dark} .textarea,{$theme-dark} .input-file, {$theme-dark} .input-check
+{$themePre}-dark .input-text, {$themePre}-dark .select, {$themePre}-dark .textarea,{$themePre}-dark .input-file, {$themePre}-dark .input-check
     --t-form-bd-color:$gray['4']// 边框颜色
     --t-form-hover: $gray['3']// hover边框颜色
     
@@ -21,7 +21,7 @@ for k,v in $theme-name-colors-dict
         --t-form-bd-color: v['4']// 边框颜色,获得焦点时边框颜色
         --t-form-hover: v['6']// hover边框颜色
     // dark模式下颜色
-    {$theme-dark} .input-text.{k},{$theme-dark} .select.{k},{$theme-dark} .textarea.{k},{$theme-dark} .input-file.{k},{$theme-dark} .input-check.{k}
+    {$themePre}-dark .input-text.{k},{$themePre}-dark .select.{k},{$themePre}-dark .textarea.{k},{$themePre}-dark .input-file.{k},{$themePre}-dark .input-check.{k}
         --t-form-bd-color: v['6']// 边框颜色,获得焦点时边框颜色
         --t-form-hover: v['4']// hover边框颜色
 

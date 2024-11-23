@@ -74,7 +74,7 @@
         border-bottom: 1px dashed $border-color
 
 // dark主题
-{$theme-dark} .sidemenu
+{$themePre}-dark .sidemenu
     --t-sidemenu-hover-bg-color:$gray['6']// hover菜单项背景色
     --t-sidemenu-active-color:$black['1']// 菜单项选中字色
     --t-sidemenu-active-bg-color:$gray['2']// 菜单项选中背景色
@@ -82,7 +82,7 @@
 // 彩色主题
 if $theme-name-colors-dict is defined
     for k,v in $theme-name-colors-dict
-        .sidemenu.{k}
+        .sidemenu.{k},{$themePre}-{k} .sidemenu
             --t-sidemenu-hover-bg-color:v['4']// hover菜单项背景色
             --t-sidemenu-active-color:v['1']// 菜单项选中字色
             --t-sidemenu-active-bg-color:v['5']// 菜单项选中背景色
