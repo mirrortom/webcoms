@@ -1364,11 +1364,16 @@ p {
 .list .list li {
   margin-left: 1.8em;
 }
-.list > li::marker,
-.list.disc > li::marker {
-  content: '●';
+.list.disc > li::marker,
+.list.cir > li::marker,
+.list.square > li::marker,
+.list.triangle > li::marker,
+.list.star > li::marker {
   color: var(--t-list-style-color);
   font-size: 1.2em;
+}
+.list.disc > li::marker {
+  content: '●';
 }
 .list.cir > li::marker {
   content: '○';
@@ -1385,17 +1390,17 @@ p {
 .list.nums,
 .list.abcs,
 .list.zhs,
-.list.abcls,
+.list.abc-ls,
 .list.nums .list,
 .list.abcs .list,
 .list.zhs .list,
-.list.abcls .list {
+.list.abc-ls .list {
   counter-reset: li-item;
 }
 .list.nums li,
 .list.abcs li,
 .list.zhs li,
-.list.abcls li {
+.list.abc-ls li {
   counter-increment: li-item;
 }
 .list.nums li::marker {
@@ -1404,7 +1409,7 @@ p {
 .list.abcs li::marker {
   content: counters(li-item, '.', upper-latin) '.';
 }
-.list.abcls li::marker {
+.list.abc-ls li::marker {
   content: counters(li-item, '.', lower-latin) '.';
 }
 .list.zhs li::marker {
@@ -1413,13 +1418,13 @@ p {
 .list.num,
 .list.abc,
 .list.zh,
-.list.abcl {
+.list.abc-l {
   counter-reset: li-item;
 }
 .list.num > li,
 .list.abc > li,
 .list.zh > li,
-.list.abcl > li {
+.list.abc-l > li {
   counter-increment: li-item;
 }
 .list.num > li::marker {
@@ -1428,7 +1433,7 @@ p {
 .list.abc > li::marker {
   content: counter(li-item, upper-latin) '.';
 }
-.list.abcl > li::marker {
+.list.abc-l > li::marker {
   content: counter(li-item, lower-latin) '.';
 }
 .list.zh > li::marker {

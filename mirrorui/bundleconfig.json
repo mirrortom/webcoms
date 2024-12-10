@@ -25,15 +25,5 @@
     "minify": {
       "enabled": false
     }
-  },
-  {
-    // 用于xmy项目
-    "outputFileName": "zcustom/ui.js",
-    "inputFiles": [
-      "js/msgbox.js"
-    ],
-    "minify": {
-      "enabled": false
-    }
   }
 ]

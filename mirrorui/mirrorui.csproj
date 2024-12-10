@@ -72,8 +72,9 @@
     <Content Include="js\tabs.js" />
     <Content Include="mirrorui.css" />
     <Content Include="mirrorui.js" />
-    <Content Include="zcustom\ui.css" />
-    <Content Include="zcustom\ui.js" />
+    <Content Include="zcustom\webui.css">
+      <DependentUpon>webui.styl</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -161,7 +162,7 @@
     <None Include="stylus\variables\mediaquery.styl" />
     <None Include="stylus\variables\cirangle.styl" />
     <None Include="stylus\variables\transition.styl" />
-    <None Include="zcustom\xmy.styl" />
+    <None Include="zcustom\webui.styl" />
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup />

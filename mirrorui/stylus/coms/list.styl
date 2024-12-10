@@ -13,13 +13,14 @@
     & .list li
         margin-left:1.8em
 
-// 风格 方块,圆,等边三角 使用>直接子元素选择器,避免影响嵌套的list
+// 图案风格 方块,圆,等边三角 使用>直接子元素选择器,避免影响嵌套的list
 .list
-    // 实心圆(默认)
-    & > li::marker,&.disc > li::marker
-        content: '●';
+    &.disc > li::marker,&.cir > li::marker,&.square > li::marker,&.triangle > li::marker,&.star > li::marker
         color: var(--t-list-style-color)
         font-size:1.2em
+    // 实心圆(默认)
+    &.disc > li::marker
+        content: '●';
     // 空心圆
     &.cir > li::marker
         content: '○'
@@ -36,28 +37,28 @@
 // 数值列样式,abc列样式
 .list
     // 计算嵌套,只能使用一种风格,嵌套的list不用再添加风格样式
-    &.nums,&.abcs,&.zhs,&.abcls, &.nums .list,&.abcs .list,&.zhs .list,&.abcls .list
+    &.nums,&.abcs,&.zhs,&.abc-ls, &.nums .list,&.abcs .list,&.zhs .list,&.abc-ls .list
         counter-reset: li-item
-    &.nums li,&.abcs li,&.zhs li,&.abcls li
+    &.nums li,&.abcs li,&.zhs li,&.abc-ls li
         counter-increment: li-item
     &.nums li::marker
         content: counters(li-item,'.') '.'
     &.abcs li::marker
         content: counters(li-item,'.',upper-latin) '.'
-    &.abcls li::marker
+    &.abc-ls li::marker
         content: counters(li-item,'.',lower-latin) '.'
     &.zhs li::marker
         content: counters(li-item,'.',cjk-ideographic) '.'
     // 不计算嵌套,可以使用多种风格
-    &.num,&.abc,&.zh,&.abcl
+    &.num,&.abc,&.zh,&.abc-l
         counter-reset: li-item
-    &.num > li,&.abc > li,&.zh > li,,&.abcl > li
+    &.num > li,&.abc > li,&.zh > li,,&.abc-l > li
         counter-increment: li-item
     &.num > li::marker
         content: counter(li-item) '.';
     &.abc > li::marker
         content: counter(li-item,upper-latin) '.'
-    &.abcl > li::marker
+    &.abc-l > li::marker
         content: counter(li-item,lower-latin) '.'
     &.zh > li::marker
         content: counter(li-item,cjk-ideographic) '.'
@@ -67,6 +68,7 @@
     --t-list-style-color:$gray['4']// 图案颜色
     
 // 彩色主题
-for k,v in $theme-name-colors-dict
-    .list.{k}
-        --t-list-style-color:v['5']// 图案颜色
+if $theme-name-colors-dict is defined
+    for k,v in $theme-name-colors-dict
+        .list.{k}
+            --t-list-style-color:v['5']// 图案颜色
