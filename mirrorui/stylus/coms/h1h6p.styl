@@ -2,23 +2,22 @@
 h1, h2, h3, h4, h5, h6
     font-family: inherit
     font-weight: 600
+    @extend $ext-color-inherit
     line-height: 1.1
-    color: inherit
     background-color: inherit
     margin: .6em 0
 h1
-    font-size: $font-size-3xl
+    font-size: $fontSize-dict['3xl']
 h2
-    font-size: $font-size-2xl
+    font-size: $fontSize-dict['2xl']
 h3
-    font-size: $font-size-xl
+    font-size: $fontSize-dict['xl']
 h4
-    font-size: $font-size-lg
+    font-size: $fontSize-dict['lg']
 h5
-    font-size: $font-size-md
+    font-size: $fontSize-dict['md']
 h6
-    font-size: $font-size-normal
-// p标记
+    font-size: $fontSize-dict['base']
+
 p
     margin: 0 0 1em
-    line-height: 1.8

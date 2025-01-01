@@ -1,0 +1,30 @@
+//===========================================================
+// 工具样式,颜色
+//===========================================================
+ 
+// 黑/白/灰
+for colorName,list in $blackwhitegray-dict
+    for saturation,val in list
+        // 文字颜色
+        .text-{colorName}-{saturation}
+            color: val
+        // 背景颜色
+        .bg-{colorName}-{saturation}
+            background-color: val
+        // 边框颜色
+        .bd-{colorName}-{saturation}
+            border-color: val
+
+// 彩色主题
+if $theme-name-colors-dict is defined
+    for colorName,list in $theme-name-colors-dict
+        for saturation,val in list
+            // 文字颜色
+            .text-{colorName}-{saturation}
+                color: val
+            // 背景颜色
+            .bg-{colorName}-{saturation}
+                background-color: val
+            // 边框颜色
+            .bd-{colorName}-{saturation}
+                border-color: val

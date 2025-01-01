@@ -1,7 +1,6 @@
 ﻿<div class="doc-page">
   <h2>边框</h2>
   <p class="text-in">类名格式: <b>bd-{dir} dir取值(t,b,l,r)或省略</b>表示上下左右4个方向,省略时表示全部.</p>
-  <p class="text-in">边框带圆角,类名格式: <b>bdr-{dir}</b> dir取值(tl,tr,br,bl)或省略.表示4个角.</p>
   <p class="text-in">边框颜色,类名格式: <b>bd-{colorname}-{level}</b> 取值参考颜色</p>
   <div class="grids-5">
     <div class="bd bd-red-5 pd-15 mg-10">class="bd"</div>
@@ -10,9 +9,14 @@
     <div class="bd-l bd-red-5 pd-l-15 mg-10">class="bd-l"</div>
     <div class="bd-r bd-red-5 pd-l-15 mg-10">class="bd-r"</div>
   </div>
-  <div class="grids-5">
-    <div class="bd bdr bd-gray-5 pd-15 mg-10">class="bd bdr"</div>
-    <div class="bd bdr-tl bdr-tr bd-gray-5 pd-15 mg-10">class="bd bdr-tr bdr-tl"</div>
-    <div class="bd bdr-bl bdr-br bd-gray-5 pd-15 mg-10">class="bd bdr-br bdr-bl"</div>
-  </div>
+  <p>常用圆角: class=<b>cir</b></p>
+  <p>圆形class="cir" border-radius:50%</p>
+  <a class="d-inline-block pd-40 cir bg-gray-5"></a>
+  <p>class="cir-3" border_radius:3px</p>
+  <a class="d-inline-block pd-40 cir-3 bg-sky-5"></a>
+  <p>class="cir-5" border_radius:5px</p>
+  <a class="d-inline-block pd-40 cir-5 bg-yellow-5"></a>
+  <p>class="cir[10|16|20|25|33]" border_radius:10%|16.6%..33.3% 百分比单位</p>
+  <a class="d-inline-block pd-40 cir10 bg-red-5"></a>
+  <a class="d-inline-block pd-40 cir25 bg-red-5"></a>
 </div>

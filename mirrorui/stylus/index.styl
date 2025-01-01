@@ -1,47 +1,53 @@
-﻿// 1.全局变量 可到variables文件夹中选择不同的版本
+﻿// =================================
+// 变量,函数和扩展样式的定义.必须引用
+// =================================
+// 变量
 @import "variables/color"
 @import "variables/font"
 @import "variables/mediaquery"
 @import "variables/transition"
 @import "variables/cirangle"
-// 1.1 extend style item
+// extend style item
 @import "function/extendclass"
-// 2.自定义函数
+// 函数
 @import "function/function"
 
-// 3.reset css和全局样式
+// ==============
+// mirror ui组件
+// ==============
+// 1.reset css和全局样式
 @import "base"
-// 3.1主题
+// 2主题
 @import "theme"
-// 4.布局
+// 3.布局
 @import "coms/grids"
 @import "coms/layoutline"
-// 5.显示
+// 4.显示
 @import "coms/h1h6p.styl"
 @import "coms/label.styl"
 @import "exts/kvpair"
 @import "coms/hr.styl"
 @import "exts/pageload"
-// 6.容器
+// 5.容器
 @import "coms/panel"
 @import "coms/msgpanel"
 @import "coms/tabs"
 @import "coms/cachepage"
-// 7.数据
+// 6.数据
 @import "coms/list"
 @import "coms/table.styl"
 @import "coms/form.styl"
 @import "coms/forminput.styl"
 @import "coms/formfile.styl"
 @import "coms/formcheck.styl"
-// 8.功能
+// 7.功能
 @import "coms/btn.styl"
 @import "coms/onoff"
 @import "coms/msgbox"
 @import "coms/msgshow"
 @import "coms/datepick"
 @import "coms/range"
-// 9.导航
+// 8.导航
 @import "coms/docmenu"
 @import "coms/sidemenu"
 @import "coms/mnavmenu"
@@ -49,5 +55,10 @@
 @import "exts/menubar"
 @import "coms/pagenum"
 
-// 工具样式原子化css
-@import "coms/tools"
+// 工具样式
+@import "coms/toolsLayout"
+@import "coms/toolsBorder"
+@import "coms/toolsOther"
+@import "coms/toolsWidth"
+@import "coms/toolsText"
+@import "coms/toolsTheme"

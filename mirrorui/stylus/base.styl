@@ -1,69 +1,26 @@
-﻿// ================================
-// 全局样式基础设置,包含
-// 部分元素重置reset
-// html,body,img,a标签
-// css全局变量
-// ================================
-
-// =====================================================================
-// js设置css变量(不使用css变量了)
-// document.body.style.setProperty('--primary', '#000000')
-// 获取变量值
-// document.body.style.getPropertyValue('--primary').trim() // '#000000'
-// 删除变量
-// document.body.style.removeProperty('--primary')
-// 如果一个css变量 "--var-a" 的值是另一个css变量的值 --var-b : var(--var-a)
-// 那么改变--var-a的值后,--var-b不变,这种引用是"值"传递的
-// =====================================================================
+﻿// ======================================
+// 元素reset一致性设定
+// ======================================
 
 // 所有DOM使用边框盒模型
 *, *::before, *::after
     box-sizing: border-box
 
-// 部分标记边距和补白重置
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td
-    margin: 0
-    padding: 0
-
-// ========================
-// :root匹配文档根元素(html)
-// ========================
+// 主题色变量,字体基准大小(:root匹配文档根元素(html))
 :root
-    // 用于主题色的全局css变量
+    font-size:$font-size-root
     --back-color:$white['0']// 背景色
     --front-color:$black['1']// 前景色,字体颜色
     --border-color:$gray['3']// 边框色
-// ====
-// html
-// ====
-// html    
 
-// ===========================
-// body背景,颜色,行高,字体等设定
-// ===========================
+// body.边距补白,字体大小,行高
 body
+    margin:0
+    padding:0
+    font-size: 1.4rem
     font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif, '\5B8B\4F53'
-    font-size: $font-size-base
+    line-height: 1.5
 
-// ====================
-// img标记,块级,垂直居中
-// ====================
-img
-    @extend $ext-display-block
-    vertical-align: middle
-// 自适应大小
-.img-autosize
-    max-width: 100%
-    height: auto
-// Rounded corners图片圆角
-.img-rounded
-    border-radius: $cir-angle
-// Perfect circle 圆形图片
-.img-circle
-    border-radius: 50%
-
-// =====
 // a链接
-// =====
 a
-    color: inherit
+    @extend $ext-color-inherit

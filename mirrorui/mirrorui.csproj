@@ -126,6 +126,11 @@
     <None Include="stylus\coms\formcheck.styl" />
     <None Include="stylus\coms\formfile.styl" />
     <None Include="stylus\coms\forminput.styl" />
+    <None Include="stylus\coms\toolsOther.styl" />
+    <None Include="stylus\coms\toolsWidth.styl" />
+    <None Include="stylus\coms\toolsLayout.styl" />
+    <None Include="stylus\coms\toolsBorder.styl" />
+    <None Include="stylus\coms\toolsTheme.styl" />
     <None Include="stylus\function\extendclass.styl" />
     <None Include="stylus\theme.styl" />
     <None Include="stylus\coms\layoutline.styl" />
@@ -154,7 +159,7 @@
     <None Include="stylus\coms\sidemenu.styl" />
     <None Include="stylus\coms\table.styl" />
     <None Include="stylus\coms\tabs.styl" />
-    <None Include="stylus\coms\tools.styl" />
+    <None Include="stylus\coms\toolsText.styl" />
     <None Include="stylus\function\function.styl" />
     <None Include="stylus\index.styl" />
     <None Include="stylus\variables\color.styl" />

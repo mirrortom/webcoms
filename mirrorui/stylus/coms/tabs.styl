@@ -57,7 +57,7 @@
     &-label 
         padding: 2px .5em
         color:$gray['4']
-        border-radius:$cir-angle $cir-angle 0 0
+        border-radius:$cirAngle-dict['3'] $cirAngle-dict['3'] 0 0
         @extend $ext-text-overflow
         @extend $ext-user-select-none
 
@@ -74,13 +74,13 @@
         border-width: 0
 
     &.left &-label 
-        border-radius:$cir-angle 0 0 $cir-angle
+        border-radius:$cirAngle-dict['3'] 0 0 $cirAngle-dict['3']
 
     &.right &-label 
-        border-radius: 0 $cir-angle $cir-angle 0
+        border-radius: 0 $cirAngle-dict['3'] $cirAngle-dict['3'] 0
 
     &.bottom &-label 
-        border-radius: 0 0 $cir-angle $cir-angle
+        border-radius: 0 0 $cirAngle-dict['3'] $cirAngle-dict['3']
 
     // 标签-活动的
     &-label.active

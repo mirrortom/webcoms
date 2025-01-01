@@ -1,51 +1,24 @@
-﻿// body使用.字体基准大小使用绝对值
-$font-size-base = 14px
-
-// 字体大小,继承body,使用相对单位em
-// 最小,约12.6px
-$font-size-sm = .9em
-// 等于基准
-$font-size-normal = 1em
-// 中,约16.8
-$font-size-md = 1.2em
-// 大,约20.16
-$font-size-lg = 1.44em
-// 巨大系列,约24.5
-$font-size-xl = 1.75em
-// 约30.1
-$font-size-2xl = 2.15em
-// 约36.4
-$font-size-3xl = 2.6em
-// 约47.6
-$font-size-4xl = 3.4em
-// 约58.8
-$font-size-5xl = 4.2em
-// 约84
-$font-size-6xl = 6em
+﻿// 字体基准大小,10px便于使用rem单位计算,在html元素设置
+$font-size-root = 10px
 
 // 字体大小字典
 $fontSize-dict = {
-    sm:$font-size-sm
-    base: $font-size-normal
-    md: $font-size-md
-    lg: $font-size-lg
-    xl: $font-size-xl
-    '2xl': $font-size-2xl
-    '3xl': $font-size-3xl
-    '4xl': $font-size-4xl
-    '5xl': $font-size-5xl
-    '6xl': $font-size-6xl
+    sm:1.2rem
+    base: 1.4rem
+    md: 1.6rem
+    lg: 2rem
+    xl: 2.4rem
+    '2xl': 3rem
+    '3xl': 3.6rem
+    '4xl': 4.5rem
+    '5xl': 5.6rem
 }
 
 // 字体加粗
 $fontWeight={
     '1': 100,
-    '2': 200,
     '3': 300,
-    '4': 400,
     '5': 500,
-    '6': 600,
     '7': 700,
-    '8': 800,
     '9': 900
 }

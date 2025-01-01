@@ -1,0 +1,23 @@
+//=================
+// 工具样式,文本相关
+//=================
+
+// 文本大小
+for k, v in $fontSize-dict
+    .text-{k}
+        font-size: v
+// 文本加粗
+for k,v in $fontWeight
+    .text-b-{k}
+        font-weight: v
+// 文本段落首行缩进2em
+.text-in
+    text-indent: 2em
+// 文本下划线
+.text-uline
+    text-decoration:underline
+.text-uline-none
+    text-decoration:none
+// 文本超出时,显示省略号
+.text-overflow
+    @extend $ext-text-overflow

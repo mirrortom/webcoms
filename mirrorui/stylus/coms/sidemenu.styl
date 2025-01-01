@@ -25,7 +25,7 @@
         @extend $ext-border-cir-default
     // 菜单项hover,菜单项的下划线去掉
     &-item:not(.active):hover
-        text-decoration: none
+        @extend $ext-text-decoration-none
         background-color: var(--t-sidemenu-hover-bg-color)
     // 菜单项选中
     &-item.active

@@ -9,7 +9,7 @@
     --t-tabsbox-tab-active-bg-color: $gray['3']// 标签选中背景
     --t-tabsbox-tab-active-color: $black['1']// 标签选中字色
 .tabsbox
-    display: grid
+    @extend $ext-display-grid
     // 4列:左导航,标签框,右导航,功能框 容器总高度36 + 2(边框)
     grid-template-columns: 36px auto 36px 72px
     align-items:center
@@ -47,23 +47,23 @@
         // 为最右边的标签留出关闭按钮的空间
         padding-right:26px
         white-space: nowrap
-        overflow-y:hidden
+        @extend $ext-overflow-y-hidden
         overflow-x:scroll
     // 选项卡
     &-tab
-        display: inline-block
-        position: relative
+        @extend $ext-display-inline-block
+        @extend $ext-position-relative
         height:36px
         line-height:36px
         padding:0 8px
         margin:0 3px
         cursor: pointer
-        border-radius:$cir-angle
+        border-radius:$cirAngle-dict['3']
         color: $gray['5']
     // 选项卡关闭按钮
     &-tabclose
-        display: none
-        position: absolute
+        @extend $ext-display-none
+        @extend $ext-position-absolute
         top: 0
         right: 0
         width:18px
@@ -71,7 +71,7 @@
         line-height:18px
         text-align:center
         color: $white['1']
-        text-decoration: none
+        @extend $ext-text-decoration-none
         &:hover
             color: $white['1']
             background-color: $red['6']
@@ -84,7 +84,7 @@
         background-color: var(--t-tabsbox-tab-menu-hover)
         // 显示关闭按钮
     &-tab:hover &-tabclose
-        display: inline-block
+        @extend $ext-display-inline-block
     // 活动的选项卡,样式放在hover后面避免覆盖(主题范围-3.1)
     &-tab.active
         background-color: var(--t-tabsbox-tab-active-bg-color)
