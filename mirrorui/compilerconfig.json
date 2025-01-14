@@ -12,5 +12,12 @@
     "minify": {
       "enabled": false
     }
+  },
+  {
+    "outputFile": "zcustom/tools.css",
+    "inputFile": "zcustom/tools.styl",
+    "minify": {
+      "enabled": false
+    }
   }
 ]
