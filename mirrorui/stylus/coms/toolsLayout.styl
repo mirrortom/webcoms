@@ -4,9 +4,9 @@
 // 文本内容(子元素)对齐
 .text
     &-left
-        text-align: left
+        @extend $ext-text-align-left
     &-right
-        text-align: right
+        @extend $ext-text-align-right
     &-center
         @extend $ext-text-align-center
 // 基准线居中
@@ -34,12 +34,16 @@
     @extend $ext-justify-sa
 .f-h-se
     @extend $ext-justify-se
-// 线性布局(flex)时,让子元素在交叉轴线上居中/居右,用于父元素
+// 线性布局(flex)时,让子元素在交叉轴线上居左/中/右,用于父元素
+.f-v-start
+    @extend $ext-align-start
 .f-v-center
     @extend $ext-align-center
 .f-v-end
     @extend $ext-align-end
-// flex/grid 布局时,让子元素在垂直轴线上居中/居右,用于子元素
+// flex/grid 布局时,让子元素在垂直轴线上居左/中/右,用于子元素
+.f-vs-start
+    @extend $ext-align-self-start
 .f-vs-center
     @extend $ext-align-self-center
 .f-vs-end

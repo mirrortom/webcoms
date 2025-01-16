@@ -3,7 +3,7 @@
 // =====================================================
 for i in range(1, 12)
     .grids-{i}
-        display: grid
+        @extend $ext-display-grid
         grid-template-columns: repeat(i, percentage((1 / i)))
         overflow: hidden
 // 根据屏幕尺寸,采取不同的均分比例.

@@ -21,6 +21,10 @@ $ext-weight-500
 // @extend $ext-text-align-center
 $ext-text-align-center
     text-align: center
+$ext-text-align-right
+    text-align: right
+$ext-text-align-left
+    text-align: left
 
 //==========
 // display
@@ -47,7 +51,9 @@ $ext-display-flex
 $ext-display-inline-flex
     display: inline-flex
 
-// justify: center|end
+// justify: start|center|end
+$ext-justify-start
+    justify-content: start
 $ext-justify-center
     justify-content: center
 $ext-justify-end
@@ -62,18 +68,24 @@ $ext-justify-se
     justify-content: space-evenly
 
 // justify-self: center|end ,for grid layout
+$ext-justify-self-start
+    justify-self: start
 $ext-justify-self-center
     justify-self: center
 $ext-justify-self-end
     justify-self: end
 
-// align-items: center|end
+// align-items: start|center|end
+$ext-align-start
+    align-items: start
 $ext-align-center
     align-items: center
 $ext-align-end
     align-items: end
 
 // align-self: center|end
+$ext-align-self-start
+    align-self: start
 $ext-align-self-center
     align-self: center
 $ext-align-self-end
@@ -120,7 +132,7 @@ $ext-border-1px
     border: 1px solid $border-color
 // @extend $ext-border-cir-default
 $ext-border-cir-default
-    border-radius: $cirAngle-dict['3']
+    border-radius: $cirAngle-dict['cir-3']
 // @extend $ext-border-circle
 $ext-border-circle
     border-radius: 50%
