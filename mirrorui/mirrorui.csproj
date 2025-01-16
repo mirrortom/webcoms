@@ -72,9 +72,6 @@
     <Content Include="js\tabs.js" />
     <Content Include="mirrorui.css" />
     <Content Include="mirrorui.js" />
-    <Content Include="stylus\tools.css">
-      <DependentUpon>tools.styl</DependentUpon>
-    </Content>
     <Content Include="tools.css" />
   </ItemGroup>
   <ItemGroup>
