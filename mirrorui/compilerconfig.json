@@ -7,15 +7,8 @@
     }
   },
   {
-    "outputFile": "zcustom/webui.css",
-    "inputFile": "zcustom/webui.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-  {
-    "outputFile": "zcustom/tools.css",
-    "inputFile": "zcustom/tools.styl",
+    "outputFile": "tools.css",
+    "inputFile": "stylus/tools.styl",
     "minify": {
       "enabled": false
     }

@@ -1,0 +1,22 @@
+﻿// 文本
+
+// 大小
+for k, v in $fontSize-dict
+    .text-{k}
+        font-size: v
+// 加粗
+for size in range(100,900,100)
+    n=size / 100
+    .text-b-{n}
+        font-weight: size
+// 段落首行缩进2em
+.text-in
+    text-indent: 2em
+// 下划线
+.text-uline
+    text-decoration:underline
+.text-uline-none
+    text-decoration:none
+// 超出时,显示省略号
+.text-overflow
+    @extend $ext-text-overflow

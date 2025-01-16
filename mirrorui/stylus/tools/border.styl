@@ -1,0 +1,34 @@
+﻿// 边框
+// 4边和上下左右
+.bd
+    border-width:1px
+    border-style:solid
+    border-color:$border-color
+    &-t
+        border-top:1px solid $border-color
+    &-b
+        border-bottom:1px solid $border-color
+    &-l
+        border-left:1px solid $border-color
+    &-r
+        border-right:1px solid $border-color
+
+// 边框厚度
+for size in range(2,10,1)
+    px = size * 1px
+    .bd-{size}
+        border-width:px;
+
+// 边框线类型
+for t in (dashed dotted)
+    .bd-{t}
+        border-style:t
+
+// 圆角 像素/百分比单位
+for size in range(1,50,1)
+    px = size * 1px
+    precent=size * 1%
+    .cir-{size}
+        border-radius:px;
+    .cir-{size}p
+        border-radius:precent;

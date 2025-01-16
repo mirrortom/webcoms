@@ -72,12 +72,10 @@
     <Content Include="js\tabs.js" />
     <Content Include="mirrorui.css" />
     <Content Include="mirrorui.js" />
-    <Content Include="zcustom\tools.css">
+    <Content Include="stylus\tools.css">
       <DependentUpon>tools.styl</DependentUpon>
     </Content>
-    <Content Include="zcustom\webui.css">
-      <DependentUpon>webui.styl</DependentUpon>
-    </Content>
+    <Content Include="tools.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -165,15 +163,23 @@
     <None Include="stylus\coms\toolsText.styl" />
     <None Include="stylus\function\function.styl" />
     <None Include="stylus\index.styl" />
+    <None Include="stylus\tools.styl" />
+    <None Include="stylus\tools\width.styl" />
+    <None Include="stylus\tools\text.styl" />
+    <None Include="stylus\tools\colors.styl" />
+    <None Include="stylus\tools\border.styl" />
+    <None Include="stylus\tools\marginpadding.styl" />
+    <None Include="stylus\tools\display.styl" />
+    <None Include="stylus\tools\align.styl" />
     <None Include="stylus\variables\color.styl" />
     <None Include="stylus\variables\font.styl" />
     <None Include="stylus\variables\mediaquery.styl" />
     <None Include="stylus\variables\cirangle.styl" />
     <None Include="stylus\variables\transition.styl" />
-    <None Include="zcustom\tools.styl" />
-    <None Include="zcustom\webui.styl" />
     <None Include="readme.md" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="zcustom\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,25 @@
+﻿// 宽度和高度
+
+// 像素单位,vw/vh/百分比单位
+for size in range(1,100,1)
+    px=size*1px
+    percent=size*1%
+    vw=size*1vw
+    vh=size*1vh
+    .w-{size}
+        width:px
+    .w-{size}p
+        width:percent
+    .w-{size}vw
+        width:vw
+    .h-{size}
+        height:px
+    .h-{size}p
+        height:percent
+    .h-{size}vh
+        width:vh
+
+// 自适应容器宽度
+.w-autosize
+    max-width: 100%
+    height: auto

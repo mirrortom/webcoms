@@ -1,0 +1,34 @@
+﻿// display规则
+.d-none
+    @extend $ext-display-none
+.d-block
+    @extend $ext-display-block
+.d-inline-block
+    @extend $ext-display-inline-block
+.d-flex
+    @extend $ext-display-flex
+.d-inline-flex
+    @extend $ext-display-inline-flex
+.d-grid
+    @extend $ext-display-grid
+.d-inline-grid
+    @extend $ext-display-inline-grid
+
+// display:none block 针对不同屏幕隐藏或者显示
+mediaquerydisplay(screen-type)
+    .d-{screen-type}-none
+        display: none !important
+    .d-{screen-type}-block
+        display: block !important
+// 小屏幕 >640
+@media only screen and (min-width: $screen-phone)
+    mediaquerydisplay(sm)
+// 迷你平板 > 768
+@media only screen and (min-width: $screen-tablet)
+    mediaquerydisplay(md)
+// 全尺寸平板   > 1024
+@media only screen and (min-width: $screen-bigtablet)
+    mediaquerydisplay(lg)
+// 桌面电脑屏幕 > 1280
+@media only screen and (min-width: $screen-pc)
+    mediaquerydisplay(xl)
