@@ -161,6 +161,8 @@
     <None Include="stylus\function\function.styl" />
     <None Include="stylus\index.styl" />
     <None Include="stylus\tools.styl" />
+    <None Include="stylus\tools\gridflex.styl" />
+    <None Include="stylus\tools\overflow.styl" />
     <None Include="stylus\tools\width.styl" />
     <None Include="stylus\tools\text.styl" />
     <None Include="stylus\tools\colors.styl" />

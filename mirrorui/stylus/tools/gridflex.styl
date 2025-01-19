@@ -1,0 +1,40 @@
+﻿// flex布局和grid布局相关
+
+//-- grid网格布局 --//
+
+// 列/行数量选项 (最小单位1/16)
+for i in range(1, 16)
+    // 均分容器宽度
+    .cols-{i}
+        grid-template-columns: repeat(i, percentage((1 / i)))
+    // 自动列宽
+    .cols-auto-{i}
+        grid-template-columns: repeat(i, auto)
+    // 自动行高
+    .rows-auto-{i}
+        grid-template-rows: repeat(i, auto)
+// 先列后行排布
+.col-row
+    grid-auto-flow:column
+
+//-- flex 线性布局 --//
+
+// 竖直排布
+.flex-col
+    flex-direction: column
+// 竖直排布,从下方开始
+.flex-col-r
+    flex-direction: column-reverse
+// 水平排布,从右端开始
+.flex-row-r
+    flex-direction: row-reverse
+// 水平排列时,可以换行
+.flex-wrap
+    flex-wrap: wrap
+// 水平排布时,子元素平分宽度--用于子元素
+.flex-auto
+    flex: 1 1 auto
+// 水平排布时,子元素占据宽度的百分比例(最小单位1/16)--用于子元素
+for i in range(1, 16)
+    .flex-{i}
+        flex: 0 1 percentage((i / 16))
