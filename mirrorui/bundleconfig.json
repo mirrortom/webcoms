@@ -20,7 +20,7 @@
       "js/m-mnavmenu.js",
       "js/mdirbar.js",
       "js/m-range.js",
-      "js/exts/m-inputwatch.js"
+      "js/m-inputwatch.js"
     ],
     "minify": {
       "enabled": false

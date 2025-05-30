@@ -1,20 +1,18 @@
 ﻿<div class="doc-page">
   <h2>底部菜单</h2>
-  <p># 使用自定义标记 <b>&lt;m-mnavmenu&gt;</b></p>
-  <p class="text-in">用于手机的底部导航菜单,模仿微信公众号那样的菜单.也可以是APP那种没有子菜单,图标加文字那种的.</p>
-  <div class="grids-1 grids-md-2">
+  <p>使用自定义标记 <b>&lt;m-mnavmenu&gt;</b></p>
+  <p>用于手机的底部导航菜单,模仿微信公众号那样的菜单.也可以是APP那种没有子菜单,图标加文字那种的.</p>
+  <div class="grid grid-cols-2 gap-col-15">
     <div>
       <iframe src="doc/mnavmenudemo.html" style="width:96%;height:300px" frameborder="1"></iframe>
+      <a class="val btn link" href="doc/mnavmenudemo.html" target="_blank">新窗口查看-菜单</a>
     </div>
     <div>
       <iframe src="doc/mnavmenudemo1.html" style="width:96%;height:300px" frameborder="1"></iframe>
+      <a class="val btn link" href="doc/mnavmenudemo1.html" target="_blank">新窗口查看-app导航</a>
     </div>
   </div>
-  <div>
-    <a class="val btn link" href="doc/mnavmenudemo.html" target="_blank">新窗口查看-菜单</a>
-    <a class="val btn link" href="doc/mnavmenudemo1.html" target="_blank">新窗口查看-app导航</a>
-  </div>
-  <br />
+
   <pre>
 // 类微信菜单
 &lt;<b>m-mnavmenu</b>&gt;
@@ -43,9 +41,10 @@
   ...
 &lt;/m-mnavmenu&gt;
 </pre>
-  <br />
-  <p># 方法 <b>create(fn)</b> 生成菜单,fn 点击菜单执行方法</p>
-  <p># 方法 <b>activeItem(itemIndex)</b> 指定一个激活的菜单,itemIndex 是菜单索引</p>
+  <h4>方法</h4>
+
+  <p><b class="txt-sky-4">create(fn)</b> 生成菜单,fn(item,index) 点击菜单执行方法</p>
+  <p class="mg-t-10"><b class="txt-sky-4">activeItem(itemIndex)</b> 指定一个激活的菜单,itemIndex 是菜单索引</p>
   <pre>
 let mnav1 = document.getElementById('mnavmenu1');
     
@@ -56,7 +55,6 @@ mnav1.<b>create</b>((item, index) => {
 });
 
 // index 的顺序是,左边第一组菜单的最上面那个菜单为0,开始,到最右边最下面那个菜单.
-// 方法: 点击一个菜单
 mnavmenu1.<b>activeItem(0)</b>
 </pre>
 </div>

@@ -1,9 +1,11 @@
 ﻿// 标记 记号 颜色 四种大小 是否有边框 圆角或直角
-.label
+.label,.label-cir
     @extend $ext-inline-flex-vh-center
     @extend $ext-border-1px
-    padding:2px .5em;
-    @extend $ext-border-cir-default
-// 圆角
-.label.cir
-    border-radius: 1em;
+.label
+    padding 0 .4em
+.label-cir
+    width:1.5em
+    height:1.5em
+    border-radius:50%
+    

@@ -5,12 +5,5 @@
     "minify": {
       "enabled": false
     }
-  },
-  {
-    "outputFile": "tools.css",
-    "inputFile": "stylus/tools.styl",
-    "minify": {
-      "enabled": false
-    }
   }
 ]

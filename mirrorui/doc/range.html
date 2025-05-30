@@ -1,46 +1,40 @@
 ﻿<div class="doc-page">
   <h2>范围滑块</h2>
-  <p>自定义滑动组件,比较常用的组件.</p>
+  <p>滑块,使用自定义标记 &lt;m-range&gt;&lt;/m-range&gt;</p>
+  <p>绑定了鼠标事件和触摸事件,按住滑块按钮拖动改变滑块的值.事件绑定在容器元素上,没用绑定在滑块按钮上,为了实现当鼠标不在按钮上时,也能触发滑动事件.</p>
+  <p>滑条的变化是通过修改左边框的厚度实现,滑块在滑条中一直贴着左边框,被动的向右边移动.</p>
   <div>
     <m-range></m-range>
     <m-range class="sky" min="0" max="100" val="30"></m-range>
   </div>
+  <h4>属性</h4>
+  <p><b class="txt-sky-4">width</b> 滑动条的长度,默认320px</p>
+  <p><b class="txt-sky-4">min</b> 范围边界小值,默认0</p>
+  <p><b class="txt-sky-4">max</b> 范围边界大值,默认100</p>
+  <p><b class="txt-sky-4">val</b> 初始值,默认0</p>
   <pre>
 &lt;m-range&gt;&lt;/m-range&gt;
 &lt;m-range id="range1" width="320" min="0" max="100" val="0"&gt;&lt;/m-range&gt;
-
-// dom属性,都可选
-width: 滑动条的长度(320px)
-min: 范围边界小值(0)
-max: 范围边界大值(100)
-val: 初始值(0)
 </pre>
-  <br />
-  <p># 事件</p>
-  <p class="text-in">绑定了鼠标事件和触摸事件,按住滑块按钮拖动改变滑块的值.</p>
-  <p class="text-in">事件绑定在容器元素上,没用绑定在滑块按钮上,为了实现当鼠标不在按钮上时,也能触发滑动事件.</p>
+  <p><b class="txt-sky-4">Value</b> 获取/设置滑块值</p>
   <pre>
-// 绑定滑动事件,这个例子中,获取滑块的值,在canvas里绘制小方块的个数
-let crag1 = document.getElementById('range1');
-
+// Value值,在[min,max]之间的值
+range1.Value=50;
+let val=range1.Value;
+</pre>
+  <h4>事件</h4>
+  <p><b class="txt-sky-4">onChange=handler(val)</b> 滑动时执行.val滑块的值.</p>
+  <pre>
 // val: 当前滑块的值
-crag1.<b>onChange</b> = (val)=>{
+range1.<b>onChange</b> = (val)=&gt;{
+  console.log(val)
 }
 </pre>
-  <br />
-  <p># 属性</p>
-  <p class="text-in">设置或者获取滑块位置</p>
-  <p class="text-in">滑条的变化是通过修改左边框的厚度实现,滑块在滑条中一直贴着左边框,被动的向右边移动.</p>
-  <pre>
-// num: 要设置的值,在[min,max]之间的值
-crag1.<b>Value</b> = num;
-
-// 获取
-let val=crag1.<b>Value</b>;
-</pre>
+  <h4>测试</h4>
+  <p>绑定滑动事件,这个例子中,获取滑块的值,在canvas里绘制小方块的个数</p>
   <br />
   <m-range id="range1" class="blue" width="600" min="0" max="100" val="0"></m-range>
-  <br /><br />
+
   <canvas id="canvasrange1" class="bd"></canvas>
 </div>
 <script>

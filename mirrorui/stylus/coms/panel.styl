@@ -1,9 +1,7 @@
 ﻿// panel
 .panel
-    border: 1px solid $border-color
+    @extend $ext-border-1px
     overflow: hidden
     &-head
-        text-align: center
+        @extend $ext-text-align-center
         border-bottom: 1px solid $border-color
-    &-body
-        padding: 4px

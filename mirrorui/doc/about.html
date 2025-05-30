@@ -1,17 +1,17 @@
 ﻿<div class="doc-page">
-  <h2>关于ui</h2>
-  <p># 为了练习而做</p>
-  <p class="text-in">将html,js,css做成组件,使web开发更方便.这种做法在桌面程序中早就有了,比如winfrom.较早些时候,当前后端还没有分离,还是以服务端编程时,常用的是jQuery,还有各用基于jQuery的UI.</p>
+  <h1>关于ui</h1>
+  <h2">为了练习而做</h2>
+  <p>将html,js,css做成组件,使web开发更方便.这种做法在桌面程序中早就有了,比如winfrom.较早些时候,当前后端还没有分离,还是以服务端编程时,常用的是jQuery,还有各用基于jQuery的UI.</p>
   <p>后来有了<a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>.学习它的scss后,认为这是一种先进的思想.于是模仿练习.它的样式是OOP的,使用scss编写生成css.生成各种组件,布局,工具的css样式.</p>
   <p>一套webui是一些组件的集合,一个组件就是html模板加css显示加js功能的组合.按bootstrap的思路,编写这种组合就得到了一套UI.</p>
   <p>看过一些其它的ui框架,都是bootstrap的形式,或者直接基于它开发的.看起来,这更是一种web前端编程思路突破,真正的将web前端工程化了,就像服务端工程化那样.所以,使用造组件的思路,可以造出各种各样的ui来.</p>
-  <p># 两种思路</p>
-  <p class="text-in"><a href="https://github.com/tailwindlabs/tailwindcss" target="_blank">tailwind css</a>的思路和bootstrap相反,不再做组件,做了非常多的样式,几乎每个样式都只有一条css规则.在使用时,组合使用这些样式就可以做出一个组件,于是,可以自由灵活的搭配出更多的组件.</p>
-  <p class="text-in">对比起来,有点像是预制件和现场组装(用基本零件),前者的优点在于直接使用,缺点是风格已经确定.后者的优点是风格灵活随时可变,缺点是要现场组装.如果只用组件化思路,一定希望多一些灵活性,而使用组装化思路,也会希望多一些便利性,总是希望做更少的工作达到想要的效果,然而实际上一定是不可兼得,总要妥协或者均衡.</>
-  <p># 自定义组件</p>
-  <p class="text-in">主流的浏览器都支持web自定义组件了,就是可以自定义标记,以及这个标记的dom对象类型.如此一来,可以自定义内置的web组件了</p>
+  <h2>两种思路</h2>
+  <p><a href="https://github.com/tailwindlabs/tailwindcss" target="_blank">tailwind css</a>的思路和bootstrap相反,不再做组件,做了非常多的样式,几乎每个样式都只有一条css规则.在使用时,组合使用这些样式就可以做出一个组件,于是,可以自由灵活的搭配出更多的组件.</p>
+  <p>对比起来,有点像是预制件和现场组装(用基本零件),前者的优点在于直接使用,缺点是风格已经确定.后者的优点是风格灵活随时可变,缺点是要现场组装.如果只用组件化思路,一定希望多一些灵活性,而使用组装化思路,也会希望多一些便利性,总是希望做更少的工作达到想要的效果,然而实际上一定是不可兼得,总要妥协或者均衡.</p>
+  <h2>自定义组件</h2>
+  <p>主流的浏览器都支持web自定义组件了,就是可以自定义标记,以及这个标记的dom对象类型.如此一来,可以自定义内置的web组件了</p>
   <p>感觉不错的自定义ui组件库: <a href="https://shoelace.style/" target="_blank">https://shoelace.style/</a></p>
-  <p class="text-red-5">自定义组件的初始化,选择在构造函数里进行,有读取样式或者属性或者加入子元素的操作.为了避免错误,页面引入js的位置应该在body的最后面.</p>
+  <p class="txt-red-5">自定义组件的初始化,选择在构造函数里进行,有读取样式或者属性或者加入子元素的操作.为了避免错误,页面引入js的位置应该在body的最后面.</p>
   <pre>
 &lt;html&gt;
     &lt;head&gt;
@@ -24,9 +24,9 @@
 &lt;/html&gt;
 </pre>
   <br />
-  <p># css / js</p>
-  <p class="text-in">css使用的是 stylus <a href="https://stylus-lang.com/" target="_blank">stylus-lang.com</a> <a href="https://stylus-lang.net/" target="_blank">stylus-lang.net</a>,这个预处理器的语法风格像python那样靠空格缩进,比较简洁.另外工具函数也很丰富,类似sass.</p>
-  <p>所有的js绑定在 window.ns 这个对象上面,ns表示namespace.</p>
+  <h2>css / js /html</h2>
+  <p>css使用的是 stylus <a href="https://stylus-lang.com/" target="_blank">stylus-lang.com</a> <a href="https://stylus-lang.net/" target="_blank">stylus-lang.net</a>,这个预处理器的语法风格像python那样靠空格缩进,比较简洁.另外工具函数也很丰富,类似sass.</p>
+  <p>所有的js绑定在 "window.ns" 这个对象上面,ns表示namespace.</p>
   <p>没有js交互的主要用于展示性的组件使用原生的html标记,有js交互的做成了自定义标记.</p>
   <p>自定义组件样式没有封装在shadowdom里,还是使用的全局样式.</p>
 </div>

@@ -1,32 +1,38 @@
 ﻿<div class="doc-page">
   <h2>表单输入控件</h2>
   <p>文本框,多行文本框,选择框.支持主题色,体现在hover和边框.</p>
-  <div class="bd bdr pd-10 mg-b-15">
-    <label class="form-label mg-b-5">文本框标题使用label标记,添加样式:form-label</label>
-    <input class="input-text" type="text" value="在input上添加样式: input-text" />
+  <pre>
+// 文本框标题使用label标记,添加样式:form-label
+&lt;label class="<b>form-label</b> mg-b-5"&gt;&lt;/label&gt;
+&lt;input class="<b>input-text</b>" <b>disabled</b> type="text" value="" /&gt;
+&lt;textarea class="<b>textarea</b>"&gt;&lt;/textarea&gt;
+</pre>
+  <div class="pd-10 mg-b-15">
+    <label class="form-label mg-b-5">文本框</label>
+    <input class="input-text blue" type="text" value="在input上添加样式: input-text" />
   </div>
-  <div class="bd bdr pd-10 mg-b-15">
-    <label class="form-label mg-b-5">圆角</label>
-    <input class="input-text cir" type="text" value="圆角添加样式: cir" />
+  <div class="pd-10 mg-b-15">
+    <label class="form-label mg-b-15">圆角</label>
+    <input class="input-text orange cir-10" type="text" value="圆角cir-10" />
   </div>
 
-  <div class="bd bdr pd-10 mg-b-15">
-    <label class="form-label mg-b-5">密码框type=password</label>
-    <input class="input-text orange" type="password" value="123456" />
+  <div class="pd-10 mg-b-15">
+    <label class="form-label mg-b-5">密码框(type=password)</label>
+    <input class="input-text green" type="password" value="123456" />
   </div>
 
-  <div class="bd bdr pd-10 mg-b-15">
+  <div class="pd-10 mg-b-15">
+    <label class="form-label mg-b-5">底边框风格</label>
+    <input class="input-text udline" type="text" value="添加 udline 样式" />
+  </div>
+
+  <div class="pd-10 mg-b-15">
     <label class="form-label mg-b-5">disabled</label>
     <input class="input-text" disabled type="text" value="添加禁用属性: disabled" />
   </div>
 
-  <div class="bd bdr pd-10 mg-b-15">
+  <div class="pd-10 mg-b-15">
     <label class="form-label mg-b-5">多行文本框</label>
     <textarea class="textarea">在textarea标记上添加样式:textarea,多行文本框默认高度为100px,可以调整垂直方向大小.</textarea>
   </div>
-  <pre>
-&lt;label class="<b>form-label</b> mg-b-5"&gt;&lt;/label&gt;
-&lt;input class="<b>input-text</b> <b>cir</b> <b>disabled</b>" type="text" value="" /&gt;
-&lt;textarea class="<b>textarea</b>"&gt;&lt;/textarea&gt;
-</pre>
 </div>

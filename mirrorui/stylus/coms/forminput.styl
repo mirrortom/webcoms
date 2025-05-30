@@ -17,14 +17,15 @@
 .input-text,.select,.textarea
     @extend $ext-display-block
     width: 100%
-    padding: 6px 16px
+    padding: .375rem 1rem
     font-size: inherit
     background-color:inherit
-    @extend $ext-border-1px
-    @extend $ext-border-cir-default
-    border-color:var(--t-form-bd-color)
+    border:1px solid var(--t-form-bd-color)
     transition: border-color $duration
-
+// 文本框,只有底边框风格
+.input-text.udline
+    border:none
+    border-bottom:1px solid var(--t-form-bd-color)
 // 选择框 需要设置背景色,option元素的背景色,发现继承无效
 .select
     background-color:var(--t-form-select-bg-color)

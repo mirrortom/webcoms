@@ -94,6 +94,7 @@
 .tabsbox
     // 容器
     &-menugroup
+        @extend $ext-flex-vh-center
         @extend $ext-position-relative
         height:36px
         border-left: 1px solid $border-color
@@ -101,12 +102,6 @@
         background-color:var(--t-tabsbox-bg-color)// (背景,主题范围-4)
     // 图标三角形(主题范围-4.1)
     &-menutitle
-        @extend $ext-position-absolute
-        top:0
-        bottom:0
-        left:0
-        right:0
-        margin:auto
         triangle(.6em, bottom, var(--t-tabsbox-3btn-bd-color))
         border-bottom:none
     // hover时,图标变色(主题范围-4.2)
@@ -114,20 +109,20 @@
         border-top-color: var(--t-tabsbox-3btn-hover)
     // 菜单框
     &-menulist
-        display:none
-        position:absolute
+        @extend $ext-display-none
+        @extend $ext-position-absolute
         right:-1px
         top: calc(100% + 1px)
         width:calc(3 * 36px)
-        border: 1px solid $border-color
+        @extend $ext-border-1px
         border-top:none
         background-color:var(--t-tabsbox-bg-color)// (背景,主题范围-4.3)
     // 鼠标移入时,显示其下菜单项目
     &-menugroup:hover &-menulist
-        display: block
+        @extend $ext-display-block
     // 功能菜单项
     &-close-all, &-close-other, &-goto-active
-        display: block
+        @extend $ext-display-block
         padding:.4em
     // 菜单项hover
     &-close-all:hover, &-close-other:hover, &-goto-active:hover

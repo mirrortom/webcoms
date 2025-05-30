@@ -1,45 +1,38 @@
 ﻿<div class="doc-page">
   <h2>监听输入</h2>
-  <p># 使用自定义标记 &lt;m-inputwatch&gt;</p>
-  <p class="text-in">定时检测input输入框的值的变化,检测到变化时执行一个方法</p>
-  <p class="text-in">当输入内容发生变化时,提示与输入内容相关的数据.类似于搜索框的自动提示功能.</p>
-  <p class="text-in">可用于搜索数据时自动显示相关的内容,增加操作便捷性.</p>
-  <p class="text-in">input在获取焦点时触发监听,失去焦点时结束监听.定时器负责监听,如果发生变化,执行一个方法.</p>
-  <p class="text-in">对于中文输入时的状态问题,会监听compositionstart,compositionend两个事件,避免在中文输入过程中触发判断.</p>
-  <p># 以下测试输入一个字,筛选出包含这个字的结果</p>
-  <div class="grids">
-    <label class="form-label grid-1">搜索关键字</label>
-    <input class="input-text grid-4" is="m-inputwatch" type="text" name="name" value="" id="inputvalchange1"/>
-  </div>
-  <br />
-  <div class="grids">
-    <label class="grid-1 form-label">搜索结果</label>
-    <div class="grid" id="alldatabox"></div>
-  </div>
-  <br />
-  <pre class="bg-gray-lt">
-
-    // m-inputwatch 扩展自原生 input 标记,dom插入时仍然是 input.
-    // 但是关键属性是 <strong>is="m-inputwatch"</strong> 这个表示 m-inputwatch 自定义标记是扩展自 input 的.
-    &lt;input class="input-text grid-4" <strong>is="m-inputwatch"</strong> type="text" value="" id="inputvalchange1"/&gt;
-    
-    // 
-    let inputchange1 = document.getElementById('inputvalchange1');
-
-    // 初始化方法: 绑定了几个监听事件
-    // <strong>fn(val,input)</strong>: 监听到变化时,执行的方法.val: 当前input值, input: input的dom对象
-    // timeout: 监听时间间隔,默认1秒
-    inputchange1.<strong>init(fn,timeout)</strong>
-
+  <p>使用自定义标记 &lt;m-inputwatch&gt;</p>
+  <p>&lt;m-inputwatch&gt;扩展自原生 input 标记,dom插入时仍然是 input.但是关键属性是 <strong>is="m-inputwatch"</strong> 这个表示 m-inputwatch 自定义标记是扩展自 input 的.</p>
+  <pre>
+&lt;input class="input-text" <strong>is="m-inputwatch"</strong> type="text" value="" id="inputvalchange1"/&gt;
 </pre>
+  <p>工作方式是,定时检测input输入框的值的变化,检测到变化时,执行一个方法.</p>
+  <p>在获取焦点时触发监听,失去焦点时结束监听.定时器负责监听,如果发生变化,执行一个方法.</p>
+  <p>使用场景,当输入内容发生变化时,提示与输入内容相关的数据.类似于搜索框的自动提示功能.</p>
+  <p>对于中文输入时的状态问题,会监听compositionstart,compositionend两个事件,避免在中文输入过程中触发判断.</p>
+  <h4>属性</h4>
+  <p><b class="txt-sky-4">input1.timeOut=1000毫秒</b> 监听事件间隔.默认1000毫秒.</p>
+  <h4>方法</h4>
+  <p><b class="txt-sky-4">input1.watch()</b> 开始监听.无需调用,在input获得焦点时,会自动触发监听,调用这个方法.</p>
+  <h4>事件</h4>
+  <p><b class="txt-sky-4">input1.onChange=handle(val,input)</b> 监听到变化时,执行的方法.val: 当前input值, input: input的dom对象</p>
+  <h4>测试</h4>
+  <p>以下测试输入一个字,筛选出包含这个字的结果</p>
+  <div class="grid grid-15p a-center gap-col-10">
+    <label class="form-label bg-sky-4">搜索关键字</label>
+    <input class="input-text" is="m-inputwatch" type="text" name="name" value="" id="inputvalchange1" />
+  </div>
+  <div class="grid grid-15p mg-t-10 a-center gap-col-10">
+    <label class="form-label bg-green-4">搜索结果</label>
+    <div class="bd-1 bd-green-4" id="alldatabox"></div>
+  </div>
 </div>
 <script>
   (() => {
-    var alldata = ['苹果', '手机', '电脑', '安卓', '手游', '老干妈', '苹果酱', '安全', '老子', '干货', '水果', '电磁场', '旅游', '头脑', '黄金', '白金', '黄帝', '白色', '白头山'];
+    var alldata = ['苹果', '手机', '笔记本电脑', '电脑', '安卓', '手游', '老干妈', '苹果酱', '安全', '老子', '干货', '水果', '电磁场', '旅游', '山川河流', '头脑', '黄金', '白金', '黄帝', '白色', '白头山'];
     adddom(alldata);
 
     let inputchange1 = document.getElementById('inputvalchange1');
-    inputchange1.init((val, input) => {
+    inputchange1.onChange = ((val, input) => {
       let filterdata = [];
       for (var i = 0; i < alldata.length; i++) {
         if (alldata[i].indexOf(val) > -1)

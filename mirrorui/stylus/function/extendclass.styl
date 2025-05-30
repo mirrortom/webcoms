@@ -1,5 +1,6 @@
-﻿// 扩展样式,其它元素会使用的相同的css样式,避免重复,使用扩展
-// 引用语法: @extend $ext-text-overflow ,使用后,相当于写下了这个样式下的所有css条目
+﻿// 样式引用,相当于定义了样式变量.引用这个"变量",就引用了其下的规则.
+// 输出时,所有相同应用的类会写在一起,用逗号分割.
+// 引用语法: @extend $ext-text-overflow
 // 基本上每个扩展样式是一个css条目,这个借鉴了tailwindcss的原子化做法
 //=======
 // 文本
@@ -136,6 +137,17 @@ $ext-border-cir-default
 // @extend $ext-border-circle
 $ext-border-circle
     border-radius: 50%
+// @extend $border-none
+$border-none
+    border:none
+$border-left-none
+    border-left:none
+$border-right-none
+    border-right:none
+$border-top-none
+    border-top:none
+$border-bottom-none
+    border-bottom:none
 
 //==========
 // disabled

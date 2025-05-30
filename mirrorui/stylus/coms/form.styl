@@ -34,32 +34,3 @@ for k,v in $theme-name-colors-dict
     @extend $ext-disabled
 .input-file[disabled] input[type=file],.input-check[disabled] .form-label
     cursor: not-allowed
-
-// =====================================================================
-// 表单栅格布局
-// =====================================================================
-// 表单栅格布局 每一行的表单元素放在class="grids"里,每个元素设定"单元格数"
-// class="grid-x".使用栅格布局时,表单元素和表单标题是直接作为布局项元素的
-// ,元素尺寸会被容器拉伸
-// 传统纸质表单的模仿,表单界面就像纸质的那种.输入框没有边框,是在一个格子中
-
-.form-table
-    & .form-label, & .input-text, & .textarea, & .input-file, & .select, & .input-check
-        align-self: center
-        border: none
-        border-radius:0
-        outline: none
-    // 外边框
-    @extend $ext-border-1px
-    // 内边框 各表单项边框由grids底边框和grid右边框组成.除了最后一个元素不含边框外,因为会与大边框重合
-    .grids:not(:last-child)
-        border-bottom: 1px solid $border-color
-    .grids [class*=grid]:not(:last-child)
-        border-right: 1px solid $border-color
-    // 输入框边框去掉
-    //.input-text, .textarea
-        //border: none
-    // 输入框焦点时,背景色变化,以示可以编辑
-    .input-text:hover, .input-text:focus, .textarea:hover, .textarea:focus
-        background-color: $border-color
-    // .textarea多行文本框高度自动适应册格高度,但最小高度为100px

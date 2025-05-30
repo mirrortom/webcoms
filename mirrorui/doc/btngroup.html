@@ -2,61 +2,71 @@
   <h2>按钮组</h2>
   <p>按钮组包含多个按钮,一般用于一组性质相近的功能.同一组的按钮大小要相同.</p>
   <p>按钮组容器使用<b>inline-flex</b>布局,是个行内flex布局,元素会变为行为元素.里面按钮flex:auto(1 1 auto)</p>
-  <p># 按钮组</p>
-  <div class="mg-b-10">
+  <div class="mg-tb-10">
     <span class="btn-group">
-      <m-btn class="blue">加粗</m-btn>
-      <m-btn>下划线</m-btn>
-      <m-btn>倾斜</m-btn>
-      <m-btn class="sky">字体</m-btn>
-      <m-btn>复制</m-btn>
-      <m-btn>剪切</m-btn>
+      <m-btn>文件</m-btn>
+      <m-btn>编辑</m-btn>
+      <m-btn>视图</m-btn>
+      <m-btn>Git</m-btn>
+      <m-btn>项目</m-btn>
+      <m-btn>生成</m-btn>
+      <m-btn>调试</m-btn>
+      <m-btn>测试</m-btn>
+      <m-btn>分析</m-btn>
+      <m-btn>工具</m-btn>
+      <m-btn>扩展</m-btn>
+      <m-btn>窗口</m-btn>
+      <m-btn>帮助</m-btn>
     </span>
   </div>
 
   <pre>
 &lt;span class="<b>btn-group</b>"&gt;
-  &lt;m-btn&gt;加粗&lt;/m-btn&gt;
-  &lt;m-btn&gt;下划线&lt;/m-btn&gt;
-  &lt;m-btn&gt;倾斜&lt;/m-btn&gt;
-  &lt;m-btn class="sky"&gt;字体&lt;/m-btn&gt;
-  &lt;m-btn&gt;复制&lt;/m-btn&gt;
-  &lt;m-btn&gt;剪切&lt;/m-btn&gt;
+  &lt;m-btn&gt;文件&lt;/m-btn&gt;
+  &lt;m-btn&gt;编辑&lt;/m-btn&gt;
+  &lt;m-btn&gt;视图&lt;/m-btn&gt;
 &lt;/span&gt;
 </pre>
-  <br />
-  <p># 下拉式按钮组</p>
-  <p>第1个按钮用于下拉框标题,用伪类加三角符号.当鼠标hover容器时,显示下拉按钮组.下拉框容器使用span行内块.</p>
-  <p>按钮组<b>btn-list-area</b>绝对定位于容器<b>btn-list-group</b>,里面包含下拉按钮列表.</p>
-  <div class="layout-h mg-b-10">
-    <span class="btn-list-group mg-r-10">
-      <m-btn class="blue-r">File</m-btn>
+  <h4>子菜单式</h4>
+  <p>第1个按钮用于下拉框标题,用伪类加三角符号.当鼠标hover容器时,显示下拉按钮组.</p>
+  <p>按钮组容器<b>btn-list-area</b>绝对定位于容器<b>btn-list</b>,里面包含下拉按钮列表.</p>
+  <p>下拉按钮的文件设置了禁止换行,左对齐.</p>
+  <div class="flex mg-tb-10">
+    <span class="btn-list">
+      <m-btn>File</m-btn>
       <span class="btn-list-area">
-        <m-btn class="sky">New</m-btn>
-        <m-btn>Edit</m-btn>
-        <m-btn class="blue-r">Open</m-btn>
-        <m-btn class="orange">导出</m-btn>
-        <m-btn class="purple">退出</m-btn>
+        <m-btn>New(N)</m-btn>
+        <m-btn class="lime">Open(O)</m-btn>
+        <m-btn>Save(Ctrl+s)</m-btn>
+        <m-btn>Close(C)</m-btn>
+        <m-btn>Exit(X)</m-btn>
       </span>
     </span>
-    <span class="btn-list-group">
-      <a class="btn sky">编辑</a>
+    <span class="btn-list">
+      <m-btn class="bd-l-none">Edit</m-btn>
       <span class="btn-list-area">
-        <m-btn class="pink">Copy</m-btn>
-        <m-btn class="">paste</m-btn>
+        <m-btn>Copy(Ctrl+c)</m-btn>
+        <m-btn>Paste(Ctrl+v)</m-btn>
+        <m-btn class="rose">Cut(Ctrl+x)</m-btn>
+      </span>
+    </span>
+    <span class="btn-list">
+      <m-btn class="bd-l-none">View</m-btn>
+      <span class="btn-list-area">
+        <m-btn>资源管理器</m-btn>
+        <m-btn>终端</m-btn>
+        <m-btn class="teal">GitHub Copilot</m-btn>
       </span>
     </span>
   </div>
   <pre>
-&lt;span class="btn-list-group"&gt;
-  &lt;a class="btn blue-r"&gt;hover&lt;/a&gt;
+&lt;span class="btn-list"&gt;
+  &lt;m-btn&gt;File&lt;/m-btn&gt;
   &lt;span class="btn-list-area"&gt;
-    &lt;a class="btn sky"&gt;新建&lt;/a&gt;
-    &lt;a class="btn"&gt;编辑&lt;/a&gt;
-    &lt;a class="btn blue-r"&gt;打开&lt;/a&gt;
-    &lt;a class="btn orange"&gt;导出&lt;/a&gt;
-    &lt;a class="btn"&gt;导入&lt;/a&gt;
-    &lt;a class="btn purple"&gt;退出&lt;/a&gt;
+    &lt;m-btn&gt;New(N)&lt;/m-btn&gt;
+    &lt;m-btn&gt;Open(O)&lt;/m-btn&gt;
+    &lt;m-btn&gt;Save(Ctrl+s)&lt;/m-btn&gt;
+    &lt;m-btn&gt;Close(C)&lt;/m-btn&gt;
   &lt;/span&gt;
 &lt;/span&gt;
 </pre>

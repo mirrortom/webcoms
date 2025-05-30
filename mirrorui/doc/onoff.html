@@ -1,46 +1,52 @@
 ﻿<div class="doc-page">
   <h2>开关</h2>
-  <p>switch使用自定义标记 &lt;m-switch class="switch"&gt;主要用于事项的停用/启用状态.</p>
-  <div class="layout-h mg-b-10">
-    <m-switch class="mg-r-10 notag"></m-switch>
-    <m-switch class="mg-r-10 checked notag red"></m-switch>
-    <m-switch class="checked mg-r-10"></m-switch>
-    <m-switch class="mg-r-10" on="开" off="关"></m-switch>
-    <m-switch class="mg-r-10 red" on="启用" off="停用"></m-switch>
+  <p>switch使用自定义标记 &lt;m-switch class="switch"&gt;用于2种状态,比如有效无|效,启用|禁用等.</p>
+  <p>默认样式是一个圆,开启时在右侧,关闭时在左侧.可以设置文字标题,1到2个字,过多不适合了.</p>
+  <p>最小宽度3em,圆的直径是1em,开关宽度是圆的3倍.如果设置文字标题,应将开关宽度,至少设置为 "文字个数*2em",比较合适.</p>
+  <div class="flex mg-tb-10">
+    <m-switch class="mg-lr-10"></m-switch>
+    <m-switch class="mg-lr-10 checked lime"></m-switch>
+  </div>
+  <div class="flex mg-tb-10">
+    <m-switch class="checked txt-lg mg-lr-10" on="ON" off="OFF"></m-switch>
+    <m-switch class="txt-lg red mg-lr-10" on="开" off="关"></m-switch>
+    <m-switch class="sky w-4em txt-lg mg-lr-10" on="启用" off="停用"></m-switch>
   </div>
 
   <pre>
-// class="switch"
-&lt;m-switch <b>on="开" off="关"</b> class="<b>switch checked</b>"&gt;&lt;/m-switch&gt;
-// 无文字
-&lt;m-switch class="mg-r-10 <b>notag</b>"&gt;&lt;/m-switch&gt;
+// 要设置默认状态为"开",添加样式"checked".
+&lt;m-switch class="<b>switch checked</b>"&gt;&lt;/m-switch&gt;
+// 
+&lt;m-switch class="w-4em" on="启用" off="停用"&gt;&lt;/m-switch&gt;
 </pre>
-
-  <p># 不使用自定义标记实现的方式是: </p>
-  <p class="text-in">使用input(type=checkbox)和label两个标记,利用label的for属性和checkbox的id属性关联的特点,再用CSS选择器check判断checkbox选中时和未选中时,分别显示label的on/off状态.chekcbox放在label的前面,便于css选择器操作.</p>
-  <div class="mg-b-10 mg-l-10">
-    <input type="checkbox" id="onoff1" /> <label for="onoff1">点击label,for属性关联checkbox</label>
-  </div>
-
-  <p class="text-in">这种办法不用写js就能实现.使用自定义标记后,由于可以使用js了,所以很简单了</p>
-  <p># dom属性 <b>on off</b></p>
-  <p class="text-in">默认值是 'ON','OFF',用于显示标题.可以自定义成'开''关'.如果不希望用标题,可以加样式notag,显示为按钮形状.</p>
-  <p># 初始状态</p>
-  <p class="text-in">状态为OFF,如果要为ON,需要添加样式 ".checked"</p>
-  <p># 属性 <b>checked</b> 获取开关状态</p>
-  <p># 属性 <b>onClicked</b> 设置点击后执行事件</p>
+  <h4>属性</h4>
+  <p><b class="txt-sky-4">on , off</b> 在标签上设置,例如on="开" off="关"</p>
+  <p><b class="txt-sky-4">checked</b> 获取开关状态,true / false</p>
   <pre>
-let switch1 = document.getElementById('switch1');
-
-// m-switchd的checked属性,checked属性.开返回true,关返回false
-let isonoff = switch1<b>.checked</b> // true | false
-
+//checked属性.开返回true,关返回false
+let isOn = switch1.checked // true | false
+</pre>
+  <h4>事件</h4>
+  <p><b class="txt-sky-4">onClicked</b> 设置点击后执行事件</p>
+  <pre>
 // 点击后执行一个方法 self 就是 m-swtich 对象
-switch1<b>.onClicked</b> = (self)=>{
+switch1.onClicked = (self)=>{
   if(self.checked)
       msgbox.alert('状态是: 开');
 }
 </pre>
-  <br />
-
+  <h4>原生实现</h4>
+  <p>不使用自定义标记,使用原生标记实现的方式:</p>
+  <p>使用input(type=checkbox)和label两个标记,利用label的for属性和checkbox的id属性关联的特点,再用CSS选择器check判断checkbox选中时和未选中时,分别显示label的on/off状态.chekcbox放在label的前面,便于css选择器操作.</p>
+  <p>这种办法不用写js就能实现.使用自定义标记后,由于可以使用js了,所以很简单了</p>
+  <div class="mg-b-10 mg-l-10">
+    <input type="checkbox" id="onoff1" />
+    <label for="onoff1">点击label,for属性关联checkbox</label>
+  </div>
+  <pre>
+&lt;div class=""&gt;
+  &lt;input type="checkbox" id="onoff1" /&gt;
+  &lt;label for="onoff1"&gt;点击label,for属性关联checkbox&lt;/label&gt;
+&lt;/div&gt;
+</pre>
 </div>

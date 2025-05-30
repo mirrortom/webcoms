@@ -19,10 +19,10 @@
     &
         @extend $ext-display-flex
         flex-direction: column
-        justify-content: space-between
+        @extend $ext-justify-sb
         width: 75vw
         min-height: 120px
-        padding: 15px
+        padding: 1rem
         background-color: var(--back-color)
 // 位置,9宫格(1,2...5...,9),先行后列.组合下列样式实现
 .msgbox

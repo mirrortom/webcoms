@@ -5,7 +5,7 @@
   <h4>无序列表</h4>
   <p>包含5种图案风格,使用了emoji图案,跟随字体颜色.</p>
   <pre>
-&lt;ul class="<b>list</b>"&gt;
+&lt;ul class="<b>list sky</b>"&gt;
 
 // 形状 圆点(默认),方块,圆心,三角形,五角星
 &lt;ul class="list <b>disc</b>"&gt;
@@ -23,7 +23,7 @@
       <m-btn para="star">五角星 ★</m-btn>
     </span>
   </div>
-  <ul class="list disc pd-lr-10 mg-b-10 mg-l-10 " id="list1">
+  <ul class="list disc pd-lr-10 mg-b-10 mg-l-10 sky" id="list1">
     <li>图案标记列表支持5种图</li>
     <li>圆点,默认</li>
     <li>空心圆</li>
@@ -45,7 +45,7 @@
 // 要计算嵌套,在风格样式后加上s
 &lt;ol class="list <strong>nums</strong>"&gt;
 </pre>
-  <p class="text-sky-5">不计算嵌套,每个list都从新开始计数,可以多种风格一起使用</p>
+  <p>不计算嵌套,每个list都从新开始计数,可以多种风格一起使用</p>
   <ol class="list num pd-lr-10 mg-b-10">
     <li>支持4种风格</li>
     <li>
@@ -65,13 +65,13 @@
     </li>
     <li>
       小写
-      <ol class="list abc-l text-gray-5">
+      <ol class="list abc-l txt-gray-5">
         <li>cccccccccccc</li>
         <li>dddddddddddd</li>
       </ol>
     </li>
   </ol>
-  <p class="text-sky-5">计算嵌套(样式名字后面带上s),从最外层的list开始计数,只能用同一风格,嵌套的list不必再加风格类</p>
+  <p>计算嵌套(样式名字后面带上s),从最外层的list开始计数,只能用同一风格,嵌套的list不必再加风格类</p>
 
   <ol class="list nums pd-lr-10 mg-b-10">
     <li class="">VIP会员全部消费7折</li>
@@ -96,7 +96,7 @@
     </li>
   </ol>
 
-  <p># 主题颜色适用在形状上.编号无效.</p>
+  <p class="txt-orange-5">主题颜色适用在无序列表上.编号无效.</p>
 </div>
 <script>
   (() => {

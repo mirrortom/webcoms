@@ -1,79 +1,58 @@
 ﻿<div class="doc-page">
   <h2>弹出框</h2>
-  <p># 原理来自研究bootstrap的弹出层.模仿实现三种系统弹出框alert confirm prompt</p>
-  <h6>alert</h6>
+  <p>原理来自研究bootstrap的弹出层.模仿实现三种系统弹出框alert confirm prompt</p>
+  <h4>alert</h4>
   <div>
     <m-btn onclick="window.ns.msgbox.alert('点击了弹出框 msgbox.alert()')">msgbox.alert()</m-btn>
   </div>
-  <br />
-  <pre>
-// msgbox对象
-let msgbox = window.ns.<b>msgbox</b>;
-
-// 参数
-// <b>txt</b>: 要显示的文本内容,必选
-// <b>onClosed</b>: 点击确定后执行方法
-// <b>btnStyle</b>: 按钮样式(sky,red,...)
-// <b>position</b>: 弹出位置, <b>center | top | bottom | left | right</b>
-// 位置是一个9宫格,先行后列顺序,通过组合适用参数实现,默认center-center.如果要居右上,就是top-right
-msgbox.<b>alert('txt', [onClosed], [btnStyle], [position])</b>
-</pre>
-
-  <h6>confirm</h6>
+  <h4>confirm</h4>
   <div>
     <m-btn onclick="window.ns.msgbox.confirm('点击了弹出框 msgbox.confirm()',confirmCall,'sky')">msgbox.confirm()</m-btn>
     <span id="confirmRes" class="label mg-l-10"></span>
   </div>
-  <br />
-  <pre>
-// msgbox对象
-let msgbox = window.ns.<b>msgbox</b>;
-
-// 参数
-// <b>txt</b>: 要显示的文本内容,必选
-// <b>callback</b>: 确定和取消都执行 callback(result), result: 确定返回1,取消返回0
-// <b>btnStyle</b>: 确定按钮样式
-// <b>position</b>: 弹出位置.同上
-msgbox.<b>confirm('txt', [callback], [btnStyle], [position])</b>
-</pre>
-
-  <h6>prompt</h6>
+  <h4>prompt</h4>
   <div>
     <m-btn onclick="window.ns.msgbox.prompt('输入内容: msgbox.prompt()',promptCall,'red')">msgbox.confirm()</m-btn>
     <span id="promptRes" class="label mg-l-10"></span>
   </div>
-  <br />
+  <h4>方法参数</h4>
+  <p><b class="txt-sky-4">txt</b> 标题,弹出框的标题.必要参数.</p>
+  <p class="mg-t-10"><b class="txt-sky-4">onClosed</b> 仅alert.关闭时执行方法,无参数无返回值.</p>
+  <p><b class="txt-sky-4">callback</b> 适用confirm和propmt,确定和取消都执行 callback(result), result: 确定为1,取消为0.对于propmt,确定时,为输入的内容.</p>
+  <p><b class="txt-sky-4">btnStyle</b> 按钮样式.</p>
+  <p><b class="txt-sky-4">position</b> 位置样式,默认为center-center,屏幕居中.是由5个值的两两组合,center | top | bottom | left | right.例如,如果要在上方中间显示,则是 top-center .</p>
   <pre>
 // msgbox对象
 let msgbox = window.ns.<b>msgbox</b>;
-
-// 参数
-// <b>txt</b>: 要显示的文本内容,必选
-// <b>callback</b>: 确定和取消都执行 callback(result), result: '输入的字符'
-// <b>btnStyle</b>: 确定按钮样式
-// <b>position</b>: 弹出位置.同上
+msgbox.<b>alert('txt', [onClosed], [btnStyle], [position])</b>
+msgbox.<b>confirm('txt', [callback], [btnStyle], [position])</b>
 msgbox.<b>prompt('txt', [callback], [btnStyle], [position])</b>
 </pre>
-  <br />
-  <h6>弹出层的dom层级图</h6>
+
+  <h4>弹出层dom层级图</h4>
   <canvas class="bg-gray-lt" id="canvas1" width="400" height="240"></canvas>
   <p>3个标准弹出层,在父级中默认居正中.使用flex竖直排列,顶底分布.按钮组位于底部.</p>
   <br />
-  <h6>自定义弹出层</h6>
-  <p># 自定义框是一个html片段,弹出的本质是在将它显示在弹出层父级上</p>
-  <p># html片段需要是一个div父级.</p>
-  <br />
-  <m-btn class="mg-tb-10" onclick="showcustom()">弹出下面的HTML片段 msgbox.<b>show</b>('part html',onBefore, onShow, position)</m-btn>
+  <h4>自定义弹出层</h4>
+  <p>自定义框是一个html片段,弹出的本质是在将它显示在弹出层父级上.html片段需要是一个div父级.</p>
+  <m-btn class="mg-tb-10 red" onclick="showcustom()">自定义html内容 msgbox.show()</m-btn>
   <pre>
-&lt;div class="bg-white-0 bd bd-red-5 pd-15" style="width:400px;"&gt;
+// 调用msgbox.show()方法
+// onBefore() 弹出前执行
+// showMsgBox(parentDiv) 弹出后执行,parentDiv:弹出层父级容器
+msgbox.<b>show</b>(htmlStringOrDom, onBefore, onShow, position)
+
+// 自定义html内容
+&lt;div class="bg-white-1 bd-1 bd-red-5 pd-lr-15 pd-b-20 w-350"&gt;
   &lt;h3&gt;自定义弹出层标题&lt;/h3&gt;
   &lt;p&gt;弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段&lt;/p&gt;
   &lt;p&gt;自定义弹出框需要定义HTML以及按钮事件,然后调用msgbox.show()弹出&lt;/p&gt;
-  &lt;div class="text-center"&gt;&lt;m-btn onclick="window.ns.msgbox.close()"&gt;取消&lt;/m-btn&gt;
-  &lt;m-btn class="btn red" onclick="window.ns.msgbox.close()"&gt;确定&lt;/m-btn&gt;&lt;/div&gt;
+  &lt;div class="txt-center"&gt;
+    &lt;m-btn onclick="window.ns.msgbox.close()"&gt;取消&lt;/m-btn&gt;
+    &lt;m-btn class="btn red mg-l-15" onclick="window.ns.msgbox.close()"&gt;确定&lt;/m-btn&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-  <br />
   <script>
     (() => {
       let cav = document.getElementById('canvas1');
@@ -146,12 +125,14 @@ msgbox.<b>prompt('txt', [callback], [btnStyle], [position])</b>
 
     function showcustom() {
       let innerhtml =
-`<div class="bg-white-0 bd bd-red-5 pd-15" style="width:400px;">
-  <h3>自定义弹出层标题</h3>
-  <p>弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段</p>
-  <p>自定义弹出框需要定义HTML以及按钮事件,然后调用msgbox.show()弹出</p>
-  <div class="text-center"><m-btn onclick="window.ns.msgbox.close()">取消</m-btn>
-  <m-btn class="btn red" onclick="window.ns.msgbox.close()">确定</m-btn></div>
+        `<div class="bg-white-1 bd-1 bd-red-5 pd-lr-15 pd-b-20 w-350">
+    <h3>自定义弹出层标题</h3>
+    <p>弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段</p>
+    <p>自定义弹出框需要定义HTML以及按钮事件,然后调用msgbox.show()弹出</p>
+    <div class="txt-center">
+      <m-btn onclick="window.ns.msgbox.close()">取消</m-btn>
+      <m-btn class="btn red mg-l-15" onclick="window.ns.msgbox.close()">确定</m-btn>
+    </div>
 </div>`;
       window.ns.msgbox.show(innerhtml);
     }

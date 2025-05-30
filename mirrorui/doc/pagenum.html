@@ -1,75 +1,68 @@
 ﻿<div class="doc-page">
   <h2>分页导航</h2>
-  <p># 使用自定义标记 <b>&lt;m-pagenum&gt;</b></p>
-  <p class="text-in">参考了天猫京东的分页条,最后设计成包含如下按钮.上一页,1页,当前页前几页,当前页,当前页后几页,最后页,下一页,总页数,跳转页输入框,确定按钮.</p>
-  <m-pagenum class="d-block" id="pagenum1"></m-pagenum>
-  <br />
-  <m-pagenum class="d-block sky text-lg" id="pagenum2"></m-pagenum>
-  <br />
-  <m-msgshow id="pgmsgshow1"></m-msgshow>
-  <br />
+  <p>使用自定义标记 <b>&lt;m-pagenum&gt;</b></p>
+  <p>参考了天猫京东的分页条,最后设计成包含如下按钮.上一页,1页,当前页前几页,当前页,当前页后几页,最后页,下一页,总页数,跳转页输入框,确定按钮.</p>
+  <m-pagenum class="block mg-tb-10" id="pagenum1"></m-pagenum>
+  <m-pagenum class="block mg-tb-10 sky txt-lg" id="pagenum2"></m-pagenum>
   <pre>
-&lt;<b>m-pagenum</b> id="pagenum1"&gt;&lt;/m-pagenum&gt;
-
-// 使用主题样式和字体大小工具样式
-&lt;m-pagenum class="<b>primary text-lg</b>" id="pagenum2"&gt;&lt;/m-pagenum&gt;
+&lt;m-pagenum id="pagenum1"&gt;&lt;/m-pagenum&gt;
  </pre>
-  <br />
-  <p># 分页条特点:</p>
-  <p class="text-in">当前页码pageIndex,数据总数dataTotal,每页数据数量pageSize.总页数根据dataTotal和pageSize计算出来.</p>
-  <p class="text-in">分页条是一个状态机,当前页码改变时,状态就改变了,这时会重新生成分页条.</p>
-  <p class="text-in">可设置显示几个按钮,当前页码会位于中间,如果当前页码离首页和末页太远,显示省略号.</p>
-  <p># 方法</p>
-  <p class="text-in">create()</p>
+  <h4>分页条特点</h4>
+  <p>当前页码pageIndex,数据总数dataTotal,每页数据数量pageSize.总页数根据dataTotal和pageSize计算出来.</p>
+  <p>分页条是一个状态机,当前页码改变时,状态就改变了,这时会重新生成分页条.</p>
+  <p>可设置显示几个按钮,当前页码会位于中间,如果当前页码离首页和末页太远,显示省略号.</p>
+  <h4>方法</h4>
+  <p><b class="txt-sky-4">create(cfg)</b> 建立分页条.</p>
   <pre>
 let pgn1 = document.getElementById('pagenum1');
 
 // 配置
 let cfg = {
   // (必须) 当前页码 >0 由后端返回当前页码,或者页面记住当前请求页面 默认 1
-    <b>pageIndex</b>: 1,
+  <b>pageIndex</b>: 1,
 
             // (必须) 总数 >0 由后端返回新的总数
-    <b>totalData</b>: 96,
+  <b>totalData</b>: 96,
 
             // 每页数量 [5-50] 默认 10
-    <b>pageSize</b>: 10,
+  <b>pageSize</b>: 10,
 
             // 显示几个按钮[5-10] 默认 5
-    <b>totalBtn</b>: 5
+  <b>totalBtn</b>: 5
 
         // 页码改变时执行 pageIndex:改变时页码
-    <b>onPageChg</b>: (pageIndex)
+  <b>onPageChg</b>: (pageIndex)
 }
 
 // 生成分页条
 // 分页条在请求数据后调用,从后端获得当前页码和数据总数.
 pgn1.<b>create</b>(cfg);
 </pre>
-  <br />
-  <p>获取数据后,生成分页条示例</p>
+  <h4>示例</h4>
+  <p>从服务端获取数据后,生成分页条.getData()和pageBar()这两个方法会调用彼此,实现分页条改变时,请求对应页面的数据</p>
+  <p>这个过程是,页面载入时,会载入数据,一般是第1页的,在载入数据方法里,调用生成分页条方法pageBar().这时,分页条的按钮事件绑定了请求数据的方法getData().当点击分页条的页码按钮时,就会调用getData(),而getData()又会再次生成新的分页条(在同一个容器),以这种方法改变分页条状态.每次生成分页条时,使用的是服务端的页码数据,所以分页条的状态和服务器数据是一致的.这可以避免分页条点击后,页码状态已经改变,但是数据却请求失败的情况.</p>
   <pre>
 function <b>getData</b>(pageIndex){
     // 从接口获取数据
     let json = getApi(para);
 
     // 生成分页条,pageindex当前页码,listcount数据总数,从服务端返回
-    <b>pageBar</b>(json.PageIndex, json.ListCount);
+  <b>pageBar</b>(json.PageIndex, json.ListCount);
 }
 
-// 分页条生成做成一个方法
-function <b>pageBar</b>(pageIndex, rowCount){
+// 每次获取数据后,都会重新生成分页条.
+function <b>pageBar</b>(pageIndex, listcount){
     let cfg={
         pageIndex : pageIndex,
-        totalData : rowCount,
+        totalData : listcount,
 
         // 页码改变时执行 pageIndex:改变时页码
         onPageChg: (pageIndex) => {
-        // 这里再调用取数据方法
-          <b>getData</b>(pageIndex);
+          // 页码改变后,调用从服务器取数据(刷新)
+          getData(pageIndex);
         }
     };
-      
+    // 生成
     pgn1.create(cfg);
 }
 </pre>
@@ -88,14 +81,13 @@ function <b>pageBar</b>(pageIndex, rowCount){
         totalBtn: 5,
         //
         onPageChg: (pageIndex) => {
-          let msg1 = document.getElementById('pgmsgshow1');
-          msg1.info('页码: ' + pageIndex);
         }
       }
       pgn1.create(cfg);
       cfg.pageIndex = 4;
       cfg.totalData = 169;
       cfg.pageSize = 8;
+      cfg.totalBtn = 10;
       pgn2.create(cfg);
     })(window);
   </script>

@@ -1,12 +1,12 @@
 ﻿<div class="doc-page">
   <h2>侧边菜单</h2>
-  <p># 使用自定义标记 <b>&lt;m-sidemenu&gt;</b> </p>
-  <p class="text-in">位于页面左侧的主菜单,用于管理系统的主菜单.只有1级菜单.</p>
-  <p class="text-in">最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.</p>
-  <p class="text-in">菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法. </p>
-  <div class="grids" id="sidemenutestbox">
-    <div class="grid-12 grid-md-6 ">
-      <m-sidemenu class="blue mg-5" id="sidemenudemo2" style="width:200px">
+  <p>使用自定义标记 <b>&lt;m-sidemenu&gt;</b> </p>
+  <p>位于页面左侧的主菜单,用于管理系统的主菜单.只有1级菜单.</p>
+  <p>最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.</p>
+  <p>菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法. </p>
+  <div class="grid grid-cols-2" id="sidemenutestbox">
+    <div class="">
+      <m-sidemenu class="blue mg-5 w-200" id="sidemenudemo2">
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">绑定事件<i class="sidemenu-arrdown"></i></span>
@@ -19,8 +19,8 @@
         </ul>
       </m-sidemenu>
     </div>
-    <div class="grid-12 grid-md-6 ">
-      <m-sidemenu class="mg-5" id="sidemenudemo1" style="width:200px">
+    <div class="">
+      <m-sidemenu class="mg-5 w-200" id="sidemenudemo1">
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">超长度<i class="sidemenu-arrdown"></i></span>
@@ -34,7 +34,6 @@
       </m-sidemenu>
     </div>
   </div>
-  <br />
   <pre>
 // DOM结构
 &lt;<b>m-sidemenu</b> class="sky sidemenu" id="main_menubox"&gt;
@@ -55,22 +54,17 @@
 let sidemenu1 = document.getElementById('main_menubox');
 sidemenu1.<b>create()</b>;
 </pre>
-  <br />
-  <p># 方法 <b>create(json, itemClickE)</b></p>
-  <p class="text-in">生成菜单项,绑定事件.可以传入json对象,动态生成菜单项.</p>
-  <p>
-    <m-btn id="createsidemenu1">生成菜单</m-btn>
-  </p>
-
-  <m-sidemenu id="sidemenujsondeom1" class="sky" style="width:200px"></m-sidemenu>
-  <br />
+  <h4>方法</h4>
+  <p><b class="txt-sky-4">create(json, itemClickE)</b> 生成菜单项,绑定事件.可以传入json对象,动态生成菜单项.</p>
+  <m-btn id="createsidemenu1" class="mg-t-10">生成菜单</m-btn>
+  <m-sidemenu id="sidemenujsondeom1" class="sky w-200"></m-sidemenu>
   <pre>
   // josn结构: 菜单数据是一个数组,除了 <b>title</b> 外,其它都可以省略
   let menuJson =
     [
       // 每个元素是一个对象
       {
-        <b>title</b>: '菜单组标题',
+  <b>title</b>: '菜单组标题',
         // 菜单组标题的属性和样式
         props: { k: 'v', k1: 'v1' },
         styles: ['class1','class2'],
@@ -78,7 +72,7 @@ sidemenu1.<b>create()</b>;
         // 每组菜单项是一个数组
         menus: [
           {
-            <b>title</b>: '菜单标题',
+  <b>title</b>: '菜单标题',
             // 菜单项dom的属性
             props: { href: '#url', name: 'name' },
             // 菜单项dom的样式
@@ -90,17 +84,15 @@ sidemenu1.<b>create()</b>;
       }
     ]
   
-  // <b>itemClickE(item, index)</b>: 点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
-  // 这两个参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要第1个参数,传(null,fun)
+// itemClickE(item, index)
+//点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
+// 这两个参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要第1个参数,传(null,fun)
 </pre>
-  <br />
-  <p># 方法 <b>activeItem(itemIndex)</b></p>
-  <p class="text-in">指定一个激活的菜单,itemIndex 是菜单索引</p>
+  <p class="mg-t-10"><b class="txt-sky-4">activeItem(itemIndex)</b> 指定一个激活的菜单,itemIndex 是菜单索引</p>
   <pre>
 // 激活第三个菜单
 document.getElementById('sidemenudemo1').<b>activeItem(2)</b>;
 </pre>
-  <br />
   <script>
     (() => {
 

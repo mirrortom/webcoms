@@ -38,22 +38,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="404.html" />
     <Content Include="doc\color.html" />
-    <Content Include="doc\layoutline.html" />
     <Content Include="doc\docmenu.html" />
-    <Content Include="doc\toolwidth.html" />
-    <Content Include="doc\toollayout.html" />
-    <Content Include="doc\toolmgpd.html" />
-    <Content Include="doc\toolborder.html" />
-    <Content Include="doc\toolcolor.html" />
-    <Content Include="doc\tooltext.html" />
     <Content Include="doc\update.html" />
     <Content Include="doc\cachepagedemo1.html" />
     <Content Include="doc\mdirbardemo.html" />
     <Content Include="doc\mnavmenudemo1.html" />
     <Content Include="js\cachepage.js" />
-    <Content Include="js\exts\m-inputwatch.js" />
+    <Content Include="js\m-inputwatch.js" />
     <Content Include="js\m-range.js" />
     <Content Include="js\m-file.js" />
     <Content Include="js\m-radio.js" />
@@ -72,7 +64,6 @@
     <Content Include="js\tabs.js" />
     <Content Include="mirrorui.css" />
     <Content Include="mirrorui.js" />
-    <Content Include="tools.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -86,16 +77,11 @@
     <Content Include="doc\btngroup.html" />
     <Content Include="doc\datetime.html" />
     <Content Include="doc\cachepage.html" />
-    <Content Include="doc\design_form.html" />
     <Content Include="doc\check.html" />
     <Content Include="doc\formlayout.html" />
     <Content Include="doc\file.html" />
     <Content Include="doc\select.html" />
     <Content Include="doc\input.html" />
-    <Content Include="doc\grids.html" />
-    <Content Include="doc\mediaquery.html" />
-    <Content Include="doc\pagelayout.html" />
-    <Content Include="doc\h1h6p.html" />
     <Content Include="doc\imagedemo.html" />
     <Content Include="doc\hrline.html" />
     <Content Include="doc\inputvalchange.html" />
@@ -110,35 +96,25 @@
     <Content Include="doc\mdirbar.html" />
     <Content Include="doc\onoff.html" />
     <Content Include="doc\panel.html" />
-    <Content Include="doc\pageload.html" />
     <Content Include="doc\pagenum.html" />
     <Content Include="doc\range.html" />
     <Content Include="doc\-模板.part.html" />
     <Content Include="doc\sidemenu.html" />
     <Content Include="doc\table.html" />
     <Content Include="doc\tabs.html" />
-    <Content Include="doc\toolhv.html" />
     <Content Include="index.html" />
     <None Include="publish.json" />
-    <None Include="stylus\base.styl" />
     <None Include="stylus\coms\formcheck.styl" />
     <None Include="stylus\coms\formfile.styl" />
     <None Include="stylus\coms\forminput.styl" />
-    <None Include="stylus\coms\toolsOther.styl" />
-    <None Include="stylus\coms\toolsWidth.styl" />
-    <None Include="stylus\coms\toolsLayout.styl" />
-    <None Include="stylus\coms\toolsBorder.styl" />
-    <None Include="stylus\coms\toolsTheme.styl" />
     <None Include="stylus\function\extendclass.styl" />
+    <None Include="stylus\retainDeprecat\grids.styl" />
     <None Include="stylus\theme.styl" />
-    <None Include="stylus\coms\layoutline.styl" />
     <None Include="stylus\coms\range.styl" />
     <None Include="stylus\coms\btn.styl" />
     <None Include="stylus\coms\cachepage.styl" />
     <None Include="stylus\coms\datepick.styl" />
     <None Include="stylus\coms\form.styl" />
-    <None Include="stylus\coms\grids.styl" />
-    <None Include="stylus\coms\h1h6p.styl" />
     <None Include="stylus\coms\mdirbar.styl" />
     <None Include="stylus\coms\msgshow.styl" />
     <None Include="stylus\coms\onoff.styl" />
@@ -149,36 +125,22 @@
     <None Include="stylus\coms\msgpanel.styl" />
     <None Include="stylus\coms\mnavmenu.styl" />
     <None Include="stylus\coms\docmenu.styl" />
-    <None Include="stylus\exts\menubar.styl" />
-    <None Include="stylus\exts\kvpair.styl" />
-    <None Include="stylus\exts\pageload.styl" />
+    <None Include="stylus\coms\menubar.styl" />
+    <None Include="stylus\coms\kvpair.styl" />
+    <None Include="stylus\retainDeprecat\pageload.styl" />
     <None Include="stylus\coms\pagenum.styl" />
     <None Include="stylus\coms\panel.styl" />
     <None Include="stylus\coms\sidemenu.styl" />
     <None Include="stylus\coms\table.styl" />
     <None Include="stylus\coms\tabs.styl" />
-    <None Include="stylus\coms\toolsText.styl" />
     <None Include="stylus\function\function.styl" />
     <None Include="stylus\index.styl" />
-    <None Include="stylus\tools.styl" />
-    <None Include="stylus\tools\gridflex.styl" />
-    <None Include="stylus\tools\overflow.styl" />
-    <None Include="stylus\tools\width.styl" />
-    <None Include="stylus\tools\text.styl" />
-    <None Include="stylus\tools\colors.styl" />
-    <None Include="stylus\tools\border.styl" />
-    <None Include="stylus\tools\marginpadding.styl" />
-    <None Include="stylus\tools\display.styl" />
-    <None Include="stylus\tools\align.styl" />
     <None Include="stylus\variables\color.styl" />
-    <None Include="stylus\variables\font.styl" />
     <None Include="stylus\variables\mediaquery.styl" />
     <None Include="stylus\variables\cirangle.styl" />
     <None Include="stylus\variables\transition.styl" />
     <None Include="readme.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="zcustom\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

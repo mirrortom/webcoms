@@ -19,13 +19,11 @@
         if (this.onoff == true) {
           this.onoff = false;
           thisobj.removeClass('checked');
-          if (!thisobj.hasClass('notag'))
-            thisobj.text(this.offTag);
+          thisobj.text(this.offTag);
         } else {
           this.onoff = true;
           thisobj.addClass('checked');
-          if (!thisobj.hasClass('notag'))
-            thisobj.text(this.onTag);
+          thisobj.text(this.onTag);
         }
         // 点击切换后执行方法
         if (typeof this._onClick == 'function')
@@ -38,12 +36,11 @@
       let thisobj = $(this);
       // 样式
       thisobj.addClass('switch');
-      // 开关属性标题可以设置,默认是ON/OFF
+      // 开关on/off标题设置,默认是ON/OFF
       this.onoff = thisobj.hasClass('checked') ? true : false;
-      this.onTag = thisobj.prop('on') || 'ON';
-      this.offTag = thisobj.prop('off') || 'OFF';
-      if (!thisobj.hasClass('notag'))
-        thisobj.text(this.onoff ? this.onTag : this.offTag);
+      this.onTag = thisobj.prop('on') || '';
+      this.offTag = thisobj.prop('off') || '';
+      thisobj.text(this.onoff ? this.onTag : this.offTag);
     }
 
     // ========

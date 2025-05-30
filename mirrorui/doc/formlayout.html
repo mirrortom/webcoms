@@ -1,86 +1,97 @@
 ﻿<div class="doc-page">
-  <h2>表单栅格布局</h2>
-  <p>可以将表单元素放到栅格里,做横向布局.用栅格框分组表单元素</p>
-  <div class="form-table">
-    <div class="grids">
-      <label class="form-label grid-1 text-center">姓名</label>
-      <input class="input-text grid-3" type="text" name="name1" value="mirror" />
-      <label class="form-label grid-1 text-center">Title</label>
-      <input class="input-text grid-3" type="text" name="title1" value="砖家" />
-      <label class="form-label grid-1 text-center">爱好</label>
-      <m-check class="checked grid-1 green" tag="吃喝"></m-check>
-      <m-check class="checked grid-1 sky" tag="玩乐"></m-check>
-      <m-check class="checked grid-1 yellow" tag="睡觉"></m-check>
+  <h2>表单元素布局</h2>
+  <p>当表单元素个数很多时,就需要布局.本来填写表单就是麻烦费力的事情,良好的布局或许可以减轻这种反感程度.</p>
+  <h4>一列布局</h4>
+  <p>每行一个表单元素,一直排到底.如果有少于5个的元素,这样排比较简单省事.</p>
+  <div class="grid grid-row gap-row-10 bd-1 bd-gray-3 bg-gray-1 pd-15">
+    <div class="grid grid-10p a-center">
+      <label class="form-label txt-right pd-r-15">姓名:</label>
+      <input class="input-text" type="text" name="name1" value="mirror" />
     </div>
-    <div class="grids">
-      <label class="form-label text-center grid-1">国家</label>
-      <select class="select grid-2">
+    <div class="grid grid-10p a-center">
+      <label class="form-label txt-right pd-r-15">头衔:</label>
+      <input class="input-text" type="text" name="title1" value="砖家" />
+    </div>
+    <div class="grid grid-10p a-center">
+      <label class="form-label txt-right pd-r-15">爱好:</label>
+      <div>
+        <m-check class="checked green" tag="吃喝"></m-check>
+        <m-check class="checked sky mg-l-15" tag="玩乐"></m-check>
+        <m-check class="checked yellow mg-l-15" tag="睡觉"></m-check>
+      </div>
+    </div>
+    <m-btn class="w-60p a-s-center green">提交</m-btn>
+  </div>
+  <h4>表格布局</h4>
+  <p>里面的元素整齐排列,可以跨行跨列.信息化以前,纸质的那种表格就是这样的.表格给人的感觉,就是每个信息都分类了,整齐排布,容易分别,信息集中度高.适用于元素很多的情况.</p>
+  <div class="grid grid-row gap-row-10 bd-1 bd-gray-3 bg-gray-1 pd-15">
+    <div class="flex a-center">
+      <label class="form-label w-10p txt-center">姓名:</label>
+      <input class="input-text w-40p" type="text" name="name1" value="mirror" />
+      <label class="form-label w-10p txt-center">头衔:</label>
+      <input class="input-text w-40p" type="text" name="title1" value="砖家" />
+    </div>
+    <div class="flex a-center">
+      <label class="form-label w-10p txt-center">爱好:</label>
+      <div class="w-40p">
+        <m-check class="checked green" tag="吃喝"></m-check>
+        <m-check class="checked sky mg-l-15" tag="玩乐"></m-check>
+        <m-check class="checked yellow mg-l-15" tag="睡觉"></m-check>
+      </div>
+      <label class="form-label w-10p txt-center">国家:</label>
+      <select class="select w-40p">
         <option>China</option>
         <option>USA</option>
         <option>UK</option>
       </select>
-      <label class="form-label text-center grid-1">WebSite</label>
-      <input class="input-text grid-2" type="text" name="name3" value="mirrortom.github.io" />
-      <label class="form-label text-center grid-1">资料</label>
-      <m-file class="grid-3 bg-white"></m-file>
     </div>
+    <div class="flex a-center">
+      <label class="form-label w-10p txt-center">WebSite</label>
+      <input class="input-text w-40p" type="text" name="name3" value="mirrortom.github.io" />
+      <label class="form-label w-10p txt-center">资料</label>
+      <m-file class="w-40p"></m-file>
+    </div>
+    <m-btn class="w-60p a-s-center lime">提交</m-btn>
   </div>
-  <br />
-  <p># 表单表格布局</p>
-  <p class="text-in">纸质风格表单是模仿的传统表格式的风格,整个表单是一个大表格,里面按表单项合理布局.有外边框和表单项边框.</p>
-  <p>html结构组成:最外层是div.form-table 每一行是一个册格行div.grids,里面是表单项,添加册格类占用宽度.不必填满12册格.</p>
-  <p>这种实现办法,优点是类纸质传统风格,就像填写单据一样,习惯易用.缺点在于布局不够灵活,同一行的表单项必须高度一样,不像表格那样可以使用rowspan或colspan跨行列</p>
-  <p>这个例子使用现有的样式实现简易的版本,复杂的表格需要采用传统的table布局,还有新的display:grid布局完成.</p>
-  <div class="form-table text-center text-base">
-    <div class="grids">
-      <label class="grid-1 form-label">姓名</label>
-      <input class="grid-1 input-text" value="苏轼" />
-
-      <label class="grid-1 form-label">字号</label>
-      <input class="grid-3 input-text" value="东坡居士、苏东坡、苏仙" />
-
-      <label class="grid-1 form-label">生卒</label>
-      <input class="grid-3 input-text" value="1037年1月8日—1101年8月24日" />
-
-      <label class="grid-1 form-label">谥号</label>
-      <input class="grid-1 input-text" value="文忠" />
+  <h4>经典表格风格</h4>
+  <p>传统纸质表单的模仿,表单界面就像纸质的那种.输入框没有边框,是在一个格子中.</p>
+  <p>这个例子使用工具样式实现,没有使用table元素,为了更灵活的控制每个元素的占位大小.</p>
+  <div class="mg-t-10 bd-1 bd-gray-5 bg-white-1">
+    <div class="bd-b-1 bd-b-gray-3 txt-xl txt-b-7 pd-15">苏轼</div>
+    <div class="flex a-center bd-b-1 bd-b-gray-3">
+      <label class="form-label w-50 txt-center bg-gray-2">姓名</label>
+      <input class="input-text w-100 bd-none" value="苏轼" />
+      <label class="form-label w-50 txt-center bg-gray-2">字号</label>
+      <input class="input-text w-250 bd-none" value="东坡居士、苏东坡、苏仙" /></td>
+      <label class="form-label w-50 txt-center bg-gray-2">生卒</label>
+      <input class="input-text w-230 bd-none" value="1037年1月8日—1101年8月24日" /></td>
+      <label class="form-label w-50 txt-center bg-gray-2">谥号</label>
+      <input class="input-text w-100 bd-none" value="文忠" />
     </div>
-    <div class="grids">
-      <label class="grid-1 form-label">成就</label>
-      <input class="grid-3 input-text" value="文学家、书法家、唐宋八大家" />
-      <label class="grid-1 form-label">官职</label>
-      <input class="grid-3 input-text" value="翰林学士、侍读学士、礼部尚书" />
-      <label class="grid-1 form-label">时代</label>
-      <input class="grid-1 input-text" value="北宋" />
-      <label class="grid-1 form-label">民族</label>
-      <input class="grid-1 input-text" value="汉" />
+    <div class="flex a-center bd-b-1 bd-b-gray-3">
+      <label class="form-label w-50 txt-center">成就</label>
+      <input class="input-text w-250 bd-none bg-gray-2" value="文学家、书法家、唐宋八大家" />
+      <label class="form-label w-50 txt-center">官职</label>
+      <input class="input-text w-260 bd-none bg-gray-2" value="翰林学士、侍读学士、礼部尚书" />
+      <label class="form-label w-50 txt-center">时代</label>
+      <input class="input-text w-100 bd-none bg-gray-2" value="北宋" />
+      <label class="form-label w-50 txt-center">民族</label>
+      <input class="input-text w-100 bd-none bg-gray-2" value="汉" />
     </div>
-    <div class="grids">
-      <label class="grid-1 form-label">作品</label>
-      <input class="grid-4 input-text" value="《东坡七集》《东坡易传》《东坡乐府》" />
-      <label class="grid-1 form-label">名作</label>
-      <input class="input-text grid-4" value="《水调歌头·明月几时有》" />
+    <div class="flex a-center bd-b-1 bd-b-gray-3">
+      <label class="form-label w-50 txt-center bg-gray-2">作品</label>
+      <input class="input-text w-350 bd-none" value="《东坡七集》《东坡易传》《东坡乐府》" />
+      <label class="form-label w-50 txt-center bg-gray-2">名作</label>
+      <input class="input-text w-450 bd-none" value="《水调歌头·明月几时有》《念奴娇·赤壁怀古》" />
     </div>
-    <div class="grids">
-      <label class="grid-1 form-label">苏东坡</label>
-      <textarea class="grid-11 textarea">明月几时有？把酒问青天。不知天上宫阙、今夕是何年？我欲乘风归去,又恐琼楼玉宇,高处不胜寒．起舞弄清影,何似在人间？ 转朱阁,低绮户,照无眠。不应有恨、何事长向别时圆？人有悲欢离合,月有阴晴圆缺,此事古难全。但愿人长久,千里共婵娟。</textarea>
+    <div class="flex a-center bd-b-1 bd-b-gray-3">
+      <label class="form-label w-220 txt-center">水调歌头·明月几时有</label>
+      <textarea class="textarea bd-none bg-gray-2">明月几时有？把酒问青天。不知天上宫阙、今夕是何年？我欲乘风归去,又恐琼楼玉宇,高处不胜寒．起舞弄清影,何似在人间？ 转朱阁,低绮户,照无眠。不应有恨、何事长向别时圆？人有悲欢离合,月有阴晴圆缺,此事古难全。但愿人长久,千里共婵娟。</textarea>
     </div>
+    <div class="flex a-center bd-b-1 bd-b-gray-3">
+      <label class="form-label w-220 txt-center">念奴娇·赤壁怀古</label>
+      <textarea class="textarea bd-none bg-gray-2">大江东去，浪淘尽，千古风流人物。故垒西边，人道是，三国周郎赤壁。乱石穿空，惊涛拍岸，卷起千堆雪。江山如画，一时多少豪杰。遥想公瑾当年，小乔初嫁了，雄姿英发。羽扇纶巾，谈笑间，樯橹灰飞烟灭。故国神游，多情应笑我，早生华发。人生如梦，一尊还酹江月。</textarea>
+    </div>
+    <m-btn class="w-50p mg-lr-auto mg-tb-20 block txt-center">提交</m-btn>
   </div>
-  <br />
-  <pre>
-&lt;div class="<b>form-table</b> text-center"&gt;
-  &lt;div class="grids"&gt;
-    &lt;label class="grid-1 form-label"&gt;姓名&lt;/label&gt;
-    &lt;input class="grid-1 input-text" value="苏轼" /&gt;
-
-    &lt;label class="grid-1 form-label"&gt;谥号&lt;/label&gt;
-    &lt;input class="grid-1 input-text" value="文忠" /&gt;
-  &lt;/div&gt;
-
-  &lt;div class="grids"&gt;
-    &lt;label class="grid-1 form-label"&gt;苏东坡&lt;/label&gt;
-    &lt;textarea class="grid-11 textarea"&gt;明月几时有？把酒问青天。...但愿人长久,千里共婵娟。&lt;/textarea&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</pre>
 </div>

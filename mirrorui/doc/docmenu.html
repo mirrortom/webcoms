@@ -1,11 +1,11 @@
 ﻿<div class="doc-page">
   <h2>文档菜单</h2>
-  <p># 使用自定义标记 <b>&lt;m-docmenu&gt;</b> </p>
-  <p class="text-in">用于文档页面,位于左侧的菜单,模仿了MSDN的文档菜单,简洁风格.可以多级嵌套.</p>
-  <p class="text-in">一个菜单组是一个div.里面的a是菜单项,组标题是第一个子元素span.组内的div就是嵌套组.</p>
-  <p class="text-in">传入一个方法绑定到菜单项的点击事件.</p>
+  <p>使用自定义标记 <b>&lt;m-docmenu&gt;</b> </p>
+  <p>用于文档页面,位于左侧的菜单,模仿了MSDN的文档菜单,简洁风格.可以多级嵌套.</p>
+  <p>一个菜单组是一个div.里面的a是菜单项,组标题是第一个子元素span.组内的div就是嵌套组.</p>
+  <p>使用时,传入一个方法绑定到菜单项的点击事件.</p>
 
-  <m-docmenu class="mg-5 bg-gray-3" id="docmenudemo1" style="width:200px">
+  <m-docmenu class="mg-5 bg-sky-2 w-200" id="docmenudemo1">
     <a class="docmenu-item">独立子菜单1</a>
     <a class="docmenu-item">独立子菜单2</a>
     <div class="docmenu-group">
@@ -43,18 +43,23 @@
 let docmenu1 = document.getElementById('main_menubox');
 docmenu1.<b>create()</b>;
 </pre>
-  <br />
-  <p># 方法 <b>create(json, menuItemClickE, menuItemSet)</b></p>
-  <p class="text-in">生成菜单,主要做了,绑定事件,设置属性等.参数都可以省略.</p>
-  <p class="text-in"><b>json</b>: 菜单数据,使用json生成菜单时需要.如果使用已有dom,不需要.</p>
-  <p class="text-in"><b>menuItemClickE(menuItem, index)</b> : 菜单项点击事件,菜单生成后,点击菜单项时执行.</p>
-  <p class="text-in"><b>menuItemSet(menuItem,data)</b> : 菜单项设置方法,生成菜单时执行,可以为菜单项添加自定义内容.<b class="text-red-5">create方法执行时</b>,绑定了菜单项的click事件,这个方法如果也绑定了click事件,会覆盖掉.</p>
-  <p>
-    <m-btn id="createdocmenu1" class="orange">生成菜单</m-btn>
-  </p>
+  <h4>方法</h4>
+  <p><b class="txt-sky-4">create(json, menuItemClickE, menuItemSet)</b> 生成菜单,主要做了,绑定事件,设置属性等.参数都可以省略.</p>
+  <pre>
+// 参数
+// json:菜单数据,使用json数据生成菜单时需要.
 
-  <m-docmenu id="docmenujsondeom1" class="bg-orange-3" style="width:200px"></m-docmenu>
-  <br />
+// menuItemClickE(menuItem, index)
+// 菜单项点击事件,菜单生成后,点击菜单项时执行.menuItem:点击的菜单对象,index:菜单索引
+
+// menuItemSet(menuItem,data)
+// 自定义菜单项,在生成菜单时执行,可以修改菜单的样式,为菜单项添加自定义内容.
+// menuItem是菜单dom对象,实际是一个a标记.
+
+// 所有参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要的参数传(null,clickHandler,setHandler)
+</pre>
+  <m-btn id="createdocmenu1" class="mg-tb-10">使用json数据动态生成</m-btn>
+  <m-docmenu id="docmenujsondeom1" class="bg-orange-2" style="width:200px"></m-docmenu>
   <pre>
 // json结构:每个菜单是一个对象,title属性必须,其它不必须.如果是菜单组,需要含有menus属性.
     [
@@ -68,18 +73,10 @@ docmenu1.<b>create()</b>;
                ]
       }
     ]
-  
-// <b>menuItemClickE(menuItem, index)</b>: 点击菜单后执行的方法.menuItem是被点击的菜单dom对象,index是菜单索引
-// <b>menuItemSet(menuItem,index)</b>: 自定义菜单项.menuItem是菜单dom对象,实际是一个a标记.
-// 所有参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要的参数传(null,clickHandler,setHandler)
 </pre>
-  <br />
-  <p># 方法 <b>activeItem(itemIndex)</b></p>
-  <p class="text-in">指定一个激活的菜单,itemIndex 是菜单索引</p>
-  <p># 方法 <b>openGroups(index=-1)</b></p>
-  <p class="text-in">打开菜单组,index=-1(全部打开)</p>
-  <p># 方法 <b>closeGroups(index=-1)</b></p>
-  <p class="text-in">关闭菜单组,index=-1(全部关闭)</p>
+  <p class="mg-t-10"><b class="txt-sky-4">activeItem(itemIndex)</b> 指定一个激活的菜单,itemIndex 是菜单索引</p>
+  <p class="mg-t-10"><b class="txt-sky-4">openGroups(index=-1)</b> 打开菜单组,index=-1默认值,全部打开</p>
+  <p class="mg-t-10"><b class="txt-sky-4">closeGroups(index=-1)</b> 关闭菜单组,index=-1默认值,全部关闭</p>
   <p>菜单和菜单组的索引编号是顺序排列下来,从0开始.如果有嵌套,只是简单累加.</p>
   <pre>
 // 激活第三个菜单
@@ -92,13 +89,12 @@ openGroups();
 
 // 菜单和索引是累加计数,线性的.
 菜单组1(0)
-    菜单1.1(0)
-    菜单1.2(1)
-  菜单组1.3(1)
-    菜单1.3.1(2)
-    菜单1.3.2(3)
+    菜单1.1 // 第一个菜单 index=0
+    菜单1.2 // 第2个,index=1
+  菜单组1.3// ...
+    菜单1.3.1// ...
+    菜单1.3.2// 第4个,idnex=3
 </pre>
-  <br />
   <script>
     (() => {
 

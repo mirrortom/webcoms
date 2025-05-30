@@ -1,16 +1,15 @@
 ﻿// =====================================================
-// 颜色值采取的是tailwind css的色卡,除了黑白灰,还有8个彩色.
+// 颜色值采取的是tailwind css的色卡,除了黑白,灰,还有10个彩色.
 // https://tailwindcss.com/docs/customizing-colors
 // =====================================================
 
-// 黑白,各附带一个相近色,以替代纯色.颜色来自tailwindcss的 Neutral-50,Neutral-950
-$black={'0':#000,'1':#1a1a1e}
-$white={'0':#fff,'1':#fafafa}
+// 黑白,各附带一个相近色,以替代纯色.颜色来自tailwindcss的 Neutral-100,Neutral-900
+$black={'0':#000,'1':#171717}
+$white={'0':#fff,'1':#f5f5f5}
 
-// 灰和8种彩色,选择了50-900梯度,数值越大,颜色越深.
-// gray, red orange yellow green sky blue purple pink
+// 灰和11种彩色,选择了100-900梯度,数值越大,颜色越深.
+// gray, red orange yellow green lime teal sky blue purple pink
 $gray={
-    '0':#f9fafb,
     '1': #f3f4f6,
     '2': #e5e7eb,
     '3': #d1d5db,
@@ -23,7 +22,6 @@ $gray={
 }
 
 $red={
-    '0': #fef2f2,
     '1': #fee2e2,
     '2': #fecaca,
     '3': #fca5a5,
@@ -35,7 +33,6 @@ $red={
     '9': #7f1d1d
 }
 $orange={
-    '0': #fff7ed,
     '1': #ffedd5,
     '2': #fed7aa,
     '3': #fdba74,
@@ -47,7 +44,6 @@ $orange={
     '9': #7c2d12
 }
 $yellow={
-    '0': #fefce8,
     '1': #fef9c3,
     '2': #fef08a,
     '3': #fde047,
@@ -59,7 +55,6 @@ $yellow={
     '9': #713f12
 }
 $green={
-    '0': #f0fdf4,
     '1': #dcfce7,
     '2': #bbf7d0,
     '3': #86efac,
@@ -70,8 +65,29 @@ $green={
     '8': #166534,
     '9': #14532d
 }
+$lime={
+    '1': #ecfccb,
+    '2': #d9f99d,
+    '3': #bef264,
+    '4': #a3e635,
+    '5': #84cc16,
+    '6': #65a30d,
+    '7': #4d7c0f,
+    '8': #3f6212,
+    '9': #365314
+}
+$teal={
+    '1':#ccfbf1,
+    '2':#99f6e4,
+    '3':#5eead4,
+    '4':#2dd4bf,
+    '5':#14b8a6,
+    '6':#0d9488,
+    '7':#0f766e,
+    '8':#115e59,
+    '9':#134e4a
+}
 $sky={
-    '0': #f0f9ff,
     '1': #e0f2fe,
     '2': #bae6fd,
     '3': #7dd3fc,
@@ -83,7 +99,6 @@ $sky={
     '9': #0c4a6e
 }
 $blue={
-    '0': #eff6ff,
     '1': #dbeafe,
     '2': #bfdbfe,
     '3': #93c5fd,
@@ -95,7 +110,6 @@ $blue={
     '9': #1e3a8a
 }
 $purple={
-    '0': #faf5ff,
     '1': #f3e8ff,
     '2': #e9d5ff,
     '3': #d8b4fe,
@@ -107,7 +121,6 @@ $purple={
     '9': #581c87
 }
 $pink={
-    '0': #fdf2f8,
     '1': #fce7f3,
     '2': #fbcfe8,
     '3': #f9a8d4,
@@ -117,6 +130,17 @@ $pink={
     '7': #be185d,
     '8': #9d174d,
     '9': #831843
+}
+$rose={
+    '1': #ffe4e6,
+    '2': #fecdd3,
+    '3': #fda4af,
+    '4': #fb7185,
+    '5': #f43f5e,
+    '6': #e11d48,
+    '7': #be123c,
+    '8': #9f1239,
+    '9': #881337
 }
 
 // 黑白灰颜色字典
@@ -131,10 +155,13 @@ $colors-dict={
     orange:$orange,
     yellow:$yellow,
     green:$green,
+    lime:$lime,
+    teal:$teal,
     sky:$sky,
     blue:$blue,
     purple:$purple,
-    pink:$pink
+    pink:$pink,
+    rose:$rose
 }
 // 用于主题色的全局css变量的引用
 $front-color=var(--front-color)

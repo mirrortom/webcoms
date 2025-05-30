@@ -1,14 +1,14 @@
-﻿### 说明  
-
-1. /stylus 样式文件   
-   1. coms,exts 控件
-   2. variables 全局变量
-   3. function 全局函数
+﻿##### 文件说明:
+1. /stylus 组件的样式部分
+   1. coms 组件
+   2. variables 变量
+   3. function 函数
    4. theme.styl 主题定义
-   5. base.styl 基础样式,全局样式
-   6. index.styl 包装
-2. /js js文件
-###### 必要工具:
-vs2022+community  
-Bundler & Minifier 插件
-Web Compiler
+   5. index.styl:ui包装.
+2. /js 组件的js部分
+##### 工具:
+1. vs2022+community
+2. Bundler & Minifier打包js
+3. Web Compiler编译stylus
+##### 按需css改进:
+去掉了工具样式和全局一致性样式,改由动态生成.组件只做复杂的样式.

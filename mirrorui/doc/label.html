@@ -1,49 +1,43 @@
 ﻿<div class="doc-page">
   <h2>标签</h2>
-  <p>默认标签背景颜色继承父级,可以自定义标签背景色,文字色,也可以使用主题背景色</p>
+  <p>用于关键字,信息提示,较少文字时.</p>
   <div class="mg-tb-10">
-    <span class="label">默认标签</span>
-    <span class="label cir">圆角</span>
+    <span class="label mg-lr-15">默认</span>
+    <span class="label mg-lr-15">标签</span>
   </div>
-  <p>添加背景字体工具样式定义标签主题</p>
-  <div id="labelbox" class="layout-h mg-tb-10"></div>
-  <div id="labelnumbox" class="layout-h mg-tb-10"></div>
-  <pre class="bg-gray-lt">
-&lt;span class="<strong>label</strong>"&gt;默认标签&lt;/span&gt;
-
-// 圆角
-&lt;span class="label <strong>cir</strong>"&gt;圆角 class="label cir"&lt;/span&gt;
-
-.label
+  <p>使用工具样式定义标签的背景色/文字色/圆角/字体大小</p>
+  <div class="mg-tb-10">
+    <span class="label mg-lr-15 txt-yellow-5">文字</span>
+    <span class="label mg-lr-15 txt-rose-5">颜色</span>
+    <span class="label mg-lr-15 txt-white-0 bg-blue-5">背景</span>
+    <span class="label mg-lr-15 txt-white-1 bg-pink-5">颜色</span>
+  </div>
+  <div class="mg-tb-10">
+    <span class="label mg-lr-15 bg-yellow-5 cir-5">圆角</span>
+    <span class="label mg-lr-15 bg-rose-5 cir-20p">圆角</span>
+    <span class="label mg-lr-15 txt-white-0 bg-green-5 txt-xl">字体</span>
+    <span class="label mg-lr-15 txt-white-1 bg-sky-5 txt-2xl">字体</span>
+  </div>
+  <h4>圆形标签</h4>
+  <div class="mg-tb-10">
+    <span class="label-cir mg-lr-15 txt-sky-6 bg-yellow-4 txt-2xl">1</span>
+    <span class="label-cir mg-lr-15 bg-yellow-4 txt-2xl">2</span>
+    <span class="label-cir mg-lr-15 txt-red-6 bg-yellow-4 txt-2xl">3</span>
+    <span class="label-cir mg-lr-15 txt-white-1 bg-yellow-4 txt-2xl">A</span>
+  </div>
+  <pre>
+&lt;span class="<strong>label</strong>"&gt;标签&lt;/span&gt;
+&lt;span class="<strong>label-cir</strong>"&gt;圆形&lt;/span&gt;
+.label,.label-cir
     display: inline-flex
     align-items: center
     justify-content: center
-    border: 1px solid $border-color(gray-2)
-    padding:2px .5em;
-    border-radius:$cir-angle(4px)
-// 圆角
-.label.cir
-    border-radius: 1em;  
+    border: 1px solid gray-2
+.label
+    padding 0 .4em
+.label-cir
+    width:1em
+    height:1em
+    border-radius:50%
 </pre>
 </div>
-<script>
-  ((win) => {
-    let colors = win.themecolors;
-    //
-    let html = '';
-    for (var i = 0; i < colors.length; i++) {
-      let color = colors[i];
-      let cir = i % 2 == 0 ? 'cir' : '';
-      html += `<span class="label ${cir} text-white-1 bg-${color}-5 mg-lr-5">tag</span>`;
-    }
-    $('#labelbox').html(html);
-
-    //
-    html = '';
-    for (var i = 0; i < 10; i++) {
-      html += `<span class="label cir text-white-1 bg-sky-5 mg-lr-5">${i}</span>`;
-    }
-    $('#labelnumbox').html(html);
-    
-  })(window);
-</script>

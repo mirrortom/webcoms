@@ -1,16 +1,18 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="http://localhost:8002/globalBase.css" rel="stylesheet" />
   <link href="mirrorui.css" rel="stylesheet" />
+  <link href="http://localhost:8002/fullTools.css" rel="stylesheet" />
   <title>mirrorui-doc | mirror space</title>
   <style>
     .container {
       display: grid;
-      grid-template-columns: 200px auto;
+      grid-template-columns: 240px auto;
+      column-gap: 30px;
     }
-
 
     .menu-box {
       position: sticky;
@@ -19,12 +21,6 @@
       height: 100vh;
       overflow-x: hidden;
       overflow-y: auto;
-    }
-
-    .theme-box {
-      display: grid;
-      grid-template-columns: repeat(3,33%);
-      cursor: pointer;
     }
 
     .tabsmenu-box, .theme-box {
@@ -39,11 +35,22 @@
       max-width: 100%;
       padding: 20px;
       background-color: #e5e7eb;
+      font-size: 1rem;
+    }
+
+    p {
+      text-indent: 2em;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 1rem;
+      margin-top: 1.5rem;
     }
 
     .theme-dark pre {
       background-color: #1f2937;
     }
+
     /*手机端*/
     @media only screen and (max-width: 768px) {
       /*侧边菜单占比*/
@@ -60,10 +67,10 @@
 <body>
   <div class="container">
     <div class="menu-box pd-l-10">
-      <div class="theme-box text-center" id="themeBtns">
-        <span class="label bg-white-0 text-black-0" tid="light">light</span>
-        <span class="label bg-black-0 text-white-0" tid="dark">dark</span>
-        <span class="label bg-sky-1 text-sky-5" tid="color" colorIndex="3">color</span>
+      <div class="cursor-pointer" id="themeBtns">
+        <span class="label bg-white-0 txt-black-0" tid="light">light</span>
+        <span class="label bg-black-0 txt-white-0" tid="dark">dark</span>
+        <span class="label" tid="color" colorIndex="3">color</span>
       </div>
       <m-docmenu class="pd-b-30" id="main_menubox">
         <div class="docmenu-group">
@@ -73,38 +80,17 @@
         </div>
 
         <div class="docmenu-group">
-          <span class="docmenu-title"><i class="docmenu-open"></i>布局</span>
-          <a class="docmenu-item" urlid="grids">册格</a>
-          <a class="docmenu-item" urlid="layoutline">线性排布</a>
-          <a class="docmenu-item" urlid="mediaquery">媒体查询</a>
-          <a class="docmenu-item" urlid="pagelayout">页面布局</a>
-
-          <div class="docmenu-group">
-            <span class="docmenu-title"><i class="docmenu-open"></i>工具样式</span>
-            <a class="docmenu-item" urlid="tooltext">文本</a>
-            <a class="docmenu-item" urlid="toolborder">边框</a>
-            <a class="docmenu-item" urlid="toolcolor">颜色</a>
-            <a class="docmenu-item" urlid="toollayout">对齐</a>
-            <a class="docmenu-item" urlid="toolwidth">宽度</a>
-            <a class="docmenu-item" urlid="toolmgpd">边距补白</a>
-            <a class="docmenu-item" urlid="toolhv">显示隐藏</a>
-          </div>
-        </div>
-
-        <div class="docmenu-group">
-          <span class="docmenu-title"><i class="docmenu-open"></i>显示</span>
-          <a class="docmenu-item" urlid="h1h6p">大标题</a>
+          <span class="docmenu-title"><i class="docmenu-open"></i>排版</span>
           <a class="docmenu-item" urlid="label">标签</a>
-          <a class="docmenu-item" urlid="kvpair">标签对</a>
+          <a class="docmenu-item" urlid="kvpair">名值对</a>
           <a class="docmenu-item" urlid="imagedemo">图片</a>
           <a class="docmenu-item" urlid="hrline">hr分隔线</a>
-          <a class="docmenu-item" urlid="pageload">页面等待</a>
         </div>
 
         <div class="docmenu-group">
           <span class="docmenu-title"><i class="docmenu-open"></i>容器</span>
           <a class="docmenu-item" urlid="panel">面板</a>
-          <a class="docmenu-item" urlid="msgpanel">信息面板</a>
+          <a class="docmenu-item" urlid="msgpanel">标题面板</a>
           <a class="docmenu-item" urlid="tabs">标签页</a>
           <a class="docmenu-item" urlid="cachepage">缓存页</a>
         </div>
@@ -113,45 +99,42 @@
           <span class="docmenu-title"><i class="docmenu-open"></i>数据</span>
           <a class="docmenu-item" urlid="list">列表</a>
           <a class="docmenu-item" urlid="table">表格</a>
-          <div class="docmenu-group">
-            <span class="docmenu-title"><i class="docmenu-open"></i>表单</span>
-            <a class="docmenu-item" urlid="input">文本框</a>
-            <a class="docmenu-item" urlid="select">选择框</a>
-            <a class="docmenu-item" urlid="file">文件</a>
-            <a class="docmenu-item" urlid="check">单多选</a>
-            <a class="docmenu-item" urlid="formlayout">布局</a>
-          </div>
         </div>
 
         <div class="docmenu-group">
-          <span class="docmenu-title"><i class="docmenu-open"></i>功能</span>
-          <div class="docmenu-group">
-            <span class="docmenu-title"><i class="docmenu-open"></i>常用</span>
-            <a class="docmenu-item" urlid="btn">按钮</a>
-            <a class="docmenu-item" urlid="btngroup">按钮组</a>
-            <a class="docmenu-item" urlid="onoff">开关</a>
-            <a class="docmenu-item" urlid="inputvalchange">监听输入</a>
-            <a class="docmenu-item" urlid="msgbox">弹出框</a>
-            <a class="docmenu-item" urlid="msgshow">提示框</a>
-            <a class="docmenu-item" urlid="datetime">日期时间</a>
-            <a class="docmenu-item" urlid="range">范围滑块</a>
-          </div>
+          <span class="docmenu-title"><i class="docmenu-open"></i>表单</span>
+          <a class="docmenu-item" urlid="input">文本框</a>
+          <a class="docmenu-item" urlid="select">选择框</a>
+          <a class="docmenu-item" urlid="file">文件</a>
+          <a class="docmenu-item" urlid="check">单多选</a>
+          <a class="docmenu-item" urlid="formlayout">布局</a>
+        </div>
 
-          <div class="docmenu-group">
-            <span class="docmenu-title"><i class="docmenu-open"></i>导航</span>
-            <a class="docmenu-item" urlid="docmenu">文档菜单</a>
-            <a class="docmenu-item" urlid="sidemenu">侧边菜单</a>
-            <a class="docmenu-item" urlid="mnavmenu">底部菜单</a>
-            <a class="docmenu-item" urlid="mdirbar">顶部导航</a>
-            <a class="docmenu-item" urlid="menubar">菜单条</a>
-            <a class="docmenu-item" urlid="pagenum">分页条</a>
-          </div>
+        <div class="docmenu-group">
+          <span class="docmenu-title"><i class="docmenu-open"></i>常用</span>
+          <a class="docmenu-item" urlid="btn">按钮</a>
+          <a class="docmenu-item" urlid="btngroup">按钮组</a>
+          <a class="docmenu-item" urlid="onoff">开关</a>
+          <a class="docmenu-item" urlid="inputvalchange">监听输入</a>
+          <a class="docmenu-item" urlid="msgbox">弹出框</a>
+          <a class="docmenu-item" urlid="msgshow">提示框</a>
+          <a class="docmenu-item" urlid="datetime">日期时间</a>
+          <a class="docmenu-item" urlid="range">范围滑块</a>
+        </div>
+
+        <div class="docmenu-group">
+          <span class="docmenu-title"><i class="docmenu-open"></i>导航</span>
+          <a class="docmenu-item" urlid="docmenu">文档菜单</a>
+          <a class="docmenu-item" urlid="sidemenu">侧边菜单</a>
+          <a class="docmenu-item" urlid="mnavmenu">底部菜单</a>
+          <a class="docmenu-item" urlid="mdirbar">顶部导航</a>
+          <a class="docmenu-item" urlid="menubar">菜单条</a>
+          <a class="docmenu-item" urlid="pagenum">分页条</a>
         </div>
 
         <div class="docmenu-group">
           <span class="docmenu-title"><i class="docmenu-open"></i>设计</span>
           <a class="docmenu-item" urlid="color">颜色</a>
-          <a class="docmenu-item" urlid="design_form">表单设计</a>
           <a class="docmenu-item" href="/mirroricon/index.html" target="_blank">CSS图标</a>
         </div>
       </m-docmenu>
@@ -160,7 +143,7 @@
       <div class="tabsmenu-box">
         <div class="" id="cachepage_nav"></div>
       </div>
-      <div class="pd-15 pd-b-50" id="cachepage_cont"></div>
+      <div class="max-w-960 pd-b-50" id="cachepage_cont"></div>
     </div>
   </div>
   <script src="../jslib/jslib.js"></script>
@@ -192,7 +175,7 @@
       // 主菜单
       let docmenu1 = $('#main_menubox')[0];
       docmenu1.create(null,
-        (item, i) => {
+        (item, i) => {menubar
           let urlid = $(item).prop('urlid');
           if (!urlid) return;
           let title = $(item).text();
@@ -204,7 +187,7 @@
       // 默认打开"关于"
       docmenu1.activeItem(
         (() => {
-          let urlid = 'sidemenu11';
+          let urlid = 'pagenum';
           let menus = $('#main_menubox .docmenu-item');
 
           for (var i = 0; i < menus.length; i++) {
@@ -216,9 +199,9 @@
       );
 
       // 彩色变量
-      win.themecolors = ['red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple', 'pink'];
+      win.themecolors = ['red', 'orange', 'yellow', 'green','lime','teal', 'sky', 'blue', 'purple', 'pink', 'rose'];
       // 彩色和灰
-      win.colors = ['gray', 'red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple', 'pink'];
+      win.colors = ['gray', 'red', 'orange', 'yellow', 'green', 'lime', 'teal', 'sky', 'blue', 'purple', 'pink', 'rose'];
 
       // 主题切换
       $('#themeBtns span[tid]').click((item) => {
@@ -250,6 +233,7 @@
         if (nextColorIndex == win.themecolors.length)
           nextColorIndex = 0;
         $(item).prop('colorIndex', nextColorIndex);
+        $(item).removeClass().addClass('txt-' + win.themecolors[currIndex] + '-5', 'label');
       });
     })(window);
   </script>

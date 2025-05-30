@@ -1,32 +1,28 @@
 ﻿<div class="doc-page">
   <h2>日期时间</h2>
   <p>日期控件,兼容PC与手机端.支持日期和日期时间基本功能</p>
-  <div class="form-table">
-    <div class="grids">
-      <label class="form-label text-center grid-5 grid-md-2">日期</label>
-      <input class="grid-7 input-text grid-md-2" onclick="window.ns.myDatePick()" type="text" />
-      <label class="form-label text-center grid-5 grid-md-2">日期时间</label>
-      <input class="grid-7 grid-md-3 input-text" onclick="window.ns.myDatePick({fmt:'datetime'})" type="text" />
-    </div>
+  <div class="grid grid-col gap-col-10 a-center mg-tb-10">
+    <label class="form-label txt-center">日期</label>
+    <input class="input-text" onclick="window.ns.myDatePick()" type="text" />
+    <label class="form-label txt-center">日期时间</label>
+    <input class="input-text" onclick="window.ns.myDatePick({fmt:'datetime'})" type="text" />
   </div>
-  <br />
-  <pre>
+<pre>
 // 日期
 &lt;input onclick="window.ns.<strong>myDatePick()</strong>" type="text"&gt;
 
 // 日期时间
 &lt;input onclick="window.ns.<strong>myDatePick({fmt:'datetime'})</strong> type="text"&gt;
 </pre>
-  <br />
-  <p># 实现思路</p>
-  <p class="text-in">开始参考了火狐浏览器自带日期控件的样子,改进时参考了EDGE和谷歌浏览器日期控件的一些特点,比如年月和时分秒选择在一个界面完成.实现时,将日期看做一个四行七列的表格.首行为年月日今天按钮,第二行放星期,三行为日,四行为小时区.布局后,放入对应按钮,然后绑定各自事件</p>
-  <p class="text-in">控件的复杂处在于事件比较多,但js和css并没有太多难度,只是代码有点多而已.在判断当天所在月的日期时,需要计算出这个月1号的前几天和最后一号的后几天,这些天就是当天所在月份的前一个月和后一个月的日期,用半透明颜色显示.</p>
-  <p># 功能特点</p>
-  <p class="text-in">第一行显示已选年月,按月上下翻按钮,今天按钮.2行是星期.3行其实是6行7列的表格,42个'日',除了当前选中月份的28~31天外,还有前月和后月的几天.4行是确定清空和时间区域.</p>
-  <p class="text-in">点击年月弹出年月选择框,选择年范围1900~2100,选择一个'月份'后,年月选择框会关闭.再次点击年月会关闭选择框.</p>
-  <p class="text-in">时分秒选择框改成一个圆形表盘,可选择小时,上午/下午.分和秒用8个按钮调节,可以按分/秒的十位和个位调节.</p>
-  <p class="text-in">点击input,弹出日期控件.点击日期控件空白部分,会关闭年月选择框或时间选择框.</p>
-  <p># 浏览器自带日期控件</p>
+  <h4>实现思路</h4>
+  <p>开始参考了火狐浏览器自带日期控件的样子,改进时参考了EDGE和谷歌浏览器日期控件的一些特点,比如年月和时分秒选择在一个界面完成.实现时,将日期看做一个四行七列的表格.首行为年月日今天按钮,第二行放星期,三行为日,四行为小时区.布局后,放入对应按钮,然后绑定各自事件</p>
+  <p>控件的复杂处在于事件比较多,但js和css并没有太多难度,只是代码有点多而已.在判断当天所在月的日期时,需要计算出这个月1号的前几天和最后一号的后几天,这些天就是当天所在月份的前一个月和后一个月的日期,用半透明颜色显示.</p>
+  <h4>功能特点</h4>
+  <p>第一行显示已选年月,按月上下翻按钮,今天按钮.2行是星期.3行其实是6行7列的表格,42个'日',除了当前选中月份的28~31天外,还有前月和后月的几天.4行是确定清空和时间区域.</p>
+  <p>点击年月弹出年月选择框,选择年范围1900~2100,选择一个'月份'后,年月选择框会关闭.再次点击年月会关闭选择框.</p>
+  <p>时分秒选择框改成一个圆形表盘,可选择小时,上午/下午.分和秒用8个按钮调节,可以按分/秒的十位和个位调节.</p>
+  <p>点击input,弹出日期控件.点击日期控件空白部分,会关闭年月选择框或时间选择框.</p>
+  <h4>浏览器自带日期控件</h4>
   <input type="datetime-local" name="name" value="" />
   <input type="date" name="name" value="" />
 </div>

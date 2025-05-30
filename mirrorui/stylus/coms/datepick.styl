@@ -11,7 +11,7 @@ $date-col-width = 40px
     --t-date-hover:$gray['1']// hover背景
     --t-date-opened-bg-color:$gray['1']//打开了选框的按钮
     --t-date-selected:$gray['3']// 选中的按钮
-    --t-date-ym-bg-color:$gray['1']// 年月背景交替色
+    --t-date-ym-bg-color:$gray['2']// 年月背景交替色
    
 // 外层容器
 .date-box
@@ -55,8 +55,7 @@ $date-col-width = 40px
     // 日期不加粗
     &-day
         @extend $ext-weight-500
-    // 年/月
-    // 进退
+    // 年/月 进退按钮
     &-prev, &-next
         @extend $ext-position-relative
     &-prev:before,&-next:before
@@ -75,7 +74,11 @@ $date-col-width = 40px
     &-next:before
         bottom:15.84px
         transform: translateX(-50%) rotate(-135deg)
-    // 今天
+    // 点击时:年月进退,今天
+    &-prev:active:before,&-next:active:before
+        border-color:$red['5']
+    &-today:active
+        color:$red['5']
     // 星期
     // 日 \/这个是转义,/是css支持的语法,在stylus里也是除号.
     &-day

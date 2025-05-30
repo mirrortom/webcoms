@@ -29,7 +29,7 @@
    * @param {string|HTMLElement} msgboxDom 弹出层html对象或者html字符串
    */
   let showMsgBox = (msgboxDom) => {
-    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     document.body.append(msgboxDom);
   };
   /**
@@ -92,8 +92,8 @@
   let createOuterDiv = (msg, position) => {
     // 样式风格 msgboxCls类只加在3个标准框上
     let outerDiv = $('<div>').addClass(msgboxCls).addClass(...positionClass(position));
-    // 内容
-    outerDiv.append($('<p>').text(msg || '')[0]);
+    // 标题
+    outerDiv.append($('<div>').text(msg || '')[0]);
     return outerDiv[0];
   };
   /**
@@ -105,7 +105,7 @@
   let createBtn = (code, onOk, onCancel, theme) => {
     let okBtn = $('<span>').addClass('btn', theme).text('确定');
     let cancelBtn = $('<span>').addClass('btn', theme).text('取消');
-    let btnArea = $('<div>').addClass('layout-h', 'pd-lr-20', 'f-h-end');
+    let btnArea = $('<div>').addClass('flex', 'pd-lr-20', 'j-end');
     // 绑定事件
     okBtn[0].onclick = () => {
       // 删除弹出框
@@ -137,8 +137,8 @@
     shadow.forEach((dom) => {
       dom.parentNode.removeChild(dom);
     });
-    // 去掉body滚动条样式
-    document.body.style.overflow = null;
+    // 去掉html滚动条样式
+    document.documentElement.style.overflow = null;
   };
   /**
    * alert 弹出框

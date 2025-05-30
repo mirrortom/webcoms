@@ -93,13 +93,14 @@
       $(this).addClass('range-box');
       // 长度
       let width = parseInt(this.getAttribute('width')) || 320;
-      // 总长度要减去滑块dom的20px
-      this._barLen = width - 20;
-      this.style.width = width + 'px';
-
       // 子元素
       let innerHtml = '<span class="range-txt"></span><div class="range-bar"><span class="range-btn"></span></div>';
       this.innerHTML = innerHtml;
+      // 总长度要减去滑块dom的宽度
+      let remFontSize = getComputedStyle(document.documentElement).fontSize
+      this._barLen = width - 1.6 * parseInt(remFontSize);
+      this.style.width = width + 'px';
+
       // 属性设置
       // 滑块
       this._rBtn = this.querySelector('.range-btn');

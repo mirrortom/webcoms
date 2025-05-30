@@ -26,8 +26,8 @@ class="tabs-label active"
 class="tabs-panel active"
 </pre>
   <br />
-  <div class="bd bdr pd-20 mg-b-10">
-    <m-tabs id="mytabs" height="240px">
+  <div class="pd-20 mg-b-10">
+    <m-tabs id="mytabs" height="220px">
       <div class="tabs-header">
         <span class="tabs-label">苏轼</span>
         <span class="tabs-label">陆游</span>
@@ -36,23 +36,23 @@ class="tabs-panel active"
       </div>
       <div class="tabs-content">
         <div class="tabs-panel">
-          <h5>饮湖上初晴后雨二首·其二</h5>
+          <div class="txt-b-6 txt-lg txt-gray-5 mg-t-10">饮湖上初晴后雨二首·其二</div>
           <p>水光潋滟晴方好</p><p>山色空蒙雨亦奇</p><p>欲把西湖比西子</p><p>淡妆浓抹总相宜</p>
         </div>
         <div class="tabs-panel">
-          <h5>卜算子 咏梅</h5>
+          <div class="txt-b-6 txt-lg txt-gray-5 mg-t-10">卜算子 咏梅</div>
           <p>驿外断桥边,寂寞开无主</p><p>已是黄昏独自愁,更著风和雨</p>
           <p>无意苦争春,一任群芳妒</p><p>零落成泥碾作尘,只有香如故</p>
         </div>
         <div class="tabs-panel">
-          <h5>一剪梅 红藕香残玉蕈秋</h5>
+          <div class="txt-b-6 txt-lg txt-gray-5 mg-t-10">一剪梅 红藕香残玉蕈秋</div>
           <p>红藕香残玉蕈秋,轻解罗裳,独上兰舟</p>
           <p>云中谁寄锦书来,雁字回时,月满西楼</p>
           <p>花自飘零水自流,一种相思,两处闲愁</p>
           <p>此情无计可消除,才下眉头,却上心头</p>
         </div>
         <div class="tabs-panel">
-          <h5>浪淘沙 北戴河</h5>
+          <div class="txt-b-6 txt-lg txt-gray-5 mg-t-10">浪淘沙 北戴河</div>
           <p>大雨落幽燕,白浪滔天,秦皇岛外打鱼船</p>
           <p>一片汪洋都不见,知向谁边</p>
           <p>往事越千年,魏武挥鞭,东临碣石有遗篇</p>
@@ -61,8 +61,8 @@ class="tabs-panel active"
       </div>
     </m-tabs>
   </div>
-  <p># 标签方位</p>
-  <p class="text-in">设置样式类实现标签栏的位置和样式.</p>
+  <h4>标签方位</h4>
+  <p>设置样式类实现标签栏的位置和样式.</p>
   <pre>
 // 标签栏位置
 &lt;m-tabs class="<b>left | right | bottom</b>" &gt;&lt;/m-tabs&gt;
@@ -91,24 +91,24 @@ class="tabs-panel active"
       </div>
       <div class="tabs-content">
         <div class="tabs-panel">
-          <h5>白头吟</h5>
+          <div class="txt-b-6 txt-lg txt-gray-5 mg-t-10">白头吟</div>
           <p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝,今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流</p>
           <p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离,竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</p>
         </div>
         <div class="tabs-panel">
-          <h5>彩书怨</h5>
+          <div class="txt-b-6 txt-lg txt-gray-5 mg-t-10">彩书怨</div>
           <p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚</p>
           <p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</p>
         </div>
         <div class="tabs-panel">
-          <h5>春雪</h5>
+          <div class="txt-b-6 txt-lg txt-gray-5 mg-t-10">春雪</div>
           <p>新年都未有芳华</p>
           <p>二月初惊见草芽</p>
           <p>白雪却嫌春色晚</p>
           <p>故穿庭树作飞花</p>
         </div>
         <div class="tabs-panel">
-          <h5>鹊桥仙 纤云弄巧</h5>
+          <div class="txt-b-6 txt-lg txt-gray-5 mg-t-10">鹊桥仙 纤云弄巧</div>
           <p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数</p>
           <p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</p>
         </div>
@@ -116,18 +116,18 @@ class="tabs-panel active"
     </m-tabs>
   </div>
   <br />
-  <p># dom属性</p>
-  <p class="text-in">height,css合法的height值.在m-tabs上设置容器高度,默认320px.内容超过高度时,出现竖直滚动条.</p>
+  <h4>属性</h4>
+  <p><b class="txt-sky-4">height</b> css合法的height值.在m-tabs上设置容器高度,默认320px.内容超过高度时,出现竖直滚动条.</p>
   <pre>
 // height: 高度设置
 &lt;m-tabs height="200px" &gt;&lt;/m-tabs&gt;
 </pre>
   <br />
-  <p># 方法</p>
-  <p class="text-in">激活标签,index:标签索引.</p>
+  <h4>方法</h4>
+  <p><b class="txt-sky-4">tabs.activeTab(index)</b>激活标签.index:标签索引.</p>
   <pre>
 // 激活第一个标签
-tabs.<b>activeTab(0)</b>
+tabs.activeTab(0)
 </pre>
   <script>
     ((win) => {

@@ -16,6 +16,11 @@
 // light(默认)
 // 对字体和背景的全局设定
 //========================
+// 全局变量
+:root
+    --back-color:$white['0']// 背景色
+    --front-color:$black['1']// 前景色,字体颜色
+    --border-color:$gray['3']// 边框色
 body
     color: $front-color
     background-color: $back-color
@@ -38,10 +43,13 @@ $theme-name-colors-dict={
     orange:$orange,
     yellow:$yellow,
     green:$green,
+    lime:$lime,
+    teal:$teal,
     sky:$sky,
     blue:$blue,
     purple:$purple,
-    pink:$pink
+    pink:$pink,
+    rose:$rose
 }
 //for k,v in $theme-name-colors-dict
 //    .{t}

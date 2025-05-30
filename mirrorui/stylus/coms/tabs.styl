@@ -7,7 +7,7 @@
     --t-tabs-label-active-bg-color: $gray['3']// 标签选中背景色
 .tabs
     // 容器
-    display: grid
+    @extend $ext-display-grid
     grid-template: min-content auto / auto
     // 方位
     &.left 
@@ -55,9 +55,8 @@
     
     // 标签
     &-label 
-        padding: 2px .5em
-        color:$gray['4']
-        border-radius:$cirAngle-dict['3'] $cirAngle-dict['3'] 0 0
+        padding: 0 .4em
+        color: $gray['4']
         @extend $ext-text-overflow
         @extend $ext-user-select-none
 
@@ -68,7 +67,7 @@
       
     // 标签 左右位置
     &.left &-label, &.right &-label 
-        padding: .5em 2px
+        padding: .5em 0
         text-orientation: upright
         writing-mode: vertical-lr
         border-width: 0

@@ -2,8 +2,8 @@
 
 // 主题色变量
 .docmenu
-    --t-docmenu-active-color:$black['1']// 菜单项选中字色
-    --t-docmenu-active-bg-color:$gray['3']// 菜单项选中背景色
+    --t-docmenu-active-color:$gray['6']// 菜单项选中字色
+    --t-docmenu-active-bg-color:$gray['2']// 菜单项选中背景色
 
 .docmenu
     @extend $ext-display-block
@@ -18,7 +18,6 @@
         @extend $ext-weight-500
         @extend $ext-cursor-pointer
         @extend $ext-text-overflow
-        @extend $ext-border-cir-default
     // 直接子菜单项
     & > &-item
         padding: 4px 0 4px 1em
@@ -30,6 +29,7 @@
         @extend $ext-weight-700
         color: var(--t-docmenu-active-color)
         background-color: var(--t-docmenu-active-bg-color)
+        border-left:2px solid
     // 菜单组标题
     &-title
         @extend $ext-display-flex
@@ -67,5 +67,5 @@
         @extend $ext-display-none
 
 {$themePre}-dark .docmenu
-    --t-docmenu-active-color:$white['1']// 菜单项选中字色
+    --t-docmenu-active-color:$gray['1']// 菜单项选中字色
     --t-docmenu-active-bg-color:$gray['6']// 菜单项选中背景色

@@ -1,0 +1,18 @@
+﻿// 名值对标签
+.kvpair,.kvpair-cir
+    @extend $ext-display-inline-grid
+    grid-template-columns: auto auto
+    place-items: center
+    // 边框和补白
+    .key,.val
+        @extend $ext-border-1px
+    .val
+        border-left:none
+    .key,.val
+        padding: 0 .4em
+// 圆角
+.kvpair-cir
+    .key
+        border-radius:1.5em 0 0 1.5em
+    .val
+        border-radius:0 1.5em 1.5em 0

@@ -3,35 +3,37 @@
 .range-box
     --t-range-btn-bg-color:$gray['6']// 滑块背景色
     --t-range-bar-bg-color:$gray['3']// 滑条已划过背景色
+    --t-range-txt-color:inherit// 文字颜色
 
 .range
     &-box
-        @extend $ext-display-block
-        padding-bottom: 20px
+        @extend $ext-display-flex
+        flex-direction: column
+        // 滑块比条高一半,这里需要将按滑块出的部分包含到框内.
+        padding-bottom:.8rem
+    // 条的高度为滑块的1/2
     &-bar
-        width: 100%
-        height: 10px
+        @extend $ext-display-flex
+        @extend $ext-align-center
+        height: .8rem
         @extend $ext-border-cir-default
         @extend $ext-border-1px
         border-left:0 solid var(--t-range-bar-bg-color)
-        margin-top: 5px
-
-    &-btn
+    // 显示值的框和滑块同大小
+    &-btn,&-txt
         @extend $ext-display-inline-block
-        width: 20px
-        height: 20px
+        width: 1.6rem
+        height: 1.6rem
+    &-btn
         background-color: var(--t-range-btn-bg-color)
         @extend $ext-border-circle
-        margin-top: -5px
-
 
     &-btn.active
         cursor: grab
-
     &-txt
-        @extend $ext-display-block
-        width: 20px
-        text-align: center
+        margin-bottom:.4rem// 文字按钮距离
+        @extend $ext-text-align-center
+        color:var(--t-range-txt-color)
 
 {$themePre}-dark .range-box
     --t-range-btn-bg-color:$gray['3']// 滑块背景色
@@ -42,3 +44,4 @@ for k,v in $theme-name-colors-dict
     .range-box.{k}
         --t-range-btn-bg-color:v['5']// 滑块背景色
         --t-range-bar-bg-color:v['4']// 滑条已划过背景色
+        --t-range-txt-color:v['5']// 文字颜色同滑块色

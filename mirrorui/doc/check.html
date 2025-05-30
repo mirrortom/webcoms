@@ -1,6 +1,6 @@
 ﻿<div class="doc-page">
   <h2>单选与多选</h2>
-  <p># 使用自定义标记,多选 <b>&lt;m-check&gt;</b> , 单选 <b>&lt;m-radio&gt;</b></p>
+  <p>使用自定义标记,多选 <b>&lt;m-check&gt;</b> , 单选 <b>&lt;m-radio&gt;</b></p>
   <div class="mg-b-10">
     <m-check class="checked" tag="多选组-1" id="mcheckbox1"></m-check>
     <m-check class="mg-l-20" tag="多选组-2"></m-check>
@@ -9,55 +9,48 @@
     <m-check class="mg-l-20" tag="多选(disabled)" disabled></m-check>
     <m-radio class="mg-l-20" name="radiogroup1" tag="单选(disabled)" disabled></m-radio>
   </div>
+  <pre>
+// m-check多选
+&lt;m-check class="checked" tag="多选框1"&gt;&lt;/m-check&gt;
+// m-radio单选
+&lt;m-radio tag="单选框2"&gt;&lt;/m-radio&gt;
+</pre>
   <div id="checkbox1" class="mg-b-10 text-xl"></div>
   <div id="radiobox1" class="mg-b-10 text-xl"></div>
-  <br />
-  <p># 属性 <b>checked</b> <m-btn id="checkTestBtn1">尝试</m-btn></p>
-  <p class="text-in">选中返回true,否则返回false</p>
-  <p class="text-in">设置为true时,选中,否则取消选中.</p>
-
-  <p># 属性 <b>onClicked(fn)</b></p>
-  <p class="text-in">点击切换后执行方法.(仅单选按钮)</p>
-
-  <p># 标签属性 <b>tag</b></p>
-  <p class="text-in">设置一个标题</p>
-
-  <p># 单选</p>
-  <p class="text-in">同一个父级下的多个单选框,设置相同的name属性,实现单选.已选中的可以取消.</p>
-
-  <p># 选中状态,大小,颜色</p>
-  <p class="text-in">添加 <b>.checked</b>样式,会展现选中状态,使用工具样式调整颜色和大小</p>
-
+  <h4>单选实现</h4>
+  <p>同一个父级下的多个单选框,设置相同的name属性,实现单选.已选中的可以取消.</p>
+  <h4>属性</h4>
+  <p><b class="txt-sky-4">checked</b> 选中返回true,否则返回false.设置为true时,选中,否则取消选中.</p>
   <pre>
-// m-check多选,m-radio单选
-&lt;m-radio tag="单选框2"&gt;&lt;/m-radio&gt;
-&lt;m-check class="checked" tag="多选框1"&gt;&lt;/m-check&gt;
-
-// tag:设置标题
-&lt;m-check class="checked" <b>tag</b>="多选框1"&gt;&lt;/m-check&gt;
-
-// 获取选中状态
+// 获取/设置checked
 let check1 = document.getElementById('checkbox1');
-check1.<b>checked</b> // true / false
-check1.<b>checked</b> = true // true选中,false取消选中
-
-// 执行方法
-check1.<b>onClicked</b> = (radio) => {
-  // radio参数就是this对象
-  radio.getAttribute('tag');
-}
-
-// 单选
-&lt;m-radio tag="单选框1" <b>name</b>="radiogroup1" &gt;&lt;/m-radio&gt;
-&lt;m-radio tag="单选框2" <b>name</b>="radiogroup1" &gt;&lt;/m-radio&gt;
-
-// 颜色和大小,选中状态
-&lt;m-check class="<b>red checked</b> " tag="多选框1"&gt;&lt;/m-check&gt;
-&lt;m-radio class="<b>text-lg</b>" tag="单选框2"&gt;&lt;/m-radio&gt;
-
-// 禁用
-&lt;m-radio <b>disabled</b> tag="单选框2"&gt;&lt;/m-radio&gt;
+let isChecked = check1.checked; // true / false
+check1.checked = true; // true选中,false取消选中
 </pre>
+  <p>如果需要设置默认选中,在标记上添加checked样式</p>
+  <pre>
+&lt;m-check class="checked" tag="默认选中"&gt;&lt;/m-check&gt;
+</pre>
+  <p class="mg-t-10"><b class="txt-sky-4">tag</b> 设定标题</p>
+  <pre>
+// tag,设置标题,在标记上使用
+&lt;m-check tag="多选标题"&gt;&lt;/m-check&gt;
+&lt;m-radio tag="单选标题"&gt;&lt;/m-check&gt;
+</pre>
+  <p class="mg-t-10"><b class="txt-sky-4">disabled</b> 禁用控件,加disabled属性</p>
+  <pre>
+&lt;m-radio disabled tag="单选框2"&gt;&lt;/m-radio&gt;
+</pre>
+  <h4>事件</h4>
+  <p class="mg-t-10"><b class="txt-sky-4">onClicked(fn)</b> 点击切换后执行方法.(只适用单选按钮)</p>
+  <pre>
+radio1.onClicked = (radio) => {
+  // radio参数就是this对象
+  let getTag = radio.getAttribute('tag');
+}
+</pre>
+
+
 </div>
 <script>
   ((win) => {
@@ -73,9 +66,5 @@ check1.<b>onClicked</b> = (radio) => {
     }
     $('#checkbox1').html(checks);
     $('#radiobox1').html(radius);
-    $('#checkTestBtn1').click(() => {
-      $('#check1')[0].checked = !$('#check1')[0].checked;
-      $('#radio1')[0].checked = !$('#radio1')[0].checked;
-    });
   })(window);
 </script>

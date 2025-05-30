@@ -5,15 +5,15 @@
     }
 
     .imgdemo1 {
-      width: 500px;
+      width: 90%;
       height: 200px;
-      background-image: repeating-linear-gradient(blue 0 5%,transparent 5% 10%);
+      background-image: repeating-linear-gradient(blue 0 5%,transparent 5% 10%,red 10% 15%,transparent 15% 20%);
     }
 
     .imgdemo2 {
       width: 200px;
-      height: 120px;
-      background-image: repeating-radial-gradient(green 0 5%,transparent 5% 10%);
+      height: 130px;
+      background-image: repeating-radial-gradient(red,10px,yellow,30px,skyblue,60px,black);
     }
 
     .imgdemo3 {
@@ -23,12 +23,11 @@
     }
   </style>
   <h2>图片</h2>
-  <p>常用于图片的工具样式有:自动适应父容器大小 class="autosize". cir 将图片变成圆形.图文混排时 v-middle 让图片在基准线居中.</p>
-  <div style="width:320px" class="mg-b-10 bd bd-red-5"><img class="autosize imgdemo1" /></div>
-  <div class="mg-b-10"><img class="cir-5 imgdemo2" /></div>
-  <div class="mg-b-10"><img class="cir imgdemo3" /></div>
-  <br />
+  <p>常用于图片的工具样式有:自动适应父容器大小 class="w-autosize".</p>
   <pre>
-&lt;div class="grid"&gt;&lt;img class="<strong>autosize cir v-middle</strong>" &gt;&lt;/div&gt;
+&lt;div class="grid"&gt;&lt;img class="<strong>w-autosize</strong>" &gt;&lt;/div&gt;
 </pre>
+  <div class="mg-tb-10"><img class="w-autosize imgdemo1 mg-tb-10" /></div>
+  <div class="mg-tb-10"><img class="cir-50p imgdemo2 mg-tb-10" /></div>
+  <div class="mg-tb-10"><img class="cir-10 imgdemo3 mg-tb-10" /></div>
 </div>
