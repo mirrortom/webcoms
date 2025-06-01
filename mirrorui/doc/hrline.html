@@ -1,16 +1,44 @@
 ﻿<div class="doc-page">
   <h2>hr分隔线</h2>
-  <p>线条是hr标记上边框,1px厚度,默认是字体颜色.添加边框色工具样式改变颜色.</p>
-  <hr class="line" />
-  <hr class="line bd-red-5" />
-  <hr class="line bd-yellow-5" />
-  <hr class="line bd-blue-5" />
-  <hr class="line bd-green-6 mg-tb-30" />
+  <p>使用hr标记,使用时改变颜色和边距以及厚度.常用于内容分割线.</p>
+  <p>hr标记的语义是画一条水平线,其实使用其它标记DIV也可以画.经过尝试,如果给hr标记设置height=10px,那么hr会变成一个长方形,而不是线了.也可以设置border/background等,它就是一个普通的盒模型.</p>
+  <h4>例子</h4>
+  <p>原始的hr标记,不同浏览器可能不同.浏览器给hr的默认样式是,高度为0,边框为1px,计算出来是0.8px(4个方向)</p>
+  <div class="mg-tb-10">
+    <hr />
+  </div>
+  <p>高度30px,边框1.像是一个div了.</p>
+  <div class="mg-tb-10">
+    <hr class="h-30 bd-1 bd-red-3" />
+  </div>
   <pre>
-.line
-    border: none
-    border-top:1px solid var(--border-color)
-    outline: none
-    margin: 1rem auto
+&lt;hr /&gt;
+&lt;hr class="h-30 bd-1 bd-red-3"/&gt;
+</pre>
+  <h6>颜色</h6>
+  <p>使用背景颜色,高度设为1px,无边框</p>
+  <hr class="bd-none h-1 bg-red-5 mg-tb-30" />
+  <p>使用上边框颜色,高度设为0,只有上边框.这和上面的效果相似.使用div也可以做这效果.</p>
+  <div class="mg-tb-10">
+    <hr class="bd-none bd-t-1 bd-t-blue-5" />
+  </div>
+  <pre>
+&lt;hr class="bd-none bd-t-1 bd-t-blue-5" /&gt;
+</pre>
+  <h6>margin</h6>
+  <p>添加了上下margin-30px,无边框,高度1.这条黄色线和上面的红色线都是高度1px,无边框的,但是看起来却不是一样厚度,这是浏览器计算问题.使用边框1px时,浏览器计算出来的是0.8px,原因没有研究.而使用高度1px时,浏览器计算出来的都是1px,但是页面上显示的效果却有差异!</p>
+  <hr class="bd-none h-1 bg-yellow-5 mg-tb-30" />
+  <pre>
+&lt;hr class="bd-none h-1 bg-yellow-5 mg-tb-30" /&gt;
+</pre>
+  <h6>厚度</h6>
+  <p>设置了高度3px,无边框</p>
+  <hr class="h-3 bd-none bg-rose-5 mg-tb-30" />
+  <h6>样式</h6>
+  <p>修改border-style得到不同样式的线.这个要使用边框办法,不能使用高度.</p>
+  <hr class="bd-none bd-t-1 bd-t-dashed mg-tb-30" />
+  <hr class="bd-none bd-t-3 bd-t-sky-3 bd-t-dotted mg-tb-30" />
+  <pre>
+&lt;hr class="bd-none bd-t-3 bd-t-sky-3 bd-t-dotted mg-tb-30" /&gt;
 </pre>
 </div>

@@ -1,49 +1,36 @@
 ﻿<div class="doc-page">
   <h2>名值对</h2>
-  <p>标题和内容两个部分,中间有分割线.用于简短的提示或者说明.</p>
-  <div class="kvpair mg-tb-10">
-    <span class="key">Name</span>
-    <span class="val">Value</span>
+  <p>一对标签,分为标题和内容两个部分,中间有分割线.适用于展示带有标题的内容,内容简短的.</p>
+  <p>容器,标题和内容使用3个span,通常是左边标题右边内容,也可以是上面标题下面内容.</p>
+  <h4>例子</h4>
+  <p>左边标题,右边内容,中间适用竖线分开.和标签类似,使用背景/文字/边框设计不同风格.</p>
+  <div class="grid j-start gap-row-15 mg-tb-10">
+    <span class="inline-flex j-start a-center bg-gray-2 ">
+      <span class="bd-r-1 bd-r-gray-5 pd-lr-10">Name</span>
+      <span class="pd-lr-10">Value</span>
+    </span>
+    <span class="inline-flex j-start a-center">
+      <span class="bg-blue-4 bd-r-1 bd-r-gray-5 cir-tl-5 cir-bl-5 pd-lr-10">爱好</span>
+      <span class="bg-green-2 pd-lr-10 cir-tr-5 cir-br-5">游戏</span>
+    </span>
+    <span class="inline-flex j-start a-center">
+      <span class="bg-yellow-4 bd-r-1 bd-r-gray-5 cir-tl-5 cir-bl-5 pd-lr-10">提示</span>
+      <span class="bg-sky-5 pd-lr-10 cir-tr-5 cir-br-5">水深危险</span>
+    </span>
+    <span class="inline-flex j-start a-center bg-gray-2">
+      <span class="bd-tb-1 bd-tb-red-5 bd-l-1 bd-l-red-5 bd-r-1 bd-r-gray-3 pd-lr-10">YouTube</span>
+      <span class="pd-lr-10 bd-tb-1 bd-tb-sky-5 bd-r-1 bd-r-sky-5">网上电视</span>
+    </span>
   </div>
   <pre>
-&lt;div class="<b>kvpair</b>"&gt;
-  &lt;span class="<b>key</b>"&gt;Name&lt;/span&gt;
-  &lt;span class="<b>val</b>"&gt;Value&lt;/span&gt;
-&lt;/div&gt;
+&lt;span class="inline-flex j-start a-center bg-gray-2 "&gt;
+  &lt;span class="bd-r-1 bd-r-gray-5 pd-lr-10"&gt;Name&lt;/span&gt;
+  &lt;span class="pd-lr-10"&gt;Value&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;span class="inline-flex j-start a-center"&gt;
+  &lt;span class="bg-blue-4 bd-r-1 bd-r-gray-5 cir-tl-5 cir-bl-5 pd-lr-10"&gt;爱好&lt;/span&gt;
+  &lt;span class="bg-green-2 pd-lr-10 cir-tr-5 cir-br-5"&gt;游戏&lt;/span&gt;
+&lt;/span&gt;
 </pre>
-  <br />
-  <div class="mg-tb-10">
-    <div class="kvpair mg-lr-15">
-      <span class="key bg-sky-4">信仰</span>
-      <span class="val bg-orange-2">自由奔放</span>
-    </div>
-    <div class="kvpair mg-lr-15">
-      <span class="key bg-rose-4">爱好</span>
-      <span class="val bg-green-5 txt-white-1">游山玩水</span>
-    </div>
-    <div class="kvpair mg-lr-15">
-      <span class="key bg-yellow-3 txt-black-1">提示</span>
-      <span class="val bg-red-3">不可嬉戏</span>
-    </div>
-  </div>
-  <h4>圆形的</h4>
-  <p>圆角使用kvpair-cir样式.也可以使用圆角工具样式定制.</p>
-  <div class="mg-tb-10">
-    <div class="kvpair-cir mg-lr-15">
-      <span class="key bg-yellow-4 txt-gray-4">美食</span>
-      <span class="val bg-yellow-3">麦当劳</span>
-    </div>
-    <div class="kvpair-cir cir mg-lr-15">
-      <span class="key bg-green-6 txt-white-1">在线人数</span>
-      <span class="val bg-green-3">200</span>
-    </div>
-    <div class="kvpair-cir cir mg-lr-15">
-      <span class="key bg-yellow-6 txt-white-1">咖啡</span>
-      <span class="val bg-yellow-3">不加糖和奶</span>
-    </div>
-    <div class="kvpair-cir cir mg-lr-15">
-      <span class="key bg-red-5 txt-white-1">YouTube</span>
-      <span class="val bg-sky-2">网上电视台</span>
-    </div>
-  </div>
 </div>

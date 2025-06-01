@@ -1,42 +1,117 @@
 ﻿<div class="doc-page">
   <h2>面板</h2>
-  <p>分两部分,上面是标题区,下面是内容区.面板是个容器,可放入其它组件.</p>
-  <div class="grid grid-cols-2">
-    <div class="panel mg-5">
-      <div class="panel-head pd-5">
-        <span>面板标题</span>
-      </div>
-      <div class="panel-body">
-        <p>面板内容...</p>
-      </div>
-    </div>
-    <div class="">
-      <div class="panel mg-5">
-        <div class="panel-head bg-green-3 pd-5">
-          <span>面板标题</span>
-        </div>
-        <div class="panel-body bg-gray-2">
-          <p>可以放入其它组件,例如列表ul,表格table,图片,段落等</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <br />
+  <p>面板的标记结构来自于html页面结构,容器html,下面是head和body.面板使用div容器,head是标题区域,body是内容区域.</p>
+  <p>head里面放标题和说明,body里放内容,可以是列表/表格数据,或者是文字段落图片等.</p>
+  <p>面板是一种常用的布局结构,使用flex/grid可以灵活配置标题和内容的位置,比如上下/左右,或者分栏.可以认为是一个缩小的页面,用于独立的内容.</p>
   <pre>
-&lt;div class="<strong>panel</strong>"&gt;
-  &lt;div class="<strong>panel-head</strong>"&gt;
-    &lt;h2&gt;面板标题&lt;/h2&gt;
+&lt;div class=""&gt;
+  &lt;div class=""&gt;
+面板标题
   &lt;/div&gt;
-  &lt;div class="<strong>panel-body</strong>"&gt;
-    内容区域,可以加入其它组件
+  &lt;div class=""&gt;
+面板内容
   &lt;/div&gt;
 &lt;/div&gt;
-
-.panel
-    border: 1px solid $border-color
-    overflow: hidden
-    &-head
-        text-align: center
-        border-bottom: 1px solid $border-color
 </pre>
+  <h4>例子</h4>
+  <h6>文字段落</h6>
+  <div class="bd-1 bd-gray-3 w-400 mg-tb-10">
+    <div class="txt-lg txt-b-6 txt-center bd-b-1 bd-b-gray-3">
+      美学的意义
+    </div>
+    <div class="bg-gray-2 pd-10">
+      <p>美学的真正意义其实就在于启迪智慧.</p>
+      <p>美学当中当然也有很多知识,但我们前面说过了,这些知识其实是没有什么用的.既不能帮助我们买衣服,挑对象,甚至也不能帮助我们欣赏艺术,简直就是徒有虚名,枉为"美学".</p>
+      <p>实际上, 这些知识,这些数据,只有一个作用,就是用来支持它的程序.</p>
+    </div>
+  </div>
+  <pre>
+&lt;div class="bd-1 bd-gray-3 w-400 mg-tb-10"&gt;
+  &lt;div class="txt-lg txt-b-6 txt-center bd-b-1 bd-b-gray-3"&gt;
+    美学的意义
+  &lt;/div&gt;
+  &lt;div class="bg-gray-2 pd-10"&gt;
+    &lt;p&gt;美学的真正意义其实就在于启迪智慧.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+  <h6>图文</h6>
+  <div class="bd-1 bd-gray-3 w-400 mg-tb-10">
+    <div class="txt-lg txt-b-6 txt-center bd-b-1 bd-b-gray-3 pd-10">
+      SVG图片
+    </div>
+    <div class="pd-10">
+      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="300">
+        <circle cx="200" cy="150" r="130" stroke="lime" stroke-width="3" fill="#fff"></circle>
+        <line x1="0" y1="20" x2="380" y2="20" stroke-width="2" stroke="blue"></line>
+        <line x1="0" y1="20" x2="200" y2="280" stroke-width="2" stroke="red"></line>
+        <line x1="200" y1="280" x2="380" y2="20" stroke-width="2" stroke="yellow"></line>
+        <circle cx="200" cy="150" r="5" fill="lime"></circle>
+      </svg>
+      <p class="bd-t-1 bd-t-gray-3">svg标记可以使用代码方法绘制图形</p>
+    </div>
+  </div>
+  <h6>数据</h6>
+  <div class="mg-tb-10 bd-1 bd-gray-3 w-400">
+    <div class="bd-b-1 bd-b-gray-3 pd-10 txt-lg txt-gray-5 txt-b-6">
+      统计数据
+    </div>
+    <div class="pd-5">
+      <table class="table">
+        <tr class="txt-gray-4">
+          <th>年份</th>
+          <th>地区</th>
+          <th>营业额(万元)</th>
+          <th>同比%</th>
+        </tr>
+        <tr>
+          <td>2019</td>
+          <td>北美</td>
+          <td>1200</td>
+          <td>18%</td>
+        </tr>
+        <tr>
+          <td>2019</td>
+          <td>东亚</td>
+          <td>2400</td>
+          <td>11%</td>
+        </tr>
+        <tr>
+          <td>2019</td>
+          <td>西欧</td>
+          <td>800</td>
+          <td>-5%</td>
+        </tr>
+        <tr>
+          <td>2019</td>
+          <td>东欧</td>
+          <td>600</td>
+          <td>-10%</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <h6>左右结构</h6>
+  <div class="mg-tb-10 bd-1 bd-gray-3 w-420 flex">
+    <div class="w-110 h-120" style="background-image: repeating-conic-gradient(blue 0 45deg,lime 45deg 90deg);"></div>
+    <div class="bd-l-1 bd-l-gray-3 pd-10">
+      <div>
+        <span class="inline-flex j-start a-center bg-gray-2 bd-1 bd-gray-3 cir-4">
+          <span class="bd-r-1 bd-r-gray-5 pd-lr-10">物品</span>
+          <span class="pd-lr-10">纸风车</span>
+        </span>
+      </div>
+      <div class="mg-tb-10">
+        <span class="inline-flex j-start a-center">
+          <span class="pd-lr-10 bg-red-2 cir-tl-5 cir-bl-5 ">价格</span>
+          <span class="pd-lr-10 bg-red-5 txt-white-1 cir-tr-5 cir-br-5">32</span>
+        </span>
+        <span class="inline-flex j-start a-center">
+          <span class="pd-lr-10 bg-sky-2 cir-tl-5 cir-bl-5 ">保障</span>
+          <span class="pd-lr-10 txt-orange-8 cir-tr-5 cir-br-5">5年</span>
+        </span>
+      </div>
+      <div><span class="bg-red-3 pd-2 cir-3 txt-gray-7">说明</span>不同地区售价可能不同,以实际为准.</div>
+    </div>
+  </div>
 </div>

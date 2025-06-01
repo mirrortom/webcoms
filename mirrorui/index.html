@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  
   <link href="http://localhost:8002/globalBase.css" rel="stylesheet" />
   <link href="mirrorui.css" rel="stylesheet" />
   <link href="http://localhost:8002/fullTools.css" rel="stylesheet" />
@@ -67,10 +68,10 @@
 <body>
   <div class="container">
     <div class="menu-box pd-l-10">
-      <div class="cursor-pointer" id="themeBtns">
-        <span class="label bg-white-0 txt-black-0" tid="light">light</span>
-        <span class="label bg-black-0 txt-white-0" tid="dark">dark</span>
-        <span class="label" tid="color" colorIndex="3">color</span>
+      <div class="btn-group" id="themeBtns">
+        <span class="btn bg-white-0 txt-black-0" tid="light">light</span>
+        <span class="btn" tid="dark">dark</span>
+        <span class="btn red" tid="color" colorIndex="1">color</span>
       </div>
       <m-docmenu class="pd-b-30" id="main_menubox">
         <div class="docmenu-group">
@@ -81,6 +82,7 @@
 
         <div class="docmenu-group">
           <span class="docmenu-title"><i class="docmenu-open"></i>排版</span>
+          <a class="docmenu-item" urlid="basecss">基本设置</a>
           <a class="docmenu-item" urlid="label">标签</a>
           <a class="docmenu-item" urlid="kvpair">名值对</a>
           <a class="docmenu-item" urlid="imagedemo">图片</a>
@@ -90,7 +92,6 @@
         <div class="docmenu-group">
           <span class="docmenu-title"><i class="docmenu-open"></i>容器</span>
           <a class="docmenu-item" urlid="panel">面板</a>
-          <a class="docmenu-item" urlid="msgpanel">标题面板</a>
           <a class="docmenu-item" urlid="tabs">标签页</a>
           <a class="docmenu-item" urlid="cachepage">缓存页</a>
         </div>
@@ -187,7 +188,7 @@
       // 默认打开"关于"
       docmenu1.activeItem(
         (() => {
-          let urlid = 'pagenum';
+          let urlid = 'panel';
           let menus = $('#main_menubox .docmenu-item');
 
           for (var i = 0; i < menus.length; i++) {
@@ -233,7 +234,7 @@
         if (nextColorIndex == win.themecolors.length)
           nextColorIndex = 0;
         $(item).prop('colorIndex', nextColorIndex);
-        $(item).removeClass().addClass('txt-' + win.themecolors[currIndex] + '-5', 'label');
+        $(item).removeClass(...win.themecolors).addClass(win.themecolors[currIndex]);
       });
     })(window);
   </script>

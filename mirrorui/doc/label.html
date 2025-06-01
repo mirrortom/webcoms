@@ -1,43 +1,38 @@
 ﻿<div class="doc-page">
   <h2>标签</h2>
-  <p>用于关键字,信息提示,较少文字时.</p>
+  <p>用于关键词,简短标语.用于显目提示.一般是在背景色/文字色/边框是做设计.</p>
+  <h4>例子</h4>
+  <h6>边框</h6>
+  <p>使用span元素,行内flex布局,主轴/交叉轴居中,边框1.用了5个工具样式,虽然写起来比事先定制一个标签class然后引用,要麻烦的太多,但是灵活性好.而实际情况总是会变化,预定义的标签可能不适用,这也是来自tailwind的思想,预定义的样式,总是那个样子,不灵活,修改难,所以不如现场组合,如果需要修改,调整组合即可.</p>
   <div class="mg-tb-10">
-    <span class="label mg-lr-15">默认</span>
-    <span class="label mg-lr-15">标签</span>
-  </div>
-  <p>使用工具样式定义标签的背景色/文字色/圆角/字体大小</p>
-  <div class="mg-tb-10">
-    <span class="label mg-lr-15 txt-yellow-5">文字</span>
-    <span class="label mg-lr-15 txt-rose-5">颜色</span>
-    <span class="label mg-lr-15 txt-white-0 bg-blue-5">背景</span>
-    <span class="label mg-lr-15 txt-white-1 bg-pink-5">颜色</span>
-  </div>
-  <div class="mg-tb-10">
-    <span class="label mg-lr-15 bg-yellow-5 cir-5">圆角</span>
-    <span class="label mg-lr-15 bg-rose-5 cir-20p">圆角</span>
-    <span class="label mg-lr-15 txt-white-0 bg-green-5 txt-xl">字体</span>
-    <span class="label mg-lr-15 txt-white-1 bg-sky-5 txt-2xl">字体</span>
-  </div>
-  <h4>圆形标签</h4>
-  <div class="mg-tb-10">
-    <span class="label-cir mg-lr-15 txt-sky-6 bg-yellow-4 txt-2xl">1</span>
-    <span class="label-cir mg-lr-15 bg-yellow-4 txt-2xl">2</span>
-    <span class="label-cir mg-lr-15 txt-red-6 bg-yellow-4 txt-2xl">3</span>
-    <span class="label-cir mg-lr-15 txt-white-1 bg-yellow-4 txt-2xl">A</span>
+    <span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 mg-lr-15">标签</span>
+    <span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 mg-lr-15">UI设计</span>
+    <span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 cir-1em mg-lr-15">界面</span>
+    <span class="inline-flex j-center a-center w-3em h-3em bd-1 bd-gray-4 cir-50p mg-lr-15">编程</span>
   </div>
   <pre>
-&lt;span class="<strong>label</strong>"&gt;标签&lt;/span&gt;
-&lt;span class="<strong>label-cir</strong>"&gt;圆形&lt;/span&gt;
-.label,.label-cir
-    display: inline-flex
-    align-items: center
-    justify-content: center
-    border: 1px solid gray-2
-.label
-    padding 0 .4em
-.label-cir
-    width:1em
-    height:1em
-    border-radius:50%
+&lt;span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 mg-lr-15"&gt;标签&lt;/span&gt;
+&lt;span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 cir-1em mg-lr-15"&gt;界面&lt;/span&gt;
+&lt;span class="inline-flex j-center a-center w-3em h-3em bd-1 bd-gray-4 cir-50p mg-lr-15"&gt;编程&lt;/span&gt;
+</pre>
+  <h6>文字色</h6>
+  <p>文字颜色和大小标签</p>
+  <div class="grid grid-col j-start a-center gap-col-15">
+    <span class="inline-flex j-center a-center txt-yellow-6 mg-lr-15">历史</span>
+    <span class="inline-flex j-center a-center bd-1 bd-gray-4 txt-red-6 mg-lr-15">文化</span>
+    <span class="inline-flex j-center a-center txt-gray-6 txt-xl txt-b-6 mg-lr-15">City</span>
+    <span class="inline-flex j-center a-center txt-sky-6 txt-xl mg-lr-15">科学</span>
+  </div>
+  <pre>
+&lt;span class="inline-flex j-center txt-gray-6 txt-xl a-center txt-b-6 mg-lr-15"&gt;City&lt;/span&gt;
+</pre>
+  <h6>背景色</h6>
+  <div class="grid grid-col j-start a-center gap-col-15">
+    <span class="inline-flex j-center a-center txt-white-1 bg-rose-5 mg-lr-15">明星</span>
+    <span class="inline-flex j-center a-center txt-yellow-2 bg-gray-5 txt-lg mg-lr-15">电影</span>
+    <span class="inline-flex j-center a-center txt-gray-6 bg-yellow-5 txt-xl cir-5 mg-lr-15">好莱坞</span>
+  </div>
+  <pre>
+&lt;span class="inline-flex j-center a-center txt-gray-6 bg-yellow-5 txt-xl cir-5 mg-lr-15"&gt;好莱坞&lt;/span&gt;
 </pre>
 </div>

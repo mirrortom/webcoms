@@ -40,6 +40,7 @@
   <ItemGroup>
     <Content Include="doc\color.html" />
     <Content Include="doc\docmenu.html" />
+    <Content Include="doc\basecss.html" />
     <Content Include="doc\update.html" />
     <Content Include="doc\cachepagedemo1.html" />
     <Content Include="doc\mdirbardemo.html" />
@@ -87,7 +88,6 @@
     <Content Include="doc\inputvalchange.html" />
     <Content Include="doc\kvpair.html" />
     <Content Include="doc\label.html" />
-    <Content Include="doc\msgpanel.html" />
     <Content Include="doc\list.html" />
     <Content Include="doc\menubar.html" />
     <Content Include="doc\msgbox.html" />
@@ -98,7 +98,6 @@
     <Content Include="doc\panel.html" />
     <Content Include="doc\pagenum.html" />
     <Content Include="doc\range.html" />
-    <Content Include="doc\-模板.part.html" />
     <Content Include="doc\sidemenu.html" />
     <Content Include="doc\table.html" />
     <Content Include="doc\tabs.html" />
@@ -118,18 +117,13 @@
     <None Include="stylus\coms\mdirbar.styl" />
     <None Include="stylus\coms\msgshow.styl" />
     <None Include="stylus\coms\onoff.styl" />
-    <None Include="stylus\coms\hr.styl" />
-    <None Include="stylus\coms\label.styl" />
     <None Include="stylus\coms\list.styl" />
     <None Include="stylus\coms\msgbox.styl" />
-    <None Include="stylus\coms\msgpanel.styl" />
     <None Include="stylus\coms\mnavmenu.styl" />
     <None Include="stylus\coms\docmenu.styl" />
     <None Include="stylus\coms\menubar.styl" />
-    <None Include="stylus\coms\kvpair.styl" />
     <None Include="stylus\retainDeprecat\pageload.styl" />
     <None Include="stylus\coms\pagenum.styl" />
-    <None Include="stylus\coms\panel.styl" />
     <None Include="stylus\coms\sidemenu.styl" />
     <None Include="stylus\coms\table.styl" />
     <None Include="stylus\coms\tabs.styl" />

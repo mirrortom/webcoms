@@ -1,0 +1,51 @@
+﻿<div class="doc-page">
+  <h2>排版</h2>
+  <p>根据<a href="https://github.com/tailwindlabs/tailwindcss" target="_blank">tailwind css</a>的做法,可以使用原子样式做出各种排版和布局.所以对于不需要交互的排版组件,直接使用原子工具样式就可以,如果做成组件,无非就是将几个css规则合到一起,给个class而已.</p>
+  <p>熟练使用原子样式做出排版组件的关键在于,熟悉常用的css布局比如grid/flex.掌握一些惯用的布局套路,比如分栏/对称/网格.再加上一些审美,比如色彩搭配.就比较容易做出各种页面或组件.</p>
+  <h4>一致性css</h4>
+  <p>不同网页的全局一致性css的设置方式和值并不会完全相同,会根据具体要设置.一致性css的作用是让页面在主流的浏览器上尽量显示效果相同.在互联网领域,浏览器是操作系统,由于竞争,一定会有多个浏览器的.谷歌/苹果/微软/火狐,这就是最主流的了.</p>
+  <p>这个项目的一致性css部分设置,根元素上设置了100%字体大小,浏览器默认就是16px.在body上设置字体.</p>
+  <pre>
+html{
+  font-size: 100%;
+  line-height: 1.5; 
+}
+body{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+</pre>
+  <p class="mg-t-10">body,p,h1~h6等元素清除默认的margin和padding</p>
+  <pre>
+body,p,h1...{
+margin:0;
+padding:0
+}
+</pre>
+  <h4>大标题</h4>
+  <p>大标题设置了字体大小,使用rem单位.</p>
+  <pre>
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+</pre>
+</div>
