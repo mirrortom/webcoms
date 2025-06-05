@@ -1,13 +1,14 @@
 ﻿// 信息提示框
 .msgshow
-    @extend $ext-display-block
-    padding: 10px
+    @extend $ext-display-none
+    grid-template-columns:10% auto 5%
+    @extend $ext-align-center
+    padding: .625rem
     @extend $ext-border-1px
-    @extend $ext-border-cir-default
     & .title
-        font-weight: 600
-    & .msg
-        margin-left: 1em
+        font-weight: 500
     & .close
-        float: right
+        @extend $ext-text-align-right
         cursor: pointer
+    & .close:active
+        color:$red['5']

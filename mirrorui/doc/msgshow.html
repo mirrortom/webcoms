@@ -1,79 +1,59 @@
 ﻿<div class="doc-page">
   <h2>信息提示</h2>
-  <p>用于在页面上显示一个提示信息,可用于操作后返回一个结果说明.</p>
-  <p># 使用自定义标记 <b>&lt;m-msgshow&gt;</b> ,也可以使用div,结合样式类 .msgshow </p>
-  <m-msgshow class="mg-b-15 bg-sky-4" title="信息" msg="提示内容"></m-msgshow>
-  <div class="msgshow mg-b-15 bg-green-5" title="失败" msg="操作失败">
-    <span class="title">提示</span>
-    <span class="msg">内容...</span>
-  </div>
+  <p>使用自定义标记 <b>&lt;m-msgshow&gt;</b> 用于在页面上显示一个提示信息,可用于操作后返回一个结果说明.</p>
+  <m-msgshow class="mg-b-15 bg-sky-4" title="消息" msg="消息内容" keep show></m-msgshow>
+  <h4>属性</h4>
+  <p><b class="txt-sky-4">title</b> 消息标题.dom上设置属性</p>
+  <p><b class="txt-sky-4">msg</b> 消息内容.dom属性</p>
+  <p><b class="txt-sky-4">show</b> dom属性,默认是不显示的,添加show属性会显示</p>
+  <p><b class="txt-sky-4">keep</b> 默认2秒倒计时关闭.含有keep属性时,不关闭!</p>
+  <h4>方法</h4>
+  <p><b class="txt-sky-4">show(msg, style, autoClose=true)</b> 显示消息.使用预定义风格</p>
+  <p><b class="txt-sky-4">show(msg, title, styles, autoClose=true)</b> 显示消息,使用自定义风格</p>
   <pre>
-&lt;m-msgshow class="mg-b-15 bg-sky-4" title="信息" msg="提示内容"&gt;&lt;/m-msgshow&gt;
-
-// 用div时,里面的内容也需要写全
-&lt;div class="<b>msgshow</b> mg-b-15 bg-green-5" title="失败" msg="操作失败"&gt;
-  &lt;span class="<b>title</b>"&gt;提示&lt;/span&gt;
-  &lt;span class="<b>msg</b>"&gt;内容...&lt;/span&gt;
-&lt;/div&gt;
+// msg:消息内容
+// title:标题
+// style:风格类型:[success,error,warning,info,notify]
+// styles:自定义样式数组
+// autoClose:true时,3秒自动关闭.
+msgshow1.show('服务器返回成功!','success');
 </pre>
-  <br />
-  <p># 标记属性</p>
-  <p class="text-in"><b>title</b> 设置标题</p>
-  <p class="text-in"><b>msg</b> 设置提示内容</p>
-  <p># 方法</p>
-  <p class="text-in">调用js方法显示4种常用场景风格提示框,以及自定义标题和内容.</p>
+  <p><b class="txt-sky-4">clear()</b> 关闭.会清空消息内容,隐藏消息框.右侧的X按钮执行的也是这个方法.</p>
+  <h4>风格</h4>
+  <p>可以添加背景色或者字体色自定义风格,预定义的风格是常用的几种信息提示场景,为了方便使用.</p>
   <div class="mg-tb-10">
     <span class="btn-group">
-      <a class="btn green" id="msg1">ok()</a>
-      <a class="btn sky" id="msg11">info()</a>
-      <a class="btn red" id="msg2">err()</a>
-      <a class="btn orange" id="msg3">warn()</a>
-      <a class="btn" id="msg4">show()</a>
-      <a class="btn" id="msg5">clear()</a>
+      <a class="btn green" id="msg1">成功Success</a>
+      <a class="btn sky" id="msg2">提示Info</a>
+      <a class="btn red" id="msg3">错误Error</a>
+      <a class="btn orange" id="msg4">警告Warning</a>
+      <a class="btn rose" id="msg5">公告notify</a>
+      <a class="btn" id="msg6">自定义风格</a>
     </span>
   </div>
-  <m-msgshow id="msgshow1"></m-msgshow>
-  <br />
-  <pre>
-  // 对象
-  let msg1 = document.getElementById('msgshow1');
-
-  // 成功
-  msg1.<b>ok</b>('操作成功.');
-
-  // 失败
-  msg1.<b>err</b>('操作失败.');
-
-  // 警告
-  msg1.<b>warn</b>('非法操作.');
-
-  // 自定义,最后一个参数是样式类,接收1个或者多个
-  msg1.show(msg, title, ...style)
-  msg1.<b>show</b>('自定义内容', '自定标题', 'text-white-1','bg-black-1');
-
-  // 清空 内容会清空,标记会隐藏
-  msg1.clear();
-</pre>
+  <div class="h-50">
+    <m-msgshow id="msgshow1"></m-msgshow>
+  </div>
   <script>
     (() => {
       let msg1 = document.getElementById('msgshow1');
       document.getElementById('msg1').onclick = () => {
-        msg1.ok('操作成功.');
-      }
-      document.getElementById('msg11').onclick = () => {
-        msg1.info('操作成功2.');
+        msg1.show('操作成功!', 'success');
       }
       document.getElementById('msg2').onclick = () => {
-        msg1.err('操作失败.');
+        msg1.show('服务器返回32个数据~', 'info');
       }
       document.getElementById('msg3').onclick = () => {
-        msg1.warn('非法操作.');
+        msg1.show('服务器发生错误,代码500.', 'error');
       }
       document.getElementById('msg4').onclick = () => {
-        msg1.show('自定义内容', '自定标题', 'text-white-1','bg-black-1');
+        msg1.show('该功能不支持,非法操作!', 'warning');
       }
       document.getElementById('msg5').onclick = () => {
-        msg1.clear();
+        msg1.show('明天电影上线了!', 'notify');
+      }
+      document.getElementById('msg6').onclick = () => {
+        msg1.show('夏天吃西瓜🍉.', '💯', ['txt-sky-1', 'bg-lime-5'], true);
       }
     })();
   </script>
