@@ -34,7 +34,9 @@
       this._rTxt;
       // 滑条dom
       this._rBar;
-      // 滑块滑动事件
+      // 如果触发了滑动事件,为true
+      this._isMoveEvent = false;
+      // 滑块位置改变事件
       this._changeFun;
       // ==================
       // init set prop
@@ -91,13 +93,13 @@
     _init() {
       // 样式
       $(this).addClass('range-box');
-      // 长度
+      // 长度:默认320px
       let width = parseInt(this.getAttribute('width')) || 320;
       // 子元素
       let innerHtml = '<span class="range-txt"></span><div class="range-bar"><span class="range-btn"></span></div>';
       this.innerHTML = innerHtml;
-      // 总长度要减去滑块dom的宽度
-      let remFontSize = getComputedStyle(document.documentElement).fontSize
+      // 总长度要减去滑块dom的宽度(1.6rem是在css里设置的)
+      let remFontSize = getComputedStyle(document.documentElement).fontSize;
       this._barLen = width - 1.6 * parseInt(remFontSize);
       this.style.width = width + 'px';
 
@@ -108,9 +110,9 @@
       this._rTxt = this.querySelector('.range-txt');
       // 滑条
       this._rBar = this.querySelector('.range-bar');
-      // 最小值
+      // 最小值 默认0
       this._min = parseInt(this.getAttribute('min')) || 0;
-      // 最大值
+      // 最大值 默认100
       this._max = parseInt(this.getAttribute('max')) || 100;
       if (this._min > this._max) {
         this._min = 0;
@@ -126,7 +128,7 @@
     // 事件注册
     // 事件绑定在容器元素上,没用绑定在滑块按钮上,为了实现当鼠标不在按钮上时,也能触发滑动事件.
     _bindEvent() {
-      // PC端鼠标事件
+      // PC端鼠标拖动事件
       this.addEventListener('mousedown', (e) => {
         e.stopPropagation();
         e.preventDefault();
@@ -135,6 +137,7 @@
       this.addEventListener('mousemove', (e) => {
         e.stopPropagation();
         e.preventDefault();
+        // buttons表示鼠标按下时的键0=无1=左键2=邮件4=滚轮,同时按下时,值是和值.
         if (e.buttons == 1) {
           this._move(e.x);
         }
@@ -144,6 +147,7 @@
         e.preventDefault();
         this._end();
       });
+
       // 手机端触摸事件
       this.addEventListener('touchstart', (e) => {
         e.stopPropagation();
@@ -162,6 +166,13 @@
         e.preventDefault();
         this._end();
       });
+
+      // 对滑条dom点击事件,PC端和移动端都用click
+      $(this).find('.range-bar')[0].addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        this._click(e.x);
+      })
     }
 
     // --事件方法--
@@ -170,29 +181,43 @@
       this._mStart.x = x;
       this._btnBegin.x = parseInt(this._rBar.style.borderLeftWidth.replace('px', '')) || 0;
       $(this._rBtn).addClass('active');
+      // 重置是否触发滑动事件标识
+      this._isMoveEvent = false;
     }
     // 拖动中
     _move(x) {
       let barLen = this._barLen;
       let dX = x - this._mStart.x;
       let targetDist = this._btnBegin.x + dX;
-      if (targetDist < 0)
-        targetDist = 0;
-      else if (targetDist > barLen)
-        targetDist = barLen;
-      // 显示位置
-      this._rTxt.style.marginLeft = targetDist + 'px';
-      // 滑条走过距离
-      this._rBar.style.borderLeftWidth = targetDist + 'px';
-      this._val = parseInt(targetDist / barLen * this._max);
-      this._rTxt.innerText = this._val;
-      // 执行滑动事件
+      // 更新滑块值
+      this.Value = targetDist / barLen * this._max;
+      // 修改滑动已触发标识
+      this._isMoveEvent = true;
+      // 执行改变事件
       if (this._changeFun)
         this._changeFun(this._val);
+
     }
     // 结束拖动
     _end() {
       $(this._rBtn).removeClass('active');
+    }
+
+    // 点击滑条时,将滑块设置到点击位置
+    _click(x) {
+      // x:点击处的left值
+      // 如果是滑动结束导致的点击事件触发,不处理.click事件会触发mouseDown(按下)和mouseUp(弹起),然后才是click事件.
+      if (this._isMoveEvent) return;
+      // 滑条当前位置
+      let bar = $(this).find('.range-bar')[0];
+      let barLeft = bar.offsetLeft;
+      // barLeft>=x,在滑条范围内点击,x值一定大于等于滑条Left值
+      let targetX = x - barLeft;
+      // 更新滑块位置
+      this.Value = targetX / this._barLen * this._max;
+      // 执行改变事件
+      if (this._changeFun)
+        this._changeFun(this._val);
     }
   });
 })(window);

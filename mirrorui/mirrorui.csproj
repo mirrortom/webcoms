@@ -43,7 +43,7 @@
     <Content Include="doc\basecss.html" />
     <Content Include="doc\update.html" />
     <Content Include="doc\cachepagedemo1.html" />
-    <Content Include="doc\mdirbardemo.html" />
+    <Content Include="retainDeprecat\mdirbardemo.html" />
     <Content Include="doc\mnavmenudemo1.html" />
     <Content Include="js\cachepage.js" />
     <Content Include="js\m-inputwatch.js" />
@@ -54,7 +54,7 @@
     <Content Include="js\m-docmenu.js" />
     <Content Include="js\m-switch.js" />
     <Content Include="js\m-btn.js" />
-    <Content Include="js\mdirbar.js" />
+    <Content Include="retainDeprecat\mdirbar.js" />
     <Content Include="js\help.js" />
     <Content Include="js\msgbox.js" />
     <Content Include="js\m-msgshow.js" />
@@ -93,7 +93,7 @@
     <Content Include="doc\msgbox.html" />
     <Content Include="doc\msgshow.html" />
     <Content Include="doc\mnavmenu.html" />
-    <Content Include="doc\mdirbar.html" />
+    <Content Include="retainDeprecat\mdirbar.html" />
     <Content Include="doc\onoff.html" />
     <Content Include="doc\panel.html" />
     <Content Include="doc\pagenum.html" />
@@ -107,14 +107,14 @@
     <None Include="stylus\coms\formfile.styl" />
     <None Include="stylus\coms\forminput.styl" />
     <None Include="stylus\function\extendclass.styl" />
-    <None Include="stylus\retainDeprecat\grids.styl" />
+    <None Include="retainDeprecat\grids.styl" />
     <None Include="stylus\theme.styl" />
     <None Include="stylus\coms\range.styl" />
     <None Include="stylus\coms\btn.styl" />
     <None Include="stylus\coms\cachepage.styl" />
     <None Include="stylus\coms\datepick.styl" />
     <None Include="stylus\coms\form.styl" />
-    <None Include="stylus\coms\mdirbar.styl" />
+    <None Include="retainDeprecat\mdirbar.styl" />
     <None Include="stylus\coms\msgshow.styl" />
     <None Include="stylus\coms\onoff.styl" />
     <None Include="stylus\coms\list.styl" />
@@ -122,7 +122,7 @@
     <None Include="stylus\coms\mnavmenu.styl" />
     <None Include="stylus\coms\docmenu.styl" />
     <None Include="stylus\coms\menubar.styl" />
-    <None Include="stylus\retainDeprecat\pageload.styl" />
+    <None Include="retainDeprecat\pageload.styl" />
     <None Include="stylus\coms\pagenum.styl" />
     <None Include="stylus\coms\sidemenu.styl" />
     <None Include="stylus\coms\table.styl" />

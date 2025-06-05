@@ -35,15 +35,15 @@ range1.<b>onChange</b> = (val)=&gt;{
   <br />
   <m-range id="range1" class="blue" width="600" min="0" max="100" val="0"></m-range>
 
-  <canvas id="canvasrange1" class="bd"></canvas>
+  <canvas id="canvasrange1" class="bd-1 bd-gray-3"></canvas>
 </div>
 <script>
   (() => {
     let cav = document.getElementById('canvasrange1');
     let ctx = cav.getContext('2d');
-    cav.width = cav.height = 256;
+    cav.width = 512; cav.height = 256;
     let gridW = 16, gridH = 16, row = 16, col = 16, rowH = 16, colW = 16;
-
+    let maxGridIndex = (cav.width / gridW) * (cav.height / gridH);
     //
     let gridsX = [], gridsY = [];
 
@@ -52,7 +52,7 @@ range1.<b>onChange</b> = (val)=&gt;{
       let count = val;
       gridsX.length = gridsY.length = 0;
       for (let i = 0; i < count; i++) {
-        let gridIndex = nextInt(0, 256);
+        let gridIndex = nextInt(0, maxGridIndex);
         let xy = getXY(gridIndex);
         if (hasXY(xy[0], xy[1])) {
           i--;
@@ -87,7 +87,7 @@ range1.<b>onChange</b> = (val)=&gt;{
     }
     function drawGrid(ctx, x, y, w, h, index) {
       ctx.beginPath();
-      ctx.fillStyle = 'skyblue';
+      ctx.fillStyle = '#' + nextInt(0, 256).toString(16) + nextInt(0, 256).toString(16) + nextInt(0, 256).toString(16);
       ctx.fillRect(x, y, w, h);
       // 编号
       ctx.fillStyle = 'white';

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  
+
   <link href="http://localhost:8002/globalBase.css" rel="stylesheet" />
   <link href="mirrorui.css" rel="stylesheet" />
   <link href="http://localhost:8002/fullTools.css" rel="stylesheet" />
@@ -41,6 +41,8 @@
 
     p {
       text-indent: 2em;
+      margin-top: 1em;
+      margin-bottom: 1em;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -128,7 +130,6 @@
           <a class="docmenu-item" urlid="docmenu">文档菜单</a>
           <a class="docmenu-item" urlid="sidemenu">侧边菜单</a>
           <a class="docmenu-item" urlid="mnavmenu">底部菜单</a>
-          <a class="docmenu-item" urlid="mdirbar">顶部导航</a>
           <a class="docmenu-item" urlid="menubar">菜单条</a>
           <a class="docmenu-item" urlid="pagenum">分页条</a>
         </div>
@@ -176,7 +177,8 @@
       // 主菜单
       let docmenu1 = $('#main_menubox')[0];
       docmenu1.create(null,
-        (item, i) => {menubar
+        (item, i) => {
+          menubar
           let urlid = $(item).prop('urlid');
           if (!urlid) return;
           let title = $(item).text();
@@ -188,7 +190,7 @@
       // 默认打开"关于"
       docmenu1.activeItem(
         (() => {
-          let urlid = 'panel';
+          let urlid = 'about';
           let menus = $('#main_menubox .docmenu-item');
 
           for (var i = 0; i < menus.length; i++) {
@@ -200,7 +202,7 @@
       );
 
       // 彩色变量
-      win.themecolors = ['red', 'orange', 'yellow', 'green','lime','teal', 'sky', 'blue', 'purple', 'pink', 'rose'];
+      win.themecolors = ['red', 'orange', 'yellow', 'green', 'lime', 'teal', 'sky', 'blue', 'purple', 'pink', 'rose'];
       // 彩色和灰
       win.colors = ['gray', 'red', 'orange', 'yellow', 'green', 'lime', 'teal', 'sky', 'blue', 'purple', 'pink', 'rose'];
 
