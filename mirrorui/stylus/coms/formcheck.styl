@@ -60,6 +60,7 @@
     --t-check-checked-color:$gray['2']// 选中的钩和圆点颜色
     
 // 彩色主题
-for k,v in $theme-name-colors-dict
-    .input-check.{k}
-        --t-check-checked-color:v['5']// 选中的钩和圆点颜色
+if $theme-name-colors-dict is defined
+    for k,v in $theme-name-colors-dict
+        .input-check.{k}
+            --t-check-checked-color:v['5']// 选中的钩和圆点颜色

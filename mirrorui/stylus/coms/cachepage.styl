@@ -140,11 +140,12 @@
     --t-tabsbox-tab-active-bg-color: $gray['2']// 标签选中背景
     --t-tabsbox-tab-active-color: $black['1']// 标签选中字色
 // 彩色主题
-for k,v in $theme-name-colors-dict
-    .tabsbox.{k},{$themePre}-{k} .tabsbox
-        --t-tabsbox-bg-color:v['1']// 控件背景色
-        --t-tabsbox-3btn-bd-color:v['4']// 3个三角形按钮:两侧按钮+功能按钮
-        --t-tabsbox-3btn-hover:v['5']// 3个三角形按钮:两侧按钮+功能按钮hover
-        --t-tabsbox-tab-menu-hover:v['2']// 标签,功能菜单hover
-        --t-tabsbox-tab-active-bg-color: v['5']// 标签选中背景
-        --t-tabsbox-tab-active-color: v['0']// 标签选中字色
+if $theme-name-colors-dict is defined
+    for k,v in $theme-name-colors-dict
+        .tabsbox.{k},{$themePre}-{k} .tabsbox
+            --t-tabsbox-bg-color:v['1']// 控件背景色
+            --t-tabsbox-3btn-bd-color:v['4']// 3个三角形按钮:两侧按钮+功能按钮
+            --t-tabsbox-3btn-hover:v['5']// 3个三角形按钮:两侧按钮+功能按钮hover
+            --t-tabsbox-tab-menu-hover:v['2']// 标签,功能菜单hover
+            --t-tabsbox-tab-active-bg-color: v['5']// 标签选中背景
+            --t-tabsbox-tab-active-color: v['0']// 标签选中字色

@@ -34,6 +34,7 @@
     --t-switch-checked-bg-color:$gray['6']// 选中(开)背景色
     
 // 彩色主题,不要支持全局主题
-for k,v in $theme-name-colors-dict
-    .switch.{k}
-        --t-switch-checked-bg-color:v['6']// 选中(开)背景色
+if $theme-name-colors-dict is defined
+    for k,v in $theme-name-colors-dict
+        .switch.{k}
+            --t-switch-checked-bg-color:v['6']// 选中(开)背景色

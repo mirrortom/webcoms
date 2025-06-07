@@ -16,14 +16,15 @@
     --t-form-hover: $gray['3']// hover边框颜色
     
 // 彩色主题
-for k,v in $theme-name-colors-dict
-    .input-text.{k},.select.{k},.textarea.{k},.input-file.{k},.input-check.{k}
-        --t-form-bd-color: v['4']// 边框颜色,获得焦点时边框颜色
-        --t-form-hover: v['6']// hover边框颜色
-    // dark模式下颜色
-    {$themePre}-dark .input-text.{k},{$themePre}-dark .select.{k},{$themePre}-dark .textarea.{k},{$themePre}-dark .input-file.{k},{$themePre}-dark .input-check.{k}
-        --t-form-bd-color: v['6']// 边框颜色,获得焦点时边框颜色
-        --t-form-hover: v['4']// hover边框颜色
+if $theme-name-colors-dict is defined
+    for k,v in $theme-name-colors-dict
+        .input-text.{k},.select.{k},.textarea.{k},.input-file.{k},.input-check.{k}
+            --t-form-bd-color: v['4']// 边框颜色,获得焦点时边框颜色
+            --t-form-hover: v['6']// hover边框颜色
+        // dark模式下颜色
+        {$themePre}-dark .input-text.{k},{$themePre}-dark .select.{k},{$themePre}-dark .textarea.{k},{$themePre}-dark .input-file.{k},{$themePre}-dark .input-check.{k}
+            --t-form-bd-color: v['6']// 边框颜色,获得焦点时边框颜色
+            --t-form-hover: v['4']// hover边框颜色
 
 // hover: 边框色微变.(在hover时,改变边框颜色变量也可以达到效果)
 .input-text:hover, .textarea:hover, .select:hover, .input-file:hover, .input-check:hover .check, .input-check:hover .radio

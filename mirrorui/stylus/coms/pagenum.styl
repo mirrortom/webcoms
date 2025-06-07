@@ -35,8 +35,9 @@
     --t-pagenum-hover:$gray['4']// hover背景色
 
 // 彩色主题
-for k,v in $theme-name-colors-dict
-    .pagenum.{k}
-        --t-pagenum-active-bg-color:v['5']// 当前页背景色
-    .pagenum.{k} .pagenum-active
-        @extend $ext-color-white
+if $theme-name-colors-dict is defined
+    for k,v in $theme-name-colors-dict
+        .pagenum.{k}
+            --t-pagenum-active-bg-color:v['5']// 当前页背景色
+        .pagenum.{k} .pagenum-active
+            @extend $ext-color-white

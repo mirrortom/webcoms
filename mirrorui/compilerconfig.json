@@ -5,5 +5,12 @@
     "minify": {
       "enabled": false
     }
+  },
+  {
+    "outputFile": "mirroruiNoTheme.css",
+    "inputFile": "stylus/indexNoTheme.styl",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

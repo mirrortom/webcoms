@@ -41,8 +41,9 @@
     --t-range-bar-bg-color:$gray['6']// 滑条已划过背景色
     
 // 彩色主题
-for k,v in $theme-name-colors-dict
-    .range-box.{k}
-        --t-range-btn-bg-color:v['5']// 滑块背景色
-        --t-range-bar-bg-color:v['4']// 滑条已划过背景色
-        --t-range-txt-color:v['5']// 文字颜色同滑块色
+if $theme-name-colors-dict is defined
+    for k,v in $theme-name-colors-dict
+        .range-box.{k}
+            --t-range-btn-bg-color:v['5']// 滑块背景色
+            --t-range-bar-bg-color:v['4']// 滑条已划过背景色
+            --t-range-txt-color:v['5']// 文字颜色同滑块色

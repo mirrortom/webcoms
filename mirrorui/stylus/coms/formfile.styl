@@ -36,6 +36,7 @@
 // dark主题
     
 // 彩色主题
-for k,v in $theme-name-colors-dict
-    .input-file.{k}
-        --t-file-label-color: v['5']// 标签文字颜色
+if $theme-name-colors-dict is defined
+    for k,v in $theme-name-colors-dict
+        .input-file.{k}
+            --t-file-label-color: v['5']// 标签文字颜色

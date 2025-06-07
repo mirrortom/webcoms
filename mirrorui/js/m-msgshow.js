@@ -72,6 +72,8 @@
       // 上次的动画刚好执行玩了,于是组件又马上关闭了.
       // 为了避免这种情况,需要在显示前清除所有未执行完的动画.动画是使用settimeout嵌套实现,
       // 用数组记录了每个settimeout的id,每次显示前全部clear掉.
+      // 由于stoId是push到数组的,先加入的stoId可能已经执行完成了,后面的可能在执行中,所以
+      // 清除时,从后向前清除.
       while (this._aniTimeOutArr.length > 0) {
         let timeOutId = this._aniTimeOutArr.pop();
         clearTimeout(timeOutId)
