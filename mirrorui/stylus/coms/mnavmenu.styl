@@ -1,16 +1,22 @@
-﻿// 底部导航主菜单,用于手机版.支持类似微信菜单形式和APP导航菜单形式
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
 
+// 底部导航主菜单,用于手机版.支持类似微信菜单形式和APP导航菜单形式
+$selector-mnavmenu='.mnavmenu'
 // 外层容器 nav
-.mnavmenu
-    @extend $ext-display-flex
-    @extend $ext-align-center
+{$selector-mnavmenu}
+    display:flex
+    align-items:center
+    text-align:center
+    user-select:none
     border-top: 1px solid $border-color
-    @extend $ext-text-align-center
-    @extend $ext-user-select-none
 
     // 菜单组容器 div
     &-group
-        @extend $ext-position-relative
+        if $noOutPutComAlone!=1
+            position:relative
+        else
+            @extend $ext-position-relative
         flex: 1 1 0
 
     // 菜单组容器加分割线
@@ -24,9 +30,12 @@
 
     // 菜单组菜单容器 ul
     &-itembox
-        @extend $ext-position-absolute
+        if $noOutPutComAlone!=1
+            position:absolute
+            width:100%
+        else
+            @extend $ext-position-absolute,$ext-width-100
         bottom: 1.8em
-        @extend $ext-width-100
         border-top: 1px solid $border-color
         z-index: 10000
         list-style: none
@@ -42,7 +51,7 @@
         padding: 10px 0
 
     // 菜单项分割线
-    &-split
+    &-split        
         @extend $ext-display-block
         height: 1px
         width:90%

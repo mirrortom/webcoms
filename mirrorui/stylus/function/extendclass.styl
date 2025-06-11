@@ -92,15 +92,6 @@ $ext-align-self-center
 $ext-align-self-end
     align-self: end
 
-// @extend $ext-inline-flex-vh-center
-$ext-inline-flex-vh-center
-    @extend $ext-display-inline-flex
-    @extend $ext-align-center
-    @extend $ext-justify-center
-$ext-flex-vh-center
-    @extend $ext-display-flex
-    @extend $ext-align-center
-    @extend $ext-justify-center
 $ext-valign-middle
     vertical-align: middle
 
@@ -128,12 +119,12 @@ $ext-position-0
 //==========
 // border
 //==========
-// @extend $ext-border-1px
-$ext-border-1px
+// @extend $ext-border-default
+$ext-border-default
     border: 1px solid $border-color
 // @extend $ext-border-cir-default
 $ext-border-cir-default
-    border-radius: $cirAngle-dict['cir-3']
+    border-radius: 4px
 // @extend $ext-border-circle
 $ext-border-circle
     border-radius: 50%

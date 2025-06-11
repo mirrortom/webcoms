@@ -15,7 +15,7 @@
 // input-text, select, textarea
 //================================
 .input-text,.select,.textarea
-    @extend $ext-display-block
+    display:block
     width: 100%
     padding: .375rem 1rem
     font-size: inherit
@@ -40,7 +40,8 @@
 .input-text:focus, .textarea:focus, .select:focus
     outline: 2px solid var(--t-form-bd-color)
 
-// dark主题
-{$themePre}-dark .select
-    --t-form-select-bg-color: $black['1']// select背景色
-// 彩色主题
+if $themeTag is defined
+    // dark主题
+    {$themePre}-dark .select
+        --t-form-select-bg-color: $black['1']// select背景色
+    // 彩色主题

@@ -1,16 +1,16 @@
-﻿// 分页条
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
+$selector-pagenum='.pagenum'
+// 分页条
 // 页码按钮使用的是按钮组组件,样式都是.btn的,还有input-text,算是一个组合组件,所以样式很少.
 
-// 主题色变量
-.pagenum
+{$selector-pagenum}
+    // 主题色变量
     //--t-pagenum-active-color:$white['1']// 当前页字色
     --t-pagenum-active-bg-color:$gray['3']// 当前页背景色
     --t-pagenum-hover:$gray['1']// hover背景色
-
-.pagenum
     // 外框
-    &
-        @extend $ext-user-select-none
+    user-select:none
     // 页码按钮框
     &-btns
         min-width:50%
@@ -22,22 +22,21 @@
     &-skip
         margin-left: 1em
     &-input
-        @extend $ext-display-inline-block
+        display:inline-block
         width: 3.6em
         margin: 0 4px
-        @extend $ext-text-align-center
+        text-align:center
         
     &-input:focus
         outline: none
 
-{$themePre}-dark .pagenum
-    --t-pagenum-active-bg-color:$gray['5']// 当前页背景色
-    --t-pagenum-hover:$gray['4']// hover背景色
-
-// 彩色主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
-        .pagenum.{k}
+if $themeTag is defined
+    {$themePre}-dark {$selector-pagenum}
+        --t-pagenum-active-bg-color:$gray['5']// 当前页背景色
+        --t-pagenum-hover:$gray['4']// hover背景色
+    // 彩色主题
+    for k,v in $colors-dict
+        {$selector-pagenum}.{k}
             --t-pagenum-active-bg-color:v['5']// 当前页背景色
-        .pagenum.{k} .pagenum-active
+        {$selector-pagenum}.{k} {$selector-pagenum}-active
             @extend $ext-color-white

@@ -1,42 +1,40 @@
 ﻿// 文件选取
 
-// 主题色变量
-.input-file
-    --t-file-label-color: inherit// 标签文字颜色
-
 // ====================================================================================
 // 文件上传控件的做法是,将input type插件透明化,盖在标签上.点击标签时,实际点击的是Input file
 // 这个使用了自定义控件 m-file
 // ====================================================================================
 .input-file
-    @extend $ext-display-block
-    @extend $ext-position-relative
+    // 主题色变量
+    --t-file-label-color: inherit// 标签文字颜色
+    //
+    display:block
+    position:relative
     overflow: hidden
-    @extend $ext-border-1px
+    border: 1px solid $border-color
     border-color:var(--t-form-bd-color)
-    @extend $ext-border-cir-default
+    border-radius: 4px
     transition: border-color $duration
     // input file 透明的覆盖在label上
     & input[type=file]
-        @extend $ext-position-absolute
+        position:absolute
         top: 0
         left: 0
         opacity: 0
-        @extend $ext-width-100
+        width:100%
         height: 100%
-        @extend $ext-cursor-pointer
+        cursor:pointer
     // 标签显示文件名字
     & .form-label
         color: var(--t-file-label-color)
         padding: .375rem .5rem
-        @extend $ext-width-100
-        @extend $ext-valign-middle
+        width:100%
+        vertical-align: middle
         @extend $ext-text-overflow
 
-// dark主题
-    
-// 彩色主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
+if $themeTag is defined
+    // dark主题
+    // 彩色主题
+    for k,v in $colors-dict
         .input-file.{k}
             --t-file-label-color: v['5']// 标签文字颜色

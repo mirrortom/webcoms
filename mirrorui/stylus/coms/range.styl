@@ -1,49 +1,49 @@
-﻿// range 滑块
-// 主题色变量
-.range-box
-    --t-range-btn-bg-color:$gray['6']// 滑块背景色
-    --t-range-bar-bg-color:$gray['3']// 滑条已划过背景色
-    --t-range-txt-color:inherit// 文字颜色
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
 
-.range
+// range 滑块
+$selector-range='.range'
+{$selector-range}
     &-box
-        @extend $ext-display-flex
+    // 主题色变量
+        --t-range-btn-bg-color:$gray['6']// 滑块背景色
+        --t-range-bar-bg-color:$gray['3']// 滑条已划过背景色
+        --t-range-txt-color:inherit// 文字颜色
+        display:flex
         flex-direction: column
         // 滑块比条高一半,这里需要将按滑块出的部分包含到框内.
         padding-bottom:.8rem
     // 条的高度为滑块的1/2
     &-bar
-        @extend $ext-display-flex
-        @extend $ext-align-center
+        display:flex
+        align-items: center
+        border: 1px solid $border-color
+        cursor: pointer
         height: .8rem
-        @extend $ext-border-cir-default
-        @extend $ext-border-1px
+        border-radius:.8rem//同高度
         border-left:0 solid var(--t-range-bar-bg-color)
-        @extend $ext-cursor-pointer
     // 显示值的框和滑块同大小
     &-btn,&-txt
-        @extend $ext-display-inline-block
+        display:inline-block
         width: 1.6rem
         height: 1.6rem
     &-btn
         background-color: var(--t-range-btn-bg-color)
-        @extend $ext-border-circle
-
+        border-radius: 50%
     &-btn.active
         cursor: grab
     &-txt
         margin-bottom:.4rem// 文字按钮距离
-        @extend $ext-text-align-center
+        text-align:center
         color:var(--t-range-txt-color)
 
-{$themePre}-dark .range-box
-    --t-range-btn-bg-color:$gray['3']// 滑块背景色
-    --t-range-bar-bg-color:$gray['6']// 滑条已划过背景色
-    
-// 彩色主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
-        .range-box.{k}
+if $themeTag is defined
+    {$themePre}-dark {$selector-range}-box
+        --t-range-btn-bg-color:$gray['3']// 滑块背景色
+        --t-range-bar-bg-color:$gray['6']// 滑条已划过背景色
+    // 彩色主题
+    for k,v in $colors-dict
+        {$selector-range}-box.{k}
             --t-range-btn-bg-color:v['5']// 滑块背景色
             --t-range-bar-bg-color:v['4']// 滑条已划过背景色
             --t-range-txt-color:v['5']// 文字颜色同滑块色

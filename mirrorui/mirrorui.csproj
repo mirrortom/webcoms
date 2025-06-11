@@ -43,7 +43,6 @@
     <Content Include="doc\basecss.html" />
     <Content Include="doc\update.html" />
     <Content Include="doc\cachepagedemo1.html" />
-    <Content Include="mirroruiNoTheme.css" />
     <Content Include="retainDeprecat\mdirbardemo.html" />
     <Content Include="doc\mnavmenudemo1.html" />
     <Content Include="js\cachepage.js" />
@@ -64,8 +63,25 @@
     <Content Include="js\m-mnavmenu.js" />
     <Content Include="js\m-sidemenu.js" />
     <Content Include="js\tabs.js" />
-    <Content Include="mirrorui.css" />
     <Content Include="mirrorui.js" />
+    <Content Include="stylusOutCss\all.css" />
+    <Content Include="stylusOutCss\allNoTheme.css" />
+    <Content Include="stylusOutCss\btn.css" />
+    <Content Include="stylusOutCss\cachepage.css" />
+    <Content Include="stylusOutCss\datepick.css" />
+    <Content Include="stylusOutCss\docmenu.css" />
+    <Content Include="stylusOutCss\form.css" />
+    <Content Include="stylusOutCss\list.css" />
+    <Content Include="stylusOutCss\menubar.css" />
+    <Content Include="stylusOutCss\mnavmenu.css" />
+    <Content Include="stylusOutCss\msgbox.css" />
+    <Content Include="stylusOutCss\msgshow.css" />
+    <Content Include="stylusOutCss\onoff.css" />
+    <Content Include="stylusOutCss\pagenum.css" />
+    <Content Include="stylusOutCss\range.css" />
+    <Content Include="stylusOutCss\sidemenu.css" />
+    <Content Include="stylusOutCss\table.css" />
+    <Content Include="stylusOutCss\tabs.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
@@ -103,14 +119,17 @@
     <Content Include="doc\table.html" />
     <Content Include="doc\tabs.html" />
     <Content Include="index.html" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="publish.json" />
+    <None Include="stylus\allNoTheme.styl" />
     <None Include="stylus\coms\formcheck.styl" />
     <None Include="stylus\coms\formfile.styl" />
     <None Include="stylus\coms\forminput.styl" />
     <None Include="stylus\function\extendclass.styl" />
     <None Include="retainDeprecat\grids.styl" />
-    <None Include="stylus\indexNoTheme.styl" />
-    <None Include="stylus\theme.styl" />
+    <None Include="stylus\importCom.styl" />
     <None Include="stylus\coms\range.styl" />
     <None Include="stylus\coms\btn.styl" />
     <None Include="stylus\coms\cachepage.styl" />
@@ -130,10 +149,11 @@
     <None Include="stylus\coms\table.styl" />
     <None Include="stylus\coms\tabs.styl" />
     <None Include="stylus\function\function.styl" />
-    <None Include="stylus\index.styl" />
+    <None Include="stylus\all.styl" />
+    <None Include="stylus\variables\cssvar.styl" />
     <None Include="stylus\variables\color.styl" />
     <None Include="stylus\variables\mediaquery.styl" />
-    <None Include="stylus\variables\cirangle.styl" />
+    <None Include="stylus\theme.styl" />
     <None Include="stylus\variables\transition.styl" />
     <None Include="readme.md" />
   </ItemGroup>

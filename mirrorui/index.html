@@ -3,10 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-  <link href="http://localhost:8002/globalBase.css" rel="stylesheet" />
-  <link href="mirrorui.css" rel="stylesheet" />
-  <link href="http://localhost:8002/fullTools.css" rel="stylesheet" />
+  <link href="../asset/css/uidoc.css" rel="stylesheet" />
   <title>mirrorui-doc | mirror space</title>
   <style>
     .container {
@@ -73,7 +70,6 @@
       <div class="btn-group" id="themeBtns">
         <span class="btn bg-white-0 txt-black-0" tid="light">light</span>
         <span class="btn" tid="dark">dark</span>
-        <span class="btn red" tid="color" colorIndex="1">color</span>
       </div>
       <m-docmenu class="pd-b-30" id="main_menubox">
         <div class="docmenu-group">
@@ -136,7 +132,7 @@
 
         <div class="docmenu-group">
           <span class="docmenu-title"><i class="docmenu-open"></i>设计</span>
-          <a class="docmenu-item" urlid="color">颜色</a>
+          <a class="docmenu-item" urlid="color">颜色主题</a>
           <a class="docmenu-item" href="/mirroricon/index.html" target="_blank">CSS图标</a>
         </div>
       </m-docmenu>
@@ -227,16 +223,6 @@
           $('html').addClass('theme-dark');
           return;
         }
-
-        // 彩色,轮换
-        let currIndex = parseInt($(item).prop('colorIndex'));
-        let colorName = 'theme-' + win.themecolors[currIndex];
-        $('html').addClass(colorName);
-        let nextColorIndex = currIndex + 1;
-        if (nextColorIndex == win.themecolors.length)
-          nextColorIndex = 0;
-        $(item).prop('colorIndex', nextColorIndex);
-        $(item).removeClass(...win.themecolors).addClass(win.themecolors[currIndex]);
       });
     })(window);
   </script>

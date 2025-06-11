@@ -1,35 +1,28 @@
 ﻿// ============================
 // mirror ui,包含了所有的组件
 // ============================
-
+// 禁止组件单独导出标识变量,定义为=1,避免单独导出
+$noOutPutComAlone=1
+// 主题标识变量,定义了,会生成主题样式
+$themeTag=1
 // =================================
 // 变量,函数和扩展样式的定义.必须引用
 // =================================
-// 变量
-@import "variables/color"
-@import "variables/mediaquery"
-@import "variables/transition"
-@import "variables/cirangle"
-// extend style item
-@import "function/extendclass"
-// 函数
-@import "function/function"
+@import "importCom"
 
-//
-// 主题
+// 基本主题
 @import "theme"
+
 // 容器
 @import "coms/tabs"
 @import "coms/cachepage"
+
 // 数据
 @import "coms/list"
-@import "coms/table.styl"
-@import "coms/form.styl"
-@import "coms/forminput.styl"
-@import "coms/formfile.styl"
-@import "coms/formcheck.styl"
+@import "coms/table"
+@import "coms/form"
 // 交互功能
-@import "coms/btn.styl"
+@import "coms/btn"
 @import "coms/onoff"
 @import "coms/msgbox"
 @import "coms/msgshow"

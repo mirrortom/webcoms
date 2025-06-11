@@ -1,14 +1,153 @@
 ﻿[
   {
-    "outputFile": "mirrorui.css",
-    "inputFile": "stylus/index.styl",
+    "outputFile": "stylusOutCss/all.css",
+    "inputFile": "stylus/all.styl",
     "minify": {
       "enabled": false
     }
   },
   {
-    "outputFile": "mirroruiNoTheme.css",
-    "inputFile": "stylus/indexNoTheme.styl",
+    "outputFile": "stylusOutCss/allNoTheme.css",
+    "inputFile": "stylus/allNoTheme.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "stylusOutCss/btn.css",
+    "inputFile": "stylus/coms/btn.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/cachepage.css",
+    "inputFile": "stylus/coms/cachepage.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/datepick.css",
+    "inputFile": "stylus/coms/datepick.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/docmenu.css",
+    "inputFile": "stylus/coms/docmenu.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/form.css",
+    "inputFile": "stylus/coms/form.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+  {
+    "outputFile": "stylusOutCss/list.css",
+    "inputFile": "stylus/coms/list.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/menubar.css",
+    "inputFile": "stylus/coms/menubar.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/mnavmenu.css",
+    "inputFile": "stylus/coms/mnavmenu.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/msgbox.css",
+    "inputFile": "stylus/coms/msgbox.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/msgshow.css",
+    "inputFile": "stylus/coms/msgshow.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/onoff.css",
+    "inputFile": "stylus/coms/onoff.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/pagenum.css",
+    "inputFile": "stylus/coms/pagenum.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/range.css",
+    "inputFile": "stylus/coms/range.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/sidemenu.css",
+    "inputFile": "stylus/coms/sidemenu.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+
+
+  {
+    "outputFile": "stylusOutCss/table.css",
+    "inputFile": "stylus/coms/table.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "stylusOutCss/tabs.css",
+    "inputFile": "stylus/coms/tabs.styl",
     "minify": {
       "enabled": false
     }

@@ -1,14 +1,16 @@
-﻿// 信息提示框
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
+// 信息提示框
 .msgshow
-    @extend $ext-display-none
+    display:none
+    align-items: center
+    border: 1px solid $border-color
     grid-template-columns:10% auto 5%
-    @extend $ext-align-center
     padding: .625rem
-    @extend $ext-border-1px
     & .title
         font-weight: 500
     & .close
-        @extend $ext-text-align-right
+        text-align:right
         cursor: pointer
     & .close:active
         color:$red['5']

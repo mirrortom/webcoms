@@ -1,8 +1,6 @@
 ﻿<div class="doc-page">
   <h2>表格</h2>
-  <p>宽度设定100%,默认每行有底边框.</p>
-  <h4>表格</h4>
-  <p>class="table"</p>
+  <p>宽度设定100%,默认每行有底边框.样式class="table"</p>
   <div class="mg-20" id="table1"></div>
   <h4>默认左对齐.</h4>
   <p>可以在td/th的父级的tr上,或table标签上设置对齐样式</p>
@@ -43,16 +41,16 @@
       let row = datas[i];
       html += '<tr>';
       for (var j = 0; j < row.length; j++) {
-        html += $.dom.td(row[j]);
+        html += '<td>' + row[j] + '</td>';
       }
       html += '</tr>'
     }
-    $('#table1').html($.dom.table(html, 'table'));
-    $('#table2').html($.dom.table(html, 'table text-center'));
-    $('#table_small').html($.dom.table(html, 'table small'));
-    $('#table_border').html($.dom.table(html, 'table border'));
-    $('#table_striped').html($.dom.table(html, 'table striped hover'));
-    $('#table_hover').html($.dom.table(html, 'table hover'));
-    $('#table_yellow').html($.dom.table(html, 'table yellow striped hover'));
+    $('#table1').html('<table class="table">' + html + '</table>');
+    $('#table2').html('<table class="table txt-center">' + html + '</table>');
+    $('#table_small').html('<table class="table small">' + html + '</table>');
+    $('#table_border').html('<table class="table border">' + html + '</table>');
+    $('#table_striped').html('<table class="table striped hover">' + html + '</table>');
+    $('#table_hover').html('<table class="table hover">' + html + '</table>');
+    $('#table_yellow').html('<table class="table lime striped hover">' + html + '</table>');
   })(window);
 </script>

@@ -1,14 +1,15 @@
-﻿// 侧边菜单
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
 
-// 主题色变量
-.sidemenu
+// 侧边菜单
+$selector-sidemenu='.sidemenu'
+{$selector-sidemenu}
+    // 主题色变量
     --t-sidemenu-hover-bg-color:$gray['4']// hover菜单项背景色
     --t-sidemenu-active-color:$white['1']// 菜单项选中字色
     --t-sidemenu-active-bg-color:$gray['7']// 菜单项选中背景色
-
-.sidemenu
-    @extend $ext-display-block
-    @extend $ext-user-select-none
+    display:block
+    user-select:none
     // 每个菜单组是一个ul
     &-group
         margin: 0
@@ -16,43 +17,45 @@
         list-style: none
     // 菜单项
     &-item
-        @extend $ext-display-block
+        display:block
+        font-weight:500
+        cursor:pointer
+        border-radius: 4px
         text-decoration: none
         padding: 4px 0 4px 2em
-        @extend $ext-weight-500
         @extend $ext-text-overflow
-        @extend $ext-cursor-pointer
-        @extend $ext-border-cir-default
     // 菜单项hover,菜单项的下划线去掉
     &-item:not(.active):hover
-        @extend $ext-text-decoration-none
+        text-decoration:none
         background-color: var(--t-sidemenu-hover-bg-color)
     // 菜单项选中
     &-item.active
-        @extend $ext-weight-700
+        font-weight:700
         color: var(--t-sidemenu-active-color)
         background-color: var(--t-sidemenu-active-bg-color)
     // 菜单组标题
     &-label
-        @extend $ext-display-flex
+        display:flex
+        align-items: center
+        cursor:pointer
+        width:100%
+        font-weight:700
         justify-content: space-between
-        @extend $ext-align-center
-        @extend $ext-width-100
-        @extend $ext-weight-700
         padding: 6px
         border-bottom: 1px solid $border-color
         @extend $ext-text-overflow
-        @extend $ext-cursor-pointer
 
     // 菜单组标题 收起/展开图标
     &-arrleft, &-arrdown
-        @extend $ext-inline-flex-vh-center
+        display:inline-flex
+        justify-content: center
+        align-items: center
         width:1em
         height:1em
        
     &-arrleft:before, &-arrdown:before
-        @extend $ext-content-empty
-        @extend $ext-display-inline-block
+        content:''
+        display:inline-block
         width:1em
         height:2px
         background-color: currentColor
@@ -68,21 +71,20 @@
         border-bottom: none
     // 菜单组里分隔线
     &-split
-        @extend $ext-display-block
+        display:block
         height: 1px
         margin: 4px 0 4px 2em
         border-bottom: 1px dashed $border-color
 
-// dark主题
-{$themePre}-dark .sidemenu
-    --t-sidemenu-hover-bg-color:$gray['6']// hover菜单项背景色
-    --t-sidemenu-active-color:$black['1']// 菜单项选中字色
-    --t-sidemenu-active-bg-color:$gray['2']// 菜单项选中背景色
-
-// 彩色主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
-        .sidemenu.{k},{$themePre}-{k} .sidemenu
+if $themeTag is defined
+    // dark主题
+    {$themePre}-dark {$selector-sidemenu}
+        --t-sidemenu-hover-bg-color:$gray['6']// hover菜单项背景色
+        --t-sidemenu-active-color:$black['1']// 菜单项选中字色
+        --t-sidemenu-active-bg-color:$gray['2']// 菜单项选中背景色
+    // 彩色主题
+    for k,v in $colors-dict
+        {$selector-sidemenu}.{k}
             --t-sidemenu-hover-bg-color:v['4']// hover菜单项背景色
             --t-sidemenu-active-color:v['1']// 菜单项选中字色
             --t-sidemenu-active-bg-color:v['5']// 菜单项选中背景色

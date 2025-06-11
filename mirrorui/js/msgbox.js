@@ -105,7 +105,7 @@
   let createBtn = (code, onOk, onCancel, theme) => {
     let okBtn = $('<span>').addClass('btn', theme).text('确定');
     let cancelBtn = $('<span>').addClass('btn', theme).text('取消');
-    let btnArea = $('<div>').addClass('flex', 'pd-lr-20', 'j-end');
+    let btnArea = $('<div>').addClass('msgbox-btn-area');
     // 绑定事件
     okBtn[0].onclick = () => {
       // 删除弹出框

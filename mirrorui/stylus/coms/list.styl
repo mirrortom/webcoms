@@ -1,20 +1,21 @@
+if $noOutPutComAlone!=1
+    @import "../importCom"
+
 // 列表 ul ol
-// 主题色变量
-.list
+$selector-list='.list'
+{$selector-list}
+    // 主题色变量
     --t-list-style-color:$gray['8']// ul无序列表风格颜色
-.list
+    //
     list-style: none
-    //list-style-position:
     & li
-        padding-left: .5em
-        // .5em 符号/编号与内容的距离
-        
+        padding-left: .5em // .5em 符号/编号与内容的距离
     // 嵌套的列表缩进
     & .list li
         margin-left:1.8em
 
 // 图案风格 方块,圆,等边三角 使用>直接子元素选择器,避免影响嵌套的list
-.list
+{$selector-list}
     &.disc > li::marker,&.cir > li::marker,&.square > li::marker,&.triangle > li::marker,&.star > li::marker
         color: var(--t-list-style-color)
         font-size:1.2em
@@ -35,7 +36,7 @@
         content: '★';
 
 // 数值列样式,abc列样式
-.list
+{$selector-list}
     // 计算嵌套,只能使用一种风格,嵌套的list不用再添加风格样式
     &.nums,&.abcs,&.zhs,&.abc-ls, &.nums .list,&.abcs .list,&.zhs .list,&.abc-ls .list
         counter-reset: li-item
@@ -63,12 +64,11 @@
     &.zh > li::marker
         content: counter(li-item,cjk-ideographic) '.'
 
-// dark主题
-{$themePre}-dark .list
-    --t-list-style-color:$gray['4']// 图案颜色
-    
-// 彩色主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
+if $themeTag is defined
+    // dark主题
+    {$themePre}-dark .list
+        --t-list-style-color:$gray['4']// 图案颜色
+    // 彩色主题
+    for k,v in $colors-dict
         .list.{k}
             --t-list-style-color:v['5']// 图案颜色

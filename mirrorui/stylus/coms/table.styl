@@ -1,11 +1,12 @@
-﻿// 表格
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
 
-// 主题色变量
-.table
+// 表格
+$selector-table='.table'
+{$selector-table}
+    // 主题色变量
     --t-table-hover-color:$gray['3']// 悬停背景色
     --t-table-striped-color:$gray['2']// 交替斑马线背景色
-
-.table
     border-collapse: collapse// 单元格边框合并
     width: 100%
     // 行的底边框
@@ -32,14 +33,13 @@
     &.small th,&.small td
         padding:2px
 
-// dark主题
-{$themePre}-dark .table
-    --t-table-hover-color:$gray['6']// 悬停背景色
-    --t-table-striped-color:$gray['7']// 交替斑马线背景色
-    
-// 彩色主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
-        .table.{k},{$themePre}-{k} .table
+if $themeTag is defined
+    // dark主题
+    {$themePre}-dark {$selector-table}
+        --t-table-hover-color:$gray['5']// 悬停背景色
+        --t-table-striped-color:$gray['7']// 交替斑马线背景色
+    // 彩色主题
+    for k,v in $colors-dict
+        {$selector-table}.{k}
             --t-table-hover-color:v['3']// 悬停背景色
             --t-table-striped-color:v['2']// 交替斑马线背景色

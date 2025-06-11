@@ -1,5 +1,5 @@
 ﻿// =====================================================
-// 颜色值采取的是tailwind css的色卡,除了黑白,灰,还有10个彩色.
+// 颜色值采取的是tailwind css的色卡,除了黑白,灰,还有11个彩色.
 // https://tailwindcss.com/docs/customizing-colors
 // =====================================================
 
@@ -7,8 +7,8 @@
 $black={'0':#000,'1':#171717}
 $white={'0':#fff,'1':#f5f5f5}
 
-// 灰和11种彩色,选择了100-900梯度,数值越大,颜色越深.
-// gray, red orange yellow green lime teal sky blue purple pink
+// 灰
+// gray
 $gray={
     '1': #f3f4f6,
     '2': #e5e7eb,
@@ -21,6 +21,8 @@ $gray={
     '9': #111827
 }
 
+// 11种彩色,选择了100-900梯度,数值越大,颜色越深.
+// red orange yellow green lime teal sky blue purple pink rose
 $red={
     '1': #fee2e2,
     '2': #fecaca,
@@ -163,7 +165,3 @@ $colors-dict={
     pink:$pink,
     rose:$rose
 }
-// 用于主题色的全局css变量的引用
-$front-color=var(--front-color)
-$back-color=var(--back-color)
-$border-color=var(--border-color)

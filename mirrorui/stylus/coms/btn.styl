@@ -1,75 +1,76 @@
-﻿// 按钮
-
-// 主题色变量
-.btn
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
+// 按钮
+$selector-btn='.btn'
+{$selector-btn}
+    // 主题色变量
     --t-btn-color: inherit// 按钮文字色
     --t-btn-color-hover: inherit// hover按钮文字色
     --t-btn-bg-hover:$gray['2']// hover背景颜色
     --t-btn-bg-color: inherit// 按钮背景色
     --t-btn-bd-color:$border-color// 边框色
-
-// 默认按钮 flex布局,为了加图标对齐方便
-.btn
-    @extend $ext-inline-flex-vh-center
+    // 默认按钮 flex布局,为了加图标对齐方便
+    display:inline-flex
+    justify-content: center
+    align-items: center
     padding: .25rem .5rem
     font-weight: 400
-    @extend $ext-text-decoration-none
-    color:var(--t-btn-color)
-    background-color: var(--t-btn-bg-color)
-    @extend $ext-border-1px
-    border-color:var(--t-btn-bd-color)
-    @extend $ext-cursor-pointer
+    text-decoration: none// 避免文本下划线,用a标记时
+    text-indent: initial// 避免继承可能的文本缩进,例如按钮在P标记中,且设定了2em的段落缩进
+    color:var(--t-btn-color)// theme
+    background-color: var(--t-btn-bg-color)// theme
+    border: 1px solid $border-color
+    border-color:var(--t-btn-bd-color)// theme
+    cursor:pointer
     outline: none
-    @extend $ext-user-select-none
+    user-select: none
     transition: background-color $duration
-// 块级
-.btn.d-block
-    @extend $ext-display-flex
-// 点击时阴影
-.btn:active
-    box-shadow: inset 0 .25rem .5rem rgba(0, 0, 0, 0.125)
-// hover时,背景色加深
-.btn:hover
-    background-color: var(--t-btn-bg-hover)
-    color:var(--t-btn-color-hover)
-// 禁用(样式来自bt)
-.btn.disabled
-    @extend $ext-disabled
-// 按钮等待动画
-.btn.loading::after
-    @extend $ext-content-empty
-    @extend $ext-display-inline-block
-    width: 1em
-    height: 1em
-    border: .25rem dotted
-    @extend $ext-border-circle
-    border-top: none
-    border-bottom: none
-    margin-left: .8rem
-    animation: btnloading 1.5s linear infinite
+    
+    // 点击时阴影
+    &:active
+        box-shadow: inset 0 .25rem .5rem rgba(0, 0, 0, 0.125)
+    // hover时,背景色加深
+    &:hover
+        background-color: var(--t-btn-bg-hover)// theme
+        color:var(--t-btn-color-hover)// theme
+    // 禁用(样式来自bt)
+    &.disabled
+        @extend $ext-disabled
+    // 按钮等待动画
+    &.loading::after
+        content:''
+        display:inline-block
+        width: 1em
+        height: 1em
+        border: .25rem dotted
+        border-radius: 50%
+        border-top: none
+        border-bottom: none
+        margin-left: .8rem
+        animation: btnloading 1.5s linear infinite
+    &.loading
+        cursor: wait
+
+    // 链接式按钮
+    &.link
+        border-color: transparent
+        background-color: transparent
+        // 链接式按钮hover
+        &:hover
+            text-decoration: underline
+        // 点击时
+        &:active
+            text-decoration-color: $red['5']
+// 等待动画
 @keyframes btnloading
     100%
         transform: rotate(360deg)
-.btn.loading
-    cursor: wait
-
-// 链接式按钮
-.btn.link
-    border-color: transparent
-    background-color: transparent
-    // 链接式按钮hover
-    &:hover
-        text-decoration: underline
-    // 点击时
-    &:active
-        text-decoration-color: $red['5']
-
 // ===============
 // 按钮组
 // ===============
-.btn-group
+{$selector-btn}-group
     @extend $ext-display-inline-flex
-    @extend $ext-border-1px
+    @extend $ext-border-default
     // 按钮去掉右边框,除了末尾的
     & > .btn
         flex: auto
@@ -81,20 +82,20 @@
 //===============
 // 下拉式按钮组
 //===============
-.btn-list
+{$selector-btn}-list
     // 外框
     @extend $ext-position-relative
     // 第1个按钮元素是标题,右侧画一个三角形符号
     & > .btn:after
-        @extend $ext-content-empty
+        content:''
         triangle(.4rem, bottom, $gray['4'])
         margin-left: .375rem
 
     // 下拉按钮组框
     &-area
-        @extend $ext-display-none
-        @extend $ext-position-absolute
-        @extend $ext-border-1px
+        display:none
+        position:absolute
+        border: 1px solid $border-color
         background-color:var(--back-color)
         flex-direction: column
         // top>=作为标题按钮的高度,使用100%正好.由于容器高度正好是标题按钮的高度.
@@ -107,7 +108,7 @@
         // 按钮文字禁止换行
         white-space: nowrap
         // 左对齐
-        @extend $ext-justify-start
+        justify-content: start
     // 框在鼠标hover时,显示下拉按钮组.
     &:hover > &-area
         @extend $ext-display-inline-flex
@@ -119,26 +120,26 @@
         border-top-color:$gray['8']
 
 //===================================================//
-// dark主题
-{$themePre}-dark .btn
-    --t-btn-bg-hover:$gray['7']// hover背景颜色
-    
-// 彩色主题-不要支持全局主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
-        .btn.{k}
+if $themeTag is defined
+    // dark主题
+    {$themePre}-dark {$selector-btn}
+        --t-btn-bg-hover:$gray['7']// hover背景颜色
+        --t-btn-bd-color:$gray['1']// 边框色
+    // 彩色主题
+    for k,v in $colors-dict
+        {$selector-btn}.{k}
             --t-btn-color: v['1']// 按钮文字色
             --t-btn-bg-color: v['5']// 按钮背景色
             --t-btn-color-hover: v['1']// hover按钮文字色
             --t-btn-bg-hover:v['4']// hover背景颜色
         // 连接式按钮彩色时
-        .btn.{k}.link
+        {$selector-btn}.{k}.link
             --t-btn-color: v['5']// 按钮文字色
             //--t-btn-bg-color: v['5']// 按钮背景色
             --t-btn-color-hover: v['6']// hover按钮文字色
             //--t-btn-bg-hover:v['4']// hover背景颜色
         // 反转的,字体/边框彩色,白背景
-        .btn.{k}-r
+        {$selector-btn}.{k}-r
             --t-btn-color: v['5']// 按钮文字色
             --t-btn-bd-color:v['5']// 边框
             --t-btn-bg-color: v['1']// 按钮背景色

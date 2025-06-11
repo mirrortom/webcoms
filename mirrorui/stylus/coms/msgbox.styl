@@ -1,31 +1,38 @@
-﻿// 弹出框
-.msgbox
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
+
+$selector-msgbox='.msgbox'
+// 弹出框
+{$selector-msgbox}
     // 遮罩
     &-shadow
-        @extend $ext-position-fixed
+        position:fixed
         @extend $ext-position-0
         opacity: 0.4
         background-color: #000
         z-index: 10000
     // 父层,用grid布局
     &-modal
-        @extend $ext-display-grid
-        @extend $ext-position-fixed
+        display:grid
+        position:fixed
         @extend $ext-position-0
-        @extend $ext-overflow-x-hidden
-        @extend $ext-overflow-y-auto
+        overflow-x:hidden
+        overflow-y:auto
         z-index: 10001
     // 弹出框,内容和按钮,flex竖直排布，顶底分布
     &
-        @extend $ext-display-flex
+        display:flex
         flex-direction: column
-        @extend $ext-justify-sb
+        justify-content: space-between
         width: 75vw
         min-height: 120px
         padding: 1rem
         background-color: var(--back-color)
-// 位置,9宫格(1,2...5...,9),先行后列.组合下列样式实现
-.msgbox
+    // 按钮框
+    &-btn-area
+        display:flex
+        justify-content: end
+    // 位置,9宫格(1,2...5...,9),先行后列.组合下列样式实现
     // 行居中
     &-r-c
         @extend $ext-justify-self-center
@@ -40,5 +47,5 @@
         @extend $ext-align-self-end
 // PC屏
 @media only screen and (min-width: $screen-tablet)
-    .msgbox
+    {$selector-msgbox}
         width: 360px

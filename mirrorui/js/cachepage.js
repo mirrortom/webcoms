@@ -196,7 +196,7 @@ contDom:
     // 去掉当前活动的选项卡
     clearActivedTab(tabsDom);
     let tabdom = $('<label>').addClass('tabsbox-tab', 'active').prop({ 'title': title, 'val': pid })
-      .html(title).append($('<a>').addClass('tabsbox-tabclose').prop('title', '关闭').text('×')[0])[0];
+      .html(title).append($('<a>').addClass('tabsbox-tabclose').prop('title', '关闭').text('╳')[0])[0];
     // 绑定X关闭事件
     closeTab(cache, tabdom, tabsDom, contDom, events);
     // 绑定点击事件

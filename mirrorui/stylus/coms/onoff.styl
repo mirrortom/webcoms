@@ -1,40 +1,41 @@
-﻿// 主题色变量
-.switch
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
+$selector-switch='.switch'
+// 开关 swtich ON / OFF
+{$selector-switch}
+    // 主题色变量
     --t-switch-checked-bg-color:$gray['7']// 选中(开)背景色
     --t-switch-tag-color:$gray['4']// 标记/文字色
-
-// 开关 swtich ON / OFF
-.switch
-    @extend $ext-display-inline-flex
-    @extend $ext-align-center
+    //
+    display:inline-flex
+    align-items: center
+    border: 1px solid $border-color
+    user-select:none
     min-width: 3em
     padding: .1em .3em
-    @extend $ext-border-1px
     border-radius: .6em
-    @extend $ext-user-select-none
     transition: background-color $duration
     color:var(--t-switch-tag-color)
 
-.switch.checked
-    @extend $ext-justify-end
-    background-color: var(--t-switch-checked-bg-color)
-    @extend $ext-color-white
+    &.checked
+        justify-content: end
+        color:$white['0']
+        background-color: var(--t-switch-checked-bg-color)
 
-// 开关切换图标
-.switch:not([on],[off]):before
-    @extend $ext-content-empty
-    width:1em
-    height:1em
-    @extend $ext-border-circle
-    background-color:var(--t-switch-tag-color)
-.switch.checked:before
-    background-color:$white['1']
+    // 开关切换图标.如果写成:not([on],[off])好像不行
+    &:not([on]):not([off]):before
+        content:''
+        border-radius: 50%
+        width:1em
+        height:1em
+        background-color:var(--t-switch-tag-color)
+    &.checked:before
+        background-color:$white['1']
 
-{$themePre}-dark .switch
-    --t-switch-checked-bg-color:$gray['6']// 选中(开)背景色
-    
-// 彩色主题,不要支持全局主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
-        .switch.{k}
+if $themeTag is defined
+    {$themePre}-dark {$selector-switch}
+        --t-switch-checked-bg-color:$gray['6']// 选中(开)背景色
+    // 彩色主题
+    for k,v in $colors-dict
+        {$selector-switch}.{k}
             --t-switch-checked-bg-color:v['6']// 选中(开)背景色

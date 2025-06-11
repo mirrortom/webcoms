@@ -4,7 +4,8 @@
    2. variables 变量
    3. function 函数
    4. theme.styl 主题定义
-   5. index.styl:ui包装.
+   5. importCom 公用导入
+   5. all.styl:ui包装
 2. /js 组件的js部分
 ##### 工具:
 1. vs2022+community

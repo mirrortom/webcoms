@@ -1,7 +1,7 @@
 ﻿<div class="doc-page">
   <h2>颜色</h2>
-  <p>颜色值采取的是<a href="https://github.com/tailwindlabs/tailwindcss" target="_blank">tailwind css</a>的色卡,除了黑白灰,还有11个彩色.</p>
-  <p>灰和11种彩色,选择了100-900梯度,数值越大,颜色越深.<a href="https://tailwindcss.com/docs/customizing-colors" target="_blank">tailwind color</a></p>
+  <p>颜色值采取的是<a class="btn link" href="https://github.com/tailwindlabs/tailwindcss" target="_blank">tailwind css</a>的色卡,除了黑白灰,还有11个彩色.</p>
+  <p>灰和11种彩色,选择了100-900梯度,数值越大,颜色越深.<a class="btn link" href="https://tailwindcss.com/docs/customizing-colors" target="_blank">tailwind color</a></p>
   <div id="colorsbox" class="grid grid-cols-12 mg-b-20"></div>
   <p>黑白,各附带一个相近色,以替代纯色.颜色来自tailwindcss的 Neutral-100,Neutral-900</p>
   <div class="flex mg-t-10">
@@ -10,7 +10,34 @@
     <b class="bd bg-black-0 txt-white-0 w-80 h-30">白#fff</b>
     <b class="bd bg-black-0 txt-white-1 w-180 h-30">白-1 #f5f5f5</b>
   </div>
+  <h2>主题</h2>
+  <p>一个暗色全局主题,用css变量实现,影响的内容包含字体背景和边框颜色.在html上添加样式theme-dark实现.</p>
+  <pre>
+// 背景色
+--back-color: #fff
+// 前景色,字体颜色
+--front-color: #171717
+// 边框色
+--border-color: #d1d5db
+// 暗色主题
+.theme-dark
+    color-scheme: dark;
+    --back-color: #171717;
+    --front-color: #f5f5f5;
+    --border-color: #4b5563;
+</pre>
+  <p>组件不支持全局主题,但有彩色主题,影响范围各个组件不同,但基本上也是边框/背景/文字颜色/hover效果这些.在组件上添加颜色名字改变主题.一共有11个彩色.</p>
+  <pre>
+// 红色按钮主题
+class="btn red"
+</pre>
 </div>
+<template id="tplColor">
+  <div class="flex flex-col mg-b-10">
+    <label class="mg-b-5">${name}-${level}</label>
+    <b class="bg-${name}-${level} w-60 h-30"></b>
+  </div>
+</template>
 <script>
   ((win) => {
     let html = '';
@@ -18,10 +45,11 @@
     for (var i = 0; i < colors.length; i++) {
       let color = colors[i];
       let colorrow = '';
-      for (var j = 0; j < 10; j++) {
-        colorrow += `<b class="bg-${color}-${j} w-60 h-30 mg-tb-5"></b>`;
+      let tpl=$('#tplColor').html();
+      for (var j = 1; j < 10; j++) {
+        colorrow += $.dataBind(tpl, {name:color,level:j})
       }
-      html += `<div class="flex flex-col a-center"><b>${color}</b>${colorrow}</div>`;
+      html += `<div class="flex flex-col a-center">${colorrow}</div>`;
     }
     $('#colorsbox').html(html);
 

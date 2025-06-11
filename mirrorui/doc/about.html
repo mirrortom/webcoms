@@ -29,4 +29,30 @@
   <p>所有的js绑定在 "window.ns" 这个对象上面,ns表示namespace.</p>
   <p>没有js交互的主要用于展示性的组件使用原生的html标记,有js交互的做成了自定义标记.</p>
   <p>自定义组件样式没有封装在shadowdom里,还是使用的全局样式.</p>
+  <h2>所有组件列表stylus</h2>
+  <pre>
+// 基本主题(可选)
+@import "theme"
+
+// 容器
+@import "coms/tabs"
+@import "coms/cachepage"
+// 数据
+@import "coms/list"
+@import "coms/table"
+@import "coms/form"
+// 交互功能
+@import "coms/btn"// 按钮组依赖btn
+@import "coms/onoff"
+@import "coms/msgbox"// 弹出框上的按钮依赖btn
+@import "coms/msgshow"
+@import "coms/datepick"
+@import "coms/range"
+// 导航
+@import "coms/docmenu"
+@import "coms/sidemenu"
+@import "coms/mnavmenu"
+@import "coms/menubar"
+@import "coms/pagenum"// 分页按钮依赖btn
+</pre>
 </div>

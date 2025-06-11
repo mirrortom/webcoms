@@ -1,23 +1,23 @@
-﻿// 缓存页 选项卡标签
-
-// 主题色变量
-.tabsbox
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
+// 缓存页 选项卡标签
+$selector-tabsbox='.tabsbox'
+{$selector-tabsbox}
+    // 主题色变量
     --t-tabsbox-bg-color:$white['0']// 控件背景色
     --t-tabsbox-3btn-bd-color:$gray['3']// 3个三角形按钮:两侧按钮+功能按钮
     --t-tabsbox-3btn-hover:$gray['4']// 3个三角形按钮:两侧按钮+功能按钮hover
     --t-tabsbox-tab-menu-hover:$gray['2']// 标签,功能菜单hover
     --t-tabsbox-tab-active-bg-color: $gray['3']// 标签选中背景
     --t-tabsbox-tab-active-color: $black['1']// 标签选中字色
-.tabsbox
-    @extend $ext-display-grid
+    display:grid
     // 4列:左导航,标签框,右导航,功能框 容器总高度36 + 2(边框)
     grid-template-columns: 36px auto 36px 72px
     align-items:center
-    @extend $ext-border-1px
+    border: 1px solid $border-color
     user-select: none
     background-color:var(--t-tabsbox-bg-color)
-// 1和3.左右导航按钮
-.tabsbox
+    // 1和3.左右导航按钮
     &-left, &-right
         align-self:center
         cursor: pointer
@@ -34,8 +34,7 @@
     // active
     &-left:active,&-right:active
         opacity:.6
-// 2.标签页框
-.tabsbox
+    // 2.标签页框
     // 选项卡包装框
     &-navbox
         border-left:.5em solid transparent
@@ -47,55 +46,56 @@
         // 为最右边的标签留出关闭按钮的空间
         padding-right:26px
         white-space: nowrap
-        @extend $ext-overflow-y-hidden
+        overflow-y:hidden
         overflow-x:scroll
     // 选项卡
     &-tab
-        @extend $ext-display-inline-block
-        @extend $ext-position-relative
+        display:inline-flex
+        justify-content: center
+        align-items: center
+        position:relative
         height:36px
-        line-height:36px
         padding:0 8px
         margin:0 3px
         cursor: pointer
-        border-radius:$cirAngle-dict['3']
         color: $gray['5']
     // 选项卡关闭按钮
     &-tabclose
-        @extend $ext-display-none
-        @extend $ext-position-absolute
+        display:none
+        position:absolute
+        justify-content: center
+        align-items: center
         top: 0
         right: 0
-        width:18px
-        height:18px
-        line-height:18px
-        text-align:center
+        width:20px
+        height:20px
         color: $white['1']
-        @extend $ext-text-decoration-none
+        text-decoration:none
         &:hover
             color: $white['1']
             background-color: $red['6']
     // 选项卡hover
-    // 增大padding-right,为右上角关闭按钮取得空间(按钮18px+原有padding的8px)
+    // 增大padding-right,为右上角关闭按钮取得空间(按钮20px+原有padding的8px)
     &-tab:hover
-        padding-right: calc(18px + 8px)
+        padding-right: calc(20px + 8px)
         transition: padding-right $duration
         // hover背景和字体(主题范围-3)
         background-color: var(--t-tabsbox-tab-menu-hover)
         // 显示关闭按钮
     &-tab:hover &-tabclose
-        @extend $ext-display-inline-block
+        @extend $ext-display-inline-flex
     // 活动的选项卡,样式放在hover后面避免覆盖(主题范围-3.1)
     &-tab.active
         background-color: var(--t-tabsbox-tab-active-bg-color)
         color: var(--t-tabsbox-tab-active-color)
-        @extend $ext-weight-700
-// 4.功能菜单
-.tabsbox
+        font-weight:700
+    // 4.功能菜单
     // 容器
     &-menugroup
-        @extend $ext-flex-vh-center
-        @extend $ext-position-relative
+        display:flex
+        justify-content: center
+        align-items: center
+        position:relative
         height:36px
         border-left: 1px solid $border-color
         cursor: pointer
@@ -109,12 +109,12 @@
         border-top-color: var(--t-tabsbox-3btn-hover)
     // 菜单框
     &-menulist
-        @extend $ext-display-none
-        @extend $ext-position-absolute
+        display:none
+        position:absolute
         right:-1px
         top: calc(100% + 1px)
         width:calc(3 * 36px)
-        @extend $ext-border-1px
+        border: 1px solid $border-color
         border-top:none
         background-color:var(--t-tabsbox-bg-color)// (背景,主题范围-4.3)
     // 鼠标移入时,显示其下菜单项目
@@ -122,7 +122,7 @@
         @extend $ext-display-block
     // 功能菜单项
     &-close-all, &-close-other, &-goto-active
-        @extend $ext-display-block
+        display:block
         padding:.4em
     // 菜单项hover
     &-close-all:hover, &-close-other:hover, &-goto-active:hover
@@ -131,21 +131,21 @@
     &-close-all:active, &-close-other:active, &-goto-active:active
         padding-left:.8em
 
-// dark主题
-{$themePre}-dark .tabsbox
-    --t-tabsbox-bg-color:$gray['8']// 控件背景色
-    --t-tabsbox-3btn-bd-color:$gray['5']// 3个三角形按钮:两侧按钮+功能按钮
-    --t-tabsbox-3btn-hover:$gray['3']// 3个三角形按钮:两侧按钮+功能按钮hover
-    --t-tabsbox-tab-menu-hover:$gray['6']// 标签,功能菜单hover
-    --t-tabsbox-tab-active-bg-color: $gray['2']// 标签选中背景
-    --t-tabsbox-tab-active-color: $black['1']// 标签选中字色
-// 彩色主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
-        .tabsbox.{k},{$themePre}-{k} .tabsbox
+if $themeTag is defined
+    // dark主题
+    {$themePre}-dark {$selector-tabsbox}
+        --t-tabsbox-bg-color:$gray['8']// 控件背景色
+        --t-tabsbox-3btn-bd-color:$gray['5']// 3个三角形按钮:两侧按钮+功能按钮
+        --t-tabsbox-3btn-hover:$gray['3']// 3个三角形按钮:两侧按钮+功能按钮hover
+        --t-tabsbox-tab-menu-hover:$gray['6']// 标签,功能菜单hover
+        --t-tabsbox-tab-active-bg-color: $gray['2']// 标签选中背景
+        --t-tabsbox-tab-active-color: $black['1']// 标签选中字色
+    // 彩色主题
+    for k,v in $colors-dict
+        {$selector-tabsbox}.{k}
             --t-tabsbox-bg-color:v['1']// 控件背景色
             --t-tabsbox-3btn-bd-color:v['4']// 3个三角形按钮:两侧按钮+功能按钮
             --t-tabsbox-3btn-hover:v['5']// 3个三角形按钮:两侧按钮+功能按钮hover
             --t-tabsbox-tab-menu-hover:v['2']// 标签,功能菜单hover
             --t-tabsbox-tab-active-bg-color: v['5']// 标签选中背景
-            --t-tabsbox-tab-active-color: v['0']// 标签选中字色
+            --t-tabsbox-tab-active-color: v['1']// 标签选中字色

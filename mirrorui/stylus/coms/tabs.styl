@@ -1,13 +1,15 @@
-﻿// 标签页,选项卡页
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
 
-// 主题色变量
-.tabs
+// 标签页,选项卡页
+$selector-tabs='.tabs'
+{$selector-tabs}
+    // 主题色变量
     --t-tabs-label-hover: $gray['2']// 标签hover色
     --t-tabs-label-active-color: $black['1']// 标签选中文字色
     --t-tabs-label-active-bg-color: $gray['3']// 标签选中背景色
-.tabs
     // 容器
-    @extend $ext-display-grid
+    display:grid
     grid-template: min-content auto / auto
     // 方位
     &.left 
@@ -21,9 +23,9 @@
       
     // 标签栏
     &-header 
-        @extend $ext-display-flex
+        display:flex
         grid-row-start: 1
-        @extend $ext-text-align-center
+        text-align:center
         border: 0 solid $border-color
         border-bottom-width: 1px
     
@@ -72,15 +74,6 @@
         writing-mode: vertical-lr
         border-width: 0
 
-    &.left &-label 
-        border-radius:$cirAngle-dict['3'] 0 0 $cirAngle-dict['3']
-
-    &.right &-label 
-        border-radius: 0 $cirAngle-dict['3'] $cirAngle-dict['3'] 0
-
-    &.bottom &-label 
-        border-radius: 0 0 $cirAngle-dict['3'] $cirAngle-dict['3']
-
     // 标签-活动的
     &-label.active
         border-color: $border-color
@@ -99,15 +92,14 @@
     &-panel.active
         @extend $ext-display-block
 
-// dark主题
-{$themePre}-dark .tabs
-    --t-tabs-label-hover: $gray['7']// 标签hover色
-    --t-tabs-label-active-bg-color: $gray['6']// 标签选中背景色
-    --t-tabs-label-active-color: $white['1']// 标签选中文字色
-    
-// 彩色主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
+if $themeTag is defined
+    // dark主题
+    {$themePre}-dark .tabs
+        --t-tabs-label-hover: $gray['7']// 标签hover色
+        --t-tabs-label-active-bg-color: $gray['6']// 标签选中背景色
+        --t-tabs-label-active-color: $white['1']// 标签选中文字色
+    // 彩色主题
+    for k,v in $colors-dict
         .tabs.{k}
             --t-tabs-label-active-bg-color:v['5']
-            --t-tabs-label-active-color: v['0']
+            --t-tabs-label-active-color: v['1']

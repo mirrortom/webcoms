@@ -1,4 +1,7 @@
-﻿// 设定: 文本框,多行文本框,选择框,表单标签
+﻿if $noOutPutComAlone!=1
+    @import "../importCom"
+
+// 设定: 文本框,多行文本框,选择框,表单标签
 
 // 这两个用于去掉EDGE浏览器下INPUT框输入内容后自动产生的X号和小眼晴图标
 // 新版EDGE没这个问题了
@@ -8,23 +11,18 @@
 // 主题色变量,会应用到输入框,选择框,单/多选,文件
 .input-text,.select,.textarea,.input-file,.input-check
     --t-form-bd-color:$border-color// 边框颜色
-    --t-form-hover:$gray['5']// hover边框颜色
+    --t-form-hover:$gray['6']// hover边框颜色
 
-// dark主题
-{$themePre}-dark .input-text, {$themePre}-dark .select, {$themePre}-dark .textarea,{$themePre}-dark .input-file, {$themePre}-dark .input-check
-    --t-form-bd-color:$gray['4']// 边框颜色
-    --t-form-hover: $gray['3']// hover边框颜色
-    
-// 彩色主题
-if $theme-name-colors-dict is defined
-    for k,v in $theme-name-colors-dict
+if $themeTag is defined
+    // dark主题
+    {$themePre}-dark .input-text, {$themePre}-dark .select, {$themePre}-dark .textarea,{$themePre}-dark .input-file, {$themePre}-dark .input-check
+        --t-form-bd-color:$gray['4']// 边框颜色
+        --t-form-hover: $gray['3']// hover边框颜色
+    // 彩色主题
+    for k,v in $colors-dict
         .input-text.{k},.select.{k},.textarea.{k},.input-file.{k},.input-check.{k}
             --t-form-bd-color: v['4']// 边框颜色,获得焦点时边框颜色
             --t-form-hover: v['6']// hover边框颜色
-        // dark模式下颜色
-        {$themePre}-dark .input-text.{k},{$themePre}-dark .select.{k},{$themePre}-dark .textarea.{k},{$themePre}-dark .input-file.{k},{$themePre}-dark .input-check.{k}
-            --t-form-bd-color: v['6']// 边框颜色,获得焦点时边框颜色
-            --t-form-hover: v['4']// hover边框颜色
 
 // hover: 边框色微变.(在hover时,改变边框颜色变量也可以达到效果)
 .input-text:hover, .textarea:hover, .select:hover, .input-file:hover, .input-check:hover .check, .input-check:hover .radio
@@ -35,3 +33,8 @@ if $theme-name-colors-dict is defined
     @extend $ext-disabled
 .input-file[disabled] input[type=file],.input-check[disabled] .form-label
     cursor: not-allowed
+
+// 所有表单元素输出为一个单独文件form
+@import "forminput"
+@import "formcheck"
+@import "formfile"
