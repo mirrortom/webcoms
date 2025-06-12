@@ -66,9 +66,9 @@ $selector-list='.list'
 
 if $themeTag is defined
     // dark主题
-    {$themePre}-dark .list
+    {$themePre}-dark {$selector-list}
         --t-list-style-color:$gray['4']// 图案颜色
     // 彩色主题
     for k,v in $colors-dict
-        .list.{k}
+        {$selector-list}.{k}
             --t-list-style-color:v['5']// 图案颜色
