@@ -14,6 +14,13 @@
     }
   },
   {
+    "outputFile": "stylusOutCss/baseTheme.css",
+    "inputFile": "stylus/theme.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
     "outputFile": "stylusOutCss/btn.css",
     "inputFile": "stylus/coms/btn.styl",
     "minify": {

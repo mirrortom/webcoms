@@ -66,6 +66,7 @@
     <Content Include="mirrorui.js" />
     <Content Include="stylusOutCss\all.css" />
     <Content Include="stylusOutCss\allNoTheme.css" />
+    <Content Include="stylusOutCss\baseTheme.css" />
     <Content Include="stylusOutCss\btn.css" />
     <Content Include="stylusOutCss\cachepage.css" />
     <Content Include="stylusOutCss\datepick.css" />
@@ -150,6 +151,7 @@
     <None Include="stylus\coms\tabs.styl" />
     <None Include="stylus\function\function.styl" />
     <None Include="stylus\all.styl" />
+    <None Include="stylus\variables\selectorcom.styl" />
     <None Include="stylus\variables\cssvar.styl" />
     <None Include="stylus\variables\color.styl" />
     <None Include="stylus\variables\mediaquery.styl" />

@@ -13,10 +13,7 @@ $selector-mnavmenu='.mnavmenu'
 
     // 菜单组容器 div
     &-group
-        if $noOutPutComAlone!=1
-            position:relative
-        else
-            @extend $ext-position-relative
+        position:relative
         flex: 1 1 0
 
     // 菜单组容器加分割线
@@ -30,11 +27,8 @@ $selector-mnavmenu='.mnavmenu'
 
     // 菜单组菜单容器 ul
     &-itembox
-        if $noOutPutComAlone!=1
-            position:absolute
-            width:100%
-        else
-            @extend $ext-position-absolute,$ext-width-100
+        position:absolute
+        width:100%
         bottom: 1.8em
         border-top: 1px solid $border-color
         z-index: 10000
@@ -52,7 +46,7 @@ $selector-mnavmenu='.mnavmenu'
 
     // 菜单项分割线
     &-split        
-        @extend $ext-display-block
+        display:block
         height: 1px
         width:90%
         margin:0 auto

@@ -2,7 +2,6 @@
     @import "../importCom"
 
 // 标签页,选项卡页
-$selector-tabs='.tabs'
 {$selector-tabs}
     // 主题色变量
     --t-tabs-label-hover: $gray['2']// 标签hover色
@@ -60,7 +59,7 @@ $selector-tabs='.tabs'
         padding: 0 .4em
         color: $gray['4']
         @extend $ext-text-overflow
-        @extend $ext-user-select-none
+        user-select:none
 
     // hover
     &-label:hover 
