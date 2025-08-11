@@ -34,7 +34,7 @@
       let title = thisobj.prop('title') || '';
       let msg = thisobj.prop('msg') || '';
       // 内部标记 标题/内容/关闭按钮
-      this.innerHTML = '<span class="title"></span><span class="msg"></span><span class="close">X</span>';
+      this.innerHTML = '<span class="title"></span><span class="msg"></span><span class="close">╳</span>';
       // 关闭按钮事件
       $(this).find('.close')[0].onclick = () => {
         this.clear();
