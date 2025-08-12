@@ -1,160 +1,55 @@
 ﻿[
   {
-    "outputFile": "stylusOutCss/all.css",
-    "inputFile": "stylus/all.styl",
+    "outputFile": "outCss/all.css",
+    "inputFile": "comconfig/all.styl",
     "minify": {
       "enabled": false
     }
   },
   {
-    "outputFile": "stylusOutCss/allNoTheme.css",
-    "inputFile": "stylus/allNoTheme.styl",
+    // 基本主题
+    "outputFile": "outCss/basetheme.css",
+    "inputFile": "comconfig/basetheme.styl",
     "minify": {
       "enabled": false
     }
   },
   {
-    "outputFile": "stylusOutCss/baseTheme.css",
-    "inputFile": "stylus/theme.styl",
+    // 用于其它项目
+    "outputFile": "outCss/customset.css",
+    "inputFile": "comconfig/customset.styl",
     "minify": {
       "enabled": false
     }
   },
   {
-    "outputFile": "stylusOutCss/btn.css",
-    "inputFile": "stylus/coms/btn.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/cachepage.css",
-    "inputFile": "stylus/coms/cachepage.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/datepick.css",
-    "inputFile": "stylus/coms/datepick.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/docmenu.css",
-    "inputFile": "stylus/coms/docmenu.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/form.css",
-    "inputFile": "stylus/coms/form.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-  {
-    "outputFile": "stylusOutCss/list.css",
-    "inputFile": "stylus/coms/list.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/menubar.css",
-    "inputFile": "stylus/coms/menubar.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/mnavmenu.css",
-    "inputFile": "stylus/coms/mnavmenu.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/msgbox.css",
-    "inputFile": "stylus/coms/msgbox.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/msgshow.css",
-    "inputFile": "stylus/coms/msgshow.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/onoff.css",
-    "inputFile": "stylus/coms/onoff.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/pagenum.css",
-    "inputFile": "stylus/coms/pagenum.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/range.css",
-    "inputFile": "stylus/coms/range.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/sidemenu.css",
-    "inputFile": "stylus/coms/sidemenu.styl",
-    "minify": {
-      "enabled": false
-    }
-  },
-
-
-  {
-    "outputFile": "stylusOutCss/table.css",
-    "inputFile": "stylus/coms/table.styl",
+    // 用于博客文章页面
+    "outputFile": "outCss/blogArticle.css",
+    "inputFile": "comconfig/blogArticle.styl",
     "minify": {
       "enabled": false
     }
   },
   {
-    "outputFile": "stylusOutCss/tabs.css",
-    "inputFile": "stylus/coms/tabs.styl",
+    // 用于文档集合页面
+    "outputFile": "outCss/docIndex.css",
+    "inputFile": "comconfig/docIndex.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    // 用于css图标文档
+    "outputFile": "outCss/cssicondoc.css",
+    "inputFile": "comconfig/cssicondoc.styl",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    // 用于webapp项目
+    "outputFile": "outCss/webapp.css",
+    "inputFile": "comconfig/webapp.styl",
     "minify": {
       "enabled": false
     }

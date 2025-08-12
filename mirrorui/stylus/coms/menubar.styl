@@ -1,7 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-
-// 菜单栏.用于手机
+﻿// ==菜单栏.用于手机==//
 // 容器 flex布局,里面内容两端对齐.内容子集元素最多2个,如有多个用div包起
 {$selector-menubar}
     // 主题色变量
@@ -35,6 +32,6 @@
     &:active
         background-color: var(--t-menubar-bg-color-active)
 
-if $themeTag is defined
+if $themeDark==1
     {$themePre}-dark {$selector-menubar}
         --t-menubar-bg-color-active:$gray['6']// 菜单点击时背景颜色

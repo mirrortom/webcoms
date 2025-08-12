@@ -1,7 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-
-// 侧边菜单
+﻿// 侧边菜单
 {$selector-sidemenu}
     // 主题色变量
     --t-sidemenu-hover-bg-color:$gray['4']// hover菜单项背景色
@@ -75,12 +72,13 @@
         margin: 4px 0 4px 2em
         border-bottom: 1px dashed $border-color
 
-if $themeTag is defined
+if $themeDark==1
     // dark主题
     {$themePre}-dark {$selector-sidemenu}
         --t-sidemenu-hover-bg-color:$gray['6']// hover菜单项背景色
         --t-sidemenu-active-color:$black['1']// 菜单项选中字色
         --t-sidemenu-active-bg-color:$gray['2']// 菜单项选中背景色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         {$selector-sidemenu}.{k}

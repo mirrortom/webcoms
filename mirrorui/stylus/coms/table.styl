@@ -1,7 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-
-// 表格
+﻿// ==表格==//
 {$selector-table}
     // 主题色变量
     --t-table-hover-color:$gray['3']// 悬停背景色
@@ -30,11 +27,12 @@
     &.small th,&.small td
         padding:2px
 
-if $themeTag is defined
+if $themeDark==1
     // dark主题
     {$themePre}-dark {$selector-table}
         --t-table-hover-color:$gray['5']// 悬停背景色
         --t-table-striped-color:$gray['7']// 交替斑马线背景色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         {$selector-table}.{k}

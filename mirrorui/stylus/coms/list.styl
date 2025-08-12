@@ -1,7 +1,4 @@
-if $noOutPutComAlone!=1
-    @import "../importCom"
-
-// 列表 ul ol
+// ==列表 ul ol==//
 {$selector-list}
     // 主题色变量
     --t-list-style-color:$gray['8']// ul无序列表风格颜色
@@ -63,10 +60,11 @@ if $noOutPutComAlone!=1
     &.zh > li::marker
         content: counter(li-item,cjk-ideographic) '.'
 
-if $themeTag is defined
+if $themeDark==1
     // dark主题
     {$themePre}-dark {$selector-list}
         --t-list-style-color:$gray['4']// 图案颜色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         {$selector-list}.{k}

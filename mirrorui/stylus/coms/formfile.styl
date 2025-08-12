@@ -32,8 +32,8 @@
         vertical-align: middle
         @extend $ext-text-overflow
 
-if $themeTag is defined
     // dark主题
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         .input-file.{k}

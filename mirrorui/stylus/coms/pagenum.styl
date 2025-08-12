@@ -1,6 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-// 分页条
+﻿// ==分页条==//
 // 页码按钮使用的是按钮组组件,样式都是.btn的,还有input-text,算是一个组合组件,所以样式很少.
 
 {$selector-pagenum}
@@ -29,10 +27,11 @@
     &-input:focus
         outline: none
 
-if $themeTag is defined
+if $themeDark==1
     {$themePre}-dark {$selector-pagenum}
         --t-pagenum-active-bg-color:$gray['5']// 当前页背景色
         --t-pagenum-hover:$gray['4']// hover背景色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         {$selector-pagenum}.{k}

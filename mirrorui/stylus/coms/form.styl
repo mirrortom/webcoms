@@ -1,7 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-
-// 设定: 文本框,多行文本框,选择框,表单标签
+﻿// 设定: 文本框,多行文本框,选择框,表单标签
 
 // 这两个用于去掉EDGE浏览器下INPUT框输入内容后自动产生的X号和小眼晴图标
 // 新版EDGE没这个问题了
@@ -13,11 +10,12 @@
     --t-form-bd-color:$border-color// 边框颜色
     --t-form-hover:$gray['6']// hover边框颜色
 
-if $themeTag is defined
+if $themeDark==1
     // dark主题
     {$themePre}-dark .input-text, {$themePre}-dark .select, {$themePre}-dark .textarea,{$themePre}-dark .input-file, {$themePre}-dark .input-check
         --t-form-bd-color:$gray['4']// 边框颜色
         --t-form-hover: $gray['3']// hover边框颜色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         .input-text.{k},.select.{k},.textarea.{k},.input-file.{k},.input-check.{k}

@@ -40,7 +40,7 @@
 .input-text:focus, .textarea:focus, .select:focus
     outline: 2px solid var(--t-form-bd-color)
 
-if $themeTag is defined
+if $themeDark==1
     // dark主题
     {$themePre}-dark .select
         --t-form-select-bg-color: $black['1']// select背景色

@@ -1,7 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-
-// 日期时间
+﻿// 日期时间
 // PC页面容器宽度282px: 7天 X 40px = 280+2px左右border
 // 年/月/日/星期,长宽1:1 = 40px : 40px
 /////////////////////////////////////////////////////
@@ -247,7 +244,7 @@ $date-col-width = 40px
         left: 0
         width: 100vw
 
-if $themeTag is defined
+if $themeDark==1
     // 暗色主题
     {$themePre}-dark {$selector-date}-box
         --t-date-hover:$gray['6']// hover背景

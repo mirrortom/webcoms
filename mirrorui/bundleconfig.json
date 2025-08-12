@@ -24,5 +24,22 @@
     "minify": {
       "enabled": false
     }
+  },
+  {
+    // 按钮,表单,表格,弹出框,日期,信息提示框.
+    "outputFileName": "outJs/customset.js",
+    "inputFiles": [
+      // 如果使用jslib.js，help.js可以不需要
+      "js/m-btn.js",
+      "js/m-file.js",
+      "js/m-check.js",
+      "js/m-radio.js",
+      "js/msgbox.js",
+      "js/mydate.js",
+      "js/m-msgshow.js"
+    ],
+    "minify": {
+      "enabled": false
+    }
   }
 ]

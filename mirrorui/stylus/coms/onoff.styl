@@ -1,6 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-// 开关 swtich ON / OFF
+﻿// ==开关 swtich ON / OFF==//
 {$selector-switch}
     // 主题色变量
     --t-switch-checked-bg-color:$gray['7']// 选中(开)背景色
@@ -31,9 +29,10 @@
     &.checked:before
         background-color:$white['1']
 
-if $themeTag is defined
+if $themeDark==1
     {$themePre}-dark {$selector-switch}
         --t-switch-checked-bg-color:$gray['6']// 选中(开)背景色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         {$selector-switch}.{k}

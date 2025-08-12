@@ -1,6 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-// 按钮
+﻿// 按钮
 {$selector-btn}
     // 主题色变量
     --t-btn-color: inherit// 按钮文字色
@@ -119,11 +117,12 @@
         border-top-color:$gray['8']
 
 //===================================================//
-if $themeTag is defined
+if $themeDark==1
     // dark主题
     {$themePre}-dark {$selector-btn}
         --t-btn-bg-hover:$gray['7']// hover背景颜色
         --t-btn-bd-color:$gray['1']// 边框色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         {$selector-btn}.{k}

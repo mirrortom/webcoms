@@ -38,6 +38,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="outCss\all.css" />
+    <Content Include="outCss\basetheme.css" />
+    <Content Include="outCss\blogArticle.css" />
+    <Content Include="outCss\cssicondoc.css" />
+    <Content Include="outCss\customset.css" />
+    <Content Include="outCss\docIndex.css" />
+    <Content Include="outCss\webapp.css" />
+    <Content Include="outJs\customset.js" />
     <Content Include="doc\color.html" />
     <Content Include="doc\docmenu.html" />
     <Content Include="doc\basecss.html" />
@@ -64,31 +72,17 @@
     <Content Include="js\m-sidemenu.js" />
     <Content Include="js\tabs.js" />
     <Content Include="mirrorui.js" />
-    <Content Include="stylusOutCss\all.css" />
-    <Content Include="stylusOutCss\allNoTheme.css" />
-    <Content Include="stylusOutCss\baseTheme.css" />
-    <Content Include="stylusOutCss\btn.css" />
-    <Content Include="stylusOutCss\cachepage.css" />
-    <Content Include="stylusOutCss\datepick.css" />
-    <Content Include="stylusOutCss\docmenu.css" />
-    <Content Include="stylusOutCss\form.css" />
-    <Content Include="stylusOutCss\list.css" />
-    <Content Include="stylusOutCss\menubar.css" />
-    <Content Include="stylusOutCss\mnavmenu.css" />
-    <Content Include="stylusOutCss\msgbox.css" />
-    <Content Include="stylusOutCss\msgshow.css" />
-    <Content Include="stylusOutCss\onoff.css" />
-    <Content Include="stylusOutCss\pagenum.css" />
-    <Content Include="stylusOutCss\range.css" />
-    <Content Include="stylusOutCss\sidemenu.css" />
-    <Content Include="stylusOutCss\table.css" />
-    <Content Include="stylusOutCss\tabs.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <None Include="bundleconfig.json.bindings">
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
+    <None Include="comconfig\cssicondoc.styl" />
+    <None Include="comconfig\webapp.styl" />
+    <None Include="comconfig\docIndex.styl" />
+    <None Include="comconfig\basetheme.styl" />
+    <None Include="comconfig\blogArticle.styl" />
     <None Include="compilerconfig.json" />
     <Content Include="doc\mnavmenudemo.html" />
     <Content Include="doc\about.html" />
@@ -124,7 +118,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <None Include="publish.json" />
-    <None Include="stylus\allNoTheme.styl" />
+    <None Include="comconfig\customset.styl" />
     <None Include="stylus\coms\formcheck.styl" />
     <None Include="stylus\coms\formfile.styl" />
     <None Include="stylus\coms\forminput.styl" />
@@ -150,7 +144,7 @@
     <None Include="stylus\coms\table.styl" />
     <None Include="stylus\coms\tabs.styl" />
     <None Include="stylus\function\function.styl" />
-    <None Include="stylus\all.styl" />
+    <None Include="comconfig\all.styl" />
     <None Include="stylus\variables\selectorcom.styl" />
     <None Include="stylus\variables\cssvar.styl" />
     <None Include="stylus\variables\color.styl" />

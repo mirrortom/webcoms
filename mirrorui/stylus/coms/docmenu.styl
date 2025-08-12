@@ -1,7 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-
-//==文档菜单==//
+﻿//==文档菜单==//
 {$selector-docmenu}
     // 主题色变量
     --t-docmenu-active-color:$gray['6']// 菜单项选中字色
@@ -66,7 +63,7 @@
     &-group-close *:not(:first-child)
         @extend $ext-display-none
 if $themeTag is defined
-    // dark
+    // 暗色主题
     {$themePre}-dark .docmenu
         --t-docmenu-active-color:$gray['1']// 菜单项选中字色
         --t-docmenu-active-bg-color:$gray['6']// 菜单项选中背景色

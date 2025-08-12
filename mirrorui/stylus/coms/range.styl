@@ -1,7 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-
-// range 滑块
+﻿// range 滑块
 {$selector-range}
     &-box
     // 主题色变量
@@ -36,10 +33,11 @@
         text-align:center
         color:var(--t-range-txt-color)
 
-if $themeTag is defined
+if $themeDark==1
     {$themePre}-dark {$selector-range}-box
         --t-range-btn-bg-color:$gray['3']// 滑块背景色
         --t-range-bar-bg-color:$gray['6']// 滑条已划过背景色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         {$selector-range}-box.{k}

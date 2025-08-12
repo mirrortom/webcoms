@@ -1,6 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-// 缓存页 选项卡标签
+﻿// 缓存页 选项卡标签
 {$selector-tabsbox}
     // 主题色变量
     --t-tabsbox-bg-color:$white['0']// 控件背景色
@@ -130,7 +128,7 @@
     &-close-all:active, &-close-other:active, &-goto-active:active
         padding-left:.8em
 
-if $themeTag is defined
+if $themeDark==1
     // dark主题
     {$themePre}-dark {$selector-tabsbox}
         --t-tabsbox-bg-color:$gray['8']// 控件背景色
@@ -139,6 +137,7 @@ if $themeTag is defined
         --t-tabsbox-tab-menu-hover:$gray['6']// 标签,功能菜单hover
         --t-tabsbox-tab-active-bg-color: $gray['2']// 标签选中背景
         --t-tabsbox-tab-active-color: $black['1']// 标签选中字色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         {$selector-tabsbox}.{k}

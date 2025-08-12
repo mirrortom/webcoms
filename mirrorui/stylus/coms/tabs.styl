@@ -1,7 +1,4 @@
-﻿if $noOutPutComAlone!=1
-    @import "../importCom"
-
-// 标签页,选项卡页
+﻿// ==标签页,选项卡页==//
 {$selector-tabs}
     // 主题色变量
     --t-tabs-label-hover: $gray['2']// 标签hover色
@@ -91,12 +88,13 @@
     &-panel.active
         @extend $ext-display-block
 
-if $themeTag is defined
+if $themeDark==1
     // dark主题
     {$themePre}-dark .tabs
         --t-tabs-label-hover: $gray['7']// 标签hover色
         --t-tabs-label-active-bg-color: $gray['6']// 标签选中背景色
         --t-tabs-label-active-color: $white['1']// 标签选中文字色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         .tabs.{k}

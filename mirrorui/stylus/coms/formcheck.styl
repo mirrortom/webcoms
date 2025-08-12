@@ -57,10 +57,11 @@
 .input-check.checked .radio:after
     border-color: var(--t-check-checked-color)
 
-if $themeTag is defined
+if $themeDark==1
     // dark主题
     {$themePre}-dark .input-check
         --t-check-checked-color:$gray['2']// 选中的钩和圆点颜色
+if $themeColor==1
     // 彩色主题
     for k,v in $colors-dict
         .input-check.{k}
