@@ -24,6 +24,9 @@
         }
         //
         //console.log(this.checked);
+        // 点击切换后执行方法
+        if (typeof this._onClick == 'function')
+          this._onClick(this);
       }
 
       // ==================
@@ -63,5 +66,9 @@
     // =======
     // method
     // =======
+    // 点击切换后执行方法
+    set onClicked(fn) {
+      this._onClick = fn;
+    }
   });
 })(window);

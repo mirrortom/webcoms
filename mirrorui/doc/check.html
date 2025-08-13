@@ -42,10 +42,10 @@ check1.checked = true; // true选中,false取消选中
 &lt;m-radio disabled tag="单选框2"&gt;&lt;/m-radio&gt;
 </pre>
   <h4>事件</h4>
-  <p class="mg-t-10"><b class="txt-sky-4">onClicked(fn)</b> 点击切换后执行方法.(只适用单选按钮)</p>
+  <p class="mg-t-10"><b class="txt-sky-4">onClicked(fn)</b> 点击切换后执行方法.</p>
   <pre>
 radio1.onClicked = (radio) => {
-  // radio参数就是this对象
+  // radio或者check参数就是this对象
   let getTag = radio.getAttribute('tag');
 }
 </pre>
