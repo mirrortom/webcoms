@@ -118,7 +118,7 @@
       onCancel();
     };
     if (code == 2)
-      btnArea.append($(cancelBtn));
+      btnArea.append(cancelBtn[0]);
     btnArea.append(okBtn[0]);
     return btnArea[0];
   };
