@@ -14,7 +14,9 @@
       // event
       // =======
       // 点击切换
-      this.onclick = () => {
+      this.onclick = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         if (this.hasAttribute('disabled')) return;
         let thisobj = $(this);
         if (thisobj.hasClass('checked')) {

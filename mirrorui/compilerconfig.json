@@ -53,5 +53,13 @@
     "minify": {
       "enabled": false
     }
+  },
+  {
+    // 用于表单生成工具
+    "outputFile": "outCss/createform.css",
+    "inputFile": "comconfig/createform.styl",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

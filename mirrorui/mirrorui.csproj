@@ -41,6 +41,7 @@
     <Content Include="outCss\all.css" />
     <Content Include="outCss\basetheme.css" />
     <Content Include="outCss\blogArticle.css" />
+    <Content Include="outCss\createform.css" />
     <Content Include="outCss\cssicondoc.css" />
     <Content Include="outCss\customset.css" />
     <Content Include="outCss\docIndex.css" />
@@ -78,6 +79,7 @@
     <None Include="bundleconfig.json.bindings">
       <DependentUpon>bundleconfig.json</DependentUpon>
     </None>
+    <None Include="comconfig\createform.styl" />
     <None Include="comconfig\cssicondoc.styl" />
     <None Include="comconfig\webapp.styl" />
     <None Include="comconfig\docIndex.styl" />
