@@ -65,6 +65,18 @@
       else
         $(this).removeClass('checked');
     }
+
+    // 获取tag属性
+    get tag() {
+      return $(this).prop('tag') || '';
+    }
+
+    // 设置tag属性
+    set tag(value) {
+      $(this).prop('tag', value);
+      $(this).find('.form-label').text(value);
+    }
+
     // =======
     // method
     // =======

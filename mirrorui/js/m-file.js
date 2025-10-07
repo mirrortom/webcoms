@@ -44,6 +44,33 @@
     get files() {
       return this.querySelector('input[type=file]').files;
     }
+
+    // 获取tag属性
+    get tag() {
+      return $(this).prop('tag') || '';
+    }
+
+    // 设置tag属性
+    set tag(value) {
+      $(this).prop('tag', value);
+      $(this).find('.form-label').text(value);
+    }
+
+    // 获取多选属性
+    get multiple() {
+      return this.hasAttribute('multiple');
+    }
+
+    // 设置多选属性true/false
+    set multiple(value) {
+      if (value == true) {
+        $(this).prop('multiple','');
+        this.inputFile.multiple = true;
+      } else {
+        $(this).removeProp('multiple');
+        this.inputFile.multiple = false;
+      }
+    }
     // =======
     // method
     // =======
